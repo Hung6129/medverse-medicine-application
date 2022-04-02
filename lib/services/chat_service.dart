@@ -1,10 +1,9 @@
 import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:social_media_app/models/message.dart';
-import 'package:social_media_app/utils/firebase.dart';
+import '/models/message.dart';
+import '/utils/firebase.dart';
 
 class ChatService {
   FirebaseStorage storage = FirebaseStorage.instance;

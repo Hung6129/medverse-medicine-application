@@ -2,12 +2,12 @@ import 'package:animations/animations.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
-import 'package:social_media_app/components/fab_container.dart';
-import 'package:social_media_app/pages/notification.dart';
-import 'package:social_media_app/pages/profile.dart';
-import 'package:social_media_app/pages/search.dart';
-import 'package:social_media_app/pages/feeds.dart';
-import 'package:social_media_app/utils/firebase.dart';
+import '/components/fab_container.dart';
+import '/pages/notification.dart';
+import '/pages/profile.dart';
+import '/pages/search.dart';
+import '/pages/feeds.dart';
+import '/utils/firebase.dart';
 
 class TabScreen extends StatefulWidget {
   @override

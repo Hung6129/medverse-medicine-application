@@ -4,13 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 
 //import 'package:like_button/like_button.dart';
-import 'package:social_media_app/models/post.dart';
-import 'package:social_media_app/models/user.dart';
-import 'package:social_media_app/pages/profile.dart';
-import 'package:social_media_app/screens/comment.dart';
-import 'package:social_media_app/screens/view_image.dart';
-import 'package:social_media_app/utils/firebase.dart';
-import 'package:social_media_app/widgets/cached_image.dart';
+import '/models/post.dart';
+import '/models/user.dart';
+import '/pages/profile.dart';
+import '/screens/comment.dart';
+import '/screens/view_image.dart';
+import '/utils/firebase.dart';
+import '/widgets/cached_image.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 class Posts extends StatefulWidget {

@@ -1,13 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:social_media_app/components/stream_comments_wrapper.dart';
-import 'package:social_media_app/models/comments.dart';
-import 'package:social_media_app/models/post.dart';
-import 'package:social_media_app/models/user.dart';
-import 'package:social_media_app/services/post_service.dart';
-import 'package:social_media_app/utils/firebase.dart';
-import 'package:social_media_app/widgets/cached_image.dart';
+import '/components/stream_comments_wrapper.dart';
+import '/models/comments.dart';
+import '/models/post.dart';
+import '/models/user.dart';
+import '/services/post_service.dart';
+import '/utils/firebase.dart';
+import '/widgets/cached_image.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 class Comments extends StatefulWidget {

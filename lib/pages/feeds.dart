@@ -2,11 +2,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:social_media_app/chats/recent_chats.dart';
-import 'package:social_media_app/models/post.dart';
-import 'package:social_media_app/utils/firebase.dart';
-import 'package:social_media_app/widgets/indicators.dart';
-import 'package:social_media_app/widgets/userpost.dart';
+import '/chats/recent_chats.dart';
+import '/models/post.dart';
+import '/utils/firebase.dart';
+import '/widgets/indicators.dart';
+import '/widgets/userpost.dart';
 
 class Timeline extends StatefulWidget {
   @override

@@ -6,12 +6,12 @@ import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:social_media_app/models/post.dart';
-import 'package:social_media_app/screens/mainscreen.dart';
-import 'package:social_media_app/services/post_service.dart';
-import 'package:social_media_app/services/user_service.dart';
-import 'package:social_media_app/utils/constants.dart';
-import 'package:social_media_app/utils/firebase.dart';
+import '/models/post.dart';
+import '/screens/mainscreen.dart';
+import '/services/post_service.dart';
+import '/services/user_service.dart';
+import '/utils/constants.dart';
+import '/utils/firebase.dart';
 
 class PostsViewModel extends ChangeNotifier {
   //Services

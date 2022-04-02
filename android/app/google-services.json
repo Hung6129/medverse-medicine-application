@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "262653375721",
-    "project_id": "socialmedia-app-6b925",
-    "storage_bucket": "socialmedia-app-6b925.appspot.com"
+    "project_number": "63545294352",
+    "project_id": "medversemobileapp",
+    "storage_bucket": "medversemobileapp.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:262653375721:android:856498f2b53a2f7563ac78",
+        "mobilesdk_app_id": "1:63545294352:android:4845e0976e1e16566e5495",
         "android_client_info": {
           "package_name": "com.example.social_media_app"
         }
       },
       "oauth_client": [
         {
-          "client_id": "262653375721-icpj939ieahh76lqtroumgo3gj3643h9.apps.googleusercontent.com",
+          "client_id": "63545294352-0cucq8lk6p8d3mthupi2jteih86e8u98.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCFJbforHo9jZA1WulF556wUuwC7NOR9Es"
+          "current_key": "AIzaSyDXHNaEZZziXelnEZK4lWm0tTa00GiOelc"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "262653375721-icpj939ieahh76lqtroumgo3gj3643h9.apps.googleusercontent.com",
+              "client_id": "63545294352-0cucq8lk6p8d3mthupi2jteih86e8u98.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

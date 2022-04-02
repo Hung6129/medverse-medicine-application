@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:provider/provider.dart';
-import 'package:social_media_app/components/custom_image.dart';
-import 'package:social_media_app/view_models/auth/posts_view_model.dart';
-import 'package:social_media_app/widgets/indicators.dart';
+import '/components/custom_image.dart';
+import '/view_models/auth/posts_view_model.dart';
+import '/widgets/indicators.dart';
 
 class ProfilePicture extends StatefulWidget {
   @override

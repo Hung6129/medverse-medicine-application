@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:social_media_app/auth/login/login.dart';
-import 'package:social_media_app/auth/register/register.dart';
+import '/auth/login/login.dart';
+import '/auth/register/register.dart';
 
 class Landing extends StatefulWidget {
   @override

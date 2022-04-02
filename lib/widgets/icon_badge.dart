@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:social_media_app/utils/firebase.dart';
+import '/utils/firebase.dart';
 
 class IconBadge extends StatefulWidget {
   final IconData icon;

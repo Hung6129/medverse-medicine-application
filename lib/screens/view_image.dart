@@ -3,10 +3,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
-import 'package:social_media_app/models/post.dart';
-import 'package:social_media_app/models/user.dart';
-import 'package:social_media_app/utils/firebase.dart';
-import 'package:social_media_app/widgets/indicators.dart';
+import '/models/post.dart';
+import '/models/user.dart';
+import '/utils/firebase.dart';
+import '/widgets/indicators.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 class ViewImage extends StatefulWidget {

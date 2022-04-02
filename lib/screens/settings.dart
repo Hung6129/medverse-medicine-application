@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:social_media_app/utils/constants.dart';
+import '/utils/constants.dart';
 
 class Setting extends StatefulWidget {
   @override

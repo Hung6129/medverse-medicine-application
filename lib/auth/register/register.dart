@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:provider/provider.dart';
-import 'package:social_media_app/auth/login/login.dart';
-import 'package:social_media_app/components/password_text_field.dart';
-import 'package:social_media_app/components/text_form_builder.dart';
-import 'package:social_media_app/utils/validation.dart';
-import 'package:social_media_app/view_models/auth/register_view_model.dart';
-import 'package:social_media_app/widgets/indicators.dart';
+import '/auth/login/login.dart';
+import '/components/password_text_field.dart';
+import '/components/text_form_builder.dart';
+import '/utils/validation.dart';
+import '/view_models/auth/register_view_model.dart';
+import '/widgets/indicators.dart';
 
 class Register extends StatefulWidget {
   @override

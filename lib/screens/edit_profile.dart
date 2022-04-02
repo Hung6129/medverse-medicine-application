@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:provider/provider.dart';
-import 'package:social_media_app/components/text_form_builder.dart';
-import 'package:social_media_app/models/user.dart';
-import 'package:social_media_app/utils/firebase.dart';
-import 'package:social_media_app/utils/validation.dart';
-import 'package:social_media_app/view_models/profile/edit_profile_view_model.dart';
-import 'package:social_media_app/widgets/indicators.dart';
+import '/components/text_form_builder.dart';
+import '/models/user.dart';
+import '/utils/firebase.dart';
+import '/utils/validation.dart';
+import '/view_models/profile/edit_profile_view_model.dart';
+import '/widgets/indicators.dart';
 
 class EditProfile extends StatefulWidget {
   final UserModel user;

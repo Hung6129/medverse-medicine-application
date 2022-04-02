@@ -1,13 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:social_media_app/components/life_cycle_event_handler.dart';
-import 'package:social_media_app/landing/landing_page.dart';
-import 'package:social_media_app/screens/mainscreen.dart';
-import 'package:social_media_app/services/user_service.dart';
-import 'package:social_media_app/utils/config.dart';
-import 'package:social_media_app/utils/constants.dart';
-import 'package:social_media_app/utils/providers.dart';
+import '/components/life_cycle_event_handler.dart';
+import '/landing/landing_page.dart';
+import '/screens/mainscreen.dart';
+import '/services/user_service.dart';
+import '/utils/config.dart';
+import '/utils/constants.dart';
+import '/utils/providers.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

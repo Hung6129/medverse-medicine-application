@@ -11,7 +11,7 @@
 
     <application
         android:name="${applicationName}"
-        android:label="social_media_app"
+        android:label="medverse_mobile_app"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
