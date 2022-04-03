@@ -9,6 +9,7 @@ import '/models/user.dart';
 import '/utils/firebase.dart';
 import '/view_models/auth/posts_view_model.dart';
 import '/widgets/indicators.dart';
+import '/theme/palette.dart';
 
 class CreatePost extends StatefulWidget {
   @override
@@ -41,7 +42,7 @@ class _CreatePostState extends State<CreatePost> {
                 Navigator.pop(context);
               },
             ),
-            title: Text('FlutterSocial'.toUpperCase()),
+            title: Text('Tạo bài viết'),
             centerTitle: true,
             actions: [
               GestureDetector(
@@ -53,11 +54,11 @@ class _CreatePostState extends State<CreatePost> {
                 child: Padding(
                   padding: const EdgeInsets.all(20.0),
                   child: Text(
-                    'Post'.toUpperCase(),
+                    'Đăng bài',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 15.0,
-                      color: Theme.of(context).accentColor,
+                      color: Palette.whiteText,
                     ),
                   ),
                 ),
@@ -96,12 +97,12 @@ class _CreatePostState extends State<CreatePost> {
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.width - 30,
                   decoration: BoxDecoration(
-                    color: Colors.grey[300],
+                    color: Palette.grey300,
                     borderRadius: BorderRadius.all(
                       Radius.circular(5.0),
                     ),
                     border: Border.all(
-                      color: Theme.of(context).accentColor,
+                      color: Palette.mainBlueTheme,
                     ),
                   ),
                   child: viewModel.imgLink != null
@@ -114,9 +115,9 @@ class _CreatePostState extends State<CreatePost> {
                       : viewModel.mediaUrl == null
                           ? Center(
                               child: Text(
-                                'Upload a Photo',
+                                'Nhấn vào đây để tải hình ảnh lên',
                                 style: TextStyle(
-                                  color: Theme.of(context).accentColor,
+                                  color: Palette.mainBlueTheme,
                                 ),
                               ),
                             )
@@ -130,7 +131,7 @@ class _CreatePostState extends State<CreatePost> {
               ),
               SizedBox(height: 20.0),
               Text(
-                'Post Caption'.toUpperCase(),
+                'Mô tả bài viết'.toUpperCase(),
                 style: TextStyle(
                   fontSize: 15.0,
                   fontWeight: FontWeight.w600,
@@ -139,7 +140,7 @@ class _CreatePostState extends State<CreatePost> {
               TextFormField(
                 initialValue: viewModel.description,
                 decoration: InputDecoration(
-                  hintText: 'Eg. This is very beautiful place!',
+                  hintText: 'Eg. Đây là một bức hình đẹp',
                   focusedBorder: UnderlineInputBorder(),
                 ),
                 maxLines: null,
@@ -147,7 +148,7 @@ class _CreatePostState extends State<CreatePost> {
               ),
               SizedBox(height: 20.0),
               Text(
-                'Location'.toUpperCase(),
+                'Vị trí'.toUpperCase(),
                 style: TextStyle(
                   fontSize: 15.0,
                   fontWeight: FontWeight.w600,
@@ -161,7 +162,7 @@ class _CreatePostState extends State<CreatePost> {
                     controller: viewModel.locationTEC,
                     decoration: InputDecoration(
                       contentPadding: EdgeInsets.all(0.0),
-                      hintText: 'United States,Los Angeles!',
+                      hintText: 'Việt Nam, Hồ Chí Minh',
                       focusedBorder: UnderlineInputBorder(),
                     ),
                     maxLines: null,
@@ -169,13 +170,13 @@ class _CreatePostState extends State<CreatePost> {
                   ),
                 ),
                 trailing: IconButton(
-                  tooltip: "Use your current location",
+                  tooltip: "Sử dụng vị trí hiện tại của bạn",
                   icon: Icon(
                     CupertinoIcons.map_pin_ellipse,
                     size: 25.0,
                   ),
                   iconSize: 30.0,
-                  color: Theme.of(context).accentColor,
+                  color: Palette.mainBlueTheme,
                   onPressed: () => viewModel.getLocation(),
                 ),
               ),
@@ -202,7 +203,7 @@ class _CreatePostState extends State<CreatePost> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10.0),
                 child: Text(
-                  'Select Image',
+                  'Lựa chọn hình ảnh',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                   ),
@@ -211,7 +212,7 @@ class _CreatePostState extends State<CreatePost> {
               Divider(),
               ListTile(
                 leading: Icon(Feather.camera),
-                title: Text('Camera'),
+                title: Text('Chọn từ máy ảnh'),
                 onTap: () {
                   Navigator.pop(context);
                   viewModel.pickImage(camera: true);
@@ -219,7 +220,7 @@ class _CreatePostState extends State<CreatePost> {
               ),
               ListTile(
                 leading: Icon(Feather.image),
-                title: Text('Gallery'),
+                title: Text('Chọn từ thư viện'),
                 onTap: () {
                   Navigator.pop(context);
                   viewModel.pickImage();

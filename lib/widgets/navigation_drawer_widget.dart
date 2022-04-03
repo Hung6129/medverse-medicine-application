@@ -5,8 +5,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import '/theme/palette.dart';
+import '/auth/login/login.dart';
+import '/pages/profile.dart';
 /*import '/views/drawer-items/pill_identifier/pages/pill_identifier_screen.dart';
-import '/views/drawer-items/profile/pages/profile.dart';
 import '/views/drawer-items/capture_images/pages/image_capture_page.dart';
 import '/views/drawer-items/compare_drugs/pages/compare_drug_screen.dart';
 import '/views/drawer-items/health_profile/pages/health_profile.dart';
@@ -17,7 +18,7 @@ import '/views/drawer-items/signin/pages/signin.dart';
 import '/views/drawer-items/check_interaction/pages/interaction_checker.dart';*/
 
 class NavigationDrawerWidget extends StatefulWidget {
-  const NavigationDrawerWidget({Key? key}) : super(key: key);
+  const NavigationDrawerWidget({Key key}) : super(key: key);
 
   @override
   _NavigationDrawerWidgetState createState() => _NavigationDrawerWidgetState();
@@ -39,18 +40,16 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
 
   @override
   Widget build(BuildContext context) {
-    Widget _CheckAuthentication;
+    Widget checkAuthentication;
+    /// Check user is authenticated
     if (user != null) {
-      FirebaseFirestore.instance
-          .collection("users")
-          .doc(user!.uid)
-          .get()
-          .then((value) {
-        this.loggedInUser = UserModel.fromMap(value.data());
-        setState(() {});
-      });
-
-      _CheckAuthentication = new Container(
+      FirebaseFirestore.instance.collection("users").doc(user.uid).get().then(
+        (value) {
+          this.loggedInUser = UserModel.fromJson(value.data());
+          setState(() {});
+        },
+      );
+      checkAuthentication = new Container(
         width: 300,
         child: Drawer(
           child: Material(
@@ -67,7 +66,7 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
                           child: GestureDetector(
                             onTap: () => Navigator.of(context).push(
                               MaterialPageRoute(
-                                builder: (context) => ProfilePage(),
+                                builder: (context) => Profile(),
                               ),
                             ),
                             child: Container(
@@ -75,8 +74,8 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10.0),
                               ),
-                              child: loggedInUser.picture == null ||
-                                      loggedInUser.picture!.isEmpty
+                              child: loggedInUser.photoUrl == null ||
+                                      loggedInUser.photoUrl.isEmpty
                                   ? CircleAvatar(
                                       radius: 22, // Image radius
                                       backgroundImage: AssetImage(
@@ -85,7 +84,7 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
                                   : CircleAvatar(
                                       radius: 22, // Image radius
                                       backgroundImage: NetworkImage(
-                                          '${loggedInUser.picture}'),
+                                          '${loggedInUser.photoUrl}'),
                                     ),
                             ),
                           ),
@@ -98,7 +97,7 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               Text(
-                                "${loggedInUser.firstName} ${loggedInUser.secondName}",
+                                "${loggedInUser.username}",
                                 style: TextStyle(
                                   color: Palette.p1,
                                   fontWeight: FontWeight.w500,
@@ -182,7 +181,7 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
         ),
       );
     } else {
-      _CheckAuthentication = new Container(
+      checkAuthentication = new Container(
         width: 300,
         child: Drawer(
           child: Material(
@@ -249,15 +248,15 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
       );
     }
     return Container(
-      child: _CheckAuthentication,
+      child: checkAuthentication,
     );
   }
 
   Widget buildHeader({
-    required String urlImage,
-    required String name,
-    required String email,
-    required VoidCallback onClicked,
+    String urlImage,
+    String name,
+    String email,
+    VoidCallback onClicked,
   }) =>
       InkWell(
         onTap: onClicked,
@@ -290,14 +289,14 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
   Future<void> logout(BuildContext context) async {
     await FirebaseAuth.instance.signOut();
     Fluttertoast.showToast(msg: "Đã thoát tài khoản");
-    Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => SignInScreen()));
+    Navigator.of(context)
+        .pushReplacement(MaterialPageRoute(builder: (context) => Login()));
   }
 
   Widget buildMenuItem({
-    required String text,
-    required IconData icon,
-    VoidCallback? onClicked,
+    String text,
+    IconData icon,
+    VoidCallback onClicked,
   }) {
     const color = Colors.white;
     const hoverColor = Colors.white70;
@@ -316,63 +315,63 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
       case 1:
         Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (context) => const Identifier(),
+            builder: (context) => null /*const Identifier()*/,
           ),
         );
         break;
       case 2:
         Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (context) => CaptureimagePage(),
+            builder: (context) => null /*CaptureimagePage()*/,
           ),
         );
         break;
       case 3:
         Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (context) => InputCalculateBMI(),
+            builder: (context) => null /*InputCalculateBMI()*/,
           ),
         );
         break;
       case 5:
         Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (context) => CompareDrug(),
+            builder: (context) => null /*CompareDrug()*/,
           ),
         );
         break;
       case 4:
         Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (context) => InteractionChecker(),
+            builder: (context) => null /*InteractionChecker()*/,
           ),
         );
         break;
       case 6:
         Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (context) => DrugRecommendation(),
+            builder: (context) => null /*DrugRecommendation()*/,
           ),
         );
         break;
       case 7:
         Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (context) => MedicineDictionary(),
+            builder: (context) => null /*MedicineDictionary()*/,
           ),
         );
         break;
       case 8:
         Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (context) => HealthProfile(),
+            builder: (context) => null /*HealthProfile()*/,
           ),
         );
         break;
       case 9:
         Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (context) => SignInScreen(),
+            builder: (context) => Login(),
           ),
         );
         break;

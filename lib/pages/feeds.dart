@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:medverse_mobile_app/theme/palette.dart';
+import 'package:medverse_mobile_app/widgets/navigation_drawer_widget.dart';
 import '/chats/recent_chats.dart';
 import '/models/post.dart';
 import '/utils/firebase.dart';
@@ -78,11 +80,12 @@ class _TimelineState extends State<Timeline> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: NavigationDrawerWidget(),
       key: scaffoldKey,
       appBar: AppBar(
-        automaticallyImplyLeading: false,
+        backgroundColor: Palette.mainBlueTheme,
         title: Text(
-          'Wooble',
+          'Mạng xã hội',
           style: TextStyle(fontWeight: FontWeight.w900),
         ),
         centerTitle: true,
@@ -91,7 +94,7 @@ class _TimelineState extends State<Timeline> {
             icon: Icon(
               CupertinoIcons.chat_bubble_2_fill,
               size: 30.0,
-              color: Theme.of(context).accentColor,
+              color: Palette.whiteText,
             ),
             onPressed: () {
               Navigator.push(

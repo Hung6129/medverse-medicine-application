@@ -1,11 +1,12 @@
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter/material.dart';
+import '/theme/palette.dart';
 
 Center circularProgress(context) {
   return Center(
     child: SpinKitFadingCircle(
       size: 40.0,
-      color: Theme.of(context).accentColor,
+      color: Palette.mainBlueTheme,
     ),
   );
 }
@@ -13,7 +14,7 @@ Center circularProgress(context) {
 Container linearProgress(context) {
   return Container(
     child: LinearProgressIndicator(
-      valueColor: AlwaysStoppedAnimation(Theme.of(context).accentColor),
+      valueColor: AlwaysStoppedAnimation(Palette.mainBlueTheme),
     ),
   );
 }

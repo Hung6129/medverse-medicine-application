@@ -2,6 +2,7 @@ import 'package:animations/animations.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
+import '/widgets/navigation_drawer_widget.dart';
 import '/components/fab_container.dart';
 import '/pages/notification.dart';
 import '/pages/profile.dart';
@@ -53,6 +54,7 @@ class _TabScreenState extends State<TabScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: const NavigationDrawerWidget(),
       body: PageTransitionSwitcher(
         transitionBuilder: (
           Widget child,
