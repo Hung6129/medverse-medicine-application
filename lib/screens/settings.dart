@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:medverse_mobile_app/theme/palette.dart';
 import 'package:provider/provider.dart';
 import '/utils/constants.dart';
 
@@ -19,7 +20,7 @@ class _SettingState extends State<Setting> {
           },
           child: Icon(Icons.keyboard_backspace),
         ),
-        backgroundColor: Theme.of(context).backgroundColor,
+        backgroundColor: Palette.mainBlueTheme,
         elevation: 0.0,
         title: Text(
           "Settings",

@@ -2,7 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import '/chats/recent_chats.dart';
+import 'package:medverse_mobile_app/theme/palette.dart';
+import 'package:medverse_mobile_app/widgets/navigation_drawer_widget.dart';
 import '/models/post.dart';
 import '/utils/firebase.dart';
 import '/widgets/indicators.dart';
@@ -78,32 +79,15 @@ class _TimelineState extends State<Timeline> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: NavigationDrawerWidget(),
       key: scaffoldKey,
       appBar: AppBar(
-        automaticallyImplyLeading: false,
+        backgroundColor: Palette.mainBlueTheme,
         title: Text(
-          'Wooble',
+          'Mạng xã hội',
           style: TextStyle(fontWeight: FontWeight.w900),
         ),
         centerTitle: true,
-        actions: [
-          IconButton(
-            icon: Icon(
-              CupertinoIcons.chat_bubble_2_fill,
-              size: 30.0,
-              color: Theme.of(context).accentColor,
-            ),
-            onPressed: () {
-              Navigator.push(
-                context,
-                CupertinoPageRoute(
-                  builder: (_) => Chats(),
-                ),
-              );
-            },
-          ),
-          SizedBox(width: 20.0),
-        ],
       ),
       body: isLoading
           ? circularProgress(context)

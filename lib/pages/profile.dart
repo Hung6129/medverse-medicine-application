@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
+import 'package:medverse_mobile_app/widgets/navigation_drawer_widget.dart';
 import '/auth/register/register.dart';
 import '/components/stream_builder_wrapper.dart';
 import '/components/stream_grid_wrapper.dart';
@@ -59,6 +60,7 @@ class _ProfileState extends State<Profile>  {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: NavigationDrawerWidget(),
       appBar: AppBar(
         centerTitle: true,
         title: Text('WOOBLE'),

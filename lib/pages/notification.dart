@@ -1,5 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import '/theme/palette.dart';
+import '/widgets/navigation_drawer_widget.dart';
 import '/components/notification_stream_wrapper.dart';
 import '/models/notification.dart';
 import '/utils/firebase.dart';
@@ -20,6 +23,21 @@ class _ActivitiesState extends State<Activities> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
+        leading: IconButton(
+          icon: Icon(
+            Icons.list_rounded,
+            size: 30.0,
+            color: Palette.whiteText,
+          ),
+          onPressed: () {
+            Navigator.push(
+              context,
+              CupertinoPageRoute(
+                builder: (_) => NavigationDrawerWidget(),
+              ),
+            );
+          },
+        ),
         title: Text('Notifications'),
         centerTitle: true,
         actions: [

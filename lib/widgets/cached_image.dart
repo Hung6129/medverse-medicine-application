@@ -9,7 +9,7 @@ Widget cachedNetworkImage(String imgUrl) {
     placeholder: (context, url) => circularProgress(context),
     errorWidget: (context, url, error) => Center(
       child: Text(
-        'Unable to load Image',
+        'Không thể tải hình lên',
         style: TextStyle(fontSize: 10.0),
       ),
     ),
