@@ -5,10 +5,8 @@ import 'package:flutter_icons/flutter_icons.dart';
 import '/widgets/navigation_drawer_widget.dart';
 import '/components/fab_container.dart';
 import '/pages/notification.dart';
-import '/pages/profile.dart';
 import '/pages/search.dart';
 import '/pages/feeds.dart';
-import '/utils/firebase.dart';
 
 class TabScreen extends StatefulWidget {
   @override
@@ -20,33 +18,34 @@ class _TabScreenState extends State<TabScreen> {
 
   List pages = [
     {
-      'title': 'Home',
+      'title': 'Trang chủ',
       'icon': Feather.home,
       'page': Timeline(),
       'index': 0,
     },
     {
-      'title': 'Search',
+      'title': 'Tìm kiếm',
       'icon': Feather.search,
       'page': Search(),
       'index': 1,
     },
     {
-      'title': 'unsee',
+      'title': 'Tạo bài viết',
       'icon': Feather.plus_circle,
       'page': Text('nes'),
       'index': 2,
     },
     {
-      'title': 'Notification',
+      'title': 'Thông báo',
       'icon': CupertinoIcons.bell_solid,
       'page': Activities(),
+
       'index': 3,
     },
     {
-      'title': 'Profile',
-      'icon': CupertinoIcons.person,
-      'page': Profile(profileId: firebaseAuth.currentUser.uid),
+      'title': 'Mạng xã hội',
+      'icon': Icons.podcasts,
+      'page': Timeline(),
       'index': 4,
     },
   ];

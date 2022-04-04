@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:medverse_mobile_app/theme/palette.dart';
 import 'package:medverse_mobile_app/widgets/navigation_drawer_widget.dart';
-import '/chats/recent_chats.dart';
 import '/models/post.dart';
 import '/utils/firebase.dart';
 import '/widgets/indicators.dart';
@@ -89,24 +88,6 @@ class _TimelineState extends State<Timeline> {
           style: TextStyle(fontWeight: FontWeight.w900),
         ),
         centerTitle: true,
-        actions: [
-          IconButton(
-            icon: Icon(
-              CupertinoIcons.chat_bubble_2_fill,
-              size: 30.0,
-              color: Palette.whiteText,
-            ),
-            onPressed: () {
-              Navigator.push(
-                context,
-                CupertinoPageRoute(
-                  builder: (_) => Chats(),
-                ),
-              );
-            },
-          ),
-          SizedBox(width: 20.0),
-        ],
       ),
       body: isLoading
           ? circularProgress(context)

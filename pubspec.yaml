@@ -52,6 +52,7 @@ dependencies:
   image_cropper: any
   shared_preferences: any
   data_connection_checker: any
+  font_awesome_flutter: any
 
 dev_dependencies:
   flutter_test:

@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import '/utils/firebase.dart';
 import '/models/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -7,11 +8,11 @@ import 'package:fluttertoast/fluttertoast.dart';
 import '/theme/palette.dart';
 import '/auth/login/login.dart';
 import '/pages/profile.dart';
+import '/pages/drawer-items/bmi_calculator/pages/input_screen.dart';
 /*import '/views/drawer-items/pill_identifier/pages/pill_identifier_screen.dart';
 import '/views/drawer-items/capture_images/pages/image_capture_page.dart';
 import '/views/drawer-items/compare_drugs/pages/compare_drug_screen.dart';
 import '/views/drawer-items/health_profile/pages/health_profile.dart';
-import '/views/drawer-items/bmi_calculator/pages/input_screen.dart';
 import '/views/drawer-items/drug_recommendation/pages/drug_recommedation.dart';
 import '/views/drawer-items/medicine_dictionary/pages/medicine_dictionary.dart';
 import '/views/drawer-items/signin/pages/signin.dart';
@@ -66,7 +67,7 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
                           child: GestureDetector(
                             onTap: () => Navigator.of(context).push(
                               MaterialPageRoute(
-                                builder: (context) => Profile(),
+                                builder: (context) => Profile(profileId: firebaseAuth.currentUser.uid),
                               ),
                             ),
                             child: Container(
@@ -329,7 +330,7 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
       case 3:
         Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (context) => null /*InputCalculateBMI()*/,
+            builder: (context) => InputCalculateBMI(),
           ),
         );
         break;
