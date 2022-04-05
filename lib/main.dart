@@ -1,15 +1,23 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:medverse_mobile_app/routes/app_routes.dart';
 import 'package:provider/provider.dart';
 import '/components/life_cycle_event_handler.dart';
 import '/landing/landing_page.dart';
-import '/screens/mainscreen.dart';
 import '/services/user_service.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import '/models/test/saved_drug_list_model.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'controller/cubit/drugs_data/drugs_data_cubit.dart';
 import '/utils/config.dart';
 import '/utils/constants.dart';
 import '/utils/providers.dart';
 
 void main() async {
+  await Hive.initFlutter();
+  Hive.registerAdapter<SavedDrugListModel>(SavedDrugListModelAdapter());
+  await Hive.openBox<SavedDrugListModel>("savedList");
   WidgetsFlutterBinding.ensureInitialized();
   await Config.initFirebase();
   runApp(MyApp());
@@ -46,7 +54,18 @@ class _MyAppState extends State<MyApp> {
               stream: FirebaseAuth.instance.authStateChanges(),
               builder: (BuildContext context, AsyncSnapshot<User> snapshot) {
                 if (snapshot.hasData) {
-                  return TabScreen();
+                  return MultiBlocProvider(
+                    providers: [
+                      BlocProvider(
+                        create: (context) => DrugsDataCubit(),
+                      ),
+                    ],
+                    child: GetMaterialApp(
+                      debugShowCheckedModeBanner: false,
+                      // home: const MainPage(),
+                      onGenerateRoute: AppRoutes.onGeneratedRoutes,
+                    ),
+                  );;
                 } else
                   return Landing();
               },
