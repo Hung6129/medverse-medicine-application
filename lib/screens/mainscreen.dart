@@ -3,6 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_icons/flutter_icons.dart';
+import '/pages/nav-items/favorite/favorite_drugs_list_nav.dart';
+import '/pages/nav-items/search/pages/search_screen.dart';
 import '/controller/cubit/drugs_data/drugs_data_cubit.dart';
 import '/widgets/navigation_drawer_widget.dart';
 import '/components/fab_container.dart';
@@ -30,29 +32,40 @@ class _TabScreenState extends State<TabScreen> {
       'index': 0,
     },
     {
-      'title': 'Tìm kiếm',
-      'icon': Feather.search,
+      'title': 'Tìm kiếm người dùng',
+      'icon': Icons.people,
       'page': Search(),
       'index': 1,
+    },
+    {
+      'title': 'Tìm kiếm thuốc',
+      'icon': Icons.search,
+      'page': SearchScreen(),
+      'index': 2,
     },
     {
       'title': 'Tạo bài viết',
       'icon': Feather.plus_circle,
       'page': Text('nes'),
-      'index': 2,
+      'index': 3,
+    },
+    {
+      'title': 'Đã lưu',
+      'icon': Icons.bookmark,
+      'page': FavoriteDrugsListScreenNav(),
+      'index': 4,
     },
     {
       'title': 'Thông báo',
       'icon': CupertinoIcons.bell_solid,
       'page': Activities(),
-
-      'index': 3,
+      'index': 5,
     },
     {
       'title': 'Mạng xã hội',
       'icon': Icons.podcasts,
       'page': Timeline(),
-      'index': 4,
+      'index': 6,
     },
   ];
 
@@ -82,7 +95,7 @@ class _TabScreenState extends State<TabScreen> {
           children: [
             SizedBox(width: 5),
             for (Map item in pages)
-              item['index'] == 2
+              item['index'] == 3
                   ? buildFab()
                   : Padding(
                       padding: const EdgeInsets.only(top: 5.0),

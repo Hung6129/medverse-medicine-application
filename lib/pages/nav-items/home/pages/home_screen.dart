@@ -66,7 +66,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   children: [
                     AppText(
                       text: "Đề xuất cho bạn",
-                      color: Palette.mainBlueTheme,
                       size: Dimensions.font16,
                       fontWeight: FontWeight.bold,
                     ),

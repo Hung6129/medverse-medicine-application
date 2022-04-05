@@ -76,6 +76,8 @@ dependencies:
   modal_progress_hud: any
   shared_preferences: any
   data_connection_checker: any
+  flutter_slidable: any
+  flutter_typeahead: any
 
 dev_dependencies:
   flutter_test:

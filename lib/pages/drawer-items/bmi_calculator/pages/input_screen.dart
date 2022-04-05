@@ -150,12 +150,15 @@ class _InputPageState extends State<InputCalculateBMI> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
                               RoundIconButton(
-                                  icon: FontAwesomeIcons.minus,
-                                  onPressed: () {
-                                    setState(() {
+                                icon: FontAwesomeIcons.minus,
+                                onPressed: () {
+                                  setState(
+                                    () {
                                       weight--;
-                                    });
-                                  }),
+                                    },
+                                  );
+                                },
+                              ),
                               SizedBox(
                                 width: 20.0,
                               ),
@@ -164,7 +167,7 @@ class _InputPageState extends State<InputCalculateBMI> {
                                 onPressed: () {
                                   setState(() {
                                     weight++;
-                                  });
+                                  },);
                                 },
                               ),
                             ],

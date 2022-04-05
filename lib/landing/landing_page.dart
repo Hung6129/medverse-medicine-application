@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import '/theme/palette.dart';
 import '/auth/login/login.dart';
 import '/auth/register/register.dart';
 
@@ -23,15 +24,16 @@ class _LandingState extends State<Landing> {
               child: Padding(
                 padding: const EdgeInsets.only(left: 10.0),
                 child: Image.asset(
-                  'assets/images/new1.png',
+                  'assets/icons/medverseIcon.png',
                   height: 200.0,
                   width: 200.0,
                   fit: BoxFit.cover,
                 ),
               ),
             ),
+            SizedBox(height: 20),
             Text(
-              'WOOBLE',
+              'Medverse App',
               style: TextStyle(
                 fontSize: 22.0,
                 fontWeight: FontWeight.w900,
@@ -61,22 +63,22 @@ class _LandingState extends State<Landing> {
                   width: 130.0,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(40.0),
-                    border: Border.all(color: Colors.grey),
+                    border: Border.all(color: Palette.mainBlueTheme),
                     gradient: LinearGradient(
                       begin: Alignment.topRight,
                       end: Alignment.bottomLeft,
                       colors: [
-                        Theme.of(context).accentColor,
-                        Color(0xff597FDB),
+                        Palette.mainBlueTheme,
+                        Palette.mainBlueTheme,
                       ],
                     ),
                   ),
                   child: Center(
                     child: Text(
-                      'LOGIN',
+                      'Đăng nhập',
                       style: TextStyle(
                         fontWeight: FontWeight.w900,
-                        color: Colors.white,
+                        color: Palette.whiteText,
                       ),
                     ),
                   ),
@@ -92,22 +94,22 @@ class _LandingState extends State<Landing> {
                   width: 130.0,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(40.0),
-                    border: Border.all(color: Colors.white),
+                    border: Border.all(color: Palette.mainBlueTheme),
                     gradient: LinearGradient(
                       begin: Alignment.topRight,
                       end: Alignment.bottomLeft,
                       colors: [
-                        Theme.of(context).accentColor,
-                        Color(0xff597FDB),
+                        Palette.mainBlueTheme,
+                        Palette.mainBlueTheme,
                       ],
                     ),
                   ),
                   child: Center(
                     child: Text(
-                      'SIGN UP',
+                      'Đăng ký',
                       style: TextStyle(
                         fontWeight: FontWeight.w900,
-                        color: Colors.white,
+                        color: Palette.whiteText,
                       ),
                     ),
                   ),

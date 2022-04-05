@@ -60,10 +60,9 @@ class _ProfileState extends State<Profile>  {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: NavigationDrawerWidget(),
       appBar: AppBar(
         centerTitle: true,
-        title: Text('WOOBLE'),
+        title: Text('Thông tin tài khoản'),
         actions: [
           widget.profileId == firebaseAuth.currentUser.uid
               ? Center(
