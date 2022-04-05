@@ -21,24 +21,10 @@ class _ActivitiesState extends State<Activities> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: const NavigationDrawerWidget(),
       appBar: AppBar(
-        automaticallyImplyLeading: false,
-        leading: IconButton(
-          icon: Icon(
-            Icons.list_rounded,
-            size: 30.0,
-            color: Palette.whiteText,
-          ),
-          onPressed: () {
-            Navigator.push(
-              context,
-              CupertinoPageRoute(
-                builder: (_) => NavigationDrawerWidget(),
-              ),
-            );
-          },
-        ),
-        title: Text('Notifications'),
+        backgroundColor: Palette.mainBlueTheme,
+        title: Text('Thông báo'),
         centerTitle: true,
         actions: [
           Padding(
@@ -50,7 +36,6 @@ class _ActivitiesState extends State<Activities> {
                 style: TextStyle(
                   fontSize: 13.0,
                   fontWeight: FontWeight.w900,
-                  color: Theme.of(context).accentColor,
                 ),
               ),
             ),

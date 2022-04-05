@@ -1,11 +1,12 @@
 import 'dart:async';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_icons/flutter_icons.dart';
+import '/theme/palette.dart';
+import '/widgets/navigation_drawer_widget.dart';
 import '/chats/conversation.dart';
 import '/models/user.dart';
 import '/pages/profile.dart';
@@ -69,8 +70,11 @@ class _SearchState extends State<Search> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: const NavigationDrawerWidget(),
       appBar: AppBar(
+        backgroundColor: Palette.mainBlueTheme,
         title: buildSearch(),
+        centerTitle: true,
       ),
       body: buildUsers(),
     );

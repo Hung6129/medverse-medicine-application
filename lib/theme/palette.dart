@@ -8,7 +8,7 @@ class Palette {
   static const Color online = Color(0xFF4BCB1F);
   static const Color redTheme = Color(0xFFF05454);
   static const Color blueGrey = Color(0xFFB0BEC5);
-  static const Color activeButton = Color(0xFF111328);
+  static const Color activeButton = Color(0xFF4BCB1F);
   static const Color onPrimary = Colors.yellow;
   static const Color red = Colors.red;
   static const Color pink = Colors.pink;
