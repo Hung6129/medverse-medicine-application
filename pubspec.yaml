@@ -28,31 +28,54 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: any
+  font_awesome_flutter: any
+  flutter_svg: any
+  page_transition: any
+
+  #Firebase Dependencies
+  cloud_firestore: any
+  firebase_auth: any
+  firebase_core: any
+  firebase_storage: any
+  firebase_analytics: any
+  fluttertoast: any
+  unicons: any
+  timeago: any
+
+  #State Management
+  flutter_bloc: any
+  image_picker: any
+  image_cropper: any
+
+  #Hive DB and SQLite DB
+  path: any
+  bloc: any
+  equatable: any
+  hive: any
+  hive_flutter: any
+  http: any
+  sqflite: any
+
+  #Animation
+  shimmer_animation: any
+  animations: any
+
+  get: any
   google_sign_in: any
   flutter_icons: any
   percent_indicator: any
   cached_network_image: any
   flutter_spinkit: any
-  cloud_firestore: any
-  fluttertoast: any
-  animations: any
   image: any
   uuid: any
-  firebase_auth: any
-  firebase_core: any
-  image_picker: any
-  firebase_storage: any
   path_provider: any
   geolocator: any
   geocoding: any
-  timeago: any
   google_fonts: any
   provider: any
   modal_progress_hud: any
-  image_cropper: any
   shared_preferences: any
   data_connection_checker: any
-  font_awesome_flutter: any
 
 dev_dependencies:
   flutter_test:

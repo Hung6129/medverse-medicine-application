@@ -1,10 +1,13 @@
 import 'package:animations/animations.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_icons/flutter_icons.dart';
+import '/controller/cubit/drugs_data/drugs_data_cubit.dart';
 import '/widgets/navigation_drawer_widget.dart';
 import '/components/fab_container.dart';
 import '/pages/notification.dart';
+import '/pages/nav-items/home/pages/home_screen.dart';
 import '/pages/search.dart';
 import '/pages/feeds.dart';
 
@@ -20,7 +23,10 @@ class _TabScreenState extends State<TabScreen> {
     {
       'title': 'Trang chủ',
       'icon': Feather.home,
-      'page': Timeline(),
+      'page': BlocProvider(
+        create: (BuildContext context) => DrugsDataCubit(),
+        child: HomeScreen(),
+      ),
       'index': 0,
     },
     {
