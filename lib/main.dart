@@ -65,7 +65,7 @@ class _MyAppState extends State<MyApp> {
                       // home: const MainPage(),
                       onGenerateRoute: AppRoutes.onGeneratedRoutes,
                     ),
-                  );;
+                  );
                 } else
                   return Landing();
               },

@@ -1,12 +1,9 @@
-import '/services/service_data.dart';
 import '/widgets/app_text_title.dart';
 import '/theme/palette.dart';
 import '/widgets/app_text.dart';
 import '/widgets/dimension.dart';
 import 'package:flutter/material.dart';
 import 'pill_identifier_list_drug.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
 
 class Identifier extends StatefulWidget {
   const Identifier({Key key}) : super(key: key);
@@ -48,7 +45,6 @@ class _IdentifierState extends State<Identifier> {
 
   String dropDownColor = "Chọn màu sắc";
   String dropdownShape = "Chọn hình dạng";
-  String dropdown = "";
 
   @override
   Widget build(BuildContext context) {
@@ -70,6 +66,7 @@ class _IdentifierState extends State<Identifier> {
               child: AppText(
                 text:
                     "Sử dụng công cụ tìm viên thuốc để xác định các loại thuốc bằng hình dáng bên ngoài hoặc màu sắc. Tất cả các trường đều là tùy chọn.",
+                size: Dimensions.font18,
                 color: Palette.textNo,
                 fontWeight: FontWeight.normal,
               ),
@@ -81,7 +78,7 @@ class _IdentifierState extends State<Identifier> {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(Dimensions.radius15),
                 border: Border.all(
-                  color: Palette.mainBlueTheme,
+                  color: Palette.mainBlueTheme.withOpacity(0.3),
                   width: 3,
                 ),
               ),
@@ -180,52 +177,16 @@ class _IdentifierState extends State<Identifier> {
                       );
                     },
                   ),
-                  SizedBox(
-                    height: Dimensions.height15,
-                  ),
-                  FormField<String>(
-                    builder: (FormFieldState<String> state) {
-                      return InputDecorator(
-                        decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                    width: 4, color: Palette.mainBlueTheme),
-                                borderRadius: BorderRadius.circular(
-                                    Dimensions.radius15))),
-                        child: DropdownButtonHideUnderline(
-                          child: DropdownButton<String>(
-                            value: dropdownShape,
-                            isDense: true,
-                            onChanged: (String newValue) {
-                              setState(() {
-                                dropdown = newValue;
-                              });
-                            },
-                            items: shapes.map((value) {
-                              return DropdownMenuItem(
-                                value: value,
-                                child: AppTextTitle(
-                                    text: value,
-                                    color: Colors.black54,
-                                    size: Dimensions.font20,
-                                    fontWeight: FontWeight.normal),
-                              );
-                            }).toList(),
-                          ),
-                        ),
-                      );
-                    },
-                  ),
-                  SizedBox(
-                    height: Dimensions.height15,
-                  ),
 
                   //search btn
                   Container(
                     margin: EdgeInsets.only(top: 20),
                     width: Dimensions.boxViewWidth,
                     height: Dimensions.height45,
-                    decoration: BoxDecoration(color: Palette.mainBlueTheme),
+                    decoration: BoxDecoration(
+                        color: Palette.mainBlueTheme,
+                        borderRadius:
+                            BorderRadius.circular(Dimensions.radius20)),
                     child: TextButton(
                         onPressed: () {
                           // if (dropDownColor.startsWith(colors.first)) {}
