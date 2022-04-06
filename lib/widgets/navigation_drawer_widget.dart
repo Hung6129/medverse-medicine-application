@@ -10,13 +10,14 @@ import '/auth/login/login.dart';
 import '/pages/profile.dart';
 import '/pages/drawer-items/bmi_calculator/pages/input_screen.dart';
 import '/pages/drawer-items/pill_identifier/pages/pill_identifier_screen.dart';
+import '/pages/drawer-items/check_interaction/pages/interaction_checker.dart';
 /*import '/views/drawer-items/capture_images/pages/image_capture_page.dart';
 import '/views/drawer-items/compare_drugs/pages/compare_drug_screen.dart';
 import '/views/drawer-items/health_profile/pages/health_profile.dart';
 import '/views/drawer-items/drug_recommendation/pages/drug_recommedation.dart';
 import '/views/drawer-items/medicine_dictionary/pages/medicine_dictionary.dart';
 import '/views/drawer-items/signin/pages/signin.dart';
-import '/views/drawer-items/check_interaction/pages/interaction_checker.dart';*/
+*/
 
 class NavigationDrawerWidget extends StatefulWidget {
   const NavigationDrawerWidget({Key key}) : super(key: key);
@@ -344,7 +345,7 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
       case 4:
         Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (context) => null /*InteractionChecker()*/,
+            builder: (context) => InteractionChecker(),
           ),
         );
         break;
