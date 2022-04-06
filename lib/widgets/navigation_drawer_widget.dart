@@ -11,8 +11,9 @@ import '/pages/profile.dart';
 import '/pages/drawer-items/bmi_calculator/pages/input_screen.dart';
 import '/pages/drawer-items/pill_identifier/pages/pill_identifier_screen.dart';
 import '/pages/drawer-items/check_interaction/pages/interaction_checker.dart';
+import '/pages/drawer-items/compare_drugs/pages/compare_drug_screen.dart';
 /*import '/views/drawer-items/capture_images/pages/image_capture_page.dart';
-import '/views/drawer-items/compare_drugs/pages/compare_drug_screen.dart';
+
 import '/views/drawer-items/health_profile/pages/health_profile.dart';
 import '/views/drawer-items/drug_recommendation/pages/drug_recommedation.dart';
 import '/views/drawer-items/medicine_dictionary/pages/medicine_dictionary.dart';
@@ -335,17 +336,17 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
           ),
         );
         break;
-      case 5:
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) => null /*CompareDrug()*/,
-          ),
-        );
-        break;
       case 4:
         Navigator.of(context).push(
           MaterialPageRoute(
             builder: (context) => InteractionChecker(),
+          ),
+        );
+        break;
+      case 5:
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => CompareDrug(),
           ),
         );
         break;
