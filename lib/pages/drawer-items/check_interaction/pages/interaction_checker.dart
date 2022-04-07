@@ -22,7 +22,8 @@ class _InteractionCheckerState extends State<InteractionChecker> {
           style: TextStyle(fontWeight: FontWeight.w900),
         ),
         centerTitle: true,
-      ),      body: SingleChildScrollView(
+      ),
+      body: SingleChildScrollView(
         child: Column(
           children: [
             Container(

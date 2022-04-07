@@ -33,7 +33,8 @@ class _FavoriteDrugsListScreenNavState
           style: TextStyle(fontWeight: FontWeight.w900),
         ),
         centerTitle: true,
-      ),      body: _box.isEmpty
+      ),
+      body: _box.isEmpty
           ? Center(
               child: AppTextTitle(
               text: "Bạn chưa thêm thuốc mới",

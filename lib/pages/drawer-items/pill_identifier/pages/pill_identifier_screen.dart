@@ -1,12 +1,9 @@
-import '/services/service_data.dart';
 import '/widgets/app_text_title.dart';
 import '/theme/palette.dart';
 import '/widgets/app_text.dart';
 import '/widgets/dimension.dart';
 import 'package:flutter/material.dart';
 import 'pill_identifier_list_drug.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
 
 class Identifier extends StatefulWidget {
   const Identifier({Key key}) : super(key: key);
@@ -70,7 +67,6 @@ class _IdentifierState extends State<Identifier> {
               child: AppText(
                 text:
                     "Sử dụng công cụ tìm viên thuốc để xác định các loại thuốc bằng hình dáng bên ngoài hoặc màu sắc. Tất cả các trường đều là tùy chọn.",
-                color: Palette.textNo,
                 fontWeight: FontWeight.normal,
               ),
             ),
@@ -92,14 +88,14 @@ class _IdentifierState extends State<Identifier> {
                   TextFormField(
                     controller: txtCon,
                     style: TextStyle(
-                        fontSize: Dimensions.font20, color: Colors.black54),
+                      fontSize: Dimensions.font20,
+                    ),
                     decoration: InputDecoration(
                       border: OutlineInputBorder(
                           borderRadius:
                               BorderRadius.circular(Dimensions.radius15)),
                       hintText: 'Nhập mã thuốc',
                       hintStyle: TextStyle(
-                        color: Colors.black54,
                         fontSize: Dimensions.font20,
                       ),
                     ),
@@ -132,7 +128,6 @@ class _IdentifierState extends State<Identifier> {
                                 value: value,
                                 child: AppTextTitle(
                                     text: value,
-                                    color: Colors.black54,
                                     size: Dimensions.font20,
                                     fontWeight: FontWeight.normal),
                               );
@@ -153,7 +148,9 @@ class _IdentifierState extends State<Identifier> {
                         decoration: InputDecoration(
                             border: OutlineInputBorder(
                                 borderSide: BorderSide(
-                                    width: 4, color: Palette.mainBlueTheme),
+                                  width: 4,
+                                  color: Palette.mainBlueTheme,
+                                ),
                                 borderRadius: BorderRadius.circular(
                                     Dimensions.radius15))),
                         child: DropdownButtonHideUnderline(
@@ -161,16 +158,17 @@ class _IdentifierState extends State<Identifier> {
                             value: dropdownShape,
                             isDense: true,
                             onChanged: (String newValue) {
-                              setState(() {
-                                dropdownShape = newValue;
-                              });
+                              setState(
+                                () {
+                                  dropdownShape = newValue;
+                                },
+                              );
                             },
                             items: shapes.map((value) {
                               return DropdownMenuItem(
                                 value: value,
                                 child: AppTextTitle(
                                     text: value,
-                                    color: Colors.black54,
                                     size: Dimensions.font20,
                                     fontWeight: FontWeight.normal),
                               );
@@ -187,11 +185,15 @@ class _IdentifierState extends State<Identifier> {
                     builder: (FormFieldState<String> state) {
                       return InputDecorator(
                         decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                    width: 4, color: Palette.mainBlueTheme),
-                                borderRadius: BorderRadius.circular(
-                                    Dimensions.radius15))),
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              width: 4,
+                              color: Palette.mainBlueTheme,
+                            ),
+                            borderRadius:
+                                BorderRadius.circular(Dimensions.radius15),
+                          ),
+                        ),
                         child: DropdownButtonHideUnderline(
                           child: DropdownButton<String>(
                             value: dropdownShape,
@@ -201,16 +203,18 @@ class _IdentifierState extends State<Identifier> {
                                 dropdown = newValue;
                               });
                             },
-                            items: shapes.map((value) {
-                              return DropdownMenuItem(
-                                value: value,
-                                child: AppTextTitle(
+                            items: shapes.map(
+                              (value) {
+                                return DropdownMenuItem(
+                                  value: value,
+                                  child: AppTextTitle(
                                     text: value,
-                                    color: Colors.black54,
                                     size: Dimensions.font20,
-                                    fontWeight: FontWeight.normal),
-                              );
-                            }).toList(),
+                                    fontWeight: FontWeight.normal,
+                                  ),
+                                );
+                              },
+                            ).toList(),
                           ),
                         ),
                       );
