@@ -72,7 +72,6 @@ class MapScreenState extends State<HealthProfile>
           centerTitle: true,
         ),
         body: new Container(
-          color: Colors.white,
           child: new SingleChildScrollView(
             scrollDirection: Axis.vertical,
             child: Column(
@@ -80,7 +79,6 @@ class MapScreenState extends State<HealthProfile>
                 Expanded(
                   child: Container(
                     height: 250.0,
-                    color: Colors.white,
                     child: new Column(
                       children: <Widget>[
                         Padding(
@@ -98,12 +96,14 @@ class MapScreenState extends State<HealthProfile>
                                         ? CircleAvatar(
                                             radius: 70, // Image radius
                                             backgroundImage: AssetImage(
-                                                'assets/icons/user_login.png'),
+                                              'assets/icons/user_login.png',
+                                            ),
                                           )
                                         : CircleAvatar(
                                             radius: 70, // Image radius
                                             backgroundImage: NetworkImage(
-                                                '${userModel.photoUrl}'),
+                                              '${userModel.photoUrl}',
+                                            ),
                                           ),
                                   ),
                                 ],
@@ -118,7 +118,6 @@ class MapScreenState extends State<HealthProfile>
                 ),
                 Expanded(
                   child: Container(
-                    color: Color(0xffFFFFFF),
                     child: Padding(
                       padding: EdgeInsets.only(bottom: 25.0),
                       child: new Column(
@@ -133,7 +132,9 @@ class MapScreenState extends State<HealthProfile>
                             child: Text(
                               'Thông tin hồ sơ sức khỏe',
                               style: TextStyle(
-                                  fontSize: 25.0, fontWeight: FontWeight.bold),
+                                fontSize: 25.0,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
                         ],

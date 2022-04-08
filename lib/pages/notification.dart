@@ -24,7 +24,10 @@ class _ActivitiesState extends State<Activities> {
       drawer: const NavigationDrawerWidget(),
       appBar: AppBar(
         backgroundColor: Palette.mainBlueTheme,
-        title: Text('Thông báo'),
+        title: Text(
+          'Thông báo',
+          style: TextStyle(fontWeight: FontWeight.w900),
+        ),
         centerTitle: true,
         actions: [
           Padding(
@@ -32,7 +35,7 @@ class _ActivitiesState extends State<Activities> {
             child: GestureDetector(
               onTap: () => deleteAllItems(),
               child: Text(
-                'CLEAR',
+                'Xóa',
                 style: TextStyle(
                   fontSize: 13.0,
                   fontWeight: FontWeight.w900,

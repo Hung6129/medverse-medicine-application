@@ -105,13 +105,13 @@ class _ActivityItemsState extends State<ActivityItems> {
 
   buildTextConfiguration() {
     if (widget.activity.type == "like") {
-      return "liked your post";
+      return "thích bài viết của bạn";
     } else if (widget.activity.type == "follow") {
-      return "is following you";
+      return "đang theo dõi bạn";
     } else if (widget.activity.type == "comment") {
       return "commented '${widget.activity.commentData}'";
     } else {
-      return "Error: Unknown type '${widget.activity.type}'";
+      return "Lỗi: Loại không xác định'${widget.activity.type}'";
     }
   }
 

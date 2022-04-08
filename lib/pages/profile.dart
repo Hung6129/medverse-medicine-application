@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
-import 'package:medverse_mobile_app/widgets/navigation_drawer_widget.dart';
+import '/theme/palette.dart';
 import '/auth/register/register.dart';
 import '/components/stream_builder_wrapper.dart';
 import '/components/stream_grid_wrapper.dart';
@@ -24,7 +24,7 @@ class Profile extends StatefulWidget {
   _ProfileState createState() => _ProfileState();
 }
 
-class _ProfileState extends State<Profile>  {
+class _ProfileState extends State<Profile> {
   User user;
   bool isLoading = false;
   int postCount = 0;
@@ -61,8 +61,11 @@ class _ProfileState extends State<Profile>  {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Palette.mainBlueTheme,
         centerTitle: true,
-        title: Text('Thông tin tài khoản'),
+        title: Expanded(
+          child: Text('Thông tin tài khoản'),
+        ),
         actions: [
           widget.profileId == firebaseAuth.currentUser.uid
               ? Center(
@@ -75,9 +78,9 @@ class _ProfileState extends State<Profile>  {
                             CupertinoPageRoute(builder: (_) => Register()));
                       },
                       child: Text(
-                        'Log Out',
+                        'Đăng xuất',
                         style: TextStyle(
-                            fontWeight: FontWeight.w900, fontSize: 15.0),
+                            fontWeight: FontWeight.w900, fontSize: 10.0),
                       ),
                     ),
                   ),
@@ -167,6 +170,7 @@ class _ProfileState extends State<Profile>  {
                                         ),
                                       ],
                                     ),
+                                    SizedBox(width: 20),
                                     widget.profileId == currentUserId()
                                         ? InkWell(
                                             onTap: () {

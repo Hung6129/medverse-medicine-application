@@ -45,6 +45,7 @@ class _LoginState extends State<Login> {
                 style: TextStyle(
                   fontSize: 23.0,
                   fontWeight: FontWeight.w900,
+                  color: Palette.textNo,
                 ),
               ),
             ),
@@ -54,7 +55,7 @@ class _LoginState extends State<Login> {
                 style: TextStyle(
                   fontSize: 12.0,
                   fontWeight: FontWeight.w300,
-                  color: Theme.of(context).accentColor,
+                  color: Palette.textNo,
                 ),
               ),
             ),
@@ -64,7 +65,12 @@ class _LoginState extends State<Login> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text('Bạn chưa có tài khoản?'),
+                Text(
+                  'Bạn chưa có tài khoản?',
+                  style: TextStyle(
+                    color: Palette.textNo,
+                  ),
+                ),
                 GestureDetector(
                   onTap: () {
                     Navigator.of(context)
