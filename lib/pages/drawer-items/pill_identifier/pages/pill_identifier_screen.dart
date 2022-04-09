@@ -89,7 +89,7 @@ class _IdentifierState extends State<Identifier> {
                   TextFormField(
                     controller: txtCon,
                     style: TextStyle(
-                        fontSize: Dimensions.font20, color: Colors.black54),
+                        fontSize: Dimensions.font14, color: Colors.black54),
                     decoration: InputDecoration(
                       border: OutlineInputBorder(
                           borderRadius:
@@ -97,7 +97,7 @@ class _IdentifierState extends State<Identifier> {
                       hintText: 'Nhập mã thuốc',
                       hintStyle: TextStyle(
                         color: Colors.black54,
-                        fontSize: Dimensions.font20,
+                        fontSize: Dimensions.font14,
                       ),
                     ),
                   ),
@@ -130,7 +130,7 @@ class _IdentifierState extends State<Identifier> {
                                 child: AppTextTitle(
                                     text: value,
                                     color: Colors.black54,
-                                    size: Dimensions.font20,
+                                    size: Dimensions.font14,
                                     fontWeight: FontWeight.normal),
                               );
                             }).toList(),
@@ -168,7 +168,7 @@ class _IdentifierState extends State<Identifier> {
                                 child: AppTextTitle(
                                     text: value,
                                     color: Colors.black54,
-                                    size: Dimensions.font20,
+                                    size: Dimensions.font14,
                                     fontWeight: FontWeight.normal),
                               );
                             }).toList(),
@@ -230,7 +230,7 @@ class _IdentifierState extends State<Identifier> {
                             AppTextTitle(
                                 text: "Tìm kiếm",
                                 color: Palette.p1,
-                                size: Dimensions.font20,
+                                size: Dimensions.font14,
                                 fontWeight: FontWeight.normal)
                           ],
                         )),
