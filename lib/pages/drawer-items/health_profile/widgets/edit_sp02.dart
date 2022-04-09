@@ -2,20 +2,20 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import '/models/user_health_profile_model.dart';
 import '/auth/login/login.dart';
 import '/widgets/dimension.dart';
+import '/models/user_health_profile_model.dart';
 import '/theme/palette.dart';
 import '/widgets/constants.dart';
 
-class EditHeight extends StatefulWidget {
-  const EditHeight({Key key}) : super(key: key);
+class EditSP02 extends StatefulWidget {
+  const EditSP02({Key key}) : super(key: key);
 
   @override
   _EditHealthProfilePageState createState() => _EditHealthProfilePageState();
 }
 
-class _EditHealthProfilePageState extends State<EditHeight> {
+class _EditHealthProfilePageState extends State<EditSP02> {
   /// Call Firebase authentication
   final _auth = FirebaseAuth.instance;
 
@@ -26,7 +26,7 @@ class _EditHealthProfilePageState extends State<EditHeight> {
   final _formKey = GlobalKey<FormState>();
 
   /// Editing Controller
-  final heightEditingController = new TextEditingController();
+  final sp02EditingController = new TextEditingController();
 
   @override
   void initState() {
@@ -36,34 +36,32 @@ class _EditHealthProfilePageState extends State<EditHeight> {
 
   @override
   Widget build(BuildContext context) {
-    /// Height field
-    final heightField = TextFormField(
+    /// SP02 field
+    final sp02Field = TextFormField(
       autofocus: false,
-      controller: heightEditingController,
+      controller: sp02EditingController,
       keyboardType: TextInputType.number,
       validator: (value) {
-        RegExp regex = new RegExp(r'^.{3,}$');
         if (value.isEmpty) {
-          return ("Hãy nhập chỉ số chiều cao");
-        }
-        if (!regex.hasMatch(value)) {
-          return ("Hãy nhập tên hợp lệ (Tối thiểu 3 chữ số)");
+          return "Hãy nhập chỉ số nhịp tim";
         }
         return null;
       },
       onSaved: (value) {
-        heightEditingController.text = value;
+        sp02EditingController.text = value;
       },
       textInputAction: TextInputAction.next,
       style: TextStyle(color: Palette.textNo),
       decoration: InputDecoration(
         prefixIcon: Icon(
-          Icons.height,
+          Icons.favorite,
           color: Palette.textNo,
         ),
         contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
-        hintText: "Mờ bạn chiều cao",
-        hintStyle: TextStyle(color: Palette.textNo),
+        hintText: "Mời bạn nhập nhịp tim",
+        hintStyle: TextStyle(
+          color: Palette.textNo,
+        ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
         ),
@@ -80,7 +78,7 @@ class _EditHealthProfilePageState extends State<EditHeight> {
           minWidth: MediaQuery.of(context).size.width,
           onPressed: () {
             updateDetailsToFirestore(
-              heightEditingController.text,
+              sp02EditingController.text,
             );
           },
           child: Text(
@@ -98,7 +96,7 @@ class _EditHealthProfilePageState extends State<EditHeight> {
         appBar: AppBar(
           backgroundColor: Palette.mainBlueTheme,
           title: Text(
-            'Nhập chỉ số chiều cao',
+            'Nhập chỉ số nhịp tim',
             style: TextStyle(fontWeight: FontWeight.w900),
           ),
           centerTitle: true,
@@ -138,13 +136,13 @@ class _EditHealthProfilePageState extends State<EditHeight> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Chiều cao',
+                          'Chỉ số nhịp tim',
                           style: black_kLabelStyle,
                         ),
                       ],
                     ),
                     SizedBox(height: 20),
-                    heightField,
+                    sp02Field,
                     SizedBox(height: 30),
                     updateButton,
                     SizedBox(height: 10),
@@ -161,7 +159,7 @@ class _EditHealthProfilePageState extends State<EditHeight> {
     return _checkAuthentication;
   }
 
-  updateDetailsToFirestore(String height) async {
+  updateDetailsToFirestore(String SP02) async {
     if (_formKey.currentState.validate()) {
       try {
         /// Calling our firestore
@@ -176,17 +174,20 @@ class _EditHealthProfilePageState extends State<EditHeight> {
 
         /// Writing all the values
         userHealthProfileModel.uid = user?.uid;
-        userHealthProfileModel.height = heightEditingController.text;
+        userHealthProfileModel.SP02 = sp02EditingController.text;
 
         /// Connect to Health Profile Model
         await firebaseFirestore
             .collection("healthProfile")
             .doc(user?.uid)
-            .update(userHealthProfileModel.updateHeight())
+            .update(userHealthProfileModel.updateSP02())
             .catchError((e) {
           Fluttertoast.showToast(msg: e.message);
         });
-        Fluttertoast.showToast(msg: "Cập nhật hồ sơ sức khỏe thành công");
+        Fluttertoast.showToast(
+          msg: "Cập nhật hồ sơ sức khỏe thành công",
+          backgroundColor: Palette.activeButton,
+        );
         Navigator.of(context).pop();
       } on FirebaseAuthException catch (error) {
         switch (error.code) {

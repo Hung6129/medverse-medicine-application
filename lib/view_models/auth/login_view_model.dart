@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import '/theme/palette.dart';
 import '/screens/mainscreen.dart';
 import '/services/auth_service.dart';
 import '/utils/validation.dart';
@@ -22,7 +24,7 @@ class LoginViewModel extends ChangeNotifier {
       validate = true;
       notifyListeners();
       showInSnackBar(
-          'Please fix the errors in red before submitting.', context);
+          'Vui lòng hoàn thành điền thông tin trước khi đăng nhập. ', context);
     } else {
       loading = true;
       notifyListeners();
@@ -38,6 +40,7 @@ class LoginViewModel extends ChangeNotifier {
               builder: (context) => TabScreen(),
             ),
           );
+          Fluttertoast.showToast(msg: 'Đăng nhập thành công', backgroundColor: Palette.activeButton,);
         }
       } catch (e) {
         loading = false;

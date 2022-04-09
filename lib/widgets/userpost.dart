@@ -8,7 +8,7 @@ import '/components/custom_card.dart';
 import '/components/custom_image.dart';
 import '/models/post.dart';
 import '/models/user.dart';
-import '/pages/profile.dart';
+import '../pages/drawer-items/profile/pages/profile.dart';
 import '/screens/comment.dart';
 import '/screens/view_image.dart';
 import '/services/post_service.dart';

@@ -2,20 +2,22 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import '/models/user_health_profile_model.dart';
 import '/auth/login/login.dart';
 import '/widgets/dimension.dart';
-import '/models/user_health_profile_model.dart';
 import '/theme/palette.dart';
 import '/widgets/constants.dart';
 
-class EditSP02 extends StatefulWidget {
-  const EditSP02({Key key}) : super(key: key);
+class EditBloodGroup extends StatefulWidget {
+  const EditBloodGroup({Key key}) : super(key: key);
 
   @override
   _EditHealthProfilePageState createState() => _EditHealthProfilePageState();
 }
 
-class _EditHealthProfilePageState extends State<EditSP02> {
+class _EditHealthProfilePageState extends State<EditBloodGroup> {
+  String dropdownValue = 'Mời bạn chọn nhóm máu';
+
   /// Call Firebase authentication
   final _auth = FirebaseAuth.instance;
 
@@ -26,7 +28,7 @@ class _EditHealthProfilePageState extends State<EditSP02> {
   final _formKey = GlobalKey<FormState>();
 
   /// Editing Controller
-  final sp02EditingController = new TextEditingController();
+  final bloodGroupEditingController = new TextEditingController();
 
   @override
   void initState() {
@@ -36,36 +38,51 @@ class _EditHealthProfilePageState extends State<EditSP02> {
 
   @override
   Widget build(BuildContext context) {
-    /// SP02 field
-    final sp02Field = TextFormField(
-      autofocus: false,
-      controller: sp02EditingController,
-      keyboardType: TextInputType.number,
+    /// Blood group field
+    final bloodGroupField = DropdownButtonFormField<String>(
+      value: dropdownValue,
+      icon: const Icon(
+        Icons.arrow_downward,
+        color: Palette.textNo,
+      ),
+      elevation: 16,
+      style: const TextStyle(color: Palette.textNo),
       validator: (value) {
-        if (value.isEmpty) {
-          return "Hãy nhập chỉ số nhịp tim";
+        if (dropdownValue == "Mời bạn chọn nhóm máu") {
+          return "Hãy chọn nhóm máu phù hợp";
         }
         return null;
       },
-      onSaved: (value) {
-        sp02EditingController.text = value;
-      },
-      textInputAction: TextInputAction.next,
-      style: TextStyle(color: Palette.textNo),
       decoration: InputDecoration(
-        prefixIcon: Icon(
-          Icons.favorite,
-          color: Palette.textNo,
-        ),
-        contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
-        hintText: "Mời bạn nhập nhịp tim",
-        hintStyle: TextStyle(
-          color: Palette.textNo,
-        ),
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.all(
+            Radius.circular(10),
+          ),
         ),
       ),
+      onChanged: (String newValue) {
+        setState(() {
+          dropdownValue = newValue;
+        });
+      },
+      items: <String>[
+        'Mời bạn chọn nhóm máu',
+        'Nhóm A+',
+        'Nhóm A-',
+        'Nhóm B+',
+        'Nhóm B-',
+        'Nhóm C+',
+        'Nhóm C-',
+        'Nhóm D+',
+        'Nhóm D-',
+        'Nhóm O+',
+        'Nhóm O-',
+      ].map<DropdownMenuItem<String>>((String value) {
+        return DropdownMenuItem<String>(
+          value: value,
+          child: Text(value),
+        );
+      }).toList(),
     );
 
     /// Signup button
@@ -78,7 +95,7 @@ class _EditHealthProfilePageState extends State<EditSP02> {
           minWidth: MediaQuery.of(context).size.width,
           onPressed: () {
             updateDetailsToFirestore(
-              sp02EditingController.text,
+              dropdownValue,
             );
           },
           child: Text(
@@ -96,7 +113,7 @@ class _EditHealthProfilePageState extends State<EditSP02> {
         appBar: AppBar(
           backgroundColor: Palette.mainBlueTheme,
           title: Text(
-            'Nhập chỉ số nhịp tim',
+            'Chọn nhóm máu',
             style: TextStyle(fontWeight: FontWeight.w900),
           ),
           centerTitle: true,
@@ -136,13 +153,13 @@ class _EditHealthProfilePageState extends State<EditSP02> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Chỉ số nhịp tim',
+                          'Nhóm máu',
                           style: black_kLabelStyle,
                         ),
                       ],
                     ),
                     SizedBox(height: 20),
-                    sp02Field,
+                    bloodGroupField,
                     SizedBox(height: 30),
                     updateButton,
                     SizedBox(height: 10),
@@ -159,7 +176,7 @@ class _EditHealthProfilePageState extends State<EditSP02> {
     return _checkAuthentication;
   }
 
-  updateDetailsToFirestore(String SP02) async {
+  updateDetailsToFirestore(String bloodGroup) async {
     if (_formKey.currentState.validate()) {
       try {
         /// Calling our firestore
@@ -174,17 +191,20 @@ class _EditHealthProfilePageState extends State<EditSP02> {
 
         /// Writing all the values
         userHealthProfileModel.uid = user?.uid;
-        userHealthProfileModel.SP02 = sp02EditingController.text;
+        userHealthProfileModel.bloodGroup = dropdownValue;
 
         /// Connect to Health Profile Model
         await firebaseFirestore
             .collection("healthProfile")
             .doc(user?.uid)
-            .update(userHealthProfileModel.updateSP02())
+            .update(userHealthProfileModel.updateBloodGroup())
             .catchError((e) {
           Fluttertoast.showToast(msg: e.message);
         });
-        Fluttertoast.showToast(msg: "Cập nhật hồ sơ sức khỏe thành công");
+        Fluttertoast.showToast(
+          msg: "Cập nhật hồ sơ sức khỏe thành công",
+          backgroundColor: Palette.activeButton,
+        );
         Navigator.of(context).pop();
       } on FirebaseAuthException catch (error) {
         switch (error.code) {

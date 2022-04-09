@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import '/models/notification.dart';
-import '/pages/profile.dart';
+import '../pages/drawer-items/profile/pages/profile.dart';
 import '/widgets/indicators.dart';
 import 'package:timeago/timeago.dart' as timeago;
 

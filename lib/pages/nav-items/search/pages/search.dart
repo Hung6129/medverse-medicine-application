@@ -9,7 +9,7 @@ import '/theme/palette.dart';
 import '/widgets/navigation_drawer_widget.dart';
 import '/chats/conversation.dart';
 import '/models/user.dart';
-import '/pages/profile.dart';
+import '../../../drawer-items/profile/pages/profile.dart';
 import '/utils/firebase.dart';
 import '/widgets/indicators.dart';
 

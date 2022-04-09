@@ -80,7 +80,7 @@ class _LoginState extends State<Login> {
                     'Đăng ký',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      color: Theme.of(context).accentColor,
+                      color: Palette.mainBlueTheme,
                     ),
                   ),
                 ),
@@ -159,7 +159,7 @@ class _LoginState extends State<Login> {
                   ),
                 ),
                 backgroundColor: MaterialStateProperty.all<Color>(
-                  Theme.of(context).accentColor,
+                  Palette.mainBlueTheme,
                 ),
               ),
               // highlightElevation: 4.0,

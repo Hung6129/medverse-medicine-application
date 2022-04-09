@@ -1,23 +1,21 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import '/models/user_health_profile_model.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import '/auth/login/login.dart';
 import '/widgets/dimension.dart';
 import '/theme/palette.dart';
 import '/widgets/constants.dart';
+import '/models/user_health_profile_model.dart';
 
-class EditBloodGroup extends StatefulWidget {
-  const EditBloodGroup({Key key}) : super(key: key);
+class EditBMI extends StatefulWidget {
+  const EditBMI({Key key}) : super(key: key);
 
   @override
   _EditHealthProfilePageState createState() => _EditHealthProfilePageState();
 }
 
-class _EditHealthProfilePageState extends State<EditBloodGroup> {
-  String dropdownValue = 'Mời bạn chọn nhóm máu';
-
+class _EditHealthProfilePageState extends State<EditBMI> {
   /// Call Firebase authentication
   final _auth = FirebaseAuth.instance;
 
@@ -28,7 +26,7 @@ class _EditHealthProfilePageState extends State<EditBloodGroup> {
   final _formKey = GlobalKey<FormState>();
 
   /// Editing Controller
-  final bloodGroupEditingController = new TextEditingController();
+  final bmiEditingController = new TextEditingController();
 
   @override
   void initState() {
@@ -38,51 +36,36 @@ class _EditHealthProfilePageState extends State<EditBloodGroup> {
 
   @override
   Widget build(BuildContext context) {
-    /// Blood group field
-    final bloodGroupField = DropdownButtonFormField<String>(
-      value: dropdownValue,
-      icon: const Icon(
-        Icons.arrow_downward,
-        color: Palette.textNo,
-      ),
-      elevation: 16,
-      style: const TextStyle(color: Palette.textNo),
+    /// BMI field
+    final bmiField = TextFormField(
+      autofocus: false,
+      controller: bmiEditingController,
+      keyboardType: TextInputType.number,
       validator: (value) {
-        if (dropdownValue == "Mời bạn chọn nhóm máu") {
-          return "Hãy chọn nhóm máu phù hợp";
+        if (value.isEmpty) {
+          return ("Hãy nhập chỉ số BMI");
         }
         return null;
       },
+      onSaved: (value) {
+        bmiEditingController.text = value;
+      },
+      textInputAction: TextInputAction.next,
+      style: TextStyle(color: Palette.textNo),
       decoration: InputDecoration(
+        prefixIcon: Icon(
+          Icons.calculate,
+          color: Palette.textNo,
+        ),
+        contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+        hintText: "Mời bạn nhập chỉ số BMI",
+        hintStyle: TextStyle(
+          color: Palette.textNo,
+        ),
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.all(
-            Radius.circular(10),
-          ),
+          borderRadius: BorderRadius.circular(10),
         ),
       ),
-      onChanged: (String newValue) {
-        setState(() {
-          dropdownValue = newValue;
-        });
-      },
-      items: <String>[
-        'Mời bạn chọn nhóm máu',
-        'Nhóm A+',
-        'Nhóm A-',
-        'Nhóm B+',
-        'Nhóm B-',
-        'Nhóm C+',
-        'Nhóm C-',
-        'Nhóm D+',
-        'Nhóm D-',
-        'Nhóm O+',
-        'Nhóm O-',
-      ].map<DropdownMenuItem<String>>((String value) {
-        return DropdownMenuItem<String>(
-          value: value,
-          child: Text(value),
-        );
-      }).toList(),
     );
 
     /// Signup button
@@ -95,7 +78,7 @@ class _EditHealthProfilePageState extends State<EditBloodGroup> {
           minWidth: MediaQuery.of(context).size.width,
           onPressed: () {
             updateDetailsToFirestore(
-              dropdownValue,
+              bmiEditingController.text,
             );
           },
           child: Text(
@@ -106,14 +89,14 @@ class _EditHealthProfilePageState extends State<EditBloodGroup> {
           )),
     );
 
-    Widget _checkAuthentication;
+    Widget _CheckAuthentication;
     if (_auth.currentUser != null) {
-      _checkAuthentication = new Scaffold(
+      _CheckAuthentication = new Scaffold(
         backgroundColor: Palette.p1,
         appBar: AppBar(
           backgroundColor: Palette.mainBlueTheme,
           title: Text(
-            'Chọn nhóm máu',
+            'Nhập chỉ số BMI',
             style: TextStyle(fontWeight: FontWeight.w900),
           ),
           centerTitle: true,
@@ -153,13 +136,13 @@ class _EditHealthProfilePageState extends State<EditBloodGroup> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Nhóm máu',
+                          'Chỉ số BMI',
                           style: black_kLabelStyle,
                         ),
                       ],
                     ),
                     SizedBox(height: 20),
-                    bloodGroupField,
+                    bmiField,
                     SizedBox(height: 30),
                     updateButton,
                     SizedBox(height: 10),
@@ -171,12 +154,12 @@ class _EditHealthProfilePageState extends State<EditBloodGroup> {
         ),
       );
     } else {
-      _checkAuthentication = new Login();
+      _CheckAuthentication = new Login();
     }
-    return _checkAuthentication;
+    return _CheckAuthentication;
   }
 
-  updateDetailsToFirestore(String bloodGroup) async {
+  updateDetailsToFirestore(String bmi) async {
     if (_formKey.currentState.validate()) {
       try {
         /// Calling our firestore
@@ -191,17 +174,20 @@ class _EditHealthProfilePageState extends State<EditBloodGroup> {
 
         /// Writing all the values
         userHealthProfileModel.uid = user?.uid;
-        userHealthProfileModel.bloodGroup = dropdownValue;
+        userHealthProfileModel.bmi = bmiEditingController.text;
 
         /// Connect to Health Profile Model
         await firebaseFirestore
             .collection("healthProfile")
             .doc(user?.uid)
-            .update(userHealthProfileModel.updateBloodGroup())
+            .update(userHealthProfileModel.updateBMI())
             .catchError((e) {
           Fluttertoast.showToast(msg: e.message);
         });
-        Fluttertoast.showToast(msg: "Cập nhật hồ sơ sức khỏe thành công");
+        Fluttertoast.showToast(
+          msg: "Cập nhật hồ sơ sức khỏe thành công",
+          backgroundColor: Palette.activeButton,
+        );
         Navigator.of(context).pop();
       } on FirebaseAuthException catch (error) {
         switch (error.code) {

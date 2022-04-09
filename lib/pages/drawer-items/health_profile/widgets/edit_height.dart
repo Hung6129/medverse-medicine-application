@@ -1,21 +1,21 @@
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import '/models/user_health_profile_model.dart';
 import '/auth/login/login.dart';
 import '/widgets/dimension.dart';
 import '/theme/palette.dart';
 import '/widgets/constants.dart';
-import '/models/user_health_profile_model.dart';
 
-class EditBMI extends StatefulWidget {
-  const EditBMI({Key key}) : super(key: key);
+class EditHeight extends StatefulWidget {
+  const EditHeight({Key key}) : super(key: key);
 
   @override
   _EditHealthProfilePageState createState() => _EditHealthProfilePageState();
 }
 
-class _EditHealthProfilePageState extends State<EditBMI> {
+class _EditHealthProfilePageState extends State<EditHeight> {
   /// Call Firebase authentication
   final _auth = FirebaseAuth.instance;
 
@@ -26,7 +26,7 @@ class _EditHealthProfilePageState extends State<EditBMI> {
   final _formKey = GlobalKey<FormState>();
 
   /// Editing Controller
-  final bmiEditingController = new TextEditingController();
+  final heightEditingController = new TextEditingController();
 
   @override
   void initState() {
@@ -36,32 +36,34 @@ class _EditHealthProfilePageState extends State<EditBMI> {
 
   @override
   Widget build(BuildContext context) {
-    /// BMI field
-    final bmiField = TextFormField(
+    /// Height field
+    final heightField = TextFormField(
       autofocus: false,
-      controller: bmiEditingController,
+      controller: heightEditingController,
       keyboardType: TextInputType.number,
       validator: (value) {
+        RegExp regex = new RegExp(r'^.{3,}$');
         if (value.isEmpty) {
-          return ("Hãy nhập chỉ số BMI");
+          return ("Hãy nhập chỉ số chiều cao");
+        }
+        if (!regex.hasMatch(value)) {
+          return ("Hãy nhập tên hợp lệ (Tối thiểu 3 chữ số)");
         }
         return null;
       },
       onSaved: (value) {
-        bmiEditingController.text = value;
+        heightEditingController.text = value;
       },
       textInputAction: TextInputAction.next,
       style: TextStyle(color: Palette.textNo),
       decoration: InputDecoration(
         prefixIcon: Icon(
-          Icons.calculate,
+          Icons.height,
           color: Palette.textNo,
         ),
         contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
-        hintText: "Mời bạn nhập chỉ số BMI",
-        hintStyle: TextStyle(
-          color: Palette.textNo,
-        ),
+        hintText: "Mờ bạn chiều cao",
+        hintStyle: TextStyle(color: Palette.textNo),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
         ),
@@ -78,7 +80,7 @@ class _EditHealthProfilePageState extends State<EditBMI> {
           minWidth: MediaQuery.of(context).size.width,
           onPressed: () {
             updateDetailsToFirestore(
-              bmiEditingController.text,
+              heightEditingController.text,
             );
           },
           child: Text(
@@ -89,14 +91,14 @@ class _EditHealthProfilePageState extends State<EditBMI> {
           )),
     );
 
-    Widget _CheckAuthentication;
+    Widget _checkAuthentication;
     if (_auth.currentUser != null) {
-      _CheckAuthentication = new Scaffold(
+      _checkAuthentication = new Scaffold(
         backgroundColor: Palette.p1,
         appBar: AppBar(
           backgroundColor: Palette.mainBlueTheme,
           title: Text(
-            'Nhập chỉ số BMI',
+            'Nhập chỉ số chiều cao',
             style: TextStyle(fontWeight: FontWeight.w900),
           ),
           centerTitle: true,
@@ -136,13 +138,13 @@ class _EditHealthProfilePageState extends State<EditBMI> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Chỉ số BMI',
+                          'Chiều cao',
                           style: black_kLabelStyle,
                         ),
                       ],
                     ),
                     SizedBox(height: 20),
-                    bmiField,
+                    heightField,
                     SizedBox(height: 30),
                     updateButton,
                     SizedBox(height: 10),
@@ -154,35 +156,40 @@ class _EditHealthProfilePageState extends State<EditBMI> {
         ),
       );
     } else {
-      _CheckAuthentication = new Login();
+      _checkAuthentication = new Login();
     }
-    return _CheckAuthentication;
+    return _checkAuthentication;
   }
 
-  updateDetailsToFirestore(String bmi) async {
+  updateDetailsToFirestore(String height) async {
     if (_formKey.currentState.validate()) {
       try {
         /// Calling our firestore
         FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
+
         /// Calling our user model
         User user = _auth.currentUser;
+
         /// Sending these values
         UserHealthProfileModel userHealthProfileModel =
             UserHealthProfileModel();
 
         /// Writing all the values
         userHealthProfileModel.uid = user?.uid;
-        userHealthProfileModel.bmi = bmiEditingController.text;
+        userHealthProfileModel.height = heightEditingController.text;
 
         /// Connect to Health Profile Model
         await firebaseFirestore
             .collection("healthProfile")
             .doc(user?.uid)
-            .update(userHealthProfileModel.updateBMI())
+            .update(userHealthProfileModel.updateHeight())
             .catchError((e) {
           Fluttertoast.showToast(msg: e.message);
         });
-        Fluttertoast.showToast(msg: "Cập nhật hồ sơ sức khỏe thành công");
+        Fluttertoast.showToast(
+          msg: "Cập nhật hồ sơ sức khỏe thành công",
+          backgroundColor: Palette.activeButton,
+        );
         Navigator.of(context).pop();
       } on FirebaseAuthException catch (error) {
         switch (error.code) {
