@@ -31,7 +31,6 @@ class _InteractionCheckerState extends State<InteractionChecker> {
               child: AppText(
                 text:
                     "Bắt đầu nhập tên loại thuốc và chọn loại thuốc phù hợp nhất từ danh sách gợi ý. Lặp lại quy trình để thêm nhiều loại thuốc. Sau khi danh sách của bạn hoàn tất, bạn có thể kiểm tra các tương tác ngay lập tức.",
-                color: Palette.textNo,
                 size: Dimensions.font18,
                 fontWeight: FontWeight.normal,
               ),
@@ -50,6 +49,7 @@ class _InteractionCheckerState extends State<InteractionChecker> {
                 // crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   TypeAheadSearchBar(),
+                  SizedBox(height: 30),
                   Container(
                     width: 350,
                     height: 50,
@@ -66,6 +66,7 @@ class _InteractionCheckerState extends State<InteractionChecker> {
                       ),
                     ),
                   ),
+                  SizedBox(height: 20),
                   Container(
                     width: 350,
                     height: 50,
