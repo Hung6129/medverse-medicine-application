@@ -90,7 +90,7 @@ class _TabScreenState extends State<TabScreen> {
                     item['icon'],
                     color: item['index'] != _page
                         ? Palette.mainBlueTheme.withOpacity(0.4)
-                        : Theme.of(context).accentColor,
+                        : Palette.mainBlueTheme,
                     size: 20.0,
                   ),
                   onPressed: () => navigationTapped(item['index']),

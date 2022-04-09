@@ -61,9 +61,6 @@ class _MyAppState extends State<MyApp> {
                       BlocProvider(
                         create: (context) => DrugsDataCubit(),
                       ),
-                      BlocProvider(
-                        create: (context) => SearchCacheCubit(),
-                      ),
                     ],
                     child: GetMaterialApp(
                       debugShowCheckedModeBanner: false,
@@ -71,8 +68,9 @@ class _MyAppState extends State<MyApp> {
                       onGenerateRoute: AppRoutes.onGeneratedRoutes,
                     ),
                   );
-                } else
+                } else {
                   return Landing();
+                }
               },
             ),
           );

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
+import 'package:medverse_mobile_app/theme/palette.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:provider/provider.dart';
 import '/auth/login/login.dart';
@@ -53,7 +54,7 @@ class _RegisterState extends State<Register> {
                     'Đăng nhập',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      color: Theme.of(context).accentColor,
+                      color: Palette.mainBlueTheme,
                     ),
                   ),
                 ),
@@ -150,12 +151,12 @@ class _RegisterState extends State<Register> {
                   ),
                 ),
                 backgroundColor: MaterialStateProperty.all<Color>(
-                    Theme.of(context).accentColor),
+                    Palette.mainBlueTheme),
               ),
               child: Text(
                 'Đăng ký',
                 style: TextStyle(
-                  color: Colors.white,
+                  color: Palette.whiteText,
                   fontSize: 12.0,
                   fontWeight: FontWeight.w600,
                 ),
