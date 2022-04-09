@@ -4,7 +4,7 @@ import '/theme/palette.dart';
 
 AppBar header(context) {
   return AppBar(
-    backgroundColor: Palette.mainBlueTheme,
+    backgroundColor: Colors.white,
     title: Text('Wooble'),
     centerTitle: true,
     actions: [

@@ -36,7 +36,7 @@ class _ListIconFunctionState extends State<ListIconFunction> {
         width: double.maxFinite,
         height: 120,
         margin: EdgeInsets.only(
-          left: 20,
+          left: Dimensions.height10,
         ),
         child: ListView.builder(
           scrollDirection: Axis.horizontal,
@@ -63,13 +63,9 @@ class _ListIconFunctionState extends State<ListIconFunction> {
                       color: Palette.grey300.withOpacity(0.5),
                       offset: Offset(-5, 5),
                     ),
-                    // BoxShadow(
-                    //   color: Colors.white,
-                    //   offset: Offset(5, 0),
-                    // ),
                   ],
                 ),
-                margin: EdgeInsets.only(right: 30),
+                margin: EdgeInsets.only(right: 20, left: 10),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [

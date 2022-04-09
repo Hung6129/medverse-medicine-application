@@ -159,7 +159,7 @@ class _PillIdentifierListDrugState extends State<PillIdentifierListDrug> {
                   size: Dimensions.font20,
                   fontWeight: FontWeight.normal,
                   text: widget.query1.isEmpty || widget.query2.isEmpty
-                      ? "Kết quả cho thuốc có ${widget.query1} ${widget.query2}"
+                      ? "Kết quả cho thuốc có  ${widget.query1} ${widget.query2}"
                       : "Kết quả cho thuốc có dạng " +
                           " ${widget.query1}" +
                           " và " +
