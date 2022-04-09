@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import '../../../../widgets/constants.dart';
 import '/widgets/dimension.dart';
 import '/theme/palette.dart';
 import '/auth/login/login.dart';
@@ -69,230 +70,188 @@ class MapScreenState extends State<HealthProfile>
             scrollDirection: Axis.vertical,
             child: Column(
               children: <Widget>[
-                SizedBox(height: 30),
-                Expanded(
-                  child: Row(
-                    children: <Widget>[
-                      /// User's health information
-                      Expanded(
-                        child: GestureDetector(
-                          onTap: () => Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) => const EditHeight(),
+                /// Height card
+                GestureDetector(
+                  onTap: () => Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const EditHeight(),
+                    ),
+                  ),
+                  child: Container(
+                    margin: EdgeInsets.all(25.0),
+                    width: Dimensions.boxViewWidth,
+                    decoration: BoxDecoration(
+                      color: Palette.whiteText,
+                      borderRadius: BorderRadius.circular(Dimensions.radius15),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Palette.blueGrey,
+                          offset: const Offset(
+                            0.0,
+                            0.0,
+                          ),
+                          blurRadius: 10.0,
+                          spreadRadius: 3.0,
+                        ), //BoxShadow
+                      ],
+                      border: Border.all(
+                        color: Palette.blueGrey,
+                        width: 1,
+                      ),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(15.0),
+                      child: Row(
+                        children: [
+                          Container(
+                            width: 60,
+                            height: 60,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(Dimensions.radius20),
+                                bottomLeft: Radius.circular(Dimensions.radius20),
+                              ),
+                              image: DecorationImage(
+                                fit: BoxFit.cover,
+                                image: AssetImage(
+                                  'assets/health_profile_icon/height.png',
+                                ),
+                              ),
                             ),
                           ),
-                          child: Container(
-                            width: Dimensions.boxViewWidth,
-                            margin: EdgeInsets.all(15.0),
-                            decoration: BoxDecoration(
-                              color: Palette.mainBlueTheme,
-                              borderRadius:
-                                  BorderRadius.circular(Dimensions.radius15),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Palette.mainBlueTheme,
-                                  offset: const Offset(
-                                    0.0,
-                                    0.0,
-                                  ),
-                                  blurRadius: 10.0,
-                                  spreadRadius: 2.0,
-                                ), //BoxShadow
-                              ],
-                            ),
-                            child: FittedBox(
-                              fit: BoxFit.contain,
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: <Widget>[
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Row(
-                                      children: <Widget>[
-                                        Image.asset(
-                                          'assets/health_profile_icon/height.png',
-                                          height: 60,
-                                          width: 60,
-                                          fit: BoxFit.cover,
-                                        ),
-                                        SizedBox(width: 10),
-                                        Column(
-                                          mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: <Widget>[
-                                            userHealthProfileModel.height ==
-                                                        null ||
-                                                    userHealthProfileModel
-                                                        .height.isEmpty
-                                                ? Text(
-                                                    'Không có dữ liêu',
-                                                    style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      fontSize: 20,
-                                                      color: Palette.whiteText,
-                                                    ),
-                                                  )
-                                                : Text(
-                                                    '${userHealthProfileModel.height}',
-                                                    style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      fontSize: 20,
-                                                      color: Palette.whiteText,
-                                                    ),
-                                                  ),
-                                            Text(
-                                              'cm',
-                                              style: TextStyle(
-                                                fontSize: 20,
-                                                color: Palette.whiteText,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
+                          SizedBox(width: 20),
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Text(
+                                'Chiều cao:',
+                                style: black_kLabelStyle,
+                              ),
+                              SizedBox(height: 10),
+                              Row(
+                                children: [
+                                  userHealthProfileModel.height == null ||
+                                      userHealthProfileModel.height.isEmpty
+                                      ? Text(
+                                    'Không có dữ liệu',
+                                  )
+                                      : Text(
+                                    '${userHealthProfileModel.height}',
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                      color: Palette.textNo,
                                     ),
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Text(
-                                      'Chiều cao',
-                                      style: TextStyle(
-                                        color: Palette.whiteText,
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold,
-                                      ),
+                                  SizedBox(width: 5),
+                                  Text(
+                                    'cm',
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                      color: Palette.textNo,
                                     ),
                                   ),
                                 ],
                               ),
-                            ),
+                            ],
                           ),
-                        ),
+                        ],
                       ),
-                      Expanded(
-                        child: Row(
-                          children: <Widget>[
-                            Expanded(
-                              child: GestureDetector(
-                                onTap: () => Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                    builder: (context) => const EditWeight(),
-                                  ),
-                                ),
-                                child: Container(
-                                  width: Dimensions.boxViewWidth,
-                                  margin: EdgeInsets.all(15.0),
-                                  decoration: BoxDecoration(
-                                    color: Palette.mainBlueTheme,
-                                    borderRadius: BorderRadius.circular(
-                                        Dimensions.radius15),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Palette.mainBlueTheme,
-                                        offset: const Offset(
-                                          0.0,
-                                          0.0,
-                                        ),
-                                        blurRadius: 10.0,
-                                        spreadRadius: 2.0,
-                                      ), //BoxShadow
-                                    ],
-                                  ),
-                                  child: FittedBox(
-                                    fit: BoxFit.contain,
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: <Widget>[
-                                        Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Row(
-                                            children: <Widget>[
-                                              Image.asset(
-                                                'assets/health_profile_icon/weight.png',
-                                                height: 40,
-                                                width: 50,
-                                                fit: BoxFit.cover,
-                                              ),
-                                              SizedBox(width: 10),
-                                              Column(
-                                                mainAxisSize: MainAxisSize.max,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.start,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: <Widget>[
-                                                  userHealthProfileModel
-                                                                  .weight ==
-                                                              null ||
-                                                          userHealthProfileModel
-                                                              .weight.isEmpty
-                                                      ? Text(
-                                                          'Không có dữ liêu',
-                                                          style: TextStyle(
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            fontSize: 20,
-                                                            color: Palette
-                                                                .whiteText,
-                                                          ),
-                                                        )
-                                                      : Text(
-                                                          '${userHealthProfileModel.weight}',
-                                                          style: TextStyle(
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              fontSize: 20,
-                                                              color: Palette
-                                                                  .whiteText),
-                                                        ),
-                                                  Text(
-                                                    'kg',
-                                                    style: TextStyle(
-                                                      fontSize: 20,
-                                                      color: Palette.whiteText,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Text(
-                                            'Cân nặng',
-                                            style: TextStyle(
-                                              color: Palette.whiteText,
-                                              fontSize: 15,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
+                    ),
+                  ),
+                ),
+
+                /// Weight card
+                GestureDetector(
+                  onTap: () => Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const EditWeight(),
+                    ),
+                  ),
+                  child: Container(
+                    width: Dimensions.boxViewWidth,
+                    decoration: BoxDecoration(
+                      color: Palette.whiteText,
+                      borderRadius: BorderRadius.circular(Dimensions.radius15),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Palette.blueGrey,
+                          offset: const Offset(
+                            0.0,
+                            0.0,
+                          ),
+                          blurRadius: 10.0,
+                          spreadRadius: 3.0,
+                        ), //BoxShadow
+                      ],
+                      border: Border.all(
+                        color: Palette.blueGrey,
+                        width: 1,
+                      ),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(15.0),
+                      child: Row(
+                        children: [
+                          Container(
+                            width: 60,
+                            height: 60,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(Dimensions.radius20),
+                                bottomLeft: Radius.circular(Dimensions.radius20),
+                              ),
+                              image: DecorationImage(
+                                fit: BoxFit.cover,
+                                image: AssetImage(
+                                    'assets/health_profile_icon/weight.png'),
                               ),
                             ),
-                          ],
-                        ),
+                          ),
+                          SizedBox(width: 20),
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Text(
+                                'Chiều cao:',
+                                style: black_kLabelStyle,
+                              ),
+                              SizedBox(height: 10),
+                              Row(
+                                children: [
+                                  userHealthProfileModel.weight == null ||
+                                      userHealthProfileModel.weight.isEmpty
+                                      ? Text(
+                                    'Không có dữ liệu',
+                                  )
+                                      : Text(
+                                    '${userHealthProfileModel.weight}',
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                      color: Palette.textNo,
+                                    ),
+                                  ),
+                                  SizedBox(width: 5),
+                                  Text(
+                                    'kg',
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                      color: Palette.textNo,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
-                    ],
+                    ),
                   ),
-                  flex: 0,
                 ),
+                SizedBox(height: 30),
                 Expanded(
                   child: Row(
                     children: <Widget>[
