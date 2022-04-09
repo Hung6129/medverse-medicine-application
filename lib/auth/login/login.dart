@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
+import 'package:medverse_mobile_app/theme/palette.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:provider/provider.dart';
 import '/auth/register/register.dart';
@@ -40,20 +41,21 @@ class _LoginState extends State<Login> {
             SizedBox(height: 10.0),
             Center(
               child: Text(
-                'Welcome back!',
+                'Chào mừng bạn đã trở lại!',
                 style: TextStyle(
                   fontSize: 23.0,
                   fontWeight: FontWeight.w900,
+                  color: Palette.textNo,
                 ),
               ),
             ),
             Center(
               child: Text(
-                'Log into your account and get started!',
+                'Đăng nhập tài khoản để bắt đầu!',
                 style: TextStyle(
                   fontSize: 12.0,
                   fontWeight: FontWeight.w300,
-                  color: Theme.of(context).accentColor,
+                  color: Palette.textNo,
                 ),
               ),
             ),
@@ -63,14 +65,19 @@ class _LoginState extends State<Login> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text('Don\'t have an account?'),
+                Text(
+                  'Bạn chưa có tài khoản?',
+                  style: TextStyle(
+                    color: Palette.textNo,
+                  ),
+                ),
                 GestureDetector(
                   onTap: () {
                     Navigator.of(context)
                         .push(CupertinoPageRoute(builder: (_) => Register()));
                   },
                   child: Text(
-                    'Sign up',
+                    'Đăng ký',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       color: Theme.of(context).accentColor,
@@ -94,7 +101,7 @@ class _LoginState extends State<Login> {
           TextFormBuilder(
             enabled: !viewModel.loading,
             prefix: Feather.mail,
-            hintText: "Email",
+            hintText: "Email tài khoản",
             textInputAction: TextInputAction.next,
             validateFunction: Validations.validateEmail,
             onSaved: (String val) {
@@ -108,7 +115,7 @@ class _LoginState extends State<Login> {
             enabled: !viewModel.loading,
             prefix: Feather.lock,
             suffix: Feather.eye,
-            hintText: "Password",
+            hintText: "Mật khẩu",
             textInputAction: TextInputAction.done,
             validateFunction: Validations.validatePassword,
             submitAction: () => viewModel.login(context),
@@ -130,7 +137,7 @@ class _LoginState extends State<Login> {
                   child: Align(
                     alignment: Alignment.centerRight,
                     child: Text(
-                      'Forgot Password?',
+                      'Quên mật khẩu?',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                       ),
@@ -157,9 +164,9 @@ class _LoginState extends State<Login> {
               ),
               // highlightElevation: 4.0,
               child: Text(
-                'Log in'.toUpperCase(),
+                'Đăng nhập',
                 style: TextStyle(
-                  color: Colors.white,
+                  color: Palette.whiteText,
                   fontSize: 12.0,
                   fontWeight: FontWeight.w600,
                 ),

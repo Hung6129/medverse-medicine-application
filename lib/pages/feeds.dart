@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:data_connection_checker/data_connection_checker.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:medverse_mobile_app/auth/login/login.dart';
 import 'package:medverse_mobile_app/theme/palette.dart';
 import 'package:medverse_mobile_app/widgets/navigation_drawer_widget.dart';
 import '/models/post.dart';
@@ -15,8 +17,13 @@ class Timeline extends StatefulWidget {
 }
 
 class _TimelineState extends State<Timeline> {
+  /// Get the current authentication
+  User user = FirebaseAuth.instance.currentUser;
+
+  /// Check validation
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
+  /// Create new post list
   List<DocumentSnapshot> post = [];
 
   bool isLoading = false;
@@ -29,9 +36,10 @@ class _TimelineState extends State<Timeline> {
 
   ScrollController _scrollController;
 
+  /// Get all post from firebase
   getPosts() async {
     if (!hasMore) {
-      print('No New Posts');
+      print('Hiện chưa có bài viết nào');
     }
     if (isLoading) {
       return CircularProgressIndicator();
@@ -78,38 +86,45 @@ class _TimelineState extends State<Timeline> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      drawer: NavigationDrawerWidget(),
-      key: scaffoldKey,
-      appBar: AppBar(
-        backgroundColor: Palette.mainBlueTheme,
-        title: Text(
-          'Mạng xã hội',
-          style: TextStyle(fontWeight: FontWeight.w900),
+    Widget _checkAuthentication;
+
+    if (user != null) {
+      _checkAuthentication = new Scaffold(
+        drawer: NavigationDrawerWidget(),
+        key: scaffoldKey,
+        appBar: AppBar(
+          backgroundColor: Palette.mainBlueTheme,
+          title: Text(
+            'Mạng xã hội',
+            style: TextStyle(fontWeight: FontWeight.w900),
+          ),
+          centerTitle: true,
         ),
-        centerTitle: true,
-      ),
-      body: isLoading
-          ? circularProgress(context)
-          : ListView.builder(
-              controller: _scrollController,
-              itemCount: post.length,
-              itemBuilder: (context, index) {
-                internetChecker(context);
-                PostModel posts = PostModel.fromJson(post[index].data());
-                return Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: UserPost(post: posts),
-                );
-              },
-            ),
-    );
+        body: isLoading
+            ? circularProgress(context)
+            : ListView.builder(
+                controller: _scrollController,
+                itemCount: post.length,
+                itemBuilder: (context, index) {
+                  internetChecker(context);
+                  PostModel posts = PostModel.fromJson(post[index].data());
+                  return Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: UserPost(post: posts),
+                  );
+                },
+              ),
+      );
+    } else {
+      _checkAuthentication = new Login();
+    }
+    return _checkAuthentication;
   }
 
   internetChecker(context) async {
     bool result = await DataConnectionChecker().hasConnection;
     if (result == false) {
-      showInSnackBar('No Internet Connection', context);
+      showInSnackBar('Không có kết nối mạng', context);
     }
   }
 

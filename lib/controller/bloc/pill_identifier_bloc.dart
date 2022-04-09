@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-
 part 'pill_identifier_event.dart';
 part 'pill_identifier_state.dart';
 
