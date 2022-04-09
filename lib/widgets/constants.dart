@@ -16,6 +16,7 @@ final black_kLabelStyle = TextStyle(
   fontSize: 15,
   fontWeight: FontWeight.w900,
   fontFamily: 'OpenSans',
+  color: Palette.textNo,
 );
 
 final kBoxDecorationStyle = BoxDecoration(

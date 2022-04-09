@@ -370,7 +370,7 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
       case 8:
         Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (context) => HealthProfile(),
+            builder: (context) => TabHealthProfile(),
           ),
         );
         break;
