@@ -67,7 +67,6 @@ class _IdentifierState extends State<Identifier> {
                 text:
                     "Sử dụng công cụ tìm viên thuốc để xác định các loại thuốc bằng hình dáng bên ngoài hoặc màu sắc. Tất cả các trường đều là tùy chọn.",
                 size: Dimensions.font18,
-                color: Palette.textNo,
                 fontWeight: FontWeight.normal,
               ),
             ),
@@ -89,14 +88,14 @@ class _IdentifierState extends State<Identifier> {
                   TextFormField(
                     controller: txtCon,
                     style: TextStyle(
-                        fontSize: Dimensions.font14, color: Colors.black54),
+                      fontSize: Dimensions.font14,
+                    ),
                     decoration: InputDecoration(
                       border: OutlineInputBorder(
                           borderRadius:
                               BorderRadius.circular(Dimensions.radius15)),
                       hintText: 'Nhập mã thuốc',
                       hintStyle: TextStyle(
-                        color: Colors.black54,
                         fontSize: Dimensions.font14,
                       ),
                     ),
@@ -129,7 +128,6 @@ class _IdentifierState extends State<Identifier> {
                                 value: value,
                                 child: AppTextTitle(
                                     text: value,
-                                    color: Colors.black54,
                                     size: Dimensions.font14,
                                     fontWeight: FontWeight.normal),
                               );
@@ -167,7 +165,6 @@ class _IdentifierState extends State<Identifier> {
                                 value: value,
                                 child: AppTextTitle(
                                     text: value,
-                                    color: Colors.black54,
                                     size: Dimensions.font14,
                                     fontWeight: FontWeight.normal),
                               );

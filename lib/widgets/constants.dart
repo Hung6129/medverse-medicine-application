@@ -13,7 +13,7 @@ final kLabelStyle = TextStyle(
 );
 
 final black_kLabelStyle = TextStyle(
-  fontSize: 30,
+  fontSize: 15,
   fontWeight: FontWeight.w900,
   fontFamily: 'OpenSans',
 );
