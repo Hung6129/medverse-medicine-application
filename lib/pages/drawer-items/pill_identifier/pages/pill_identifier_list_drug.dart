@@ -39,97 +39,97 @@ class _PillIdentifierListDrugState extends State<PillIdentifierListDrug> {
     }
   }
 
-  Widget _sortedListData(DrugsDataCubit cubit) {
-    return BlocBuilder<DrugsDataCubit, DrugsDataState>(
-      builder: (context, state) {
-        if (state is DrugsDataLoaded) {
-          var data = cubit.drugs;
-          return ListView.builder(
-            physics: NeverScrollableScrollPhysics(),
-            shrinkWrap: true,
-            itemCount: data.length,
-            itemBuilder: (context, index) => Container(
-              margin: EdgeInsets.only(
-                left: Dimensions.width20,
-                right: Dimensions.width20,
-                bottom: Dimensions.height10,
-              ),
-              child: GestureDetector(
-                onTap: () {},
-                child: Column(
-                  children: [
-                    //images section
-                    Container(
-                      width: Dimensions.pillIdentifierW,
-                      height: Dimensions.pillIdentifierH,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(
-                          Dimensions.radius20,
-                        ),
-                        color: Palette.p1,
-                        image: DecorationImage(
-                          fit: BoxFit.cover,
-                          image: AssetImage(img300),
-                        ),
-                      ),
-                    ),
+  // Widget _sortedListData(DrugsDataCubit cubit) {
+  //   return BlocBuilder<DrugsDataCubit, DrugsDataState>(
+  //     builder: (context, state) {
+  //       if (state is DrugsDataLoaded) {
+  //         var data = cubit.drugs;
+  //         return ListView.builder(
+  //           physics: NeverScrollableScrollPhysics(),
+  //           shrinkWrap: true,
+  //           itemCount: data.length,
+  //           itemBuilder: (context, index) => Container(
+  //             margin: EdgeInsets.only(
+  //               left: Dimensions.width20,
+  //               right: Dimensions.width20,
+  //               bottom: Dimensions.height10,
+  //             ),
+  //             child: GestureDetector(
+  //               onTap: () {},
+  //               child: Column(
+  //                 children: [
+  //                   //images section
+  //                   Container(
+  //                     width: Dimensions.pillIdentifierW,
+  //                     height: Dimensions.pillIdentifierH,
+  //                     decoration: BoxDecoration(
+  //                       borderRadius: BorderRadius.circular(
+  //                         Dimensions.radius20,
+  //                       ),
+  //                       color: Palette.p1,
+  //                       image: DecorationImage(
+  //                         fit: BoxFit.cover,
+  //                         image: AssetImage(img300),
+  //                       ),
+  //                     ),
+  //                   ),
 
-                    //text container
-                    Container(
-                      width: 350,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.only(
-                          topRight: Radius.circular(Dimensions.radius20),
-                          bottomRight: Radius.circular(Dimensions.radius20),
-                        ),
-                        color: Colors.white,
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          AppTextTitle(
-                            text: data[index].tenThuoc,
-                            color: Palette.textNo,
-                            size: Dimensions.font20,
-                            fontWeight: FontWeight.normal,
-                          ),
-                          AppText(
-                            text: data[index].baoChe,
-                            color: Palette.textNo,
-                            size: Dimensions.font16,
-                            fontWeight: FontWeight.normal,
-                          ),
-                          AppText(
-                            text: data[index].congTyDk,
-                            color: Palette.textNo,
-                            size: Dimensions.font16,
-                            fontWeight: FontWeight.normal,
-                          ),
-                          AppText(
-                            text: data[index].diaChiDk,
-                            color: Palette.textNo,
-                            size: Dimensions.font16,
-                            fontWeight: FontWeight.normal,
-                          ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(height: Dimensions.height15)
-                  ],
-                ),
-              ),
-            ),
-          );
-        } else {
-          return AppTextTitle(
-              text: "Something went wrong",
-              color: Colors.black45,
-              size: Dimensions.font18,
-              fontWeight: FontWeight.w500);
-        }
-      },
-    );
-  }
+  //                   //text container
+  //                   Container(
+  //                     width: 350,
+  //                     decoration: BoxDecoration(
+  //                       borderRadius: BorderRadius.only(
+  //                         topRight: Radius.circular(Dimensions.radius20),
+  //                         bottomRight: Radius.circular(Dimensions.radius20),
+  //                       ),
+  //                       color: Colors.white,
+  //                     ),
+  //                     child: Column(
+  //                       crossAxisAlignment: CrossAxisAlignment.start,
+  //                       children: [
+  //                         AppTextTitle(
+  //                           text: data[index].title,
+  //                           color: Palette.textNo,
+  //                           size: Dimensions.font20,
+  //                           fontWeight: FontWeight.normal,
+  //                         ),
+  //                         AppText(
+  //                           text: data[index].price.toString(),
+  //                           color: Palette.textNo,
+  //                           size: Dimensions.font16,
+  //                           fontWeight: FontWeight.normal,
+  //                         ),
+  //                         AppText(
+  //                           text: data[index].description,
+  //                           color: Palette.textNo,
+  //                           size: Dimensions.font16,
+  //                           fontWeight: FontWeight.normal,
+  //                         ),
+  //                         AppText(
+  //                           text: data[index].category,
+  //                           color: Palette.textNo,
+  //                           size: Dimensions.font16,
+  //                           fontWeight: FontWeight.normal,
+  //                         ),
+  //                       ],
+  //                     ),
+  //                   ),
+  //                   SizedBox(height: Dimensions.height15)
+  //                 ],
+  //               ),
+  //             ),
+  //           ),
+  //         );
+  //       } else {
+  //         return AppTextTitle(
+  //             text: "Something went wrong",
+  //             color: Colors.black45,
+  //             size: Dimensions.font18,
+  //             fontWeight: FontWeight.w500);
+  //       }
+  //     },
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -168,7 +168,7 @@ class _PillIdentifierListDrugState extends State<PillIdentifierListDrug> {
               ),
 
               // list of query
-              _sortedListData(cubit),
+              // _sortedListData(cubit),
             ],
           ),
         ),

@@ -44,6 +44,7 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
   @override
   Widget build(BuildContext context) {
     Widget checkAuthentication;
+
     /// Check user is authenticated
     if (user != null) {
       FirebaseFirestore.instance.collection("users").doc(user.uid).get().then(
@@ -69,7 +70,8 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
                           child: GestureDetector(
                             onTap: () => Navigator.of(context).push(
                               MaterialPageRoute(
-                                builder: (context) => Profile(profileId: firebaseAuth.currentUser.uid),
+                                builder: (context) => Profile(
+                                    profileId: firebaseAuth.currentUser.uid),
                               ),
                             ),
                             child: Container(
