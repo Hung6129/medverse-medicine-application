@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
+import 'package:medverse_mobile_app/theme/palette.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:provider/provider.dart';
 import '/components/custom_image.dart';
@@ -26,7 +27,7 @@ class _ProfilePictureState extends State<ProfilePicture> {
         child: Scaffold(
           key: viewModel.scaffoldKey,
           appBar: AppBar(
-            title: Text('Add a profile picture'),
+            title: Text('Thêm một ảnh đại diện'),
             centerTitle: true,
           ),
           body: ListView(
@@ -38,7 +39,7 @@ class _ProfilePictureState extends State<ProfilePicture> {
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.width - 30,
                   decoration: BoxDecoration(
-                    color: Colors.grey[300],
+                    color: Palette.grey300,
                     borderRadius: BorderRadius.all(
                       Radius.circular(3.0),
                     ),
@@ -56,7 +57,7 @@ class _ProfilePictureState extends State<ProfilePicture> {
                       : viewModel.mediaUrl == null
                           ? Center(
                               child: Text(
-                                'upload your profile picture',
+                                'Tải ảnh đại diện của bạn lên đây',
                                 style: TextStyle(
                                   color: Theme.of(context).accentColor,
                                 ),
@@ -83,7 +84,9 @@ class _ProfilePictureState extends State<ProfilePicture> {
                     ),
                   ),
                   child: Center(
-                    child: Text('done'.toUpperCase()),
+                    child: Text(
+                      'Đã hoàn tất',
+                    ),
                   ),
                   onPressed: () => viewModel.uploadProfilePicture(context),
                 ),
@@ -111,7 +114,7 @@ class _ProfilePictureState extends State<ProfilePicture> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10.0),
                 child: Text(
-                  'Select'.toUpperCase(),
+                  'Lựa chọn',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                   ),
@@ -120,7 +123,7 @@ class _ProfilePictureState extends State<ProfilePicture> {
               Divider(),
               ListTile(
                 leading: Icon(Feather.camera),
-                title: Text('Camera'),
+                title: Text('Chọn từ máy ảnh'),
                 onTap: () {
                   Navigator.pop(context);
                   viewModel.pickImage(camera: true);
@@ -128,7 +131,7 @@ class _ProfilePictureState extends State<ProfilePicture> {
               ),
               ListTile(
                 leading: Icon(Feather.image),
-                title: Text('Gallery'),
+                title: Text('Chọn từ thư viện'),
                 onTap: () {
                   Navigator.pop(context);
                   viewModel.pickImage();

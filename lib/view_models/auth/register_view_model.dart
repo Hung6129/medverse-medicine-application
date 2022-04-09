@@ -24,7 +24,7 @@ class RegisterViewModel extends ChangeNotifier {
       validate = true;
       notifyListeners();
       showInSnackBar(
-          'Please fix the errors in red before submitting.', context);
+          'Vui lòng hoàn thành điền thông tin trước khi đăng ký.', context);
     } else {
       if (password == cPassword) {
         loading = true;
@@ -54,7 +54,7 @@ class RegisterViewModel extends ChangeNotifier {
         loading = false;
         notifyListeners();
       } else {
-        showInSnackBar('The passwords does not match', context);
+        showInSnackBar('Mật khẩu không khớp', context);
       }
     }
   }

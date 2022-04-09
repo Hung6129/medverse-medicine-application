@@ -8,7 +8,7 @@ FirebaseFirestore firestore = FirebaseFirestore.instance;
 FirebaseStorage storage = FirebaseStorage.instance;
 final Uuid uuid = Uuid();
 
-// Collection refs
+// Connect to all collection refs
 CollectionReference usersRef = firestore.collection('users');
 CollectionReference chatRef = firestore.collection("chats");
 CollectionReference postRef = firestore.collection('posts');

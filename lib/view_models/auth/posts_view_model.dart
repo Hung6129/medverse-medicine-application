@@ -1,11 +1,11 @@
 import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:medverse_mobile_app/theme/palette.dart';
 import '/models/post.dart';
 import '/screens/mainscreen.dart';
 import '/services/post_service.dart';
@@ -107,9 +107,9 @@ class PostsViewModel extends ChangeNotifier {
           CropAspectRatioPreset.ratio16x9
         ],
         androidUiSettings: AndroidUiSettings(
-          toolbarTitle: 'Crop Image',
+          toolbarTitle: 'Cắt hình',
           toolbarColor: Constants.lightAccent,
-          toolbarWidgetColor: Colors.white,
+          toolbarWidgetColor: Palette.whiteText,
           initAspectRatio: CropAspectRatioPreset.original,
           lockAspectRatio: false,
         ),
@@ -123,7 +123,7 @@ class PostsViewModel extends ChangeNotifier {
     } catch (e) {
       loading = false;
       notifyListeners();
-      showInSnackBar('Cancelled',context);
+      showInSnackBar('Hủy bỏ',context);
     }
   }
 
@@ -163,14 +163,14 @@ class PostsViewModel extends ChangeNotifier {
       print(e);
       loading = false;
       resetPost();
-      showInSnackBar('Uploaded successfully!',context);
+      showInSnackBar('Tạo bài viết thành công!',context);
       notifyListeners();
     }
   }
 
   uploadProfilePicture(BuildContext context) async {
     if (mediaUrl == null) {
-      showInSnackBar('Please select an image',context);
+      showInSnackBar('Vui lòng chọn hình ảnh',context);
     } else {
       try {
         loading = true;
@@ -184,7 +184,7 @@ class PostsViewModel extends ChangeNotifier {
       } catch (e) {
         print(e);
         loading = false;
-        showInSnackBar('Uploaded successfully!',context);
+        showInSnackBar('Tải ảnh lên thành công!',context);
         notifyListeners();
       }
     }

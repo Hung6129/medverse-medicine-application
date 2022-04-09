@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:medverse_mobile_app/pages/drawer-items/account_information/pages/account_infomation.dart';
 import '/utils/firebase.dart';
 import '/models/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -8,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import '/theme/palette.dart';
 import '/auth/login/login.dart';
-import '/pages/profile.dart';
+import '/pages/drawer-items/profile/pages/profile.dart';
 import '/pages/drawer-items/pill_identifier/pages/pill_identifier_screen.dart';
 import '/pages/drawer-items/capture_images/pages/image_capture_page.dart';
 import '/pages/drawer-items/bmi_calculator/pages/input_screen.dart';
@@ -356,7 +355,7 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
       case 6:
         Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (context) => AccountInformation(),
+            builder: (context) => DrugRecommendation(),
           ),
         );
         break;

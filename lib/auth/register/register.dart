@@ -29,7 +29,7 @@ class _RegisterState extends State<Register> {
           children: [
             SizedBox(height: 10.0),
             Text(
-              'Welcome to Wooble Social App..\nCreate a new account and connect with friends',
+              'Chào mừng đến với ứng dụng Medverse. Hãy tạo tài khoản để tìm kiếm thông tin thuốc',
               style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 18.0,
@@ -42,7 +42,7 @@ class _RegisterState extends State<Register> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  'Already have an account  ',
+                  'Đã có tài khoản?  ',
                 ),
                 GestureDetector(
                   onTap: () {
@@ -50,7 +50,7 @@ class _RegisterState extends State<Register> {
                         .push(CupertinoPageRoute(builder: (_) => Login()));
                   },
                   child: Text(
-                    'Login',
+                    'Đăng nhập',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       color: Theme.of(context).accentColor,
@@ -74,7 +74,7 @@ class _RegisterState extends State<Register> {
           TextFormBuilder(
             enabled: !viewModel.loading,
             prefix: Feather.user,
-            hintText: "Username",
+            hintText: "Tên người dùng",
             textInputAction: TextInputAction.next,
             validateFunction: Validations.validateName,
             onSaved: (String val) {
@@ -100,7 +100,7 @@ class _RegisterState extends State<Register> {
           TextFormBuilder(
             enabled: !viewModel.loading,
             prefix: Feather.map_pin,
-            hintText: "Country",
+            hintText: "Quốc gia",
             textInputAction: TextInputAction.next,
             validateFunction: Validations.validateName,
             onSaved: (String val) {
@@ -114,7 +114,7 @@ class _RegisterState extends State<Register> {
             enabled: !viewModel.loading,
             prefix: Feather.lock,
             suffix: Feather.eye,
-            hintText: "Password",
+            hintText: "Mật khẩu",
             textInputAction: TextInputAction.next,
             validateFunction: Validations.validatePassword,
             obscureText: true,
@@ -128,7 +128,7 @@ class _RegisterState extends State<Register> {
           PasswordFormBuilder(
             enabled: !viewModel.loading,
             prefix: Feather.lock,
-            hintText: "Confirm Password",
+            hintText: "Xác nhận mật khẩu",
             textInputAction: TextInputAction.done,
             validateFunction: Validations.validatePassword,
             submitAction: () => viewModel.register(context),
@@ -153,7 +153,7 @@ class _RegisterState extends State<Register> {
                     Theme.of(context).accentColor),
               ),
               child: Text(
-                'sign up'.toUpperCase(),
+                'Đăng ký',
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 12.0,

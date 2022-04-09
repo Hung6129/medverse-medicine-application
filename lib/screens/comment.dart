@@ -42,7 +42,7 @@ class _CommentsState extends State<Comments> {
           ),
         ),
         centerTitle: true,
-        title: Text('Comments'),
+        title: Text('Bình luận bài viết'),
       ),
       body: Container(
         height: MediaQuery.of(context).size.height,
@@ -98,7 +98,7 @@ class _CommentsState extends State<Comments> {
                               ),
                               borderRadius: BorderRadius.circular(5.0),
                             ),
-                            hintText: "Write your comment...",
+                            hintText: "Viết bình luận của bạn...",
                             hintStyle: TextStyle(
                               fontSize: 15.0,
                               color:

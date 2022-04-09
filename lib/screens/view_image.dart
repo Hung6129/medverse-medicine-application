@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
+import 'package:medverse_mobile_app/theme/palette.dart';
 import '/models/post.dart';
 import '/models/user.dart';
 import '/utils/firebase.dart';
@@ -155,7 +156,7 @@ class _ViewImageState extends State<ViewImage> {
                   )
                 : Icon(
                     CupertinoIcons.heart_fill,
-                    color: Colors.red,
+                    color: Palette.red,
                   ),
           );
         }
