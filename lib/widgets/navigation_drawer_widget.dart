@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:medverse_mobile_app/pages/drawer-items/account_information/pages/account_infomation.dart';
 import '/utils/firebase.dart';
 import '/models/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -355,7 +356,7 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
       case 6:
         Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (context) => DrugRecommendation(),
+            builder: (context) => AccountInformation(),
           ),
         );
         break;

@@ -1,65 +1,153 @@
+import 'dart:ffi';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
-import '/services/service_data.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:medverse_mobile_app/controller/cubit/search_cache/search_cache_cubit.dart';
+
+import 'package:medverse_mobile_app/services/service_data.dart';
+
 import '/theme/palette.dart';
+import '/widgets/app_text.dart';
 import '/widgets/app_text_title.dart';
 import '/widgets/dimension.dart';
 
 class TypeAheadSearchBar extends StatefulWidget {
-  const TypeAheadSearchBar({Key key}) : super(key: key);
+  final String searchKeyWord;
+  TypeAheadSearchBar({Key key, this.searchKeyWord}) : super(key: key);
 
   @override
   _TypeAheadSearchBarState createState() => _TypeAheadSearchBarState();
 }
 
 class _TypeAheadSearchBarState extends State<TypeAheadSearchBar> {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final TextEditingController _typeAheadController = TextEditingController();
+  String _selectedDrug;
+  var _box = Hive.box("search-cache");
+
+  @override
+  void initState() {
+    super.initState();
+    // _typeAheadController.text =
+    //     widget.searchKeyWord == null ? "" : widget.searchKeyWord;
+    // BlocProvider.of<SearchCacheCubit>(context).populateSearchHistory();
+  }
+
+// function to send search keyword to cubit
+  // Future<void> _updateSearchCache(
+  //     String searchKeyword, SearchCacheCubit cacheCubit) async {
+  //   await cacheCubit.updateSearchHistory(searchKeyword);
+  // }
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin:
-          EdgeInsets.only(left: Dimensions.width10, right: Dimensions.width10),
-      decoration: BoxDecoration(
-        color: Palette.textNo.withAlpha(10),
-        borderRadius: BorderRadius.all(
-          Radius.circular(20),
+    // final cubit = BlocProvider.of<SearchCacheCubit>(context);
+    return Form(
+      key: this._formKey,
+      child: Padding(
+        padding: EdgeInsets.only(
+          top: Dimensions.height20,
+          right: Dimensions.height30,
+          left: Dimensions.height30,
+          bottom: Dimensions.height20,
         ),
-      ),
-      child: Row(
-        children: <Widget>[
-          Expanded(
-            child: TypeAheadField(
+        child: Column(
+          children: [
+            TypeAheadFormField(
               textFieldConfiguration: TextFieldConfiguration(
-                textInputAction: TextInputAction.search,
+                controller: this._typeAheadController,
                 decoration: InputDecoration(
-                  hintText: "Nhập tên thuốc bất kì...",
-                  prefixIcon: Icon(Icons.search),
-                  border: InputBorder.none,
-                ),
+                    suffixIcon: IconButton(
+                      onPressed: () {
+                        print(_typeAheadController.text);
+
+                        // _updateSearchCache(_typeAheadController.text, cubit);
+                        // if (this._formKey.currentState.validate()) {
+                        //   this._formKey.currentState.save();
+                        //   ScaffoldMessenger.of(context).showSnackBar(
+                        //     SnackBar(
+                        //       duration: Duration(seconds: 1),
+                        //       backgroundColor: Palette.mainBlueTheme,
+                        //       content: AppText(
+                        //         text: ' ${this._selectedDrug}',
+                        //         color: Palette.p1,
+                        //         fontWeight: FontWeight.normal,
+                        //         size: Dimensions.font18,
+                        //       ),
+                        //     ),
+                        //   );
+                        // }
+                      },
+                      icon: Icon(
+                        CupertinoIcons.search,
+                        color: Palette.mainBlueTheme,
+                      ),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(Dimensions.radius20),
+                      ),
+                      borderSide: BorderSide(color: Palette.mainBlueTheme),
+                    ),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(Dimensions.radius20),
+                      ),
+                      borderSide:
+                          BorderSide(width: 3, color: Palette.mainBlueTheme),
+                    ),
+                    labelText: 'Hôm nay bạn muốn tìm thuốc gì?'),
               ),
-              suggestionsCallback: (pattern) async {
-                return await typeAhead.getTypeAhead(pattern);
+              suggestionsCallback: (pattern) {
+                return typeAhead.getTypeAhead(pattern);
               },
               itemBuilder: (context, Map<String, dynamic> suggestion) {
-                return suggestion.isEmpty
-                    ? AppTextTitle(
-                        text: "----------",
-                        color: Colors.black54,
-                        size: 20,
-                        fontWeight: FontWeight.bold)
-                    : ListTile(
-                        title: AppTextTitle(
-                            text: suggestion['tenThuoc'],
-                            color: Colors.black54,
-                            size: Dimensions.font18,
-                            fontWeight: FontWeight.normal),
-                      );
+                return ListTile(
+                  title: AppTextTitle(
+                      text: suggestion['tenThuoc'],
+                      color: Colors.black54,
+                      size: Dimensions.font18,
+                      fontWeight: FontWeight.normal),
+                );
               },
-              onSuggestionSelected: (suggestion) {
-                print("tapped");
+              transitionBuilder: (context, suggestionsBox, controller) {
+                return suggestionsBox;
               },
+              onSuggestionSelected: (Map<String, dynamic> suggestion) {
+                this._typeAheadController.text = suggestion['tenThuoc'];
+              },
+              // validator: (value) {
+              //   if (value.isEmpty) {
+              //     return 'Hãy chọn nhập và chọn một tên thuốc bất kì';
+              //   }
+              // },
+
+              // onSaved: (value) => this._selectedDrug = value,
             ),
-          ),
-        ],
+            // BlocBuilder<SearchCacheCubit, SearchCacheState>(
+            //   builder: (context, state) {
+            //     if (state is SearchCacheLoaded)
+            //       return Container(
+            //         height: 100,
+            //         width: 100,
+            //         child: ListView.builder(
+            //           itemCount: cubit.searchHistory.length,
+            //           itemBuilder: (context, index) {
+            //             return ListTile(
+            //               title: Text(cubit.searchHistory.elementAt(index)),
+            //             );
+            //           },
+            //         ),
+            //       );
+            //     else
+            //       return SizedBox();
+            //   },
+            // ),
+          ],
+        ),
       ),
     );
   }

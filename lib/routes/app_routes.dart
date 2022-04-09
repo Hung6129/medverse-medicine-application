@@ -27,12 +27,7 @@ class AppRoutes {
         return getPageRoute(WellcomeScreen());
 
       case "/home":
-        return getMaterialRoute(
-          BlocProvider(
-            create: (context) => DrugsDataCubit(),
-            child: TabScreen(),
-          ),
-        );
+        return getMaterialRoute(TabScreen());
     }
   }
 }

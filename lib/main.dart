@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:medverse_mobile_app/controller/cubit/search_cache/search_cache_cubit.dart';
 import 'package:medverse_mobile_app/routes/app_routes.dart';
 import 'package:provider/provider.dart';
 import '/components/life_cycle_event_handler.dart';
@@ -18,6 +19,7 @@ void main() async {
   await Hive.initFlutter();
   Hive.registerAdapter<SavedDrugListModel>(SavedDrugListModelAdapter());
   await Hive.openBox<SavedDrugListModel>("savedList");
+  await Hive.openBox("search-cache");
   WidgetsFlutterBinding.ensureInitialized();
   await Config.initFirebase();
   runApp(MyApp());
@@ -59,13 +61,16 @@ class _MyAppState extends State<MyApp> {
                       BlocProvider(
                         create: (context) => DrugsDataCubit(),
                       ),
+                      BlocProvider(
+                        create: (context) => SearchCacheCubit(),
+                      ),
                     ],
                     child: GetMaterialApp(
                       debugShowCheckedModeBanner: false,
                       // home: const MainPage(),
                       onGenerateRoute: AppRoutes.onGeneratedRoutes,
                     ),
-                  );;
+                  );
                 } else
                   return Landing();
               },
