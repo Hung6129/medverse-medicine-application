@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:medverse_mobile_app/widgets/appbar.dart';
+import 'package:medverse_mobile_app/widgets/header.dart';
+import 'package:medverse_mobile_app/widgets/typeahead_search_bar.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';
+import '../../../../widgets/list_function.dart';
 import '/controller/cubit/drugs_data/drugs_data_cubit.dart';
-import '/widgets/app_icon.dart';
 import '/widgets/app_text_title.dart';
 import '/widgets/dimension.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '/widgets/navigation_drawer_widget.dart';
 import '/theme/palette.dart';
 import '/widgets/app_text.dart';
-import '/pages//detail_screen/drug_details.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key key}) : super(key: key);
@@ -32,7 +34,7 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
-  String imagesFav = "16571-0402-50_NLMIMAGE10_903AC856.jpg";
+  String imagesFav = "assets/images/drugs_pill/300.jpg";
 
   @override
   Widget build(BuildContext context) {
@@ -40,41 +42,38 @@ class _HomeScreenState extends State<HomeScreen> {
     final cubit = BlocProvider.of<DrugsDataCubit>(context);
     return Scaffold(
       drawer: const NavigationDrawerWidget(),
-      appBar: AppBar(
-        backgroundColor: Palette.mainBlueTheme,
-        title: Text(
-          'Trang chủ',
-          style: TextStyle(fontWeight: FontWeight.w900),
-        ),
-        centerTitle: true,
-      ),
+      appBar: 
+      appBarMain(titleText: "Trang chủ"),
+      // AppBar(
+      //   iconTheme: IconThemeData(color: Palette.mainBlueTheme),
+      //   backgroundColor: Palette.p1,
+      //   title: Text(
+      //     'Trang chủ',
+      //     style: TextStyle(
+      //         fontWeight: FontWeight.w900, color: Palette.mainBlueTheme),
+      //   ),
+      //   centerTitle: true,
+      // ),
       body: RefreshIndicator(
+        backgroundColor: Palette.p1,
         onRefresh: () {
           return _refreshData(cubit);
         },
         child: SingleChildScrollView(
           child: Column(
             children: [
+              TypeAheadSearchBar(),
               SizedBox(
                 height: Dimensions.height10,
               ),
-
+              ListIconFunction(),
               // recommended title
               Container(
                 margin: EdgeInsets.only(left: 20, right: 20),
-                child: Row(
-                  children: [
-                    AppText(
-                      text: "Đề xuất cho bạn",
-                      size: Dimensions.font16,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    AppIcon(
-                      icon: Icons.recommend,
-                      iconSize: Dimensions.icon24,
-                      iconColor: Palette.mainBlueTheme,
-                    )
-                  ],
+                child: AppText(
+                  text: "Đề xuất cho bạn",
+                  size: Dimensions.font16,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
               SizedBox(
@@ -91,12 +90,12 @@ class _HomeScreenState extends State<HomeScreen> {
                       itemCount: cubit.drugs.length,
                       itemBuilder: (context, index) => GestureDetector(
                         onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    DrugDetails(drugData: cubit.drugs[index])),
-                          );
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(
+                          //       builder: (context) =>
+                          //           DrugDetails(drugData: cubit.drugs[index])),
+                          // );
                         },
                         child: Container(
                           margin: EdgeInsets.only(
@@ -111,14 +110,15 @@ class _HomeScreenState extends State<HomeScreen> {
                                 width: Dimensions.itemsSizeImgHeight,
                                 height: Dimensions.itemsSizeImgHeight,
                                 decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(
-                                    Dimensions.radius20,
+                                  borderRadius: BorderRadius.only(
+                                    topLeft:
+                                        Radius.circular(Dimensions.radius20),
+                                    bottomLeft:
+                                        Radius.circular(Dimensions.radius20),
                                   ),
                                   image: DecorationImage(
                                     fit: BoxFit.cover,
-                                    image: AssetImage(
-                                        "assets/images/drugs_pill/" +
-                                            imagesFav),
+                                    image: AssetImage(imagesFav),
                                   ),
                                 ),
                               ),
@@ -126,7 +126,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               //text container
                               Expanded(
                                 child: Container(
-                                  height: Dimensions.itemsSizeTextIconHeight,
+                                  height: Dimensions.itemsSizeImgHeight,
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.only(
                                       topRight:
@@ -156,7 +156,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           height: Dimensions.height10,
                                         ),
                                         AppText(
-                                          text: cubit.drugs[index].nhomThuoc,
+                                          text: cubit.drugs[index].baoChe,
                                           color: Palette.textNo,
                                           size: Dimensions.font16,
                                           fontWeight: FontWeight.normal,

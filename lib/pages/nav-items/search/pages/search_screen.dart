@@ -48,114 +48,102 @@ class _SearchScreenState extends State<SearchScreen> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            SizedBox(
-              height: Dimensions.height10,
-            ),
-
             // Search bar by drug name
-            Container(
-              padding: EdgeInsets.only(
-                  left: Dimensions.width10, right: Dimensions.width10),
-              child: TypeAheadSearchBar(),
-            ),
-
-            SizedBox(
-              height: Dimensions.height10,
-            ),
+            TypeAheadSearchBar(),
 
             // Grid view of funcition
-            Container(
-              height: 300,
-              width: double.maxFinite,
-              child: GridView.builder(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3,
-                ),
-                itemCount: imagesIcon.length,
-                itemBuilder: (BuildContext ctx, int index) {
-                  return Column(
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          switch (index) {
-                            case 0:
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      null /*const Identifier()*/,
-                                ),
-                              );
-                              break;
-                            case 1:
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      null /*const CompareDrug()*/,
-                                ),
-                              );
-                              break;
-                            case 2:
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      null /*const InteractionChecker()*/,
-                                ),
-                              );
-                              break;
-                            case 3:
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      null /*const Identifier()*/,
-                                ),
-                              );
-                              break;
-                            case 4:
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      null /*const Identifier()*/,
-                                ),
-                              );
-                              break;
-                            case 5:
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      null /*const Identifier()*/,
-                                ),
-                              );
-                              break;
-                          }
-                        },
-                        child: Container(
-                          width: 60,
-                          height: 60,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            image: DecorationImage(
-                              image: AssetImage(
-                                "assets/images/" +
-                                    imagesIcon.keys.elementAt(index),
-                              ),
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        ),
-                      ),
-                      Container(
-                        child: AppTextTitle(
-                          text: imagesIcon.values.elementAt(index),
-                          fontWeight: FontWeight.w400,
-                          color: Palette.textNo,
-                          size: 18,
-                        ),
-                      ),
-                    ],
-                  );
-                },
-              ),
-            ),
+            // Container(
+            //   height: 300,
+            //   width: double.maxFinite,
+            //   child: GridView.builder(
+            //     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            //       crossAxisCount: 3,
+            //     ),
+            //     itemCount: imagesIcon.length,
+            //     itemBuilder: (BuildContext ctx, int index) {
+            //       return Column(
+            //         children: [
+            //           GestureDetector(
+            //             onTap: () {
+            //               switch (index) {
+            //                 case 0:
+            //                   Navigator.of(context).push(
+            //                     MaterialPageRoute(
+            //                       builder: (context) =>
+            //                           null /*const Identifier()*/,
+            //                     ),
+            //                   );
+            //                   break;
+            //                 case 1:
+            //                   Navigator.of(context).push(
+            //                     MaterialPageRoute(
+            //                       builder: (context) =>
+            //                           null /*const CompareDrug()*/,
+            //                     ),
+            //                   );
+            //                   break;
+            //                 case 2:
+            //                   Navigator.of(context).push(
+            //                     MaterialPageRoute(
+            //                       builder: (context) =>
+            //                           null /*const InteractionChecker()*/,
+            //                     ),
+            //                   );
+            //                   break;
+            //                 case 3:
+            //                   Navigator.of(context).push(
+            //                     MaterialPageRoute(
+            //                       builder: (context) =>
+            //                           null /*const Identifier()*/,
+            //                     ),
+            //                   );
+            //                   break;
+            //                 case 4:
+            //                   Navigator.of(context).push(
+            //                     MaterialPageRoute(
+            //                       builder: (context) =>
+            //                           null /*const Identifier()*/,
+            //                     ),
+            //                   );
+            //                   break;
+            //                 case 5:
+            //                   Navigator.of(context).push(
+            //                     MaterialPageRoute(
+            //                       builder: (context) =>
+            //                           null /*const Identifier()*/,
+            //                     ),
+            //                   );
+            //                   break;
+            //               }
+            //             },
+            //             child: Container(
+            //               width: 60,
+            //               height: 60,
+            //               decoration: BoxDecoration(
+            //                 borderRadius: BorderRadius.circular(20),
+            //                 image: DecorationImage(
+            //                   image: AssetImage(
+            //                     "assets/images/" +
+            //                         imagesIcon.keys.elementAt(index),
+            //                   ),
+            //                   fit: BoxFit.cover,
+            //                 ),
+            //               ),
+            //             ),
+            //           ),
+            //           Container(
+            //             child: AppTextTitle(
+            //               text: imagesIcon.values.elementAt(index),
+            //               fontWeight: FontWeight.w400,
+            //               color: Palette.textNo,
+            //               size: 18,
+            //             ),
+            //           ),
+            //         ],
+            //       );
+            //     },
+            //   ),
+            // ),
           ],
         ),
       ),

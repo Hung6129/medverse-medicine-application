@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_icons/flutter_icons.dart';
+import 'package:medverse_mobile_app/theme/palette.dart';
 import '/pages/nav-items/favorite/favorite_drugs_list_nav.dart';
 import '/pages/nav-items/search/pages/search_screen.dart';
 import '/controller/cubit/drugs_data/drugs_data_cubit.dart';
@@ -24,7 +25,7 @@ class _TabScreenState extends State<TabScreen> {
   List pages = [
     {
       'title': 'Trang chủ',
-      'icon': Feather.home,
+      'icon': CupertinoIcons.house_alt_fill,
       'page': BlocProvider(
         create: (BuildContext context) => DrugsDataCubit(),
         child: HomeScreen(),
@@ -33,25 +34,25 @@ class _TabScreenState extends State<TabScreen> {
     },
     {
       'title': 'Tìm kiếm người dùng',
-      'icon': Icons.people,
+      'icon': CupertinoIcons.group_solid,
       'page': Search(),
       'index': 1,
     },
     {
       'title': 'Tìm kiếm thuốc',
-      'icon': Icons.search,
+      'icon': CupertinoIcons.search,
       'page': SearchScreen(),
       'index': 2,
     },
     {
       'title': 'Tạo bài viết',
-      'icon': Feather.plus_circle,
+      'icon': CupertinoIcons.plus_app,
       'page': Text('nes'),
       'index': 3,
     },
     {
       'title': 'Đã lưu',
-      'icon': Icons.bookmark,
+      'icon': CupertinoIcons.square_favorites_alt_fill,
       'page': FavoriteDrugsListScreenNav(),
       'index': 4,
     },
@@ -63,7 +64,7 @@ class _TabScreenState extends State<TabScreen> {
     },
     {
       'title': 'Mạng xã hội',
-      'icon': Icons.podcasts,
+      'icon': CupertinoIcons.news_solid,
       'page': Timeline(),
       'index': 6,
     },
@@ -103,7 +104,7 @@ class _TabScreenState extends State<TabScreen> {
                         icon: Icon(
                           item['icon'],
                           color: item['index'] != _page
-                              ? Colors.grey
+                              ? Palette.mainBlueTheme.withOpacity(0.4)
                               : Theme.of(context).accentColor,
                           size: 20.0,
                         ),
