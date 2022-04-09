@@ -6,7 +6,7 @@ import 'package:flutter_icons/flutter_icons.dart';
 //import 'package:like_button/like_button.dart';
 import '/models/post.dart';
 import '/models/user.dart';
-import '/pages/profile.dart';
+import '../pages/drawer-items/profile/pages/profile.dart';
 import '/screens/comment.dart';
 import '/screens/view_image.dart';
 import '/utils/firebase.dart';

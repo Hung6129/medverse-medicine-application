@@ -164,8 +164,10 @@ class _EditHealthProfilePageState extends State<EditBMI> {
       try {
         /// Calling our firestore
         FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
+
         /// Calling our user model
         User user = _auth.currentUser;
+
         /// Sending these values
         UserHealthProfileModel userHealthProfileModel =
             UserHealthProfileModel();
@@ -182,7 +184,10 @@ class _EditHealthProfilePageState extends State<EditBMI> {
             .catchError((e) {
           Fluttertoast.showToast(msg: e.message);
         });
-        Fluttertoast.showToast(msg: "Cập nhật hồ sơ sức khỏe thành công");
+        Fluttertoast.showToast(
+          msg: "Cập nhật hồ sơ sức khỏe thành công",
+          backgroundColor: Palette.activeButton,
+        );
         Navigator.of(context).pop();
       } on FirebaseAuthException catch (error) {
         switch (error.code) {

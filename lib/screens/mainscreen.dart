@@ -5,14 +5,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:medverse_mobile_app/theme/palette.dart';
 import '/pages/nav-items/favorite/favorite_drugs_list_nav.dart';
-import '/pages/nav-items/search/pages/search_screen.dart';
 import '/controller/cubit/drugs_data/drugs_data_cubit.dart';
 import '/widgets/navigation_drawer_widget.dart';
 import '/components/fab_container.dart';
-import '/pages/notification.dart';
+import '/pages/nav-items/notification/pages/notification.dart';
 import '/pages/nav-items/home/pages/home_screen.dart';
-import '/pages/search.dart';
-import '/pages/feeds.dart';
+import '../pages/nav-items/search/pages/search.dart';
+import '/pages/nav-items/feeds/pages/feeds.dart';
 
 class TabScreen extends StatefulWidget {
   @override
@@ -39,34 +38,22 @@ class _TabScreenState extends State<TabScreen> {
       'index': 1,
     },
     {
-      'title': 'Tìm kiếm thuốc',
-      'icon': CupertinoIcons.search,
-      'page': SearchScreen(),
-      'index': 2,
-    },
-    {
-      'title': 'Tạo bài viết',
-      'icon': CupertinoIcons.plus_app,
-      'page': Text('nes'),
-      'index': 3,
-    },
-    {
       'title': 'Đã lưu',
       'icon': CupertinoIcons.square_favorites_alt_fill,
       'page': FavoriteDrugsListScreenNav(),
-      'index': 4,
+      'index': 2,
     },
     {
       'title': 'Thông báo',
       'icon': CupertinoIcons.bell_solid,
       'page': Activities(),
-      'index': 5,
+      'index': 3,
     },
     {
       'title': 'Mạng xã hội',
       'icon': CupertinoIcons.news_solid,
       'page': Timeline(),
-      'index': 6,
+      'index': 4,
     },
   ];
 
@@ -96,36 +83,22 @@ class _TabScreenState extends State<TabScreen> {
           children: [
             SizedBox(width: 5),
             for (Map item in pages)
-              item['index'] == 3
-                  ? buildFab()
-                  : Padding(
-                      padding: const EdgeInsets.only(top: 5.0),
-                      child: IconButton(
-                        icon: Icon(
-                          item['icon'],
-                          color: item['index'] != _page
-                              ? Palette.mainBlueTheme.withOpacity(0.4)
-                              : Theme.of(context).accentColor,
-                          size: 20.0,
-                        ),
-                        onPressed: () => navigationTapped(item['index']),
-                      ),
-                    ),
+              Padding(
+                padding: const EdgeInsets.only(top: 5.0),
+                child: IconButton(
+                  icon: Icon(
+                    item['icon'],
+                    color: item['index'] != _page
+                        ? Palette.mainBlueTheme.withOpacity(0.4)
+                        : Palette.mainBlueTheme,
+                    size: 20.0,
+                  ),
+                  onPressed: () => navigationTapped(item['index']),
+                ),
+              ),
             SizedBox(width: 5),
           ],
         ),
-      ),
-    );
-  }
-
-  buildFab() {
-    return Container(
-      height: 45.0,
-      width: 45.0,
-      // ignore: missing_required_param
-      child: FabContainer(
-        icon: Feather.plus,
-        mini: true,
       ),
     );
   }

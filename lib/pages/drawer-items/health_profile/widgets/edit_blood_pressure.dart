@@ -137,7 +137,8 @@ class _EditHealthProfilePageState extends State<EditBloodPressure> {
             style: TextStyle(fontWeight: FontWeight.w900),
           ),
           centerTitle: true,
-        ),        body: SingleChildScrollView(
+        ),
+        body: SingleChildScrollView(
           child: Container(
             margin: EdgeInsets.all(25.0),
             width: Dimensions.boxViewWidth,
@@ -223,7 +224,10 @@ class _EditHealthProfilePageState extends State<EditBloodPressure> {
             .catchError((e) {
           Fluttertoast.showToast(msg: e.message);
         });
-        Fluttertoast.showToast(msg: "Cập nhật hồ sơ sức khỏe thành công");
+        Fluttertoast.showToast(
+          msg: "Cập nhật hồ sơ sức khỏe thành công",
+          backgroundColor: Palette.activeButton,
+        );
         Navigator.of(context).pop();
       } on FirebaseAuthException catch (error) {
         switch (error.code) {

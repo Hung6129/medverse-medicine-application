@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
+import 'package:medverse_mobile_app/theme/palette.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:provider/provider.dart';
 import '/auth/login/login.dart';
@@ -29,7 +30,7 @@ class _RegisterState extends State<Register> {
           children: [
             SizedBox(height: 10.0),
             Text(
-              'Welcome to Wooble Social App..\nCreate a new account and connect with friends',
+              'Chào mừng đến với ứng dụng Medverse. Hãy tạo tài khoản để tìm kiếm thông tin thuốc',
               style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 18.0,
@@ -42,7 +43,7 @@ class _RegisterState extends State<Register> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  'Already have an account  ',
+                  'Đã có tài khoản?  ',
                 ),
                 GestureDetector(
                   onTap: () {
@@ -50,10 +51,10 @@ class _RegisterState extends State<Register> {
                         .push(CupertinoPageRoute(builder: (_) => Login()));
                   },
                   child: Text(
-                    'Login',
+                    'Đăng nhập',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      color: Theme.of(context).accentColor,
+                      color: Palette.mainBlueTheme,
                     ),
                   ),
                 ),
@@ -74,7 +75,7 @@ class _RegisterState extends State<Register> {
           TextFormBuilder(
             enabled: !viewModel.loading,
             prefix: Feather.user,
-            hintText: "Username",
+            hintText: "Tên người dùng",
             textInputAction: TextInputAction.next,
             validateFunction: Validations.validateName,
             onSaved: (String val) {
@@ -100,7 +101,7 @@ class _RegisterState extends State<Register> {
           TextFormBuilder(
             enabled: !viewModel.loading,
             prefix: Feather.map_pin,
-            hintText: "Country",
+            hintText: "Quốc gia",
             textInputAction: TextInputAction.next,
             validateFunction: Validations.validateName,
             onSaved: (String val) {
@@ -114,7 +115,7 @@ class _RegisterState extends State<Register> {
             enabled: !viewModel.loading,
             prefix: Feather.lock,
             suffix: Feather.eye,
-            hintText: "Password",
+            hintText: "Mật khẩu",
             textInputAction: TextInputAction.next,
             validateFunction: Validations.validatePassword,
             obscureText: true,
@@ -128,7 +129,7 @@ class _RegisterState extends State<Register> {
           PasswordFormBuilder(
             enabled: !viewModel.loading,
             prefix: Feather.lock,
-            hintText: "Confirm Password",
+            hintText: "Xác nhận mật khẩu",
             textInputAction: TextInputAction.done,
             validateFunction: Validations.validatePassword,
             submitAction: () => viewModel.register(context),
@@ -150,12 +151,12 @@ class _RegisterState extends State<Register> {
                   ),
                 ),
                 backgroundColor: MaterialStateProperty.all<Color>(
-                    Theme.of(context).accentColor),
+                    Palette.mainBlueTheme),
               ),
               child: Text(
-                'sign up'.toUpperCase(),
+                'Đăng ký',
                 style: TextStyle(
-                  color: Colors.white,
+                  color: Palette.whiteText,
                   fontSize: 12.0,
                   fontWeight: FontWeight.w600,
                 ),

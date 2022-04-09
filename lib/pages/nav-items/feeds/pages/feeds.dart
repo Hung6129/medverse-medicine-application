@@ -3,9 +3,11 @@ import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 import 'package:medverse_mobile_app/auth/login/login.dart';
 import 'package:medverse_mobile_app/theme/palette.dart';
 import 'package:medverse_mobile_app/widgets/navigation_drawer_widget.dart';
+import '../../../../components/fab_container.dart';
 import '/models/post.dart';
 import '/utils/firebase.dart';
 import '/widgets/indicators.dart';
@@ -114,11 +116,24 @@ class _TimelineState extends State<Timeline> {
                   );
                 },
               ),
+        floatingActionButton: buildFab(),
       );
     } else {
       _checkAuthentication = new Login();
     }
     return _checkAuthentication;
+  }
+
+  buildFab() {
+    return Container(
+      height: 45.0,
+      width: 45.0,
+      // ignore: missing_required_param
+      child: FabContainer(
+        icon: Feather.plus,
+        mini: true,
+      ),
+    );
   }
 
   internetChecker(context) async {
