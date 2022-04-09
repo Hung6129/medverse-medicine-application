@@ -117,7 +117,8 @@ class _EditHealthProfilePageState extends State<EditBloodGroup> {
             style: TextStyle(fontWeight: FontWeight.w900),
           ),
           centerTitle: true,
-        ),        body: SingleChildScrollView(
+        ),
+        body: SingleChildScrollView(
           child: Container(
             margin: EdgeInsets.all(25.0),
             width: Dimensions.boxViewWidth,
