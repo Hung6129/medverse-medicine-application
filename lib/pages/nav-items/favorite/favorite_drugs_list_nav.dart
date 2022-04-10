@@ -1,3 +1,5 @@
+import 'package:medverse_mobile_app/widgets/header.dart';
+
 import '/models/test/saved_drug_list_model.dart';
 import '/pages/detail_screen/drug_details_saved.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -26,14 +28,7 @@ class _FavoriteDrugsListScreenNavState
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: NavigationDrawerWidget(),
-      appBar: AppBar(
-        backgroundColor: Palette.mainBlueTheme,
-        title: Text(
-          'Danh sách yêu thích',
-          style: TextStyle(fontWeight: FontWeight.w900),
-        ),
-        centerTitle: true,
-      ),
+      appBar: appBarMain(titleText: "Danh sách yêu thích"),
       body: _box.isEmpty
           ? Center(
               child: AppTextTitle(

@@ -1,3 +1,8 @@
+import 'dart:convert';
+
+import 'package:http/http.dart' as http;
+
+import '../../../../widgets/header.dart';
 import '/widgets/app_text_title.dart';
 import '/theme/palette.dart';
 import '/widgets/app_text.dart';
@@ -38,25 +43,18 @@ class _IdentifierState extends State<Identifier> {
     'Tứ giác',
   ];
 
-  @override
-  void initState() {
-    super.initState();
-  }
-
   String dropDownColor = "Chọn màu sắc";
   String dropdownShape = "Chọn hình dạng";
+
+  //test
+  String baseUrl = "https://fakestoreapi.com/products";
+  String urlCate = "/categories";
+  String urlCateTypes = "/category/";
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Palette.mainBlueTheme,
-        title: Text(
-          'Tìm kiếm nâng cao',
-          style: TextStyle(fontWeight: FontWeight.w900),
-        ),
-        centerTitle: true,
-      ),
+      appBar: appBarMain(titleText: "Tìm kiếm nâng cao"),
       body: SingleChildScrollView(
         child: Column(
           children: [

@@ -61,6 +61,9 @@ class _MyAppState extends State<MyApp> {
                       BlocProvider(
                         create: (context) => DrugsDataCubit(),
                       ),
+                      BlocProvider(
+                        create: (context) => SearchCacheCubit(),
+                      ),
                     ],
                     child: GetMaterialApp(
                       debugShowCheckedModeBanner: false,
