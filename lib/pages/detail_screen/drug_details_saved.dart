@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:hive/hive.dart';
+
+import 'package:medverse_mobile_app/widgets/header.dart';
 import '/models/test/saved_drug_list_model.dart';
-import '/models/test/drugs_product_test.dart';
 import '/theme/palette.dart';
-import '/widgets/app_text.dart';
 import '/widgets/app_text_title.dart';
 import '/widgets/dimension.dart';
 import '/widgets/rich_text_cus.dart';
@@ -19,29 +17,13 @@ class DrugDetailSaved extends StatelessWidget {
     this.drugData,
   }) : super(key: key);
 
-  String imagesFav = "16571-0402-50_NLMIMAGE10_903AC856.jpg";
+  String imagesFav = "assets/images/drugs_pill/300.jpg";
 
   @override
   Widget build(BuildContext context) {
     var info = drugData;
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Palette.mainBlueTheme,
-        title: Text(
-          'Thuốc đã lưu',
-          style: TextStyle(fontWeight: FontWeight.w900),
-        ),
-        centerTitle: true,
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: FaIcon(
-              FontAwesomeIcons.dotCircle,
-              size: Dimensions.icon24,
-            ),
-          ),
-        ],
-      ),
+      appBar: appBarMain(titleText: ""),
       body: SingleChildScrollView(
           child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -54,24 +36,11 @@ class DrugDetailSaved extends StatelessWidget {
                 left: Dimensions.width10,
                 right: Dimensions.width10),
             alignment: Alignment.center,
-            child: GestureDetector(
-              onTap: () {
-                // SavedDrugListModel newData = SavedDrugListModel(
-                //     id: drugData.id.toString(),
-                //     tenThuoc: drugData.tenThuoc.toString());
-                // _box.add(newData);
-                // ScaffoldMessenger.of(context).showSnackBar(
-                //   const SnackBar(
-                //     content: Text('Bạn đã lưu thuốc thàng công.'),
-                //   ),
-                // );
-              },
-              child: AppTextTitle(
-                  text: drugData.tenThuoc.toString(),
-                  color: Palette.mainBlueTheme,
-                  size: Dimensions.font34,
-                  fontWeight: FontWeight.w500),
-            ),
+            child: AppTextTitle(
+                text: drugData.tenThuoc.toString(),
+                color: Palette.mainBlueTheme,
+                size: Dimensions.font34,
+                fontWeight: FontWeight.w500),
           ),
 
           // drug information
@@ -114,8 +83,7 @@ class DrugDetailSaved extends StatelessWidget {
                       decoration: BoxDecoration(
                         image: DecorationImage(
                           fit: BoxFit.cover,
-                          image: AssetImage(
-                              "assets/images/drugs_pill/" + imagesFav),
+                          image: AssetImage(imagesFav),
                         ),
                       ),
                     ),
@@ -125,8 +93,7 @@ class DrugDetailSaved extends StatelessWidget {
                       decoration: BoxDecoration(
                         image: DecorationImage(
                           fit: BoxFit.cover,
-                          image: AssetImage(
-                              "assets/images/drugs_pill/" + imagesFav),
+                          image: AssetImage(imagesFav),
                         ),
                       ),
                     ),
@@ -144,8 +111,7 @@ class DrugDetailSaved extends StatelessWidget {
                       decoration: BoxDecoration(
                         image: DecorationImage(
                           fit: BoxFit.cover,
-                          image: AssetImage(
-                              "assets/images/drugs_pill/" + imagesFav),
+                          image: AssetImage(imagesFav),
                         ),
                       ),
                     ),
@@ -155,8 +121,7 @@ class DrugDetailSaved extends StatelessWidget {
                       decoration: BoxDecoration(
                         image: DecorationImage(
                           fit: BoxFit.cover,
-                          image: AssetImage(
-                              "assets/images/drugs_pill/" + imagesFav),
+                          image: AssetImage(imagesFav),
                         ),
                       ),
                     ),

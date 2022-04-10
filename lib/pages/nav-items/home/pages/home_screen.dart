@@ -4,6 +4,7 @@ import 'package:medverse_mobile_app/widgets/header.dart';
 import 'package:medverse_mobile_app/widgets/typeahead_search_bar.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';
 import '../../../../widgets/list_function.dart';
+import '../../../detail_screen/drug_details.dart';
 import '/controller/cubit/drugs_data/drugs_data_cubit.dart';
 import '/widgets/app_text_title.dart';
 import '/widgets/dimension.dart';
@@ -42,18 +43,7 @@ class _HomeScreenState extends State<HomeScreen> {
     final cubit = BlocProvider.of<DrugsDataCubit>(context);
     return Scaffold(
       drawer: const NavigationDrawerWidget(),
-      appBar: 
-      appBarMain(titleText: "Trang chủ"),
-      // AppBar(
-      //   iconTheme: IconThemeData(color: Palette.mainBlueTheme),
-      //   backgroundColor: Palette.p1,
-      //   title: Text(
-      //     'Trang chủ',
-      //     style: TextStyle(
-      //         fontWeight: FontWeight.w900, color: Palette.mainBlueTheme),
-      //   ),
-      //   centerTitle: true,
-      // ),
+      appBar: appBarMain(titleText: "Trang chủ"),
       body: RefreshIndicator(
         backgroundColor: Palette.p1,
         onRefresh: () {
@@ -62,11 +52,12 @@ class _HomeScreenState extends State<HomeScreen> {
         child: SingleChildScrollView(
           child: Column(
             children: [
+              // search bar
               TypeAheadSearchBar(),
-              SizedBox(
-                height: Dimensions.height10,
-              ),
+
+              // list function
               ListIconFunction(),
+
               // recommended title
               Container(
                 margin: EdgeInsets.only(left: 20, right: 20),
@@ -90,12 +81,12 @@ class _HomeScreenState extends State<HomeScreen> {
                       itemCount: cubit.drugs.length,
                       itemBuilder: (context, index) => GestureDetector(
                         onTap: () {
-                          // Navigator.push(
-                          //   context,
-                          //   MaterialPageRoute(
-                          //       builder: (context) =>
-                          //           DrugDetails(drugData: cubit.drugs[index])),
-                          // );
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    DrugDetails(drugData: cubit.drugs[index])),
+                          );
                         },
                         child: Container(
                           margin: EdgeInsets.only(
