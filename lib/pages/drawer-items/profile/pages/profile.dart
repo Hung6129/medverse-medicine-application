@@ -3,6 +3,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
+import 'package:medverse_mobile_app/widgets/tabbar_widget.dart';
+import '../../account_information/pages/account_infomation.dart';
+import '../../health_profile/widgets/main_screen_health_profile.dart';
 import '/theme/palette.dart';
 import '/auth/register/register.dart';
 import '/components/stream_builder_wrapper.dart';
@@ -306,6 +309,22 @@ class _ProfileState extends State<Profile> {
               ),
             ),
           ),
+          /*TabBarWidget(
+            tabs: [
+              Tab(
+                icon: Icon(Icons.health_and_safety_sharp),
+                text: 'Thông tin chỉ số sức khỏe',
+              ),
+              Tab(
+                icon: Icon(Icons.account_balance_sharp),
+                text: 'Thông tin chi tiết',
+              ),
+            ],
+            children: [
+              HealthProfile(),
+              AccountInformation(),
+            ],
+          ),*/
           SliverList(
             delegate: SliverChildBuilderDelegate(
               (BuildContext context, int index) {
