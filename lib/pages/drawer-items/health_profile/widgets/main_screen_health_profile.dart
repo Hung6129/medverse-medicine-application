@@ -109,7 +109,8 @@ class MapScreenState extends State<HealthProfile>
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.only(
                                 topLeft: Radius.circular(Dimensions.radius20),
-                                bottomLeft: Radius.circular(Dimensions.radius20),
+                                bottomLeft:
+                                Radius.circular(Dimensions.radius20),
                               ),
                               image: DecorationImage(
                                 fit: BoxFit.cover,
@@ -135,6 +136,10 @@ class MapScreenState extends State<HealthProfile>
                                       userHealthProfileModel.height.isEmpty
                                       ? Text(
                                     'Không có dữ liệu',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Palette.textNo,
+                                    ),
                                   )
                                       : Text(
                                     '${userHealthProfileModel.height}',
@@ -200,7 +205,8 @@ class MapScreenState extends State<HealthProfile>
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.only(
                                 topLeft: Radius.circular(Dimensions.radius20),
-                                bottomLeft: Radius.circular(Dimensions.radius20),
+                                bottomLeft:
+                                Radius.circular(Dimensions.radius20),
                               ),
                               image: DecorationImage(
                                 fit: BoxFit.cover,
@@ -225,6 +231,10 @@ class MapScreenState extends State<HealthProfile>
                                       userHealthProfileModel.weight.isEmpty
                                       ? Text(
                                     'Không có dữ liệu',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Palette.textNo,
+                                    ),
                                   )
                                       : Text(
                                     '${userHealthProfileModel.weight}',
@@ -251,462 +261,386 @@ class MapScreenState extends State<HealthProfile>
                     ),
                   ),
                 ),
-                SizedBox(height: 30),
-                Expanded(
-                  child: Row(
-                    children: <Widget>[
-                      Expanded(
-                        child: GestureDetector(
-                          onTap: () => Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) => const EditBMI(),
+                SizedBox(height: 25),
+
+                /// BMI card
+                GestureDetector(
+                  onTap: () => Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const EditBMI(),
+                    ),
+                  ),
+                  child: Container(
+                    width: Dimensions.boxViewWidth,
+                    decoration: BoxDecoration(
+                      color: Palette.whiteText,
+                      borderRadius: BorderRadius.circular(Dimensions.radius15),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Palette.blueGrey,
+                          offset: const Offset(
+                            0.0,
+                            0.0,
+                          ),
+                          blurRadius: 10.0,
+                          spreadRadius: 3.0,
+                        ), //BoxShadow
+                      ],
+                      border: Border.all(
+                        color: Palette.blueGrey,
+                        width: 1,
+                      ),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(15.0),
+                      child: Row(
+                        children: [
+                          Container(
+                            width: 60,
+                            height: 60,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(Dimensions.radius20),
+                                bottomLeft:
+                                Radius.circular(Dimensions.radius20),
+                              ),
+                              image: DecorationImage(
+                                fit: BoxFit.cover,
+                                image: AssetImage(
+                                    'assets/health_profile_icon/bmi.png'),
+                              ),
                             ),
                           ),
-                          child: Container(
-                            width: Dimensions.boxViewWidth,
-                            margin: EdgeInsets.all(15.0),
-                            decoration: BoxDecoration(
-                              color: Palette.mainBlueTheme,
-                              borderRadius:
-                                  BorderRadius.circular(Dimensions.radius15),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Palette.mainBlueTheme,
-                                  offset: const Offset(
-                                    0.0,
-                                    0.0,
-                                  ),
-                                  blurRadius: 10.0,
-                                  spreadRadius: 2.0,
-                                ), //BoxShadow
-                              ],
-                            ),
-                            child: FittedBox(
-                              fit: BoxFit.contain,
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: <Widget>[
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Row(
-                                      children: <Widget>[
-                                        Image.asset(
-                                          'assets/health_profile_icon/bmi.png',
-                                          height: 60,
-                                          width: 60,
-                                          fit: BoxFit.cover,
-                                        ),
-                                        SizedBox(width: 10),
-                                        Column(
-                                          mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: <Widget>[
-                                            userHealthProfileModel.bmi ==
-                                                        null ||
-                                                    userHealthProfileModel
-                                                        .bmi.isEmpty
-                                                ? Text(
-                                                    'Không có dữ liệu',
-                                                    style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      fontSize: 20,
-                                                      color: Palette.whiteText,
-                                                    ),
-                                                  )
-                                                : Text(
-                                                    '${userHealthProfileModel.bmi}',
-                                                    style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      fontSize: 20,
-                                                      color: Palette.whiteText,
-                                                    ),
-                                                  ),
-                                            Text(
-                                              'kg/m2',
-                                              style: TextStyle(
-                                                fontSize: 20,
-                                                color: Palette.whiteText,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
+                          SizedBox(width: 20),
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Text(
+                                'Chỉ số BMI:',
+                                style: black_kLabelStyle,
+                              ),
+                              SizedBox(height: 10),
+                              Row(
+                                children: [
+                                  userHealthProfileModel.bmi == null ||
+                                      userHealthProfileModel.bmi.isEmpty
+                                      ? Text(
+                                    'Không có dữ liệu',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Palette.textNo,
+                                    ),
+                                  )
+                                      : Text(
+                                    '${userHealthProfileModel.bmi}',
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                      color: Palette.textNo,
                                     ),
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Text(
-                                      'Chỉ số BMI',
-                                      style: TextStyle(
-                                        color: Palette.whiteText,
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold,
-                                      ),
+                                  SizedBox(width: 5),
+                                  Text(
+                                    'kg/m2',
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                      color: Palette.textNo,
                                     ),
                                   ),
                                 ],
                               ),
-                            ),
+                            ],
                           ),
-                        ),
+                        ],
                       ),
-                      Expanded(
-                        child: Row(
-                          children: <Widget>[
-                            Expanded(
-                              child: GestureDetector(
-                                onTap: () => Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        const EditBloodPressure(),
-                                  ),
-                                ),
-                                child: Container(
-                                  width: Dimensions.boxViewWidth,
-                                  margin: EdgeInsets.all(15.0),
-                                  decoration: BoxDecoration(
-                                    color: Palette.mainBlueTheme,
-                                    borderRadius: BorderRadius.circular(
-                                        Dimensions.radius15),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Palette.mainBlueTheme,
-                                        offset: const Offset(
-                                          0.0,
-                                          0.0,
-                                        ),
-                                        blurRadius: 10.0,
-                                        spreadRadius: 2.0,
-                                      ), //BoxShadow
-                                    ],
-                                  ),
-                                  child: FittedBox(
-                                    fit: BoxFit.contain,
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: <Widget>[
-                                        Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Row(
-                                            children: <Widget>[
-                                              Image.asset(
-                                                'assets/health_profile_icon/blood_pressure.png',
-                                                height: 60,
-                                                width: 60,
-                                                fit: BoxFit.cover,
-                                              ),
-                                              SizedBox(width: 10),
-                                              Column(
-                                                mainAxisSize: MainAxisSize.max,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.start,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: <Widget>[
-                                                  userHealthProfileModel.SBP ==
-                                                              null ||
-                                                          userHealthProfileModel
-                                                                  .DBP ==
-                                                              null ||
-                                                          userHealthProfileModel
-                                                              .SBP.isEmpty ||
-                                                          userHealthProfileModel
-                                                              .DBP.isEmpty
-                                                      ? Text(
-                                                          'Không có dữ liêu',
-                                                          style: TextStyle(
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              fontSize: 20,
-                                                              color: Palette
-                                                                  .whiteText),
-                                                        )
-                                                      : Text(
-                                                          '${userHealthProfileModel.SBP}/${userHealthProfileModel.DBP}',
-                                                          style: TextStyle(
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            fontSize: 20,
-                                                            color: Palette
-                                                                .whiteText,
-                                                          ),
-                                                        ),
-                                                  Text(
-                                                    'mmHg',
-                                                    style: TextStyle(
-                                                      fontSize: 20,
-                                                      color: Palette.whiteText,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Text(
-                                            'Huyết áp',
-                                            style: TextStyle(
-                                              color: Palette.whiteText,
-                                              fontSize: 20,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 25),
+
+                /// Blood pressure card
+                GestureDetector(
+                  onTap: () => Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const EditBloodPressure(),
+                    ),
+                  ),
+                  child: Container(
+                    width: Dimensions.boxViewWidth,
+                    decoration: BoxDecoration(
+                      color: Palette.whiteText,
+                      borderRadius: BorderRadius.circular(Dimensions.radius15),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Palette.blueGrey,
+                          offset: const Offset(
+                            0.0,
+                            0.0,
+                          ),
+                          blurRadius: 10.0,
+                          spreadRadius: 3.0,
+                        ), //BoxShadow
+                      ],
+                      border: Border.all(
+                        color: Palette.blueGrey,
+                        width: 1,
+                      ),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(15.0),
+                      child: Row(
+                        children: [
+                          Container(
+                            width: 60,
+                            height: 60,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(Dimensions.radius20),
+                                bottomLeft:
+                                Radius.circular(Dimensions.radius20),
+                              ),
+                              image: DecorationImage(
+                                fit: BoxFit.cover,
+                                image: AssetImage(
+                                    'assets/health_profile_icon/blood_pressure.png'),
                               ),
                             ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                  flex: 0,
-                ),
-                Expanded(
-                  child: Row(
-                    children: <Widget>[
-                      Expanded(
-                        child: GestureDetector(
-                          onTap: () => Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) => const EditSP02(),
-                            ),
                           ),
-                          child: Container(
-                            width: Dimensions.boxViewWidth,
-                            margin: EdgeInsets.all(15.0),
-                            decoration: BoxDecoration(
-                              color: Palette.mainBlueTheme,
-                              borderRadius:
-                                  BorderRadius.circular(Dimensions.radius15),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Palette.mainBlueTheme,
-                                  offset: const Offset(
-                                    0.0,
-                                    0.0,
-                                  ),
-                                  blurRadius: 10.0,
-                                  spreadRadius: 2.0,
-                                ), //BoxShadow
-                              ],
-                            ),
-                            child: FittedBox(
-                              fit: BoxFit.contain,
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: <Widget>[
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Row(
-                                      children: <Widget>[
-                                        Image.asset(
-                                          'assets/health_profile_icon/sp02.png',
-                                          height: 60,
-                                          width: 60,
-                                          fit: BoxFit.cover,
-                                        ),
-                                        SizedBox(width: 10),
-                                        Column(
-                                          mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: <Widget>[
-                                            userHealthProfileModel.SP02 ==
-                                                        null ||
-                                                    userHealthProfileModel
-                                                        .SP02.isEmpty
-                                                ? Text(
-                                                    'Không có dữ liêu',
-                                                    style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      fontSize: 20,
-                                                      color: Palette.whiteText,
-                                                    ),
-                                                  )
-                                                : Text(
-                                                    '${userHealthProfileModel.SP02}',
-                                                    style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      fontSize: 20,
-                                                      color: Palette.whiteText,
-                                                    ),
-                                                  ),
-                                            Text(
-                                              'nhịp/phút',
-                                              style: TextStyle(
-                                                fontSize: 20,
-                                                color: Palette.whiteText,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
+                          SizedBox(width: 20),
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Text(
+                                'Huyết áp:',
+                                style: black_kLabelStyle,
+                              ),
+                              SizedBox(height: 10),
+                              Row(
+                                children: [
+                                  userHealthProfileModel.SBP == null ||
+                                      userHealthProfileModel.DBP == null ||
+                                      userHealthProfileModel.SBP.isEmpty ||
+                                      userHealthProfileModel.DBP.isEmpty
+                                      ? Text(
+                                    'Không có dữ liệu',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Palette.textNo,
+                                    ),
+                                  )
+                                      : Text(
+                                    '${userHealthProfileModel.SBP}/${userHealthProfileModel.DBP}',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20,
+                                      color: Palette.textNo,
                                     ),
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Text(
-                                      'Nhịp tim',
-                                      style: TextStyle(
-                                        color: Palette.whiteText,
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold,
-                                      ),
+                                  SizedBox(width: 5),
+                                  Text(
+                                    'mmHg',
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                      color: Palette.textNo,
                                     ),
                                   ),
                                 ],
                               ),
-                            ),
+                            ],
                           ),
-                        ),
+                        ],
                       ),
-                      Expanded(
-                        child: Row(
-                          children: <Widget>[
-                            Expanded(
-                              child: GestureDetector(
-                                onTap: () => Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        const EditBloodGroup(),
-                                  ),
-                                ),
-                                child: Container(
-                                  width: Dimensions.boxViewWidth,
-                                  margin: EdgeInsets.all(15.0),
-                                  decoration: BoxDecoration(
-                                    color: Palette.mainBlueTheme,
-                                    borderRadius: BorderRadius.circular(
-                                        Dimensions.radius15),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Palette.mainBlueTheme,
-                                        offset: const Offset(
-                                          0.0,
-                                          0.0,
-                                        ),
-                                        blurRadius: 10.0,
-                                        spreadRadius: 2.0,
-                                      ), //BoxShadow
-                                    ],
-                                  ),
-                                  child: FittedBox(
-                                    fit: BoxFit.contain,
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: <Widget>[
-                                        Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Row(
-                                            children: <Widget>[
-                                              Image.asset(
-                                                'assets/health_profile_icon/blood_group.png',
-                                                height: 60,
-                                                width: 60,
-                                                fit: BoxFit.cover,
-                                              ),
-                                              SizedBox(width: 10),
-                                              Column(
-                                                mainAxisSize: MainAxisSize.max,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.start,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: <Widget>[
-                                                  userHealthProfileModel
-                                                                  .bloodGroup ==
-                                                              null ||
-                                                          userHealthProfileModel
-                                                              .bloodGroup
-                                                              .isEmpty
-                                                      ? Text(
-                                                          'Không có dữ liêu',
-                                                          style: TextStyle(
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            fontSize: 20,
-                                                            color: Palette
-                                                                .whiteText,
-                                                          ),
-                                                        )
-                                                      : FittedBox(
-                                                          fit: BoxFit.cover,
-                                                          child: Text(
-                                                            '${userHealthProfileModel.bloodGroup}',
-                                                            style: TextStyle(
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              fontSize: 20,
-                                                              color: Palette
-                                                                  .whiteText,
-                                                            ),
-                                                          ),
-                                                        ),
-                                                  Text(
-                                                    'mmHg',
-                                                    style: TextStyle(
-                                                      fontSize: 20,
-                                                      color: Palette.whiteText,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Text(
-                                            'Nhóm máu',
-                                            style: TextStyle(
-                                              color: Palette.whiteText,
-                                              fontSize: 20,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 25),
+
+                /// SP02 card
+                GestureDetector(
+                  onTap: () => Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const EditSP02(),
+                    ),
+                  ),
+                  child: Container(
+                    width: Dimensions.boxViewWidth,
+                    decoration: BoxDecoration(
+                      color: Palette.whiteText,
+                      borderRadius: BorderRadius.circular(Dimensions.radius15),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Palette.blueGrey,
+                          offset: const Offset(
+                            0.0,
+                            0.0,
+                          ),
+                          blurRadius: 10.0,
+                          spreadRadius: 3.0,
+                        ), //BoxShadow
+                      ],
+                      border: Border.all(
+                        color: Palette.blueGrey,
+                        width: 1,
+                      ),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(15.0),
+                      child: Row(
+                        children: [
+                          Container(
+                            width: 60,
+                            height: 60,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(Dimensions.radius20),
+                                bottomLeft:
+                                Radius.circular(Dimensions.radius20),
+                              ),
+                              image: DecorationImage(
+                                fit: BoxFit.cover,
+                                image: AssetImage(
+                                    'assets/health_profile_icon/sp02.png'),
                               ),
                             ),
-                          ],
-                        ),
+                          ),
+                          SizedBox(width: 20),
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Text(
+                                'Huyết áp:',
+                                style: black_kLabelStyle,
+                              ),
+                              SizedBox(height: 10),
+                              Row(
+                                children: [
+                                  userHealthProfileModel.SP02 == null ||
+                                      userHealthProfileModel.SP02.isEmpty
+                                      ? Text(
+                                    'Không có dữ liệu',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Palette.textNo,
+                                    ),
+                                  )
+                                      : Text(
+                                    '${userHealthProfileModel.SP02}',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20,
+                                      color: Palette.textNo,
+                                    ),
+                                  ),
+                                  SizedBox(width: 5),
+                                  Text(
+                                    'nhịp/phút',
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                      color: Palette.textNo,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
-                    ],
+                    ),
                   ),
-                  flex: 0,
                 ),
+                SizedBox(height: 25),
+
+                /// Blood group card
+                GestureDetector(
+                  onTap: () => Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const EditSP02(),
+                    ),
+                  ),
+                  child: Container(
+                    width: Dimensions.boxViewWidth,
+                    decoration: BoxDecoration(
+                      color: Palette.whiteText,
+                      borderRadius: BorderRadius.circular(Dimensions.radius15),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Palette.blueGrey,
+                          offset: const Offset(
+                            0.0,
+                            0.0,
+                          ),
+                          blurRadius: 10.0,
+                          spreadRadius: 3.0,
+                        ), //BoxShadow
+                      ],
+                      border: Border.all(
+                        color: Palette.blueGrey,
+                        width: 1,
+                      ),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(15.0),
+                      child: Row(
+                        children: [
+                          Container(
+                            width: 60,
+                            height: 60,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(Dimensions.radius20),
+                                bottomLeft:
+                                Radius.circular(Dimensions.radius20),
+                              ),
+                              image: DecorationImage(
+                                fit: BoxFit.cover,
+                                image: AssetImage(
+                                    'assets/health_profile_icon/blood_group.png'),
+                              ),
+                            ),
+                          ),
+                          SizedBox(width: 20),
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Text(
+                                'Huyết áp:',
+                                style: black_kLabelStyle,
+                              ),
+                              SizedBox(height: 10),
+                              Row(
+                                children: [
+                                  userHealthProfileModel.bloodGroup == null ||
+                                      userHealthProfileModel
+                                          .bloodGroup.isEmpty
+                                      ? Text(
+                                    'Không có dữ liệu',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Palette.textNo,
+                                    ),
+                                  )
+                                      : Text(
+                                    '${userHealthProfileModel.bloodGroup}',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20,
+                                      color: Palette.textNo,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 25),
               ],
             ),
           ),
