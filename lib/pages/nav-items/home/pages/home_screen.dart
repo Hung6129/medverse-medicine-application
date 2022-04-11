@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:medverse_mobile_app/widgets/appbar.dart';
 import 'package:medverse_mobile_app/widgets/header.dart';
 import 'package:medverse_mobile_app/widgets/typeahead_search_bar.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';

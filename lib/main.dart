@@ -67,7 +67,6 @@ class _MyAppState extends State<MyApp> {
                     ],
                     child: GetMaterialApp(
                       debugShowCheckedModeBanner: false,
-                      // home: const MainPage(),
                       onGenerateRoute: AppRoutes.onGeneratedRoutes,
                     ),
                   );

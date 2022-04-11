@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:medverse_mobile_app/theme/palette.dart';
+import '../controller/cubit/search_cache/search_cache_cubit.dart';
 import '/pages/nav-items/favorite/favorite_drugs_list_nav.dart';
 import '/controller/cubit/drugs_data/drugs_data_cubit.dart';
 import '/widgets/navigation_drawer_widget.dart';
@@ -25,8 +26,15 @@ class _TabScreenState extends State<TabScreen> {
     {
       'title': 'Trang chủ',
       'icon': CupertinoIcons.house_alt_fill,
-      'page': BlocProvider(
-        create: (BuildContext context) => DrugsDataCubit(),
+      'page': MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (context) => DrugsDataCubit(),
+          ),
+          BlocProvider(
+            create: (context) => SearchCacheCubit(),
+          ),
+        ],
         child: HomeScreen(),
       ),
       'index': 0,

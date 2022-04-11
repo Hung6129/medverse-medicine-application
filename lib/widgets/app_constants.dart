@@ -4,7 +4,7 @@ class AppConstants {
       "https://drugbank.vn/services/drugbank/api/public/thuoc";
   static const String BASE_URL_TYPEAHEAD =
       "https://drugbank.vn/services/drugbank/api/public/thuoc?tenThuoc=";
-  static const String POPULAR_PRODUCT_URI = "?tenThuoc=ok&size=10";
+  static const String POPULAR_PRODUCT_URI = "?tenThuoc=ok&size=5";
   static const String TEST_URL = "https://fakestoreapi.com/products?limit=5";
 }
 
