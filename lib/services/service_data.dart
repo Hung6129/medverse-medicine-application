@@ -7,7 +7,7 @@ import 'dart:convert';
 class RecommenedData {
   static Future<List<drugProductTest>> getRecommened() async {
     try {
-      var response = await http.get(Uri.parse(AppConstants.BASE_URL));
+      var response = await http.get(Uri.parse(AppConstants.BASE_URL+AppConstants.POPULAR_PRODUCT_URI));
       if (response.statusCode == 200) {
         List listTrend = json.decode(response.body) as List;
         return listTrend.map((e) => drugProductTest.fromJson(e)).toList();

@@ -139,34 +139,41 @@ class _IdentifierState extends State<Identifier> {
                     height: Dimensions.height15,
                   ),
 
-                  //shapes
+                  /// Shapes
                   FormField<String>(
                     builder: (FormFieldState<String> state) {
                       return InputDecorator(
                         decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                    width: 4, color: Palette.mainBlueTheme),
-                                borderRadius: BorderRadius.circular(
-                                    Dimensions.radius15))),
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                width: 4, color: Palette.mainBlueTheme),
+                            borderRadius: BorderRadius.circular(
+                              Dimensions.radius15,
+                            ),
+                          ),
+                        ),
                         child: DropdownButtonHideUnderline(
                           child: DropdownButton<String>(
                             value: dropdownShape,
                             isDense: true,
                             onChanged: (String newValue) {
-                              setState(() {
-                                dropdownShape = newValue;
-                              });
-                            },
-                            items: shapes.map((value) {
-                              return DropdownMenuItem(
-                                value: value,
-                                child: AppTextTitle(
-                                    text: value,
-                                    size: Dimensions.font14,
-                                    fontWeight: FontWeight.normal),
+                              setState(
+                                () {
+                                  dropdownShape = newValue;
+                                },
                               );
-                            }).toList(),
+                            },
+                            items: shapes.map(
+                              (value) {
+                                return DropdownMenuItem(
+                                  value: value,
+                                  child: AppTextTitle(
+                                      text: value,
+                                      size: Dimensions.font14,
+                                      fontWeight: FontWeight.normal),
+                                );
+                              },
+                            ).toList(),
                           ),
                         ),
                       );
@@ -179,57 +186,62 @@ class _IdentifierState extends State<Identifier> {
                     width: Dimensions.boxViewWidth,
                     height: Dimensions.height45,
                     decoration: BoxDecoration(
-                        color: Palette.mainBlueTheme,
-                        borderRadius:
-                            BorderRadius.circular(Dimensions.radius20)),
+                      color: Palette.mainBlueTheme,
+                      borderRadius: BorderRadius.circular(
+                        Dimensions.radius20,
+                      ),
+                    ),
                     child: TextButton(
-                        onPressed: () {
-                          // if (dropDownColor.startsWith(colors.first)) {}
-                          // dropDownColor.startsWith(colors.first) ||
-                          //         dropdownShape.startsWith(shapes.first)
-                          //     ? Navigator.push(
-                          //         context,
-                          //         MaterialPageRoute(
-                          //           builder: (context) =>
-                          //               PillIdentifierListDrug(
-                          //             query1: "",
-                          //             query2: "",
-                          //           ),
-                          //         ))
-                          // ScaffoldMessenger.of(context).showSnackBar(
-                          //     const SnackBar(
-                          //       content: Text('Chọn một thuộc tính bất kỳ'),
-                          //     ),
-                          //   )
-                          // :
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => PillIdentifierListDrug(
-                                  query1: dropDownColor,
-                                  query2: dropdownShape,
-                                ),
-                              ));
-                        },
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(
-                              Icons.search,
-                              size: Dimensions.icon24,
-                              color: Palette.p1,
+                      onPressed: () {
+                        // if (dropDownColor.startsWith(colors.first)) {}
+                        // dropDownColor.startsWith(colors.first) ||
+                        //         dropdownShape.startsWith(shapes.first)
+                        //     ? Navigator.push(
+                        //         context,
+                        //         MaterialPageRoute(
+                        //           builder: (context) =>
+                        //               PillIdentifierListDrug(
+                        //             query1: "",
+                        //             query2: "",
+                        //           ),
+                        //         ))
+                        // ScaffoldMessenger.of(context).showSnackBar(
+                        //     const SnackBar(
+                        //       content: Text('Chọn một thuộc tính bất kỳ'),
+                        //     ),
+                        //   )
+                        // :
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => PillIdentifierListDrug(
+                              query1: dropDownColor,
+                              query2: dropdownShape,
                             ),
-                            SizedBox(
-                              width: Dimensions.width10,
-                            ),
-                            AppTextTitle(
-                                text: "Tìm kiếm",
-                                color: Palette.p1,
-                                size: Dimensions.font14,
-                                fontWeight: FontWeight.normal)
-                          ],
-                        )),
-                  )
+                          ),
+                        );
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.search,
+                            size: Dimensions.icon24,
+                            color: Palette.p1,
+                          ),
+                          SizedBox(
+                            width: Dimensions.width10,
+                          ),
+                          AppTextTitle(
+                            text: "Tìm kiếm",
+                            color: Palette.p1,
+                            size: Dimensions.font14,
+                            fontWeight: FontWeight.normal,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),

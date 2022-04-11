@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hive/hive.dart';
 import 'package:medverse_mobile_app/widgets/header.dart';
 import '/models/test/saved_drug_list_model.dart';
@@ -185,13 +186,17 @@ class _DrugDetailsState extends State<DrugDetails> {
                         id: info.id, tenThuoc: info.tenThuoc);
                     // onFavoritePress(data.id, data);
                     _box.add(data);
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                      content: AppText(
-                          text: "Luu thanh cong",
-                          color: Colors.white,
-                          fontWeight: FontWeight.normal),
-                      backgroundColor: Palette.mainBlueTheme,
-                    ));
+                    // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    //   content: AppText(
+                    //       text: "Luu thanh cong",
+                    //       color: Colors.white,
+                    //       fontWeight: FontWeight.normal),
+                    //   backgroundColor: Palette.mainBlueTheme,
+                    // ));
+                    Fluttertoast.showToast(
+                      msg: 'Luu thành công',
+                      backgroundColor: Palette.activeButton,
+                    );
                   },
                   icon: Icon(
                     CupertinoIcons.heart,
