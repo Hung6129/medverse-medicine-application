@@ -13,6 +13,7 @@ class Palette {
   static const Color red = Colors.red;
   static const Color pink = Colors.pink;
   static Color grey300 = Colors.grey[300];
+  static Color grey = Colors.grey;
 
   /// Text color
   static const Color whiteText = Color(0xFFffffff);

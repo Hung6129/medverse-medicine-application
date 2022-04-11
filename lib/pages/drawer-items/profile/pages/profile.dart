@@ -78,17 +78,22 @@ class _ProfileState extends State<Profile> {
                       onTap: () {
                         firebaseAuth.signOut();
                         Navigator.of(context).push(
-                            CupertinoPageRoute(builder: (_) => Register()));
+                          CupertinoPageRoute(
+                            builder: (_) => Register(),
+                          ),
+                        );
                       },
                       child: Text(
                         'Đăng xuất',
                         style: TextStyle(
-                            fontWeight: FontWeight.w900, fontSize: 10.0),
+                          fontWeight: FontWeight.w900,
+                          fontSize: 10.0,
+                        ),
                       ),
                     ),
                   ),
                 )
-              : SizedBox()
+              : SizedBox(),
         ],
       ),
       body: CustomScrollView(
@@ -192,7 +197,7 @@ class _ProfileState extends State<Profile> {
                                                   'settings',
                                                   style:
                                                       TextStyle(fontSize: 11.5),
-                                                )
+                                                ),
                                               ],
                                             ),
                                           )
@@ -251,7 +256,7 @@ class _ProfileState extends State<Profile> {
                                   child: Container(
                                     height: 50.0,
                                     width: 0.3,
-                                    color: Colors.grey,
+                                    color: Palette.grey,
                                   ),
                                 ),
                                 StreamBuilder(
@@ -276,7 +281,7 @@ class _ProfileState extends State<Profile> {
                                   child: Container(
                                     height: 50.0,
                                     width: 0.3,
-                                    color: Colors.grey,
+                                    color: Palette.grey,
                                   ),
                                 ),
                                 StreamBuilder(
@@ -417,13 +422,13 @@ class _ProfileState extends State<Profile> {
       //if you are already following the user then "unfollow"
     } else if (isFollowing) {
       return buildButton(
-        text: "Unfollow",
+        text: "Hủy theo dõi",
         function: handleUnfollow,
       );
       //if you are not following the user then "follow"
     } else if (!isFollowing) {
       return buildButton(
-        text: "Follow",
+        text: "Theo dõi",
         function: handleFollow,
       );
     }

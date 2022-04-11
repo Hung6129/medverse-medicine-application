@@ -107,12 +107,17 @@ class _TimelineState extends State<Timeline> {
             : ListView.builder(
                 controller: _scrollController,
                 itemCount: post.length,
+                reverse: true,
                 itemBuilder: (context, index) {
                   internetChecker(context);
-                  PostModel posts = PostModel.fromJson(post[index].data());
+                  PostModel posts = PostModel.fromJson(
+                    post[index].data(),
+                  );
                   return Padding(
                     padding: const EdgeInsets.all(10.0),
-                    child: UserPost(post: posts),
+                    child: UserPost(
+                      post: posts,
+                    ),
                   );
                 },
               ),
