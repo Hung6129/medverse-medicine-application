@@ -28,14 +28,22 @@ class _FavoriteDrugsListScreenNavState
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: NavigationDrawerWidget(),
-      appBar: appBarMain(titleText: "Danh sách yêu thích"),
+      appBar: AppBar(
+        backgroundColor: Palette.mainBlueTheme,
+        title: Text(
+          'Danh sách yêu thích',
+          style: TextStyle(fontWeight: FontWeight.w900),
+        ),
+        centerTitle: true,
+      ),
       body: _box.isEmpty
           ? Center(
               child: AppTextTitle(
-              text: "Bạn chưa thêm thuốc mới",
-              size: 20,
-              fontWeight: FontWeight.w500,
-            ))
+                text: "Bạn chưa thêm thuốc mới",
+                size: 20,
+                fontWeight: FontWeight.w500,
+              ),
+            )
           : SingleChildScrollView(
               child: Column(
                 children: [

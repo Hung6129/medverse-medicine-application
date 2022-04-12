@@ -110,7 +110,7 @@ class MapScreenState extends State<HealthProfile>
                               borderRadius: BorderRadius.only(
                                 topLeft: Radius.circular(Dimensions.radius20),
                                 bottomLeft:
-                                Radius.circular(Dimensions.radius20),
+                                    Radius.circular(Dimensions.radius20),
                               ),
                               image: DecorationImage(
                                 fit: BoxFit.cover,
@@ -133,22 +133,22 @@ class MapScreenState extends State<HealthProfile>
                               Row(
                                 children: [
                                   userHealthProfileModel.height == null ||
-                                      userHealthProfileModel.height.isEmpty
+                                          userHealthProfileModel.height.isEmpty
                                       ? Text(
-                                    'Không có dữ liệu',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: Palette.textNo,
-                                    ),
-                                  )
+                                          'Không có dữ liệu',
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            color: Palette.textNo,
+                                          ),
+                                        )
                                       : Text(
-                                    '${userHealthProfileModel.height}',
-                                    style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold,
-                                      color: Palette.textNo,
-                                    ),
-                                  ),
+                                          '${userHealthProfileModel.height}',
+                                          style: TextStyle(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold,
+                                            color: Palette.textNo,
+                                          ),
+                                        ),
                                   SizedBox(width: 5),
                                   Text(
                                     'cm',
@@ -206,7 +206,7 @@ class MapScreenState extends State<HealthProfile>
                               borderRadius: BorderRadius.only(
                                 topLeft: Radius.circular(Dimensions.radius20),
                                 bottomLeft:
-                                Radius.circular(Dimensions.radius20),
+                                    Radius.circular(Dimensions.radius20),
                               ),
                               image: DecorationImage(
                                 fit: BoxFit.cover,
@@ -228,22 +228,22 @@ class MapScreenState extends State<HealthProfile>
                               Row(
                                 children: [
                                   userHealthProfileModel.weight == null ||
-                                      userHealthProfileModel.weight.isEmpty
+                                          userHealthProfileModel.weight.isEmpty
                                       ? Text(
-                                    'Không có dữ liệu',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: Palette.textNo,
-                                    ),
-                                  )
+                                          'Không có dữ liệu',
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            color: Palette.textNo,
+                                          ),
+                                        )
                                       : Text(
-                                    '${userHealthProfileModel.weight}',
-                                    style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold,
-                                      color: Palette.textNo,
-                                    ),
-                                  ),
+                                          '${userHealthProfileModel.weight}',
+                                          style: TextStyle(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold,
+                                            color: Palette.textNo,
+                                          ),
+                                        ),
                                   SizedBox(width: 5),
                                   Text(
                                     'kg',
@@ -302,7 +302,7 @@ class MapScreenState extends State<HealthProfile>
                               borderRadius: BorderRadius.only(
                                 topLeft: Radius.circular(Dimensions.radius20),
                                 bottomLeft:
-                                Radius.circular(Dimensions.radius20),
+                                    Radius.circular(Dimensions.radius20),
                               ),
                               image: DecorationImage(
                                 fit: BoxFit.cover,
@@ -324,22 +324,22 @@ class MapScreenState extends State<HealthProfile>
                               Row(
                                 children: [
                                   userHealthProfileModel.bmi == null ||
-                                      userHealthProfileModel.bmi.isEmpty
+                                          userHealthProfileModel.bmi.isEmpty
                                       ? Text(
-                                    'Không có dữ liệu',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: Palette.textNo,
-                                    ),
-                                  )
+                                          'Không có dữ liệu',
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            color: Palette.textNo,
+                                          ),
+                                        )
                                       : Text(
-                                    '${userHealthProfileModel.bmi}',
-                                    style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold,
-                                      color: Palette.textNo,
-                                    ),
-                                  ),
+                                          '${userHealthProfileModel.bmi}',
+                                          style: TextStyle(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold,
+                                            color: Palette.textNo,
+                                          ),
+                                        ),
                                   SizedBox(width: 5),
                                   Text(
                                     'kg/m2',
@@ -398,7 +398,7 @@ class MapScreenState extends State<HealthProfile>
                               borderRadius: BorderRadius.only(
                                 topLeft: Radius.circular(Dimensions.radius20),
                                 bottomLeft:
-                                Radius.circular(Dimensions.radius20),
+                                    Radius.circular(Dimensions.radius20),
                               ),
                               image: DecorationImage(
                                 fit: BoxFit.cover,
@@ -420,24 +420,24 @@ class MapScreenState extends State<HealthProfile>
                               Row(
                                 children: [
                                   userHealthProfileModel.SBP == null ||
-                                      userHealthProfileModel.DBP == null ||
-                                      userHealthProfileModel.SBP.isEmpty ||
-                                      userHealthProfileModel.DBP.isEmpty
+                                          userHealthProfileModel.DBP == null ||
+                                          userHealthProfileModel.SBP.isEmpty ||
+                                          userHealthProfileModel.DBP.isEmpty
                                       ? Text(
-                                    'Không có dữ liệu',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: Palette.textNo,
-                                    ),
-                                  )
+                                          'Không có dữ liệu',
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            color: Palette.textNo,
+                                          ),
+                                        )
                                       : Text(
-                                    '${userHealthProfileModel.SBP}/${userHealthProfileModel.DBP}',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 20,
-                                      color: Palette.textNo,
-                                    ),
-                                  ),
+                                          '${userHealthProfileModel.SBP}/${userHealthProfileModel.DBP}',
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 20,
+                                            color: Palette.textNo,
+                                          ),
+                                        ),
                                   SizedBox(width: 5),
                                   Text(
                                     'mmHg',
@@ -496,7 +496,7 @@ class MapScreenState extends State<HealthProfile>
                               borderRadius: BorderRadius.only(
                                 topLeft: Radius.circular(Dimensions.radius20),
                                 bottomLeft:
-                                Radius.circular(Dimensions.radius20),
+                                    Radius.circular(Dimensions.radius20),
                               ),
                               image: DecorationImage(
                                 fit: BoxFit.cover,
@@ -518,22 +518,22 @@ class MapScreenState extends State<HealthProfile>
                               Row(
                                 children: [
                                   userHealthProfileModel.SP02 == null ||
-                                      userHealthProfileModel.SP02.isEmpty
+                                          userHealthProfileModel.SP02.isEmpty
                                       ? Text(
-                                    'Không có dữ liệu',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: Palette.textNo,
-                                    ),
-                                  )
+                                          'Không có dữ liệu',
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            color: Palette.textNo,
+                                          ),
+                                        )
                                       : Text(
-                                    '${userHealthProfileModel.SP02}',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 20,
-                                      color: Palette.textNo,
-                                    ),
-                                  ),
+                                          '${userHealthProfileModel.SP02}',
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 20,
+                                            color: Palette.textNo,
+                                          ),
+                                        ),
                                   SizedBox(width: 5),
                                   Text(
                                     'nhịp/phút',
@@ -592,7 +592,7 @@ class MapScreenState extends State<HealthProfile>
                               borderRadius: BorderRadius.only(
                                 topLeft: Radius.circular(Dimensions.radius20),
                                 bottomLeft:
-                                Radius.circular(Dimensions.radius20),
+                                    Radius.circular(Dimensions.radius20),
                               ),
                               image: DecorationImage(
                                 fit: BoxFit.cover,
@@ -614,23 +614,23 @@ class MapScreenState extends State<HealthProfile>
                               Row(
                                 children: [
                                   userHealthProfileModel.bloodGroup == null ||
-                                      userHealthProfileModel
-                                          .bloodGroup.isEmpty
+                                          userHealthProfileModel
+                                              .bloodGroup.isEmpty
                                       ? Text(
-                                    'Không có dữ liệu',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: Palette.textNo,
-                                    ),
-                                  )
+                                          'Không có dữ liệu',
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            color: Palette.textNo,
+                                          ),
+                                        )
                                       : Text(
-                                    '${userHealthProfileModel.bloodGroup}',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 20,
-                                      color: Palette.textNo,
-                                    ),
-                                  ),
+                                          '${userHealthProfileModel.bloodGroup}',
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 20,
+                                            color: Palette.textNo,
+                                          ),
+                                        ),
                                 ],
                               ),
                             ],

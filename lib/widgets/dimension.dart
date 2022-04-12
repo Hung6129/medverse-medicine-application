@@ -52,6 +52,7 @@ class Dimensions {
   static double font16 = screenHeight / (screenHeight / 16);
   static double font18 = screenHeight / (screenHeight / 18);
   static double font20 = screenHeight / (screenHeight / 20);
+  static double font24 = screenHeight / (screenHeight / 24);
   static double font26 = screenHeight / (screenHeight / 26);
   static double font32 = screenHeight / (screenHeight / 32);
   static double font34 = screenHeight / (screenHeight / 34);
@@ -72,7 +73,7 @@ class Dimensions {
   static double itemsSizeTextIconHeight = screenHeight / (screenHeight / 130);
 
 // home screen
-  static double pageView = screenHeight / (screenHeight / 280);
-  static double pageViewContainer = screenHeight / (screenHeight / 220);
+  static double pageView = screenHeight / (screenHeight / 240);
+  static double pageViewContainer = screenHeight / (screenHeight / 180);
   static double pageViewTextContainer = screenHeight / (screenHeight / 120);
 }

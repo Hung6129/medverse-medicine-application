@@ -54,7 +54,14 @@ class _IdentifierState extends State<Identifier> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: appBarMain(titleText: "Tìm kiếm nâng cao"),
+      appBar: AppBar(
+        backgroundColor: Palette.mainBlueTheme,
+        title: Text(
+          'Tìm kiếm nâng cao',
+          style: TextStyle(fontWeight: FontWeight.w900),
+        ),
+        centerTitle: true,
+      ),
       body: SingleChildScrollView(
         child: Column(
           children: [

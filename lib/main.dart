@@ -56,15 +56,12 @@ class _MyAppState extends State<MyApp> {
               stream: FirebaseAuth.instance.authStateChanges(),
               builder: (BuildContext context, AsyncSnapshot<User> snapshot) {
                 if (snapshot.hasData) {
-                  return MultiBlocProvider(
-                    providers: [
+                  return
                       BlocProvider(
                         create: (context) => DrugsDataCubit(),
-                      ),
-                      BlocProvider(
-                        create: (context) => SearchCacheCubit(),
-                      ),
-                    ],
+                      
+
+                    
                     child: GetMaterialApp(
                       debugShowCheckedModeBanner: false,
                       onGenerateRoute: AppRoutes.onGeneratedRoutes,

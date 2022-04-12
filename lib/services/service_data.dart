@@ -1,3 +1,5 @@
+import 'package:medverse_mobile_app/models/drug_bank_db/product.dart';
+
 import '/models/test/drugs_product_test.dart';
 import '/widgets/app_constants.dart';
 import 'package:http/http.dart' as http;
@@ -7,7 +9,8 @@ import 'dart:convert';
 class RecommenedData {
   static Future<List<drugProductTest>> getRecommened() async {
     try {
-      var response = await http.get(Uri.parse(AppConstants.BASE_URL+AppConstants.POPULAR_PRODUCT_URI));
+      var response = await http.get(
+          Uri.parse(AppConstants.BASE_URL + AppConstants.POPULAR_PRODUCT_URI));
       if (response.statusCode == 200) {
         List listTrend = json.decode(response.body) as List;
         return listTrend.map((e) => drugProductTest.fromJson(e)).toList();
@@ -20,9 +23,9 @@ class RecommenedData {
   }
 }
 
+/// Typeahead search call api
 List<Map<String, dynamic>> data = [];
 
-/// Typeahead search call api
 class typeAhead {
   static Future<List<Map<String, dynamic>>> getTypeAhead(String query) async {
     if (query.isEmpty || query.length < 2) {
@@ -41,5 +44,23 @@ class typeAhead {
     }
     return Future.value(
         suggestion.map((e) => {'tenThuoc': e.tenThuoc}).toList());
+  }
+}
+
+// Get a product
+class GetProductRepo {
+  static Future<List<ProductDB>> getData() async {
+    try {
+      var response = await http.get(Uri.parse(ApiConstants.PRODUCT));
+      if (response.statusCode == 200) {
+        List listTrend = json.decode(response.body) as List;
+        print("loaded data");
+        return listTrend.map((e) => ProductDB.fromJson(e)).toList();
+      } else {
+        throw Exception("Failed to fetch data");
+      }
+    } catch (e) {
+      throw Exception("No Internet Connection");
+    }
   }
 }

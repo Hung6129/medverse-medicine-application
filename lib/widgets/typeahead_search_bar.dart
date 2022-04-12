@@ -33,18 +33,18 @@ class _TypeAheadSearchBarState extends State<TypeAheadSearchBar> {
     super.initState();
     _typeAheadController.text =
         widget.searchKeyWord == null ? "" : widget.searchKeyWord;
-    BlocProvider.of<SearchCacheCubit>(context).populateSearchHistory();
+    // BlocProvider.of<SearchCacheCubit>(context).populateSearchHistory();
   }
 
 // function to send search keyword to cubit
-  Future<void> _updateSearchCache(
-      String searchKeyword, SearchCacheCubit cacheCubit) async {
-    await cacheCubit.updateSearchHistory(searchKeyword);
-  }
+  // Future<void> _updateSearchCache(
+  //     String searchKeyword, SearchCacheCubit cacheCubit) async {
+  //   await cacheCubit.updateSearchHistory(searchKeyword);
+  // }
 
   @override
   Widget build(BuildContext context) {
-    final cubit = BlocProvider.of<SearchCacheCubit>(context);
+    // final cubit = BlocProvider.of<SearchCacheCubit>(context);
     return Form(
       key: this._formKey,
       child: Padding(
@@ -58,11 +58,12 @@ class _TypeAheadSearchBarState extends State<TypeAheadSearchBar> {
           children: [
             TypeAheadFormField(
               textFieldConfiguration: TextFieldConfiguration(
+                autocorrect: true,
                 controller: this._typeAheadController,
                 decoration: InputDecoration(
                     suffixIcon: IconButton(
                       onPressed: () {
-                        _updateSearchCache(_typeAheadController.text, cubit);
+                        // _updateSearchCache(_typeAheadController.text, cubit);
                         print(_typeAheadController.text);
                       },
                       icon: Icon(
@@ -110,45 +111,45 @@ class _TypeAheadSearchBarState extends State<TypeAheadSearchBar> {
               // },
               onSaved: (value) => this._selectedDrug = value,
             ),
-            BlocBuilder<SearchCacheCubit, SearchCacheState>(
-              builder: (context, state) {
-                if (state is SearchCacheLoaded) {
-                  return historyList(cubit.searchHistory,
-                      (String searchString) {
-                    setState(() {
-                      _typeAheadController.text = searchString;
-                    });
-                    _updateSearchCache(searchString, cubit);
-                  });
-                } else {
-                  return Container();
-                }
-              },
-            )
+            // BlocBuilder<SearchCacheCubit, SearchCacheState>(
+            //   builder: (context, state) {
+            //     if (state is SearchCacheLoaded) {
+            //       return historyList(cubit.searchHistory,
+            //           (String searchString) {
+            //         setState(() {
+            //           _typeAheadController.text = searchString;
+            //         });
+            //         _updateSearchCache(searchString, cubit);
+            //       });
+            //     } else {
+            //       return Container();
+            //     }
+            //   },
+            // )
           ],
         ),
       ),
     );
   }
 
-  Widget historyList(Queue<String> searchHistory, Function callback) {
-    return Column(
-      children: [
-        for (int search = 0; search < searchHistory.length; search++)
-          Container(
-            height: 50,
-            child: Row(
-              children: [
-                Icon(CupertinoIcons.square_list_fill),
-                Container(
-                  child: Text(
-                    searchHistory.elementAt(search),
-                  ),
-                ),
-              ],
-            ),
-          )
-      ],
-    );
-  }
+  // Widget historyList(Queue<String> searchHistory, Function callback) {
+  //   return Column(
+  //     children: [
+  //       for (int search = 0; search < searchHistory.length; search++)
+  //         Container(
+  //           height: 50,
+  //           child: Row(
+  //             children: [
+  //               Icon(CupertinoIcons.square_list_fill),
+  //               Container(
+  //                 child: Text(
+  //                   searchHistory.elementAt(search),
+  //                 ),
+  //               ),
+  //             ],
+  //           ),
+  //         )
+  //     ],
+  //   );
+  // }
 }
