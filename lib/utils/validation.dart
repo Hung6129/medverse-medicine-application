@@ -21,4 +21,10 @@ class Validations {
     return null;
   }
 
+  static String validateField({String value}) {
+    if(value.isEmpty) {
+      return 'TextField cannot be empty';
+    }
+    return null;
+  }
 }

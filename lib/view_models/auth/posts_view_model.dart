@@ -14,11 +14,13 @@ import '/utils/constants.dart';
 import '/utils/firebase.dart';
 
 class PostsViewModel extends ChangeNotifier {
-  //Services
+  /// Connect to user's service
   UserService userService = UserService();
+
+  /// Connect to post's service
   PostService postService = PostService();
 
-  //Keys
+  /// Check all keys validation
   GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
@@ -42,10 +44,10 @@ class PostsViewModel extends ChangeNotifier {
   bool edit = false;
   String id;
 
-  //controllers
+  /// Editing Controllers
   TextEditingController locationTEC = TextEditingController();
 
-  //Setters
+  // Setters
   setEdit(bool val) {
     edit = val;
     notifyListeners();
@@ -123,7 +125,7 @@ class PostsViewModel extends ChangeNotifier {
     } catch (e) {
       loading = false;
       notifyListeners();
-      showInSnackBar('Hủy bỏ',context);
+      showInSnackBar('Hủy bỏ', context);
     }
   }
 
@@ -163,14 +165,14 @@ class PostsViewModel extends ChangeNotifier {
       print(e);
       loading = false;
       resetPost();
-      showInSnackBar('Tạo bài viết thành công!',context);
+      showInSnackBar('Tạo bài viết thành công!', context);
       notifyListeners();
     }
   }
 
   uploadProfilePicture(BuildContext context) async {
     if (mediaUrl == null) {
-      showInSnackBar('Vui lòng chọn hình ảnh',context);
+      showInSnackBar('Vui lòng chọn hình ảnh', context);
     } else {
       try {
         loading = true;
@@ -184,7 +186,7 @@ class PostsViewModel extends ChangeNotifier {
       } catch (e) {
         print(e);
         loading = false;
-        showInSnackBar('Tải ảnh lên thành công!',context);
+        showInSnackBar('Tải ảnh lên thành công!', context);
         notifyListeners();
       }
     }
@@ -198,7 +200,7 @@ class PostsViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-void showInSnackBar(String value,context) {
+  void showInSnackBar(String value, context) {
     ScaffoldMessenger.of(context).removeCurrentSnackBar();
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(value)));
   }

@@ -14,7 +14,9 @@ import '/widgets/indicators.dart';
 class EditProfile extends StatefulWidget {
   final UserModel user;
 
-  const EditProfile({this.user});
+  const EditProfile({
+    this.user,
+  });
 
   @override
   _EditProfileState createState() => _EditProfileState();

@@ -3,12 +3,12 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-//import 'package:flutter_icons/flutter_icons.dart';
 import '/components/custom_card.dart';
 import '/components/custom_image.dart';
 import '/models/post.dart';
 import '/models/user.dart';
-import '../pages/drawer-items/profile/pages/profile.dart';
+import '/pages/drawer-items/profile/pages/profile.dart';
+import '/pages/nav-items/feeds/widgets/edit_post_screen.dart';
 import '/screens/comment.dart';
 import '/screens/view_image.dart';
 import '/services/post_service.dart';
@@ -17,8 +17,13 @@ import 'package:timeago/timeago.dart' as timeago;
 
 class UserPost extends StatelessWidget {
   final PostModel post;
+  final postId;
 
-  UserPost({this.post});
+  UserPost({
+    this.post,
+    this.postId,
+  });
+
   final DateTime timestamp = DateTime.now();
 
   currentUserId() {
@@ -86,6 +91,7 @@ class UserPost extends StatelessWidget {
                                   size: 25.0,
                                 ),
                               ),
+                              buildCurrentUserEditPost(context),
                             ],
                           ),
                         ),
@@ -136,7 +142,8 @@ class UserPost extends StatelessWidget {
                           visible: post.description != null &&
                               post.description.toString().isNotEmpty,
                           child: Padding(
-                            padding: const EdgeInsets.only(left: 10.0, top: 3.0),
+                            padding:
+                                const EdgeInsets.only(left: 10.0, top: 3.0),
                             child: Text(
                               '${post?.description ?? ""}',
                               style: TextStyle(
@@ -241,7 +248,45 @@ class UserPost extends StatelessWidget {
     );
   }
 
+  /// Edit post button
+  buildCurrentUserEditPost(BuildContext context) {
+    /// Check if this post is your current authenticated
+    bool isMe = currentUserId() != post.ownerId;
+    return StreamBuilder(
+      stream: usersRef.doc(post.ownerId).snapshots(),
+      builder: (context, snapshot) {
+        return Visibility(
+          visible: !isMe,
+          child: IconButton(
+            onPressed: () {
+              Navigator.of(context).push(
+                CupertinoPageRoute(
+                  builder: (_) => EditPostScreen(
+                      documentId: post.postId,
+                      currentUserID: post.ownerId,
+                      currentImageUrl: post.mediaUrl,
+                      currentDescription: post.description,
+                      currentLocation: post.location,
+                    /*postId: post.postId,
+                    postPicture: post.mediaUrl,
+                    postDescription: post.description,
+                    postLocation: post.location,*/
+                  ),
+                ),
+              );
+            },
+            icon: Icon(
+              Icons.edit_sharp,
+              color: Theme.of(context).iconTheme.color,
+            ),
+          ),
+        );
+      },
+    );
+  }
+
   buildUser(BuildContext context) {
+    /// Check if this post is your current authenticated
     bool isMe = currentUserId() == post.ownerId;
     return StreamBuilder(
       stream: usersRef.doc(post.ownerId).snapshots(),
@@ -316,7 +361,7 @@ class UserPost extends StatelessWidget {
     );
   }
 
-  showProfile(BuildContext context, {String profileId}) {
+  showProfile(BuildContext context, {String profileId,}) {
     Navigator.push(
       context,
       CupertinoPageRoute(
