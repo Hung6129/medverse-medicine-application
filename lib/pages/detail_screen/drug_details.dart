@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hive/hive.dart';
+import 'package:medverse_mobile_app/models/drug_bank_db/product.dart';
 import 'package:medverse_mobile_app/widgets/header.dart';
 import '/models/test/saved_drug_list_model.dart';
 import '/models/test/drugs_product_test.dart';
@@ -12,7 +13,7 @@ import '/widgets/dimension.dart';
 import '/widgets/rich_text_cus.dart';
 
 class DrugDetails extends StatefulWidget {
-  final drugProductTest drugData;
+  final ProductDB drugData;
 
   DrugDetails({
     Key key,
@@ -24,7 +25,7 @@ class DrugDetails extends StatefulWidget {
 }
 
 class _DrugDetailsState extends State<DrugDetails> {
-  var _box = Hive.box<SavedDrugListModel>("savedList");
+  // var _box = Hive.box<SavedDrugListModel>("savedList");
 
   String imagesFav = "16571-0402-50_NLMIMAGE10_903AC856.jpg";
 
@@ -61,7 +62,7 @@ class _DrugDetailsState extends State<DrugDetails> {
                   right: Dimensions.width10),
               alignment: Alignment.center,
               child: AppText(
-                  text: widget.drugData.tenThuoc.toString(),
+                  text: widget.drugData.productName,
                   color: Palette.mainBlueTheme,
                   size: Dimensions.font32,
                   fontWeight: FontWeight.w500),
@@ -76,24 +77,17 @@ class _DrugDetailsState extends State<DrugDetails> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  RichTextCus(text1: "Bào chế:", text2: info.baoChe.toString()),
-                  RichTextCus(
-                      text1: "Đóng gói", text2: info.dongGoi.toString()),
-                  RichTextCus(
-                      text1: "Phân loại:", text2: info.phanLoai.toString()),
-                  RichTextCus(
-                      text1: "Hoạt chất:", text2: info.hoatChat.toString()),
-                  RichTextCus(
-                      text1: "Địa chỉ sx:", text2: info.diaChiSx.toString()),
-                  RichTextCus(
-                      text1: "Địa chỉ đk:", text2: info.diaChiDk.toString()),
-                  RichTextCus(text1: "Tà dược:", text2: info.taDuoc.toString()),
-                  RichTextCus(text1: "Nước sx:", text2: info.nuocSx.toString()),
-                  RichTextCus(
-                      text1: "Đợt phê duyệt:",
-                      text2: info.dotPheDuyet.toString()),
+                  RichTextCus(text1: "Bào chế:", text2: info.approved),
+                  RichTextCus(text1: "Đóng gói", text2: info.productLabeller),
+                  RichTextCus(text1: "Phân loại:", text2: info.productRoute),
+                  RichTextCus(text1: "Hoạt chất:", text2: info.productName),
+                  RichTextCus(text1: "Địa chỉ sx:", text2: info.productName),
+                  RichTextCus(text1: "Địa chỉ đk:", text2: info.productName),
+                  RichTextCus(text1: "Tà dược:", text2: info.productName),
+                  RichTextCus(text1: "Nước sx:", text2: info.productName),
+                  RichTextCus(text1: "Đợt phê duyệt:", text2: info.otc),
                   AppText(
-                      text: "Hình ảnh cho thuốc " + info.tenThuoc.toString(),
+                      text: "Hình ảnh cho thuốc " + info.productName,
                       color: Palette.mainBlueTheme,
                       fontWeight: FontWeight.normal,
                       size: Dimensions.font18),
@@ -162,7 +156,7 @@ class _DrugDetailsState extends State<DrugDetails> {
                   ),
                   AppTextTitle(
                       text:
-                          "Xem thêm về thành phần của ${widget.drugData.tenThuoc}",
+                          "Xem thêm về thành phần của ${widget.drugData.productName}",
                       color: Palette.mainBlueTheme,
                       size: Dimensions.font18,
                       fontWeight: FontWeight.normal)
@@ -182,10 +176,10 @@ class _DrugDetailsState extends State<DrugDetails> {
               children: [
                 IconButton(
                   onPressed: () {
-                    SavedDrugListModel data = SavedDrugListModel(
-                        id: info.id, tenThuoc: info.tenThuoc);
+                    // SavedDrugListModel data = SavedDrugListModel(
+                    //     id: info.id, tenThuoc: info.tenThuoc);
                     // onFavoritePress(data.id, data);
-                    _box.add(data);
+                    // _box.add(data);
                     // ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                     //   content: AppText(
                     //       text: "Luu thanh cong",

@@ -19,7 +19,7 @@ class DrugsDataCubit extends Cubit<DrugsDataState> {
     try {
       emit(DrugsDataLoading());
       // List<drugProductTest> dataTest = await RecommenedData.getRecommened();
-      List<ProductDB> data = await GetProductRepo.getData();
+      List<ProductDB> data = await RecommenedData.getRecommened();
       // drug.clear();
       drug.clear();
       // drug = data;

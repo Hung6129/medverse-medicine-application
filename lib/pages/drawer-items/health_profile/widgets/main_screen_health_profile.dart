@@ -65,6 +65,14 @@ class MapScreenState extends State<HealthProfile>
 
       /// Check if user is authenticated
       _checkAuthentication = new Scaffold(
+        // appBar: AppBar(
+        //   backgroundColor: Palette.mainBlueTheme,
+        //   title: Text(
+        //     'Danh sách yêu thích',
+        //     style: TextStyle(fontWeight: FontWeight.w900),
+        //   ),
+        //   centerTitle: true,
+        // ),
         body: new Container(
           child: new SingleChildScrollView(
             scrollDirection: Axis.vertical,

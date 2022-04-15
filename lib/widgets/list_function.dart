@@ -51,32 +51,16 @@ class _ListIconFunctionState extends State<ListIconFunction> {
                 onTap: () {
                   switch (index) {
                     case 0:
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => Identifier(),
-                        ),
-                      );
+                      Navigator.pushNamed(context, "/pill-identifier");
                       break;
                     case 1:
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => CompareDrug(),
-                        ),
-                      );
+                      Navigator.pushNamed(context, "/compare-drug");
                       break;
                     case 2:
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => InteractionChecker(),
-                        ),
-                      );
+                      Navigator.pushNamed(context, "/interaction-checker");
                       break;
                     case 3:
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => HealthProfile(),
-                        ),
-                      );
+                      Navigator.pushNamed(context, "/health-profile");
                       break;
                   }
                 },

@@ -9,8 +9,8 @@ class AppConstants {
 
 // DrugDB URL
 class ApiConstants {
-  static const String PRODUCT =
-      "http://192.168.1.4:8080/products/id?productId=PID000001";
+  static const String TYPE_AHEAD =
+      "http://192.168.56.1:8080/products/name?name=";
   static const String POPULAR_TOP_10 =
-      "http://192.168.1.4:8080/products/name?name=Paramettes%20Syrup";
+      "http://192.168.56.1:8080/products/name?name=hung";
 }

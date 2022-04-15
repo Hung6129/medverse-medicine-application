@@ -1,4 +1,5 @@
 import 'dart:collection';
+import 'dart:convert';
 import 'dart:ffi';
 
 import 'package:flutter/cupertino.dart';
@@ -7,9 +8,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:medverse_mobile_app/controller/cubit/search_cache/search_cache_cubit.dart';
+import 'package:medverse_mobile_app/models/test/drugs_product_test.dart';
 
 import 'package:medverse_mobile_app/services/service_data.dart';
 
+import '../pages/detail_screen/drug_details.dart';
 import '/theme/palette.dart';
 import '/widgets/app_text.dart';
 import '/widgets/app_text_title.dart';
@@ -25,26 +28,17 @@ class TypeAheadSearchBar extends StatefulWidget {
 
 class _TypeAheadSearchBarState extends State<TypeAheadSearchBar> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  drugProductTest db;
   final TextEditingController _typeAheadController = TextEditingController();
   String _selectedDrug;
 
   @override
   void initState() {
     super.initState();
-    _typeAheadController.text =
-        widget.searchKeyWord == null ? "" : widget.searchKeyWord;
-    // BlocProvider.of<SearchCacheCubit>(context).populateSearchHistory();
   }
-
-// function to send search keyword to cubit
-  // Future<void> _updateSearchCache(
-  //     String searchKeyword, SearchCacheCubit cacheCubit) async {
-  //   await cacheCubit.updateSearchHistory(searchKeyword);
-  // }
 
   @override
   Widget build(BuildContext context) {
-    // final cubit = BlocProvider.of<SearchCacheCubit>(context);
     return Form(
       key: this._formKey,
       child: Padding(
@@ -63,7 +57,6 @@ class _TypeAheadSearchBarState extends State<TypeAheadSearchBar> {
                 decoration: InputDecoration(
                     suffixIcon: IconButton(
                       onPressed: () {
-                        // _updateSearchCache(_typeAheadController.text, cubit);
                         print(_typeAheadController.text);
                       },
                       icon: Icon(
@@ -86,13 +79,13 @@ class _TypeAheadSearchBarState extends State<TypeAheadSearchBar> {
                     ),
                     labelText: 'Hôm nay bạn muốn tìm thuốc gì?'),
               ),
-              suggestionsCallback: (pattern) {
+              suggestionsCallback: (String pattern) {
                 return typeAhead.getTypeAhead(pattern);
               },
               itemBuilder: (context, Map<String, dynamic> suggestion) {
                 return ListTile(
                   title: AppTextTitle(
-                      text: suggestion['tenThuoc'],
+                      text: suggestion['productName'],
                       color: Colors.black54,
                       size: Dimensions.font18,
                       fontWeight: FontWeight.normal),
@@ -102,54 +95,24 @@ class _TypeAheadSearchBarState extends State<TypeAheadSearchBar> {
                 return suggestionsBox;
               },
               onSuggestionSelected: (Map<String, dynamic> suggestion) {
-                this._typeAheadController.text = suggestion['tenThuoc'];
+                this._typeAheadController.text = suggestion['productName'];
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          DrugDetails(drugData: suggestion['productName'])),
+                );
               },
-              // validator: (value) {
-              //   if (value.isEmpty) {
-              //     return 'Hãy chọn nhập và chọn một tên thuốc bất kì';
-              //   }
-              // },
+              validator: (value) {
+                if (value.isEmpty) {
+                  return 'Hãy chọn nhập và chọn một tên thuốc bất kì';
+                }
+              },
               onSaved: (value) => this._selectedDrug = value,
             ),
-            // BlocBuilder<SearchCacheCubit, SearchCacheState>(
-            //   builder: (context, state) {
-            //     if (state is SearchCacheLoaded) {
-            //       return historyList(cubit.searchHistory,
-            //           (String searchString) {
-            //         setState(() {
-            //           _typeAheadController.text = searchString;
-            //         });
-            //         _updateSearchCache(searchString, cubit);
-            //       });
-            //     } else {
-            //       return Container();
-            //     }
-            //   },
-            // )
           ],
         ),
       ),
     );
   }
-
-  // Widget historyList(Queue<String> searchHistory, Function callback) {
-  //   return Column(
-  //     children: [
-  //       for (int search = 0; search < searchHistory.length; search++)
-  //         Container(
-  //           height: 50,
-  //           child: Row(
-  //             children: [
-  //               Icon(CupertinoIcons.square_list_fill),
-  //               Container(
-  //                 child: Text(
-  //                   searchHistory.elementAt(search),
-  //                 ),
-  //               ),
-  //             ],
-  //           ),
-  //         )
-  //     ],
-  //   );
-  // }
 }
