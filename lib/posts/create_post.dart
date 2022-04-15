@@ -187,6 +187,7 @@ class _CreatePostState extends State<CreatePost> {
     );
   }
 
+  /// Show box select image choice
   showImageChoices(BuildContext context, PostsViewModel viewModel) {
     showModalBottomSheet(
       context: context,
