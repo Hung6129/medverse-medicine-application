@@ -76,16 +76,6 @@ class _EditItemFormState extends State<EditItemForm> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(
-                    height: 24.0,
-                  ),
-                  Text(
-                    'Hình ảnh',
-                    style: TextStyle(
-                      fontSize: 15.0,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  SizedBox(
                     height: 8.0,
                   ),
                   InkWell(
@@ -132,31 +122,28 @@ class _EditItemFormState extends State<EditItemForm> {
                       ),
                       child: _postImageFile == null
                           ? Image.network(
-                        widget.currentImageUrl,
-                        height: MediaQuery.of(context).size.width - 30,
-                        width: MediaQuery.of(context).size.width,
-                        fit: BoxFit.cover,
-                      )
+                              widget.currentImageUrl,
+                              height: MediaQuery.of(context).size.width - 30,
+                              width: MediaQuery.of(context).size.width,
+                              fit: BoxFit.cover,
+                            )
                           : Image.file(
-                        _postImageFile,
-                        height: MediaQuery.of(context).size.width - 30,
-                        width: MediaQuery.of(context).size.width,
-                        fit: BoxFit.cover,
-                      ),
+                              _postImageFile,
+                              height: MediaQuery.of(context).size.width - 30,
+                              width: MediaQuery.of(context).size.width,
+                              fit: BoxFit.cover,
+                            ),
                     ),
                   ),
                   SizedBox(
                     height: 24.0,
                   ),
                   Text(
-                    'Mô tả bài viết',
+                    'Mô tả bài viết'.toUpperCase(),
                     style: TextStyle(
                       fontSize: 15.0,
                       fontWeight: FontWeight.w600,
                     ),
-                  ),
-                  SizedBox(
-                    height: 8.0,
                   ),
                   CustomFormField(
                     maxLines: null,
@@ -175,8 +162,13 @@ class _EditItemFormState extends State<EditItemForm> {
                     label: 'Mô tả bài viết',
                     hint: 'Eg. Đây là một bức hình đẹp',
                   ),
-                  SizedBox(
-                    height: 8.0,
+                  SizedBox(height: 20.0),
+                  Text(
+                    'Vị trí'.toUpperCase(),
+                    style: TextStyle(
+                      fontSize: 15.0,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                   CustomFormField(
                     maxLines: null,
@@ -265,6 +257,7 @@ class _EditItemFormState extends State<EditItemForm> {
                       ),
                     ),
                   ),
+            SizedBox(height: 20.0),
           ],
         ),
       ),

@@ -37,9 +37,6 @@ class CustomFormField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      style: TextStyle(
-        color: Colors.grey,
-      ),
       initialValue: _initialValue,
       maxLines: maxLines,
       keyboardType: _keyboardtype,
@@ -53,18 +50,9 @@ class CustomFormField extends StatelessWidget {
         labelText: isLabelEnabled ? _label : null,
         labelStyle: TextStyle(color: Colors.yellowAccent),
         hintText: _hint,
-        hintStyle: TextStyle(
-          color: Colors.blueGrey,
-        ),
         errorStyle: TextStyle(
           color: Colors.redAccent,
           fontWeight: FontWeight.bold,
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8.0),
-          borderSide: BorderSide(
-            color: Colors.blueGrey,
-          ),
         ),
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8.0),
