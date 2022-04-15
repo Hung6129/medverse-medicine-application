@@ -1,4 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:medverse_mobile_app/models/user.dart';
+import 'package:medverse_mobile_app/utils/firebase.dart';
 import '/models/post.dart';
 import '/theme/palette.dart';
 import '/pages/nav-items/feeds/widgets/edit_post_form.dart';
@@ -85,14 +88,36 @@ class _EditScreenState extends State<EditPostScreen> {
                   ),
           ],
         ),
-        body: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.only(
-              left: 16.0,
-              right: 16.0,
-              bottom: 20.0,
+        body: ListView(
+          padding: EdgeInsets.symmetric(horizontal: 15.0),
+          children: [
+            SizedBox(height: 15.0),
+            StreamBuilder(
+              stream: usersRef.doc(firebaseAuth.currentUser.uid).snapshots(),
+              builder: (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+                if (snapshot.hasData) {
+                  UserModel user = UserModel.fromJson(snapshot.data.data());
+                  return ListTile(
+                    leading: CircleAvatar(
+                      radius: 25.0,
+                      backgroundImage: NetworkImage(user?.photoUrl),
+                    ),
+                    title: Text(
+                      user?.username,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    subtitle: Text(
+                      user?.email,
+                    ),
+                  );
+                } else {
+                  return Container();
+                }
+              },
             ),
-            child: EditItemForm(
+            EditItemForm(
               documentId: widget.documentId,
               currentImageUrl: widget.currentImageUrl,
               currentDescription: widget.currentDescription,
@@ -100,7 +125,7 @@ class _EditScreenState extends State<EditPostScreen> {
               titleFocusNode: _titleFocusNode,
               descriptionFocusNode: _descriptionFocusNode,
             ),
-          ),
+          ],
         ),
       ),
     );

@@ -81,7 +81,9 @@ class _CreatePostState extends State<CreatePost> {
                       ),
                       title: Text(
                         user?.username,
-                        style: TextStyle(fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                       subtitle: Text(
                         user?.email,
