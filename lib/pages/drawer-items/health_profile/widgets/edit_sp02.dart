@@ -177,18 +177,34 @@ class _EditHealthProfilePageState extends State<EditSP02> {
         userHealthProfileModel.SP02 = sp02EditingController.text;
 
         /// Connect to Health Profile Model
-        await firebaseFirestore
-            .collection("healthProfile")
-            .doc(user?.uid)
-            .update(userHealthProfileModel.updateSP02())
-            .catchError((e) {
-          Fluttertoast.showToast(msg: e.message);
-        });
-        Fluttertoast.showToast(
-          msg: "Cập nhật hồ sơ sức khỏe thành công",
-          backgroundColor: Palette.activeButton,
-        );
-        Navigator.of(context).pop();
+        if (userHealthProfileModel.SP02.isEmpty ||
+            userHealthProfileModel.SP02 == null) {
+          await firebaseFirestore
+              .collection("healthProfile")
+              .doc(user?.uid)
+              .set(userHealthProfileModel.updateSP02())
+              .catchError((e) {
+            Fluttertoast.showToast(msg: e.message);
+          });
+          Fluttertoast.showToast(
+            msg: "Lưu chỉ số nhịp tim thành công",
+            backgroundColor: Palette.activeButton,
+          );
+          Navigator.of(context).pop();
+        } else {
+          await firebaseFirestore
+              .collection("healthProfile")
+              .doc(user?.uid)
+              .update(userHealthProfileModel.updateSP02())
+              .catchError((e) {
+            Fluttertoast.showToast(msg: e.message);
+          });
+          Fluttertoast.showToast(
+            msg: "Cập nhật chỉ số nhịp tim thành công",
+            backgroundColor: Palette.activeButton,
+          );
+          Navigator.of(context).pop();
+        }
       } on FirebaseAuthException catch (error) {
         switch (error.code) {
           case "invalid-email":
