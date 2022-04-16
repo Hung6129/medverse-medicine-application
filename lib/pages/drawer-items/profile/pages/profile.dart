@@ -141,27 +141,66 @@ class _ProfileState extends State<Profile> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        Container(
-                                          width: 130.0,
-                                          child: Text(
-                                            user?.username,
-                                            style: TextStyle(
-                                                fontSize: 15.0,
-                                                fontWeight: FontWeight.w900),
-                                            maxLines: null,
-                                          ),
-                                        ),
-                                        Container(
-                                          width: 130.0,
-                                          child: Text(
-                                            user?.country,
-                                            style: TextStyle(
-                                              fontSize: 12.0,
-                                              fontWeight: FontWeight.w600,
+                                        Row(
+                                          children: [
+                                            Column(
+                                              children: [
+                                                Container(
+                                                  width: 130.0,
+                                                  child: Text(
+                                                    user?.username,
+                                                    style: TextStyle(
+                                                        fontSize: 15.0,
+                                                        fontWeight:
+                                                            FontWeight.w900),
+                                                    maxLines: null,
+                                                  ),
+                                                ),
+                                                Container(
+                                                  width: 130.0,
+                                                  child: Text(
+                                                    user?.country,
+                                                    style: TextStyle(
+                                                      fontSize: 12.0,
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                    ),
+                                                    maxLines: 1,
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                  ),
+                                                ),
+                                              ],
                                             ),
-                                            maxLines: 1,
-                                            overflow: TextOverflow.ellipsis,
-                                          ),
+                                            widget.profileId == currentUserId()
+                                                ? InkWell(
+                                                    onTap: () {
+                                                      Navigator.of(context)
+                                                          .push(
+                                                        CupertinoPageRoute(
+                                                          builder: (_) =>
+                                                              Setting(),
+                                                        ),
+                                                      );
+                                                    },
+                                                    child: Row(
+                                                      children: [
+                                                        Icon(
+                                                          Feather.settings,
+                                                          color:
+                                                              Palette.whiteText,
+                                                        ),
+                                                        SizedBox(width: 5.0),
+                                                        Text(
+                                                          'settings',
+                                                          style: TextStyle(
+                                                              fontSize: 11.5),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  )
+                                                : buildLikeButton()
+                                          ],
                                         ),
                                         SizedBox(width: 10.0),
                                         Column(
@@ -181,29 +220,6 @@ class _ProfileState extends State<Profile> {
                                       ],
                                     ),
                                     SizedBox(width: 20),
-                                    widget.profileId == currentUserId()
-                                        ? InkWell(
-                                            onTap: () {
-                                              Navigator.of(context).push(
-                                                CupertinoPageRoute(
-                                                  builder: (_) => Setting(),
-                                                ),
-                                              );
-                                            },
-                                            child: Column(
-                                              children: [
-                                                Icon(Feather.settings,
-                                                    color: Theme.of(context)
-                                                        .accentColor),
-                                                Text(
-                                                  'settings',
-                                                  style:
-                                                      TextStyle(fontSize: 11.5),
-                                                ),
-                                              ],
-                                            ),
-                                          )
-                                        : buildLikeButton()
                                   ],
                                 ),
                               ],
@@ -216,7 +232,7 @@ class _ProfileState extends State<Profile> {
                         ),
                         SizedBox(height: 10.0),
                         Container(
-                          height: 50.0,
+                          height: 60.0,
                           child: Padding(
                             padding:
                                 const EdgeInsets.symmetric(horizontal: 30.0),
@@ -234,9 +250,9 @@ class _ProfileState extends State<Profile> {
                                       QuerySnapshot snap = snapshot.data;
                                       List<DocumentSnapshot> docs = snap.docs;
                                       return buildCount(
-                                          "POSTS", docs?.length ?? 0);
+                                          "Bài viết", docs?.length ?? 0);
                                     } else {
-                                      return buildCount("POSTS", 0);
+                                      return buildCount("Bài viết", 0);
                                     }
                                   },
                                 ),
@@ -259,9 +275,9 @@ class _ProfileState extends State<Profile> {
                                       QuerySnapshot snap = snapshot.data;
                                       List<DocumentSnapshot> docs = snap.docs;
                                       return buildCount(
-                                          "FOLLOWERS", docs?.length ?? 0);
+                                          "Người theo dõi", docs?.length ?? 0);
                                     } else {
-                                      return buildCount("FOLLOWERS", 0);
+                                      return buildCount("Người theo dõi", 0);
                                     }
                                   },
                                 ),
@@ -284,9 +300,9 @@ class _ProfileState extends State<Profile> {
                                       QuerySnapshot snap = snapshot.data;
                                       List<DocumentSnapshot> docs = snap.docs;
                                       return buildCount(
-                                          "FOLLOWING", docs?.length ?? 0);
+                                          "Đang theo dõi", docs?.length ?? 0);
                                     } else {
-                                      return buildCount("FOLLOWING", 0);
+                                      return buildCount("Đang theo dõi", 0);
                                     }
                                   },
                                 ),
@@ -294,7 +310,6 @@ class _ProfileState extends State<Profile> {
                             ),
                           ),
                         ),
-                        SizedBox(height: 10.0),
                         buildProfileButton(user),
                       ],
                     );
@@ -373,7 +388,7 @@ class _ProfileState extends State<Profile> {
         Text(
           label,
           style: TextStyle(
-            fontSize: 15,
+            fontSize: 11,
             fontWeight: FontWeight.w400,
             fontFamily: 'Ubuntu-Regular',
           ),

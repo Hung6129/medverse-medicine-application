@@ -179,18 +179,34 @@ class _EditHealthProfilePageState extends State<EditHeight> {
         userHealthProfileModel.height = heightEditingController.text;
 
         /// Connect to Health Profile Model
-        await firebaseFirestore
-            .collection("healthProfile")
-            .doc(user?.uid)
-            .update(userHealthProfileModel.updateHeight())
-            .catchError((e) {
-          Fluttertoast.showToast(msg: e.message);
-        });
-        Fluttertoast.showToast(
-          msg: "Cập nhật hồ sơ sức khỏe thành công",
-          backgroundColor: Palette.activeButton,
-        );
-        Navigator.of(context).pop();
+        if (userHealthProfileModel.height.isEmpty ||
+            userHealthProfileModel.height == null) {
+          await firebaseFirestore
+              .collection("healthProfile")
+              .doc(user?.uid)
+              .set(userHealthProfileModel.updateHeight())
+              .catchError((e) {
+            Fluttertoast.showToast(msg: e.message);
+          });
+          Fluttertoast.showToast(
+            msg: "Lưu thông tin chiều cao thành công",
+            backgroundColor: Palette.activeButton,
+          );
+          Navigator.of(context).pop();
+        } else {
+          await firebaseFirestore
+              .collection("healthProfile")
+              .doc(user?.uid)
+              .update(userHealthProfileModel.updateHeight())
+              .catchError((e) {
+            Fluttertoast.showToast(msg: e.message);
+          });
+          Fluttertoast.showToast(
+            msg: "Cập nhật thông tin chiều cao thành công",
+            backgroundColor: Palette.activeButton,
+          );
+          Navigator.of(context).pop();
+        }
       } on FirebaseAuthException catch (error) {
         switch (error.code) {
           case "invalid-email":

@@ -91,6 +91,9 @@ class _AccountInfomationState extends State<AccountInformation> {
                           )
                         : Text(
                             '${loggedInUser.username}',
+                            style: TextStyle(
+                              color: Palette.textNo,
+                            ),
                           ),
                   ],
                 ),
@@ -145,6 +148,9 @@ class _AccountInfomationState extends State<AccountInformation> {
                           )
                         : Text(
                             '${loggedInUser.email}',
+                            style: TextStyle(
+                              color: Palette.textNo,
+                            ),
                           ),
                   ],
                 ),
@@ -200,6 +206,9 @@ class _AccountInfomationState extends State<AccountInformation> {
                           )
                         : Text(
                             '${loggedInUser.country}',
+                            style: TextStyle(
+                              color: Palette.textNo,
+                            ),
                           ),
                   ],
                 ),
@@ -255,11 +264,15 @@ class _AccountInfomationState extends State<AccountInformation> {
                           )
                         : Text(
                             '${loggedInUser.bio}',
+                            style: TextStyle(
+                              color: Palette.textNo,
+                            ),
                           ),
                   ],
                 ),
               ),
             ),
+            SizedBox(height: 20.0),
           ],
         )),
       );

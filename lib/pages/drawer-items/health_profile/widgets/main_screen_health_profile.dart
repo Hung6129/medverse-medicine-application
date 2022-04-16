@@ -1,7 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import '../../../../widgets/constants.dart';
+import '/widgets/constants.dart';
 import '/widgets/dimension.dart';
 import '/theme/palette.dart';
 import '/auth/login/login.dart';
@@ -221,7 +222,7 @@ class MapScreenState extends State<HealthProfile>
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               Text(
-                                'Chiều cao:',
+                                'Cân nặng:',
                                 style: black_kLabelStyle,
                               ),
                               SizedBox(height: 10),
@@ -511,7 +512,7 @@ class MapScreenState extends State<HealthProfile>
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               Text(
-                                'Huyết áp:',
+                                'Nhịp tim:',
                                 style: black_kLabelStyle,
                               ),
                               SizedBox(height: 10),
@@ -557,7 +558,7 @@ class MapScreenState extends State<HealthProfile>
                 GestureDetector(
                   onTap: () => Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (context) => const EditSP02(),
+                      builder: (context) => const EditBloodGroup(),
                     ),
                   ),
                   child: Container(
@@ -607,7 +608,7 @@ class MapScreenState extends State<HealthProfile>
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               Text(
-                                'Huyết áp:',
+                                'Nhóm máu:',
                                 style: black_kLabelStyle,
                               ),
                               SizedBox(height: 10),

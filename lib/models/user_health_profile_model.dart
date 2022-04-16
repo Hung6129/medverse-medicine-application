@@ -49,50 +49,55 @@ class UserHealthProfileModel {
 
   /// Update height data to our server
   Map<String, dynamic> updateHeight() {
-    return {
-      'uid': uid,
-      'height': height,
-    };
-  }
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['uid'] = this.uid;
+    data['height'] = this.height;
 
+    return data;
+  }
   /// Update weight data to our server
   Map<String, dynamic> updateWeight() {
-    return {
-      'uid': uid,
-      'weight': weight,
-    };
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['uid'] = this.uid;
+    data['weight'] = this.weight;
+
+    return data;
   }
 
   /// Update bmi data to our server
   Map<String, dynamic> updateBMI() {
-    return {
-      'uid': uid,
-      'bmi': bmi,
-    };
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['uid'] = this.uid;
+    data['bmi'] = this.bmi;
+
+    return data;
   }
 
   /// Update blood pressure data to our server
   Map<String, dynamic> updateBloodPressure() {
-    return {
-      'uid': uid,
-      'DBP': DBP,
-      'SBP': SBP,
-    };
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['uid'] = this.uid;
+    data['DBP'] = this.DBP;
+    data['SBP'] = this.SBP;
+
+    return data;
   }
 
   /// Update sp02 data to our server
   Map<String, dynamic> updateSP02() {
-    return {
-      'uid': uid,
-      'SP02': SP02,
-    };
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['uid'] = this.uid;
+    data['SP02'] = this.SP02;
+
+    return data;
   }
 
-  /// Update sp02 data to our server
+  /// Update blood group data to our server
   Map<String, dynamic> updateBloodGroup() {
-    return {
-      'uid': uid,
-      'bloodGroup': bloodGroup,
-    };
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['uid'] = this.uid;
+    data['bloodGroup'] = this.bloodGroup;
+
+    return data;
   }
 }
