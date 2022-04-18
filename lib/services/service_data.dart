@@ -1,7 +1,5 @@
 import 'package:medverse_mobile_app/models/drug_bank_db/product.dart';
-
-import '/models/test/drugs_product_test.dart';
-import '/widgets/app_constants.dart';
+import 'package:medverse_mobile_app/utils/constants.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -9,7 +7,7 @@ import 'dart:convert';
 class RecommenedData {
   static Future<List<ProductDB>> getRecommened() async {
     try {
-      var response = await http.get(Uri.parse(ApiConstants.POPULAR_TOP_10));
+      var response = await http.get(Uri.parse(Constants.POPULAR_TOP_10));
       if (response.statusCode == 200) {
         List listTrend = json.decode(response.body) as List;
         return listTrend.map((e) => ProductDB.fromJson(e)).toList();
@@ -32,12 +30,12 @@ class typeAhead {
       return Future.value(data);
     }
     http.Response resTypeAhead =
-        await http.get(Uri.parse(ApiConstants.TYPE_AHEAD + query));
+        await http.get(Uri.parse(Constants.TYPE_AHEAD + query));
     List<ProductDB> suggestion = [];
     if (resTypeAhead.statusCode == 200) {
       Iterable listTypeAhead = json.decode(resTypeAhead.body);
-      suggestion = List<ProductDB>.from(
-          listTypeAhead.map((e) => ProductDB.fromJson(e)));
+      suggestion =
+          List<ProductDB>.from(listTypeAhead.map((e) => ProductDB.fromJson(e)));
     } else {
       print('Request failed with status: ${resTypeAhead.statusCode}.');
     }

@@ -96,12 +96,12 @@ class _TypeAheadSearchBarState extends State<TypeAheadSearchBar> {
               },
               onSuggestionSelected: (Map<String, dynamic> suggestion) {
                 this._typeAheadController.text = suggestion['productName'];
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) =>
-                          DrugDetails(drugData: suggestion['productName'])),
-                );
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(
+                //       builder: (context) =>
+                //           DrugDetails(drugData: suggestion['productName'])),
+                // );
               },
               validator: (value) {
                 if (value.isEmpty) {

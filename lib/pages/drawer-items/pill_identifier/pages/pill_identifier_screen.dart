@@ -1,8 +1,3 @@
-import 'dart:convert';
-
-import 'package:http/http.dart' as http;
-
-import '../../../../widgets/header.dart';
 import '/widgets/app_text_title.dart';
 import '/theme/palette.dart';
 import '/widgets/app_text.dart';
@@ -20,7 +15,7 @@ class Identifier extends StatefulWidget {
 class _IdentifierState extends State<Identifier> {
   TextEditingController txtCon = TextEditingController();
   List<String> colors = [
-    "Chọn màu sắc",
+    "Màu sắc",
     "ORANGE,ORANGE",
     "PURPLE,GRAY",
     "YELLOW,PURPLE",
@@ -67,7 +62,7 @@ class _IdentifierState extends State<Identifier> {
   ];
 
   List<String> shapes = [
-    'Chọn hình dạng',
+    'Hình dạng',
     "SEMI-CIRCLE",
     "FREEFORM",
     "DIAMOND",
@@ -86,8 +81,8 @@ class _IdentifierState extends State<Identifier> {
     "ROUND",
   ];
 
-  String dropDownColor = "Chọn màu sắc";
-  String dropdownShape = "Chọn hình dạng";
+  String dropDownColor = "Màu sắc";
+  String dropdownShape = "Hình dạng";
 
   //test
 

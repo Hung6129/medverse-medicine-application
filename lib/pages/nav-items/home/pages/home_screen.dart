@@ -7,6 +7,7 @@ import 'package:medverse_mobile_app/widgets/typeahead_search_bar.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';
 import '../../../../widgets/app_constants.dart';
 import '../../../../widgets/list_function.dart';
+import '../../../detail_screen/drug_details copy.dart';
 import '../../../detail_screen/drug_details.dart';
 import 'package:http/http.dart' as http;
 
@@ -20,7 +21,6 @@ import '/widgets/app_text.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key key}) : super(key: key);
-
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
@@ -41,16 +41,8 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
-  _httpGet() async {
-    print("tapped");
-    var response = await http.get(Uri.parse(ApiConstants.POPULAR_TOP_10));
-    print(response.body);
-    print(response.body.length);
-  }
-
 // Example images
   String imagesFav = "assets/images/drugs_pill/300.jpg";
-
   @override
   Widget build(BuildContext context) {
 // Call drugdatacubit
@@ -67,6 +59,17 @@ class _HomeScreenState extends State<HomeScreen> {
         child: SingleChildScrollView(
           child: Column(
             children: [
+              //TestBtn
+              TextButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => DrugDetailsTest(),
+                      ),
+                    );
+                  },
+                  child: Text("PressMe")),
               // Search bar
               TypeAheadSearchBar(),
               // List function
@@ -94,14 +97,24 @@ class _HomeScreenState extends State<HomeScreen> {
                             itemCount: cubit.drug.length,
                             scrollDirection: Axis.horizontal,
                             itemBuilder: (BuildContext context, int index) {
-                              return Container(
-                                margin: EdgeInsets.only(right: 20, top: 10),
-                                width: 250,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20),
-                                  image: DecorationImage(
-                                    image: AssetImage(imagesFav),
-                                    fit: BoxFit.cover,
+                              return GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => DrugDetailsTest(
+                                            drugData: cubit.drug[index])),
+                                  );
+                                },
+                                child: Container(
+                                  margin: EdgeInsets.only(right: 20, top: 10),
+                                  width: 250,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(20),
+                                    image: DecorationImage(
+                                      image: AssetImage(imagesFav),
+                                      fit: BoxFit.cover,
+                                    ),
                                   ),
                                 ),
                               );
@@ -138,7 +151,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ],
               ),
-
               SizedBox(
                 height: Dimensions.height20,
               ),
@@ -165,12 +177,12 @@ class _HomeScreenState extends State<HomeScreen> {
                           itemCount: cubit.drug.length,
                           itemBuilder: (context, index) => GestureDetector(
                             onTap: () {
-                              // Navigator.push(
-                              //   context,
-                              //   MaterialPageRoute(
-                              //       builder: (context) =>
-                              //           DrugDetails(drugData: cubit.drugTest[index])),
-                              // );
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => DrugDetailsTest(
+                                        drugData: cubit.drug[index])),
+                              );
                             },
                             child: Container(
                               margin: EdgeInsets.only(

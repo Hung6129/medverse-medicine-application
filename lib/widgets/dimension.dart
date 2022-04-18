@@ -9,7 +9,7 @@ class Dimensions {
   // height 250
   static double postContainerView = screenHeight / 2.732;
   // images height 300
-  static double imagesViewHeight = screenHeight / 2.276;
+  static double imagesViewHeight = screenHeight / (screenHeight / 280);
   //
 
   // width dimensions

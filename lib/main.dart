@@ -1,24 +1,23 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
-import 'package:medverse_mobile_app/controller/cubit/search_cache/search_cache_cubit.dart';
 import 'package:medverse_mobile_app/routes/app_routes.dart';
 import 'package:provider/provider.dart';
 import '/components/life_cycle_event_handler.dart';
 import '/landing/landing_page.dart';
 import '/services/user_service.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import '/models/test/saved_drug_list_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'controller/cubit/drugs_data/drugs_data_cubit.dart';
 import '/utils/config.dart';
 import '/utils/constants.dart';
 import '/utils/providers.dart';
+import 'models/drug_bank_db/fav_drug_model.dart';
 
 void main() async {
   await Hive.initFlutter();
-  Hive.registerAdapter<SavedDrugListModel>(SavedDrugListModelAdapter());
-  await Hive.openBox<SavedDrugListModel>("savedList");
+  Hive.registerAdapter<FavDrugModel>((FavDrugModelAdapter()));
+  await Hive.openBox<FavDrugModel>("fav-list");
   await Hive.openBox("search-cache");
   WidgetsFlutterBinding.ensureInitialized();
   await Config.initFirebase();
@@ -49,7 +48,6 @@ class _MyAppState extends State<MyApp> {
       child: Consumer<ThemeNotifier>(
         builder: (context, ThemeNotifier notifier, child) {
           return MaterialApp(
-            title: Constants.appName,
             debugShowCheckedModeBanner: false,
             theme: notifier.dark ? Constants.darkTheme : Constants.lightTheme,
             home: StreamBuilder(

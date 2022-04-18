@@ -1,11 +1,7 @@
-import 'package:medverse_mobile_app/pages/drawer-items/health_profile/widgets/main_screen_health_profile.dart';
-import 'package:medverse_mobile_app/pages/drawer-items/pill_identifier/pages/pill_identifier_screen.dart';
-
-import '../pages/drawer-items/check_interaction/pages/interaction_checker.dart';
-import '../pages/drawer-items/compare_drugs/pages/compare_drug_screen.dart';
-import '../pages/drawer-items/health_profile/pages/health_profile.dart';
-import '/controller/cubit/drugs_data/drugs_data_cubit.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import '/pages/drawer-items/pill_identifier/pages/pill_identifier_screen.dart';
+import '/pages/drawer-items/check_interaction/pages/interaction_checker.dart';
+import '/pages/drawer-items/compare_drugs/pages/compare_drug_screen.dart';
+import '/pages/drawer-items/health_profile/pages/health_profile.dart';
 import '/screens/mainscreen.dart';
 import '/screens/wellcome_screen.dart';
 import 'package:flutter/material.dart';
