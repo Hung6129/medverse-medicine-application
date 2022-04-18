@@ -3,9 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
-import 'package:medverse_mobile_app/widgets/tabbar_widget.dart';
-import '../../account_information/pages/account_infomation.dart';
-import '../../health_profile/widgets/main_screen_health_profile.dart';
+import 'package:medverse_mobile_app/widgets/dimension.dart';
 import '/theme/palette.dart';
 import '/auth/register/register.dart';
 import '/components/stream_builder_wrapper.dart';
@@ -21,7 +19,9 @@ import '/widgets/posts_view.dart';
 class Profile extends StatefulWidget {
   final profileId;
 
-  Profile({this.profileId});
+  Profile({
+    this.profileId,
+  });
 
   @override
   _ProfileState createState() => _ProfileState();
@@ -67,7 +67,9 @@ class _ProfileState extends State<Profile> {
         backgroundColor: Palette.mainBlueTheme,
         centerTitle: true,
         title: Expanded(
-          child: Text('Thông tin tài khoản'),
+          child: Text(
+            'Thông tin tài khoản',
+          ),
         ),
         actions: [
           widget.profileId == firebaseAuth.currentUser.uid
@@ -139,27 +141,66 @@ class _ProfileState extends State<Profile> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        Container(
-                                          width: 130.0,
-                                          child: Text(
-                                            user?.username,
-                                            style: TextStyle(
-                                                fontSize: 15.0,
-                                                fontWeight: FontWeight.w900),
-                                            maxLines: null,
-                                          ),
-                                        ),
-                                        Container(
-                                          width: 130.0,
-                                          child: Text(
-                                            user?.country,
-                                            style: TextStyle(
-                                              fontSize: 12.0,
-                                              fontWeight: FontWeight.w600,
+                                        Row(
+                                          children: [
+                                            Column(
+                                              children: [
+                                                Container(
+                                                  width: 130.0,
+                                                  child: Text(
+                                                    user?.username,
+                                                    style: TextStyle(
+                                                        fontSize: 15.0,
+                                                        fontWeight:
+                                                            FontWeight.w900),
+                                                    maxLines: null,
+                                                  ),
+                                                ),
+                                                Container(
+                                                  width: 130.0,
+                                                  child: Text(
+                                                    user?.country,
+                                                    style: TextStyle(
+                                                      fontSize: 12.0,
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                    ),
+                                                    maxLines: 1,
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                  ),
+                                                ),
+                                              ],
                                             ),
-                                            maxLines: 1,
-                                            overflow: TextOverflow.ellipsis,
-                                          ),
+                                            widget.profileId == currentUserId()
+                                                ? InkWell(
+                                                    onTap: () {
+                                                      Navigator.of(context)
+                                                          .push(
+                                                        CupertinoPageRoute(
+                                                          builder: (_) =>
+                                                              Setting(),
+                                                        ),
+                                                      );
+                                                    },
+                                                    child: Row(
+                                                      children: [
+                                                        Icon(
+                                                          Feather.settings,
+                                                          color:
+                                                              Palette.whiteText,
+                                                        ),
+                                                        SizedBox(width: 5.0),
+                                                        Text(
+                                                          'settings',
+                                                          style: TextStyle(
+                                                              fontSize: 11.5),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  )
+                                                : buildLikeButton()
+                                          ],
                                         ),
                                         SizedBox(width: 10.0),
                                         Column(
@@ -179,29 +220,6 @@ class _ProfileState extends State<Profile> {
                                       ],
                                     ),
                                     SizedBox(width: 20),
-                                    widget.profileId == currentUserId()
-                                        ? InkWell(
-                                            onTap: () {
-                                              Navigator.of(context).push(
-                                                CupertinoPageRoute(
-                                                  builder: (_) => Setting(),
-                                                ),
-                                              );
-                                            },
-                                            child: Column(
-                                              children: [
-                                                Icon(Feather.settings,
-                                                    color: Theme.of(context)
-                                                        .accentColor),
-                                                Text(
-                                                  'settings',
-                                                  style:
-                                                      TextStyle(fontSize: 11.5),
-                                                ),
-                                              ],
-                                            ),
-                                          )
-                                        : buildLikeButton()
                                   ],
                                 ),
                               ],
@@ -210,24 +228,11 @@ class _ProfileState extends State<Profile> {
                         ),
                         Padding(
                           padding: const EdgeInsets.only(top: 10.0, left: 20.0),
-                          child: user.bio.isEmpty
-                              ? Container()
-                              : Container(
-                                  width: 200,
-                                  child: Text(
-                                    user?.bio,
-                                    style: TextStyle(
-                                      //    color: Color(0xff4D4D4D),
-                                      fontSize: 10.0,
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                    maxLines: null,
-                                  ),
-                                ),
+                          child: Container(),
                         ),
                         SizedBox(height: 10.0),
                         Container(
-                          height: 50.0,
+                          height: 60.0,
                           child: Padding(
                             padding:
                                 const EdgeInsets.symmetric(horizontal: 30.0),
@@ -245,9 +250,9 @@ class _ProfileState extends State<Profile> {
                                       QuerySnapshot snap = snapshot.data;
                                       List<DocumentSnapshot> docs = snap.docs;
                                       return buildCount(
-                                          "POSTS", docs?.length ?? 0);
+                                          "Bài viết", docs?.length ?? 0);
                                     } else {
-                                      return buildCount("POSTS", 0);
+                                      return buildCount("Bài viết", 0);
                                     }
                                   },
                                 ),
@@ -256,7 +261,7 @@ class _ProfileState extends State<Profile> {
                                   child: Container(
                                     height: 50.0,
                                     width: 0.3,
-                                    color: Palette.grey,
+                                    color: Colors.grey,
                                   ),
                                 ),
                                 StreamBuilder(
@@ -270,9 +275,9 @@ class _ProfileState extends State<Profile> {
                                       QuerySnapshot snap = snapshot.data;
                                       List<DocumentSnapshot> docs = snap.docs;
                                       return buildCount(
-                                          "FOLLOWERS", docs?.length ?? 0);
+                                          "Người theo dõi", docs?.length ?? 0);
                                     } else {
-                                      return buildCount("FOLLOWERS", 0);
+                                      return buildCount("Người theo dõi", 0);
                                     }
                                   },
                                 ),
@@ -281,7 +286,7 @@ class _ProfileState extends State<Profile> {
                                   child: Container(
                                     height: 50.0,
                                     width: 0.3,
-                                    color: Palette.grey,
+                                    color: Colors.grey,
                                   ),
                                 ),
                                 StreamBuilder(
@@ -295,9 +300,9 @@ class _ProfileState extends State<Profile> {
                                       QuerySnapshot snap = snapshot.data;
                                       List<DocumentSnapshot> docs = snap.docs;
                                       return buildCount(
-                                          "FOLLOWING", docs?.length ?? 0);
+                                          "Đang theo dõi", docs?.length ?? 0);
                                     } else {
-                                      return buildCount("FOLLOWING", 0);
+                                      return buildCount("Đang theo dõi", 0);
                                     }
                                   },
                                 ),
@@ -314,26 +319,12 @@ class _ProfileState extends State<Profile> {
               ),
             ),
           ),
-          /*TabBarWidget(
-            tabs: [
-              Tab(
-                icon: Icon(Icons.health_and_safety_sharp),
-                text: 'Thông tin chỉ số sức khỏe',
-              ),
-              Tab(
-                icon: Icon(Icons.account_balance_sharp),
-                text: 'Thông tin chi tiết',
-              ),
-            ],
-            children: [
-              HealthProfile(),
-              AccountInformation(),
-            ],
-          ),*/
           SliverList(
             delegate: SliverChildBuilderDelegate(
               (BuildContext context, int index) {
-                if (index > 0) return null;
+                if (index > 0) {
+                  return null;
+                }
                 return Column(
                   children: [
                     Padding(
@@ -341,7 +332,7 @@ class _ProfileState extends State<Profile> {
                       child: Row(
                         children: [
                           Text(
-                            'All Posts',
+                            'Tất cả bài viết',
                             style: TextStyle(fontWeight: FontWeight.w900),
                           ),
                           Spacer(),
@@ -360,7 +351,7 @@ class _ProfileState extends State<Profile> {
     );
   }
 
-//show the toggling icons "grid" or "list" view.
+  /// Show the toggling icons "grid" or "list" view.
   buildIcons() {
     if (isToggle) {
       return IconButton(
@@ -388,18 +379,20 @@ class _ProfileState extends State<Profile> {
         Text(
           count.toString(),
           style: TextStyle(
-              fontSize: 16.0,
-              fontWeight: FontWeight.w900,
-              fontFamily: 'Ubuntu-Regular'),
+            fontSize: 16.0,
+            fontWeight: FontWeight.w900,
+            fontFamily: 'Ubuntu-Regular',
+          ),
         ),
         SizedBox(height: 3.0),
         Text(
           label,
           style: TextStyle(
-              fontSize: 15,
-              fontWeight: FontWeight.w400,
-              fontFamily: 'Ubuntu-Regular'),
-        )
+            fontSize: 11,
+            fontWeight: FontWeight.w400,
+            fontFamily: 'Ubuntu-Regular',
+          ),
+        ),
       ],
     );
   }
@@ -409,16 +402,17 @@ class _ProfileState extends State<Profile> {
     bool isMe = widget.profileId == firebaseAuth.currentUser.uid;
     if (isMe) {
       return buildButton(
-          text: "Edit Profile",
-          function: () {
-            Navigator.of(context).push(
-              CupertinoPageRoute(
-                builder: (_) => EditProfile(
-                  user: user,
-                ),
+        text: "Cập nhật thông tin",
+        function: () {
+          Navigator.of(context).push(
+            CupertinoPageRoute(
+              builder: (_) => EditProfile(
+                user: user,
               ),
-            );
-          });
+            ),
+          );
+        },
+      );
       //if you are already following the user then "unfollow"
     } else if (isFollowing) {
       return buildButton(
@@ -442,20 +436,20 @@ class _ProfileState extends State<Profile> {
           height: 40.0,
           width: 200.0,
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(5.0),
+            borderRadius: BorderRadius.circular(Dimensions.radius20),
             gradient: LinearGradient(
               begin: Alignment.topRight,
               end: Alignment.bottomLeft,
               colors: [
-                Theme.of(context).accentColor,
-                Color(0xff597FDB),
+                Palette.mainBlueTheme,
+                Palette.mainBlueTheme,
               ],
             ),
           ),
           child: Center(
             child: Text(
               text,
-              style: TextStyle(color: Colors.white),
+              style: TextStyle(color: Palette.whiteText),
             ),
           ),
         ),
@@ -606,20 +600,24 @@ class _ProfileState extends State<Profile> {
               }
             },
             child: Container(
-              decoration: BoxDecoration(boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withOpacity(0.2),
-                  spreadRadius: 3.0,
-                  blurRadius: 5.0,
-                )
-              ], color: Colors.white, shape: BoxShape.circle),
+              decoration: BoxDecoration(
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.2),
+                    spreadRadius: 3.0,
+                    blurRadius: 5.0,
+                  )
+                ],
+                color: Palette.whiteText,
+                shape: BoxShape.circle,
+              ),
               child: Padding(
                 padding: EdgeInsets.all(3.0),
                 child: Icon(
                   docs.isEmpty
                       ? CupertinoIcons.heart
                       : CupertinoIcons.heart_fill,
-                  color: Colors.red,
+                  color: Palette.red,
                 ),
               ),
             ),

@@ -4,12 +4,15 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:medverse_mobile_app/theme/palette.dart';
 import '/models/user.dart';
 import '/services/user_service.dart';
 import '/utils/constants.dart';
 
 class EditProfileViewModel extends ChangeNotifier {
   GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+
+  /// Check validation
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   bool validate = false;
   bool loading = false;
@@ -27,6 +30,7 @@ class EditProfileViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  /// Update user's picture into Firebase Server
   setImage(UserModel user) {
     imgLink = user.photoUrl;
   }
@@ -52,16 +56,18 @@ class EditProfileViewModel extends ChangeNotifier {
   editProfile(BuildContext context) async {
     FormState form = formKey.currentState;
     form.save();
+
+    /// Check validation before submitting
     if (!form.validate()) {
       validate = true;
       notifyListeners();
-      showInSnackBar('Please fix the errors in red before submitting.',context);
+      showInSnackBar('Vui lòng hoàn chỉnh cập nhật trước khi lưu.', context);
     } else {
       try {
         loading = true;
         notifyListeners();
         bool success = await userService.updateProfile(
-        //  user: user,
+          //  user: user,
           image: image,
           username: username,
           bio: bio,
@@ -82,7 +88,8 @@ class EditProfileViewModel extends ChangeNotifier {
     }
   }
 
-  pickImage({bool camera = false,BuildContext context}) async {
+  /// Select image
+  pickImage({bool camera = false, BuildContext context}) async {
     loading = true;
     notifyListeners();
     try {
@@ -101,7 +108,7 @@ class EditProfileViewModel extends ChangeNotifier {
         androidUiSettings: AndroidUiSettings(
           toolbarTitle: 'Crop Image',
           toolbarColor: Constants.lightAccent,
-          toolbarWidgetColor: Colors.white,
+          toolbarWidgetColor: Palette.whiteText,
           initAspectRatio: CropAspectRatioPreset.original,
           lockAspectRatio: false,
         ),
@@ -115,7 +122,7 @@ class EditProfileViewModel extends ChangeNotifier {
     } catch (e) {
       loading = false;
       notifyListeners();
-      showInSnackBar('Cancelled',context);
+      showInSnackBar('Cancelled', context);
     }
   }
 
@@ -124,8 +131,12 @@ class EditProfileViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
- void showInSnackBar(String value,context) {
+  void showInSnackBar(String value, context) {
     ScaffoldMessenger.of(context).removeCurrentSnackBar();
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(value)));
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(value),
+      ),
+    );
   }
 }

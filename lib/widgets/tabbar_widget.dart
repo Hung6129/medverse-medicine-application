@@ -34,7 +34,7 @@ class TabBarWidget extends StatelessWidget {
             ),
             bottom: TabBar(
               isScrollable: true,
-              indicatorColor: Colors.white,
+              indicatorColor: Palette.whiteText,
               indicatorWeight: 5,
               tabs: tabs,
             ),

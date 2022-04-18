@@ -176,17 +176,34 @@ class _EditHealthProfilePageState extends State<EditWeight> {
         userHealthProfileModel.uid = user?.uid;
         userHealthProfileModel.weight = weightEditingController.text;
 
-        await firebaseFirestore
-            .collection("healthProfile")
-            .doc(user?.uid)
-            .update(userHealthProfileModel.updateWeight())
-            .catchError((e) {
-          Fluttertoast.showToast(msg: e.message);
-        });
-        Fluttertoast.showToast(msg: "Cập nhật hồ sơ sức khỏe thành công",
-          backgroundColor: Palette.activeButton,
-        );
-        Navigator.of(context).pop();
+        if (userHealthProfileModel.weight.isEmpty ||
+            userHealthProfileModel.weight == null) {
+          await firebaseFirestore
+              .collection("healthProfile")
+              .doc(user?.uid)
+              .set(userHealthProfileModel.updateWeight())
+              .catchError((e) {
+            Fluttertoast.showToast(msg: e.message);
+          });
+          Fluttertoast.showToast(
+            msg: "Lưu thông tin cân nặng thành công",
+            backgroundColor: Palette.activeButton,
+          );
+          Navigator.of(context).pop();
+        } else {
+          await firebaseFirestore
+              .collection("healthProfile")
+              .doc(user?.uid)
+              .update(userHealthProfileModel.updateWeight())
+              .catchError((e) {
+            Fluttertoast.showToast(msg: e.message);
+          });
+          Fluttertoast.showToast(
+            msg: "Cập nhật thông tin cân nặng thành công",
+            backgroundColor: Palette.activeButton,
+          );
+          Navigator.of(context).pop();
+        }
       } on FirebaseAuthException catch (error) {
         switch (error.code) {
           case "invalid-email":

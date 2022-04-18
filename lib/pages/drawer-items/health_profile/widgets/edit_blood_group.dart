@@ -194,18 +194,33 @@ class _EditHealthProfilePageState extends State<EditBloodGroup> {
         userHealthProfileModel.bloodGroup = dropdownValue;
 
         /// Connect to Health Profile Model
-        await firebaseFirestore
-            .collection("healthProfile")
-            .doc(user?.uid)
-            .update(userHealthProfileModel.updateBloodGroup())
-            .catchError((e) {
-          Fluttertoast.showToast(msg: e.message);
-        });
-        Fluttertoast.showToast(
-          msg: "Cập nhật hồ sơ sức khỏe thành công",
-          backgroundColor: Palette.activeButton,
-        );
-        Navigator.of(context).pop();
+        if(userHealthProfileModel.bloodGroup.isEmpty || userHealthProfileModel.bloodGroup == null) {
+          await firebaseFirestore
+              .collection("healthProfile")
+              .doc(user?.uid)
+              .set(userHealthProfileModel.updateBloodGroup())
+              .catchError((e) {
+            Fluttertoast.showToast(msg: e.message);
+          });
+          Fluttertoast.showToast(
+            msg: "Lưu thông tin nhóm máu thành công",
+            backgroundColor: Palette.activeButton,
+          );
+          Navigator.of(context).pop();
+        } else {
+          await firebaseFirestore
+              .collection("healthProfile")
+              .doc(user?.uid)
+              .update(userHealthProfileModel.updateBloodGroup())
+              .catchError((e) {
+            Fluttertoast.showToast(msg: e.message);
+          });
+          Fluttertoast.showToast(
+            msg: "Cập nhật thông tin nhóm máu thành công",
+            backgroundColor: Palette.activeButton,
+          );
+          Navigator.of(context).pop();
+        }
       } on FirebaseAuthException catch (error) {
         switch (error.code) {
           case "invalid-email":

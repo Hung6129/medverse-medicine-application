@@ -90,6 +90,7 @@ class _TimelineState extends State<Timeline> {
   Widget build(BuildContext context) {
     Widget _checkAuthentication;
 
+    /// Check if user is authenticated
     if (user != null) {
       _checkAuthentication = new Scaffold(
         drawer: NavigationDrawerWidget(),
@@ -150,6 +151,10 @@ class _TimelineState extends State<Timeline> {
 
   void showInSnackBar(String value, context) {
     ScaffoldMessenger.of(context).removeCurrentSnackBar();
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(value)));
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(value),
+      ),
+    );
   }
 }
