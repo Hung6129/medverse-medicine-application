@@ -2,6 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Constants {
+  // DrugDB URL
+  static const String TYPE_AHEAD =
+      "http://192.168.56.1:8080/products/name?name=";
+  static const String POPULAR_TOP_10 =
+      "http://192.168.56.1:8080/products/name?name=hung";
+
   //App related strings
   static String appName = "Social App";
 
