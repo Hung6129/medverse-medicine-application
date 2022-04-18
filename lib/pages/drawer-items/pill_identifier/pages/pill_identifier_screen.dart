@@ -1,8 +1,3 @@
-import 'dart:convert';
-
-import 'package:http/http.dart' as http;
-
-import '../../../../widgets/header.dart';
 import '/widgets/app_text_title.dart';
 import '/theme/palette.dart';
 import '/widgets/app_text.dart';
@@ -20,41 +15,88 @@ class Identifier extends StatefulWidget {
 class _IdentifierState extends State<Identifier> {
   TextEditingController txtCon = TextEditingController();
   List<String> colors = [
-    'Chọn màu sắc',
-    'Đỏ',
-    'Vàng',
-    'Xanh lá',
-    'Xanh biển',
-    'Đỏ - Đen',
-    'Vàng - trắng',
-    "Viên nén bao phim",
+    "Màu sắc",
+    "ORANGE,ORANGE",
+    "PURPLE,GRAY",
+    "YELLOW,PURPLE",
+    "GREEN,BLACK",
+    "BROWN,YELLOW",
+    "PINK,BLACK",
+    "WHITE,GREEN",
+    "TURQUOISE",
+    "RED,BLUE",
+    "RED,WHITE",
+    "BLUE,GREEN",
+    "ORANGE,BROWN",
+    "YELLOW,ORANGE",
+    "GREEN,WHITE",
+    "RED,YELLOW",
+    "GREEN,PINK",
+    "GREEN,PURPLE",
+    "PINK,PINK",
+    "GRAY,RED",
+    "WHITE,BLACK",
+    "WHITE,WHITE",
+    "PURPLE,TURQUOISE",
+    "YELLOW,WHITE",
+    "GRAY,PURPLE",
+    "BLACK,PINK",
+    "PINK,YELLOW",
+    "GREEN",
+    "BLUE",
+    "YELLOW,RED",
+    "GRAY,WHITE",
+    "BROWN,PINK",
+    "GREEN,TURQUOISE",
+    "TURQUOISE,GREEN",
+    "BLUE,ORANGE",
+    "YELLOW,YELLOW",
+    "GREEN,GRAY",
+    "YELLOW,PINK",
+    "PURPLE,YELLOW",
+    "PURPLE,ORANGE",
+    "YELLOW,BLUE",
+    "YELLOW",
+    "BLACK,GREEN",
+    'PINK',
   ];
 
   List<String> shapes = [
-    'Chọn hình dạng',
-    'Tròn',
-    'Con nhộng',
-    'Vuông',
-    'Chữ nhật',
-    'Lục giác',
-    'Tam giác',
-    'Thất giác',
-    'Ngũ giác',
-    'Tứ giác',
+    'Hình dạng',
+    "SEMI-CIRCLE",
+    "FREEFORM",
+    "DIAMOND",
+    "HEXAGON(6sided)",
+    "CAPSULE",
+    "SQUARE",
+    "TEAR",
+    "OCTAGON (8sided)",
+    "PENTAGON(5sided)",
+    "BULLET",
+    "TRIANGLE",
+    "RECTANGLE",
+    "TRAPEZOID",
+    "OVAL",
+    "DOUBLECIRCLE",
+    "ROUND",
   ];
 
-  String dropDownColor = "Chọn màu sắc";
-  String dropdownShape = "Chọn hình dạng";
+  String dropDownColor = "Màu sắc";
+  String dropdownShape = "Hình dạng";
 
   //test
-  String baseUrl = "https://fakestoreapi.com/products";
-  String urlCate = "/categories";
-  String urlCateTypes = "/category/";
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: appBarMain(titleText: "Tìm kiếm nâng cao"),
+      appBar: AppBar(
+        backgroundColor: Palette.mainBlueTheme,
+        title: Text(
+          'Tìm kiếm nâng cao',
+          style: TextStyle(fontWeight: FontWeight.w900),
+        ),
+        centerTitle: true,
+      ),
       body: SingleChildScrollView(
         child: Column(
           children: [

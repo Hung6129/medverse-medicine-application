@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:translator/translator.dart';
 import '/theme/palette.dart';
 import '/widgets/dimension.dart';
 
@@ -11,6 +12,7 @@ class RichTextCus extends StatelessWidget {
     this.text1,
     this.text2,
   }) : super(key: key);
+
 
   @override
   Widget build(BuildContext context) {

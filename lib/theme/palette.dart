@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 class Palette {
   static const Color p1 = Color(0xFFF8F5F1);
   static const Color mainBlueTheme = Color(0xFF0D47A1);
-
   static const Color starRating = Color(0xFFF3950D);
   static const Color online = Color(0xFF4BCB1F);
   static const Color redTheme = Color(0xFFF05454);

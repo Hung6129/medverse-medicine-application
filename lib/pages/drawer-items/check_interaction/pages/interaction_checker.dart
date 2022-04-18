@@ -46,7 +46,6 @@ class _InteractionCheckerState extends State<InteractionChecker> {
               ),
               padding: EdgeInsets.all(Dimensions.height10),
               child: Column(
-                // crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   TypeAheadSearchBar(),
                   SizedBox(height: 30),
@@ -55,7 +54,7 @@ class _InteractionCheckerState extends State<InteractionChecker> {
                     height: 50,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
-                        color: Palette.whiteText),
+                        color: Palette.grey300),
                     child: TextButton(
                       onPressed: () {},
                       child: AppText(
@@ -75,11 +74,9 @@ class _InteractionCheckerState extends State<InteractionChecker> {
                       color: Palette.mainBlueTheme,
                     ),
                     child: TextButton(
-                      onPressed: () {
-                        Navigator.pushNamed(context, "/drugsDetails");
-                      },
+                      onPressed: () {},
                       child: AppText(
-                        text: "Tìm kiếm",
+                        text: "Kiểm tra tương kỵ",
                         color: Palette.whiteText,
                         size: 20,
                         fontWeight: FontWeight.normal,

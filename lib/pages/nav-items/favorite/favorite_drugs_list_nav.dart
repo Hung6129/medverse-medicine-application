@@ -1,7 +1,7 @@
+import 'package:medverse_mobile_app/models/drug_bank_db/fav_drug_model.dart';
 import 'package:medverse_mobile_app/widgets/header.dart';
 
-import '/models/test/saved_drug_list_model.dart';
-import '/pages/detail_screen/drug_details_saved.dart';
+import '../../detail_screen/fav_drug_details.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import '/theme/palette.dart';
 import '/widgets/app_text.dart';
@@ -22,20 +22,28 @@ class FavoriteDrugsListScreenNav extends StatefulWidget {
 class _FavoriteDrugsListScreenNavState
     extends State<FavoriteDrugsListScreenNav> {
   String imagesFav = "16571-0402-50_NLMIMAGE10_903AC856.jpg";
-  var _box = Hive.box<SavedDrugListModel>("savedList");
+  var _box = Hive.box<FavDrugModel>("fav-list");
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: NavigationDrawerWidget(),
-      appBar: appBarMain(titleText: "Danh sách yêu thích"),
+      appBar: AppBar(
+        backgroundColor: Palette.mainBlueTheme,
+        title: Text(
+          'Danh sách yêu thích',
+          style: TextStyle(fontWeight: FontWeight.w900),
+        ),
+        centerTitle: true,
+      ),
       body: _box.isEmpty
           ? Center(
               child: AppTextTitle(
-              text: "Bạn chưa thêm thuốc mới",
-              size: 20,
-              fontWeight: FontWeight.w500,
-            ))
+                text: "Bạn chưa thêm thuốc mới",
+                size: 20,
+                fontWeight: FontWeight.w500,
+              ),
+            )
           : SingleChildScrollView(
               child: Column(
                 children: [
@@ -46,7 +54,7 @@ class _FavoriteDrugsListScreenNavState
                   // list of favorite games
                   ValueListenableBuilder(
                       valueListenable: _box.listenable(),
-                      builder: (context, Box<SavedDrugListModel> item, _) {
+                      builder: (context, Box<FavDrugModel> item, _) {
                         List<int> keys = item.keys.cast<int>().toList();
                         return ListView.builder(
                             physics: NeverScrollableScrollPhysics(),
@@ -54,7 +62,7 @@ class _FavoriteDrugsListScreenNavState
                             itemCount: keys.length,
                             itemBuilder: (context, index) {
                               final key = keys[index];
-                              final SavedDrugListModel _item = item.get(key);
+                              final FavDrugModel _item = item.get(key);
                               return Container(
                                 margin: EdgeInsets.only(
                                   left: Dimensions.width20,
@@ -90,9 +98,9 @@ class _FavoriteDrugsListScreenNavState
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                            builder: (context) =>
-                                                DrugDetailSaved(
-                                                    drugData: _item)),
+                                          builder: (context) =>
+                                              FavDrugDetail(drugData: _item),
+                                        ),
                                       );
                                     },
                                     child: Row(
@@ -139,7 +147,7 @@ class _FavoriteDrugsListScreenNavState
                                                     MainAxisAlignment.center,
                                                 children: [
                                                   AppTextTitle(
-                                                    text: _item.tenThuoc,
+                                                    text: _item.productName,
                                                     color: Palette.textNo,
                                                     size: Dimensions.font20,
                                                     fontWeight:
@@ -149,7 +157,7 @@ class _FavoriteDrugsListScreenNavState
                                                     height: Dimensions.height10,
                                                   ),
                                                   AppText(
-                                                    text: _item.id,
+                                                    text: _item.productLabeller,
                                                     color: Palette.textNo,
                                                     size: Dimensions.font16,
                                                     fontWeight:

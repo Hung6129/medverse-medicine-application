@@ -34,6 +34,7 @@ class MapScreenState extends State<TabHealthProfile>
   @override
   Widget build(BuildContext context) {
     Widget _checkAuthentication;
+
     /// Check if user is authenticated
     if (user != null) {
       _checkAuthentication = new TabBarWidget(

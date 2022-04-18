@@ -59,6 +59,7 @@ dependencies:
   #Animation
   shimmer_animation: any
   animations: any
+  expandable: any
 
   get: any
   google_sign_in: any
@@ -78,11 +79,14 @@ dependencies:
   data_connection_checker: any
   flutter_slidable: any
   flutter_typeahead: any
+  analyzer: 0.41.2
+  translator: any
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
+  hive_generator: any
+  build_runner: any
   flutter_launcher_name: any
 
 flutter_launcher_name:
