@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:medverse_mobile_app/models/drug_bank_db/product.dart';
 import 'package:medverse_mobile_app/widgets/header.dart';
@@ -10,7 +9,6 @@ import '../../../../widgets/list_function.dart';
 import '../../../detail_screen/drug_details copy.dart';
 import '../../../detail_screen/drug_details.dart';
 import 'package:http/http.dart' as http;
-
 import '/controller/cubit/drugs_data/drugs_data_cubit.dart';
 import '/widgets/app_text_title.dart';
 import '/widgets/dimension.dart';
@@ -59,17 +57,6 @@ class _HomeScreenState extends State<HomeScreen> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              //TestBtn
-              TextButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => DrugDetailsTest(),
-                      ),
-                    );
-                  },
-                  child: Text("PressMe")),
               // Search bar
               TypeAheadSearchBar(),
               // List function
@@ -102,8 +89,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => DrugDetailsTest(
-                                            drugData: cubit.drug[index])),
+                                      builder: (context) => DrugDetailsTest(
+                                          drugData: cubit.drug[index]),
+                                    ),
                                   );
                                 },
                                 child: Container(
