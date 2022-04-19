@@ -4,7 +4,6 @@ import '/utils/file_utils.dart';
 import '/utils/firebase.dart';
 
 abstract class Service {
-
   /// Function to upload images to firebase storage and retrieve the url.
   Future<String> uploadImage(Reference ref, File file) async {
     String ext = FileUtils.getFileExtension(file);

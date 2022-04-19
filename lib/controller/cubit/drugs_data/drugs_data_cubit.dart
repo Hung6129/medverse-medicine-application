@@ -1,15 +1,12 @@
 import 'package:bloc/bloc.dart';
-import 'package:medverse_mobile_app/models/drug_bank_db/product.dart';
-
+import 'package:medverse_mobile_app/models/drug_bank_db/product_model.dart';
 import '/services//service_data.dart';
-import '/models/test/drugs_product_test.dart';
 import 'package:equatable/equatable.dart';
-
 part 'drugs_data_state.dart';
 
 class DrugsDataCubit extends Cubit<DrugsDataState> {
   // List<drugProductTest> drugTest = [];
-  List<ProductDB> drug = [];
+  List<ProductModel> drug = [];
 
   DrugsDataCubit() : super(DrugsDataInitial());
 
@@ -19,7 +16,7 @@ class DrugsDataCubit extends Cubit<DrugsDataState> {
     try {
       emit(DrugsDataLoading());
       // List<drugProductTest> dataTest = await RecommenedData.getRecommened();
-      List<ProductDB> data = await RecommenedData.getRecommened();
+      List<ProductModel> data = await RecommenedData.getRecommened();
       // drug.clear();
       drug.clear();
       // drug = data;

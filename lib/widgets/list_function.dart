@@ -1,12 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:medverse_mobile_app/pages/drawer-items/health_profile/widgets/main_screen_health_profile.dart';
-import 'package:medverse_mobile_app/widgets/app_text.dart';
-import 'package:medverse_mobile_app/widgets/dimension.dart';
-
-import '../pages/drawer-items/check_interaction/pages/interaction_checker.dart';
-import '../pages/drawer-items/compare_drugs/pages/compare_drug_screen.dart';
-import '../pages/drawer-items/pill_identifier/pages/pill_identifier_screen.dart';
+import '/widgets/app_text.dart';
+import '/widgets/dimension.dart';
 import '../theme/palette.dart';
 
 class ListIconFunction extends StatefulWidget {

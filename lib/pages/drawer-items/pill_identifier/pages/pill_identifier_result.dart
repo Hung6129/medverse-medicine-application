@@ -1,7 +1,5 @@
-import '/models/test/drugs_product_test.dart';
 import '/theme/palette.dart';
 import '/widgets/app_text.dart';
-import '/widgets/app_text_title.dart';
 import '/widgets/dimension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

@@ -1,4 +1,4 @@
-import '/pages/drawer-items/pill_identifier/pages/pill_identifier_screen.dart';
+import '../pages/drawer-items/pill_identifier/pages/pill_identifier.dart';
 import '/pages/drawer-items/check_interaction/pages/interaction_checker.dart';
 import '/pages/drawer-items/compare_drugs/pages/compare_drug_screen.dart';
 import '/pages/drawer-items/health_profile/pages/health_profile.dart';

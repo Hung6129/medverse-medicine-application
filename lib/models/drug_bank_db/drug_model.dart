@@ -1,4 +1,4 @@
-class drugDB {
+class ProductDrugModel {
   String drugbankID;
   String drugName;
   String drugDescription;
@@ -12,7 +12,7 @@ class drugDB {
   String drugElimination;
   String drugClearance;
 
-  drugDB({
+  ProductDrugModel({
     this.drugbankID,
     this.drugName,
     this.drugDescription,
@@ -27,8 +27,8 @@ class drugDB {
     this.drugClearance,
   });
 
-  factory drugDB.fromJson(Map<String, dynamic> json) {
-    return drugDB(
+  factory ProductDrugModel.fromJson(Map<String, dynamic> json) {
+    return ProductDrugModel(
       drugbankID: json['drugbank_ID'],
       drugName: json['drugName'],
       drugDescription: json['drugDescription'],

@@ -6,7 +6,7 @@ class AppTextTitle extends StatelessWidget {
   Color color;
   FontWeight fontWeight;
   double size;
-  final TextOverflow overflow;
+  // final TextOverflow overflow;
 
   AppTextTitle({
     Key key,
@@ -14,14 +14,14 @@ class AppTextTitle extends StatelessWidget {
     this.color,
     this.size,
     this.fontWeight,
-    this.overflow = TextOverflow.ellipsis,
+    // this.overflow = TextOverflow.ellipsis,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Text(
       text,
-      overflow: overflow,
+      // overflow: overflow,
       style: TextStyle(
         color: color,
         fontSize: size,
