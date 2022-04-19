@@ -1,14 +1,9 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:medverse_mobile_app/models/drug_bank_db/product.dart';
-import 'package:medverse_mobile_app/widgets/header.dart';
-import 'package:medverse_mobile_app/widgets/typeahead_search_bar.dart';
+import '/widgets/header.dart';
+import '/widgets/typeahead_search_bar.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';
-import '../../../../widgets/app_constants.dart';
-import '../../../../widgets/list_function.dart';
+import '/widgets/list_function.dart';
 import '../../../detail_screen/drug_details copy.dart';
-import '../../../detail_screen/drug_details.dart';
-import 'package:http/http.dart' as http;
 import '/controller/cubit/drugs_data/drugs_data_cubit.dart';
 import '/widgets/app_text_title.dart';
 import '/widgets/dimension.dart';
@@ -61,6 +56,7 @@ class _HomeScreenState extends State<HomeScreen> {
               TypeAheadSearchBar(),
               // List function
               ListIconFunction(),
+
               // List popular product
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -139,9 +135,11 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ],
               ),
+
               SizedBox(
                 height: Dimensions.height20,
               ),
+
               // List recommended product
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

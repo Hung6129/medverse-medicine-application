@@ -4,17 +4,12 @@ import 'dart:ffi';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
-import 'package:hive_flutter/hive_flutter.dart';
-import 'package:medverse_mobile_app/controller/cubit/search_cache/search_cache_cubit.dart';
 import 'package:medverse_mobile_app/models/test/drugs_product_test.dart';
 
 import 'package:medverse_mobile_app/services/service_data.dart';
 
-import '../pages/detail_screen/drug_details.dart';
 import '/theme/palette.dart';
-import '/widgets/app_text.dart';
 import '/widgets/app_text_title.dart';
 import '/widgets/dimension.dart';
 
@@ -99,8 +94,10 @@ class _TypeAheadSearchBarState extends State<TypeAheadSearchBar> {
                 // Navigator.push(
                 //   context,
                 //   MaterialPageRoute(
-                //       builder: (context) =>
-                //           DrugDetails(drugData: suggestion['productName'])),
+                //     builder: (context) => DrugDetails(
+                //       drugData: suggestion['productName'],
+                //     ),
+                //   ),
                 // );
               },
               validator: (value) {
