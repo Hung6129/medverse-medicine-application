@@ -4,9 +4,27 @@ import 'package:medverse_mobile_app/utils/constants.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-/// Get a list of data item in api
+/// Get a list of recommended item in api
 class RecommenedData {
   static Future<List<ProductModel>> getRecommened() async {
+    try {
+      var response =
+          await http.get(Uri.parse(Constants.PRODUCT_RECOMMENDED_TOP_10));
+      if (response.statusCode == 200) {
+        List listTrend = json.decode(response.body) as List;
+        return listTrend.map((e) => ProductModel.fromJson(e)).toList();
+      } else {
+        throw Exception("Failed to fetch data");
+      }
+    } catch (e) {
+      throw Exception("No Internet Connection");
+    }
+  }
+}
+
+/// Get a list of popular item in api
+class PopularData {
+  static Future<List<ProductModel>> getPopular() async {
     try {
       var response =
           await http.get(Uri.parse(Constants.PRODUCT_POPULAR_TOP_10));

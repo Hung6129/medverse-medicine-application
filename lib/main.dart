@@ -1,15 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
-import 'package:medverse_mobile_app/models/drug_bank_db/product_model.dart';
-import 'package:medverse_mobile_app/routes/app_routes.dart';
+import '/routes/app_routes.dart';
 import 'package:provider/provider.dart';
 import '/components/life_cycle_event_handler.dart';
 import '/landing/landing_page.dart';
 import '/services/user_service.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'controller/bloc/home_screen_data_bloc.dart';
 import 'controller/cubit/drugs_data/drugs_data_cubit.dart';
 import '/utils/config.dart';
 import '/utils/constants.dart';
@@ -61,10 +59,6 @@ class _MyAppState extends State<MyApp> {
                       BlocProvider(
                         create: (context) => DrugsDataCubit(),
                       ),
-                      // BlocProvider(
-                      //   create: (context) =>
-                      //       HomeScreenDataBloc()..add(HomeScreenDataEvent()),
-                      // ),
                     ],
                     child: GetMaterialApp(
                       debugShowCheckedModeBanner: false,

@@ -6,7 +6,8 @@ part 'drugs_data_state.dart';
 
 class DrugsDataCubit extends Cubit<DrugsDataState> {
   // List<drugProductTest> drugTest = [];
-  List<ProductModel> drug = [];
+  List<ProductModel> drugReTop10 = [];
+  List<ProductModel> drugPoTop10 = [];
 
   DrugsDataCubit() : super(DrugsDataInitial());
 
@@ -15,12 +16,12 @@ class DrugsDataCubit extends Cubit<DrugsDataState> {
     if (!isRefresh) emit(DrugsDataInitial());
     try {
       emit(DrugsDataLoading());
-      // List<drugProductTest> dataTest = await RecommenedData.getRecommened();
-      List<ProductModel> data = await RecommenedData.getRecommened();
-      // drug.clear();
-      drug.clear();
-      // drug = data;
-      drug = data;
+      List<ProductModel> dataRe = await RecommenedData.getRecommened();
+      List<ProductModel> dataPo = await PopularData.getPopular();
+      drugReTop10.clear();
+      drugPoTop10.clear();
+      drugReTop10 = dataRe;
+      drugPoTop10 = dataPo;
       emit(DrugsDataLoaded());
     } catch (e) {
       if (isRefresh) {
@@ -32,3 +33,22 @@ class DrugsDataCubit extends Cubit<DrugsDataState> {
     }
   }
 }
+
+//   Future<void> getPopularDrugs({bool isRefresh = false}) async {
+//     if (!isRefresh) emit(DrugsDataInitial());
+//     try {
+//       emit(DrugsDataLoading());
+//       List<ProductModel> data = await PopularData.getPopular();
+//       drugPoTop10.clear();
+//       drugPoTop10 = data;
+//       emit(DrugsDataLoaded());
+//     } catch (e) {
+//       if (isRefresh) {
+//         throw Exception(
+//             "Failed to refresh, please check your network and try again!");
+//       } else {
+//         emit(DrugsDataError());
+//       }
+//     }
+//   }
+// }
