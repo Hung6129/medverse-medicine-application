@@ -3,7 +3,6 @@ import '/widgets/app_text.dart';
 import '/widgets/dimension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '/controller/cubit/drugs_data/drugs_data_cubit.dart';
 
 class PillIdentifierListDrug extends StatefulWidget {
   final String query1;
@@ -22,20 +21,6 @@ class PillIdentifierListDrug extends StatefulWidget {
 class _PillIdentifierListDrugState extends State<PillIdentifierListDrug> {
   String img300 = "assets/images/drugs_pill/300.jpg";
   String img600 = "assets/images/drugs_pill/600.jpg";
-
-  Future<void> _refreshData(DrugsDataCubit cubit) async {
-    try {
-      await cubit.getRecommendedDrugs(isRefresh: true);
-    } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(
-            e.toString(),
-          ),
-        ),
-      );
-    }
-  }
 
   // Widget _sortedListData(DrugsDataCubit cubit) {
   //   return BlocBuilder<DrugsDataCubit, DrugsDataState>(
@@ -131,9 +116,6 @@ class _PillIdentifierListDrugState extends State<PillIdentifierListDrug> {
 
   @override
   Widget build(BuildContext context) {
-    BlocProvider.of<DrugsDataCubit>(context).getRecommendedDrugs();
-    final cubit = BlocProvider.of<DrugsDataCubit>(context);
-
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Palette.mainBlueTheme,
@@ -143,32 +125,27 @@ class _PillIdentifierListDrugState extends State<PillIdentifierListDrug> {
         ),
         centerTitle: true,
       ),
-      body: RefreshIndicator(
-        onRefresh: () {
-          return _refreshData(cubit);
-        },
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              Container(
-                padding: EdgeInsets.all(Dimensions.height15),
-                child: AppText(
-                  color: Palette.textNo,
-                  size: Dimensions.font20,
-                  fontWeight: FontWeight.normal,
-                  text: widget.query1.isEmpty || widget.query2.isEmpty
-                      ? "Kết quả cho thuốc có  ${widget.query1} ${widget.query2}"
-                      : "Kết quả cho thuốc có dạng " +
-                          " ${widget.query1}" +
-                          " và " +
-                          "${widget.query2}",
-                ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Container(
+              padding: EdgeInsets.all(Dimensions.height15),
+              child: AppText(
+                color: Palette.textNo,
+                size: Dimensions.font20,
+                fontWeight: FontWeight.normal,
+                text: widget.query1.isEmpty || widget.query2.isEmpty
+                    ? "Kết quả cho thuốc có  ${widget.query1} ${widget.query2}"
+                    : "Kết quả cho thuốc có dạng " +
+                        " ${widget.query1}" +
+                        " và " +
+                        "${widget.query2}",
               ),
+            ),
 
-              // list of query
-              // _sortedListData(cubit),
-            ],
-          ),
+            // list of query
+            // _sortedListData(cubit),
+          ],
         ),
       ),
     );

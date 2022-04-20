@@ -1,3 +1,5 @@
+import 'package:medverse_mobile_app/pages/detail_screen/drug_detail.dart';
+
 import '../pages/drawer-items/pill_identifier/pages/pill_identifier.dart';
 import '/pages/drawer-items/check_interaction/pages/interaction_checker.dart';
 import '/pages/drawer-items/compare_drugs/pages/compare_drug_screen.dart';
@@ -24,6 +26,7 @@ class AppRoutes {
   }
 
   static Route onGeneratedRoutes(RouteSettings route) {
+    debugPrint('onGenerateRoute: ${route.name}');
     switch (route.name) {
       case "/":
         return getPageRoute(WellcomeScreen());
