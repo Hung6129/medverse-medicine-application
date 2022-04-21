@@ -13,21 +13,21 @@ class RichTextCus extends StatelessWidget {
     this.text2,
   }) : super(key: key);
 
-
   @override
   Widget build(BuildContext context) {
     return RichText(
       text: TextSpan(
         text: text1,
-        style: GoogleFonts.openSans(
+        style: GoogleFonts.roboto(
             fontWeight: FontWeight.bold,
             fontSize: Dimensions.font18,
+            letterSpacing: 1,
             color: Palette.mainBlueTheme),
         children: [
           TextSpan(
             text: " " + text2,
             style: GoogleFonts.roboto(
-                fontSize: 18,
+                fontSize: Dimensions.font20,
                 fontWeight: FontWeight.normal,
                 color: Palette.textNo,
                 letterSpacing: 1),

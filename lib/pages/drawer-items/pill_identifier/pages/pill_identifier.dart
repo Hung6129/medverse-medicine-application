@@ -4,6 +4,8 @@ import '/widgets/app_text.dart';
 import '/widgets/dimension.dart';
 import 'package:flutter/material.dart';
 
+import 'pill_identifier_result.dart';
+
 class Identifier extends StatefulWidget {
   const Identifier({Key key}) : super(key: key);
 
@@ -134,6 +136,7 @@ class _IdentifierState extends State<Identifier> {
             Container(
               width: Dimensions.boxSearchViewWidth,
               decoration: BoxDecoration(
+                color: Colors.white,
                 borderRadius: BorderRadius.circular(Dimensions.radius15),
                 boxShadow: [
                   BoxShadow(
@@ -364,15 +367,18 @@ class _IdentifierState extends State<Identifier> {
                         //     ),
                         //   )
                         // :
-                        // Navigator.push(
-                        //   context,
-                        //   MaterialPageRoute(
-                        //     builder: (context) => PillIdentifierListDrug(
-                        //       query1: dropDownColor,
-                        //       query2: dropdownShape,
-                        //     ),
-                        //   ),
-                        // );
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => PillIdentifierListResult(
+                              query1: txtCon.text,
+                              query2: dropDownColor1,
+                              query3: dropDownColor2,
+                              query4: dropdownShape,
+                              query5: dropdownSize,
+                            ),
+                          ),
+                        );
                       },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,

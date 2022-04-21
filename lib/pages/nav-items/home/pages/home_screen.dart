@@ -123,13 +123,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                 itemBuilder: (BuildContext context, int index) {
                                   return GestureDetector(
                                     onTap: () {
-                                      // Navigator.push(
-                                      //   context,
-                                      //   MaterialPageRoute(
-                                      //     builder: (context) => DrugDetails(
-                                      //         drugData: cubit.drugPoTop10[index]),
-                                      //   ),
-                                      // );
+                                      bloc.add(
+                                        OnTapEvent(
+                                          context: context,
+                                          product: dataPo[index],
+                                        ),
+                                      );
                                     },
                                     child: Container(
                                       margin:
@@ -176,12 +175,12 @@ class _HomeScreenState extends State<HomeScreen> {
                               itemCount: dataRe.length,
                               itemBuilder: (context, index) => GestureDetector(
                                 onTap: () {
-                                  // Navigator.push(
-                                  //   context,
-                                  //   MaterialPageRoute(
-                                  //       builder: (context) => DrugDetails(
-                                  //           drugData: cubit.drugReTop10[index])),
-                                  // );
+                                  bloc.add(
+                                    OnTapEvent(
+                                      context: context,
+                                      product: dataRe[index],
+                                    ),
+                                  );
                                 },
                                 child: Container(
                                   margin: EdgeInsets.only(

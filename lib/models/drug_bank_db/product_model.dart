@@ -1,3 +1,5 @@
+import 'package:medverse_mobile_app/models/drug_bank_db/drug_model.dart';
+
 class ProductModel {
   String productID;
   String drugbankID;

@@ -89,7 +89,9 @@ class _TabScreenState extends State<TabScreen> {
                         : Palette.mainBlueTheme,
                     size: 20.0,
                   ),
-                  onPressed: () => navigationTapped(item['index']),
+                  onPressed: () {
+                    navigationTapped(item['index']);
+                  },
                 ),
               ),
             SizedBox(width: 5),

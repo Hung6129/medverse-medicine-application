@@ -2,32 +2,33 @@ import '/theme/palette.dart';
 import '/widgets/app_text.dart';
 import '/widgets/dimension.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
-class PillIdentifierListDrug extends StatefulWidget {
+class PillIdentifierListResult extends StatefulWidget {
   final String query1;
   final String query2;
+  final String query3;
+  final String query4;
+  final String query5;
 
-  const PillIdentifierListDrug({
+  const PillIdentifierListResult({
     Key key,
-    this.query1 = "",
-    this.query2 = "",
+    this.query1,
+    this.query2,
+    this.query3,
+    this.query4,
+    this.query5,
   }) : super(key: key);
 
   @override
-  State<PillIdentifierListDrug> createState() => _PillIdentifierListDrugState();
+  State<PillIdentifierListResult> createState() =>
+      _PillIdentifierListResultState();
 }
 
-class _PillIdentifierListDrugState extends State<PillIdentifierListDrug> {
+class _PillIdentifierListResultState extends State<PillIdentifierListResult> {
   String img300 = "assets/images/drugs_pill/300.jpg";
   String img600 = "assets/images/drugs_pill/600.jpg";
 
-  // Widget _sortedListData(DrugsDataCubit cubit) {
-  //   return BlocBuilder<DrugsDataCubit, DrugsDataState>(
-  //     builder: (context, state) {
-  //       if (state is DrugsDataLoaded) {
-  //         var data = cubit.drugs;
-  //         return ListView.builder(
+// ListView.builder(
   //           physics: NeverScrollableScrollPhysics(),
   //           shrinkWrap: true,
   //           itemCount: data.length,
@@ -103,16 +104,6 @@ class _PillIdentifierListDrugState extends State<PillIdentifierListDrug> {
   //             ),
   //           ),
   //         );
-  //       } else {
-  //         return AppTextTitle(
-  //             text: "Something went wrong",
-  //             color: Colors.black45,
-  //             size: Dimensions.font18,
-  //             fontWeight: FontWeight.w500);
-  //       }
-  //     },
-  //   );
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -128,22 +119,17 @@ class _PillIdentifierListDrugState extends State<PillIdentifierListDrug> {
       body: SingleChildScrollView(
         child: Column(
           children: [
+            /// Intro
             Container(
               padding: EdgeInsets.all(Dimensions.height15),
               child: AppText(
-                color: Palette.textNo,
-                size: Dimensions.font20,
-                fontWeight: FontWeight.normal,
-                text: widget.query1.isEmpty || widget.query2.isEmpty
-                    ? "Kết quả cho thuốc có  ${widget.query1} ${widget.query2}"
-                    : "Kết quả cho thuốc có dạng " +
-                        " ${widget.query1}" +
-                        " và " +
-                        "${widget.query2}",
-              ),
+                  color: Palette.textNo,
+                  size: Dimensions.font20,
+                  fontWeight: FontWeight.normal,
+                  text: "Kết quả"),
             ),
 
-            // list of query
+            // List of sorted
             // _sortedListData(cubit),
           ],
         ),
