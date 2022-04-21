@@ -1,4 +1,6 @@
-class ProductDB {
+import 'package:medverse_mobile_app/models/drug_bank_db/drug_model.dart';
+
+class ProductModel {
   String productID;
   String drugbankID;
   String productName;
@@ -12,7 +14,7 @@ class ProductDB {
   String generic;
   String country;
 
-  ProductDB(
+  ProductModel(
       {this.productID,
       this.drugbankID,
       this.productName,
@@ -26,7 +28,7 @@ class ProductDB {
       this.generic,
       this.country});
 
-  ProductDB.fromJson(Map<String, dynamic> json) {
+  ProductModel.fromJson(Map<String, dynamic> json) {
     productID = json['productID'];
     drugbankID = json['drugbankID'];
     productName = json['productName'];

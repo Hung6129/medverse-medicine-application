@@ -31,6 +31,8 @@ class Dimensions {
   static double height30 = screenHeight / (screenHeight / 30);
   static double height35 = screenHeight / (screenHeight / 35);
   static double height45 = screenHeight / (screenHeight / 45);
+  static double height60 = screenHeight / (screenHeight / 60);
+  static double height70 = screenHeight / (screenHeight / 70);
 
 //dynamic width padding and margin
   static double width10 = screenHeight / (screenHeight / 10);

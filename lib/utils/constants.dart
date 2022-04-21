@@ -3,10 +3,13 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class Constants {
   // DrugDB URL
-  static const String TYPE_AHEAD =
+  static const String PRODUCTNAME_TYPE_AHEAD =
       "http://192.168.56.1:8080/products/name?name=";
-  static const String POPULAR_TOP_10 =
+  static const String PRODUCT_POPULAR_TOP_10 =
       "http://192.168.56.1:8080/products/name?name=hung";
+  static const String PRODUCT_RECOMMENDED_TOP_10 =
+      "http://192.168.56.1:8080/products/name?name=parace";
+  static const String PRODUCT_DRUG_INFOR = "http://192.168.56.1:8080/drugs/";
 
   //App related strings
   static String appName = "Social App";
