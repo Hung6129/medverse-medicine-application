@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:medverse_mobile_app/models/drug_bank_db/drug_model.dart';
 import '/models/drug_bank_db/product_model.dart';
 import '/services/service_data.dart';
 part 'home_screen_event.dart';
@@ -9,7 +10,7 @@ part 'home_screen_state.dart';
 class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
   List<ProductModel> drugReTop10 = [];
   List<ProductModel> drugPoTop10 = [];
-  // List<ProductDrugModel> drugProductDrugDetail = [];
+  List<ProductDrugModel> drugProductDrugDetail = [];
   HomeScreenBloc() : super(HomeScreenInitial()) {
     on<LoadingEvent>(onLoading);
     on<RefeshingEvent>(onRefeshing);
@@ -41,7 +42,7 @@ class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
     emit(LoadingSucessState());
   }
 
-  void onTap(OnTapEvent event, Emitter<HomeScreenState> emit) {
+  void onTap(OnTapEvent event, Emitter<HomeScreenState> emit) async {
     Navigator.pushNamed(event.context, "/detail-page",
         arguments: event.product);
   }

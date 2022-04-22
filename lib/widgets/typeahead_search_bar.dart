@@ -1,7 +1,3 @@
-import 'dart:collection';
-import 'dart:convert';
-import 'dart:ffi';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
@@ -25,7 +21,6 @@ class _TypeAheadSearchBarState extends State<TypeAheadSearchBar> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   drugProductTest db;
   final TextEditingController _typeAheadController = TextEditingController();
-  String _selectedDrug;
 
   @override
   void initState() {
@@ -75,12 +70,12 @@ class _TypeAheadSearchBarState extends State<TypeAheadSearchBar> {
                     labelText: 'Hôm nay bạn muốn tìm thuốc gì?'),
               ),
               suggestionsCallback: (String pattern) {
-                return typeAhead.getTypeAhead(pattern);
+                return TypeHead.getTypeAhead(pattern);
               },
               itemBuilder: (context, Map<String, dynamic> suggestion) {
                 return ListTile(
                   title: AppTextTitle(
-                      text: suggestion['productName'],
+                      text: suggestion["productName"],
                       color: Colors.black54,
                       size: Dimensions.font18,
                       fontWeight: FontWeight.normal),
@@ -91,6 +86,7 @@ class _TypeAheadSearchBarState extends State<TypeAheadSearchBar> {
               },
               onSuggestionSelected: (Map<String, dynamic> suggestion) {
                 this._typeAheadController.text = suggestion['productName'];
+                print(_typeAheadController.text);
                 // Navigator.push(
                 //   context,
                 //   MaterialPageRoute(
@@ -100,12 +96,12 @@ class _TypeAheadSearchBarState extends State<TypeAheadSearchBar> {
                 //   ),
                 // );
               },
-              validator: (value) {
-                if (value.isEmpty) {
-                  return 'Hãy chọn nhập và chọn một tên thuốc bất kì';
-                }
-              },
-              onSaved: (value) => this._selectedDrug = value,
+              // validator: (value) {
+              //   if (value.isEmpty) {
+              //     return 'Hãy chọn nhập và chọn một tên thuốc bất kì';
+              //   }
+              // },
+              // onSaved: (value) => this._selectedDrug = value,
             ),
           ],
         ),

@@ -51,27 +51,57 @@ class _HomeScreenState extends State<HomeScreen> {
 
 // Loading Shimmer Recommended
   Widget __loadingReShimmer() {
-    return Container(
-      padding: EdgeInsets.only(left: 20),
-      height: Dimensions.pageView,
-      width: double.maxFinite,
-      child: ListView.builder(
-        itemCount: 5,
-        scrollDirection: Axis.horizontal,
-        itemBuilder: (BuildContext context, int index) {
-          return Shimmer(
-            child: Container(
-              margin: EdgeInsets.only(right: 20, top: 10),
-              width: 250,
+    return ListView.builder(
+      physics: NeverScrollableScrollPhysics(),
+      shrinkWrap: true,
+      itemCount: 5,
+      itemBuilder: (context, index) => Container(
+        margin: EdgeInsets.only(
+          left: Dimensions.width20,
+          right: Dimensions.width20,
+          bottom: Dimensions.height10,
+        ),
+        child: Row(
+          children: [
+            //images section
+            Container(
+              width: Dimensions.itemsSizeImgHeight - 30,
+              height: Dimensions.itemsSizeImgHeight - 30,
               decoration: BoxDecoration(
-                color: Palette.grey300,
                 borderRadius: BorderRadius.circular(
                   Dimensions.radius20,
                 ),
               ),
+              child: Shimmer(
+                  child: Container(
+                color: Palette.blueGrey,
+              )),
             ),
-          );
-        },
+
+            //text container
+            Expanded(
+              child: Container(
+                height: Dimensions.itemsSizeTextIconHeight - 30,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(Dimensions.radius20),
+                    bottomRight: Radius.circular(Dimensions.radius20),
+                  ),
+                  color: Colors.white,
+                ),
+                child: Padding(
+                  padding: EdgeInsets.only(
+                    left: Dimensions.width10,
+                  ),
+                  child: Shimmer(
+                      child: Container(
+                    color: Palette.grey300,
+                  )),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -1,5 +1,3 @@
-import 'package:medverse_mobile_app/models/drug_bank_db/drug_model.dart';
-
 class ProductModel {
   String productID;
   String drugbankID;
@@ -14,19 +12,20 @@ class ProductModel {
   String generic;
   String country;
 
-  ProductModel(
-      {this.productID,
-      this.drugbankID,
-      this.productName,
-      this.productLabeller,
-      this.productCode,
-      this.productRoute,
-      this.productStrength,
-      this.productdosage,
-      this.approved,
-      this.otc,
-      this.generic,
-      this.country});
+  ProductModel({
+    this.productID,
+    this.drugbankID,
+    this.productName,
+    this.productLabeller,
+    this.productCode,
+    this.productRoute,
+    this.productStrength,
+    this.productdosage,
+    this.approved,
+    this.otc,
+    this.generic,
+    this.country,
+  });
 
   ProductModel.fromJson(Map<String, dynamic> json) {
     productID = json['productID'];

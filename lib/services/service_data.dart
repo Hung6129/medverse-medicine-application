@@ -42,10 +42,9 @@ class PopularData {
 
 /// Get product drug infor
 class ProductDrugInfoService {
-  static Future<List<ProductDrugModel>> getProductDrugInfo(String input) async {
+  static Future<List<ProductDrugModel>> getProductDrugInfo() async {
     try {
-      var response =
-          await http.get(Uri.parse(Constants.PRODUCT_DRUG_INFOR + input));
+      var response = await http.get(Uri.parse(Constants.PRODUCT_DRUG_INFOR));
       if (response.statusCode == 200) {
         List listTrend = json.decode(response.body) as List;
         return listTrend.map((e) => ProductDrugModel.fromJson(e)).toList();
@@ -53,6 +52,7 @@ class ProductDrugInfoService {
         throw Exception("Failed to fetch data");
       }
     } catch (e) {
+      print(Constants.PRODUCT_DRUG_INFOR);
       throw Exception("No Internet Connection");
     }
   }
@@ -61,9 +61,9 @@ class ProductDrugInfoService {
 /// Typeahead search call api
 List<Map<String, dynamic>> data = [];
 
-class typeAhead {
+class TypeHead {
   static Future<List<Map<String, dynamic>>> getTypeAhead(String query) async {
-    if (query.isEmpty || query.length < 2) {
+    if (query.isEmpty && query.length < 2) {
       print("Hãy nhập ít nhất 3 kí tự");
       return Future.value(data);
     }
@@ -73,11 +73,15 @@ class typeAhead {
     if (resTypeAhead.statusCode == 200) {
       Iterable listTypeAhead = json.decode(resTypeAhead.body);
       suggestion = List<ProductModel>.from(
-          listTypeAhead.map((e) => ProductModel.fromJson(e)));
+        listTypeAhead.map(
+          (e) => ProductModel.fromJson(e),
+        ),
+      );
     } else {
       print('Request failed with status: ${resTypeAhead.statusCode}.');
     }
-    return Future.value(
-        suggestion.map((e) => {'productName': e.productName}).toList());
+    return Future.value(suggestion.map((e) => {"productName": e}).toList());
+    // Future.value(
+    // suggestion.map((e) => {'productName': e.productName}).toList());
   }
 }
