@@ -25,7 +25,7 @@ class _LoginState extends State<Login> {
       progressIndicator: circularProgress(context),
       inAsyncCall: viewModel.loading,
       child: Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: Palette.whiteText,
         key: viewModel.scaffoldKey,
         body: ListView(
           padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 20.0),
@@ -140,6 +140,7 @@ class _LoginState extends State<Login> {
                       'Quên mật khẩu?',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
+                        color: Palette.textNo,
                       ),
                     ),
                   ),

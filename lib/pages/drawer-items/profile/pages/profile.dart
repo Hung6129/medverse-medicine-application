@@ -539,6 +539,7 @@ class _ProfileState extends State<Profile> {
     }
   }
 
+  /// Check current uid
   buildPosts() {
     return StreamBuilderWrapper(
       shrinkWrap: true,
