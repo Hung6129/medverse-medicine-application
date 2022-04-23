@@ -1,11 +1,9 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
-import 'package:medverse_mobile_app/pages/nav-items/home/bloc/home_screen_bloc.dart';
+import '/pages/nav-items/home/bloc/home_screen_bloc.dart';
 import '/routes/app_routes.dart';
 import 'package:provider/provider.dart';
 import '/components/life_cycle_event_handler.dart';
-import '/landing/landing_page.dart';
 import '/services/user_service.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -50,25 +48,16 @@ class _MyAppState extends State<MyApp> {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             theme: notifier.dark ? Constants.darkTheme : Constants.lightTheme,
-            home: StreamBuilder(
-              stream: FirebaseAuth.instance.authStateChanges(),
-              builder: (BuildContext context, AsyncSnapshot<User> snapshot) {
-                if (snapshot.hasData) {
-                  return MultiBlocProvider(
-                    providers: [
-                      BlocProvider(
-                        create: (context) => HomeScreenBloc(),
-                      ),
-                    ],
-                    child: GetMaterialApp(
-                      debugShowCheckedModeBanner: false,
-                      onGenerateRoute: AppRoutes.onGeneratedRoutes,
-                    ),
-                  );
-                } else {
-                  return Landing();
-                }
-              },
+            home: MultiBlocProvider(
+              providers: [
+                BlocProvider(
+                  create: (context) => HomeScreenBloc(),
+                ),
+              ],
+              child: GetMaterialApp(
+                debugShowCheckedModeBanner: false,
+                onGenerateRoute: AppRoutes.onGeneratedRoutes,
+              ),
             ),
           );
         },
