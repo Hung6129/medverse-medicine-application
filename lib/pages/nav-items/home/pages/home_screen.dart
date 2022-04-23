@@ -1,10 +1,12 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:medverse_mobile_app/pages/nav-items/home/bloc/home_screen_bloc.dart';
+import '../../../../services/service_data.dart';
 import '/widgets/header.dart';
-import '/widgets/typeahead_search_bar.dart';
+import '../../../../widgets/typeahead/typeahead_search_bar.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';
 import '/widgets/list_function.dart';
-import '../../../detail_screen/drug_detail.dart';
 import '/widgets/app_text_title.dart';
 import '/widgets/dimension.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,6 +21,9 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final TextEditingController _typeAheadController = TextEditingController();
+  String _selectedDrug;
 // Example images
   String imagesFav = "assets/images/drugs_pill/300.jpg";
 
@@ -74,20 +79,19 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               child: Shimmer(
                   child: Container(
-                color: Palette.blueGrey,
+                color: Palette.grey300,
               )),
             ),
 
             //text container
             Expanded(
               child: Container(
-                height: Dimensions.itemsSizeTextIconHeight - 30,
+                height: Dimensions.height45,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.only(
                     topRight: Radius.circular(Dimensions.radius20),
                     bottomRight: Radius.circular(Dimensions.radius20),
                   ),
-                  color: Colors.white,
                 ),
                 child: Padding(
                   padding: EdgeInsets.only(
@@ -102,6 +106,81 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ],
         ),
+      ),
+    );
+  }
+
+// TypeAhead Bar
+  Widget __getTypeAhead() {
+    return Form(
+      key: this._formKey,
+      child: Column(
+        children: [
+          TypeAheadFormField(
+            textFieldConfiguration: TextFieldConfiguration(
+              autocorrect: true,
+              controller: this._typeAheadController,
+              decoration: InputDecoration(
+                  suffixIcon: IconButton(
+                    onPressed: () {
+                      print(_typeAheadController.text);
+                    },
+                    icon: Icon(
+                      CupertinoIcons.search,
+                      color: Palette.mainBlueTheme,
+                    ),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(Dimensions.radius20),
+                    ),
+                    borderSide: BorderSide(color: Palette.mainBlueTheme),
+                  ),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(Dimensions.radius20),
+                    ),
+                    borderSide:
+                        BorderSide(width: 3, color: Palette.mainBlueTheme),
+                  ),
+                  labelText: 'Hôm nay bạn muốn tìm thuốc gì?'),
+            ),
+            suggestionsCallback: (String pattern) {
+              return TypeHead.getTypeAhead(pattern);
+            },
+            itemBuilder: (context, Map<String, dynamic> suggestion) {
+              return ListTile(
+                title: AppTextTitle(
+                    text: suggestion["productName"],
+                    color: Colors.black54,
+                    size: Dimensions.font18,
+                    fontWeight: FontWeight.normal),
+              );
+            },
+            transitionBuilder: (context, suggestionsBox, controller) {
+              return suggestionsBox;
+            },
+            onSuggestionSelected: (Map<String, dynamic> suggestion) {
+              _typeAheadController.text = suggestion["productName"];
+              print(_typeAheadController.text);
+              // BlocProvider.of<HomeScreenBloc>(context)
+              //   ..add(
+              //     OnTapEvent(
+              //       context: context,
+              //       product: suggestion as ProductModel,
+              //     ),
+              //   );
+            },
+            validator: (value) {
+              if (value.isEmpty) {
+                return 'Hãy chọn nhập và chọn một tên thuốc bất kì';
+              }
+            },
+            onSaved: (value) {
+              this._selectedDrug = value;
+            },
+          ),
+        ],
       ),
     );
   }
@@ -125,9 +204,15 @@ class _HomeScreenState extends State<HomeScreen> {
               child: SingleChildScrollView(
                 child: Column(children: [
                   // Search bar
-                  TypeAheadSearchBar(),
+                  Padding(
+                      padding: EdgeInsets.only(
+                        top: Dimensions.height20,
+                        right: Dimensions.height30,
+                        left: Dimensions.height30,
+                        bottom: Dimensions.height20,
+                      ),
+                      child: __getTypeAhead()),
                   // List function
-
                   ListIconFunction(),
 
                   // List popular product

@@ -1,3 +1,4 @@
+import '../../../../widgets/app_text_title.dart';
 import '/theme/palette.dart';
 import '/widgets/app_text.dart';
 import '/widgets/dimension.dart';
@@ -27,83 +28,16 @@ class PillIdentifierListResult extends StatefulWidget {
 class _PillIdentifierListResultState extends State<PillIdentifierListResult> {
   String img300 = "assets/images/drugs_pill/300.jpg";
   String img600 = "assets/images/drugs_pill/600.jpg";
-
-// ListView.builder(
-  //           physics: NeverScrollableScrollPhysics(),
-  //           shrinkWrap: true,
-  //           itemCount: data.length,
-  //           itemBuilder: (context, index) => Container(
-  //             margin: EdgeInsets.only(
-  //               left: Dimensions.width20,
-  //               right: Dimensions.width20,
-  //               bottom: Dimensions.height10,
-  //             ),
-  //             child: GestureDetector(
-  //               onTap: () {},
-  //               child: Column(
-  //                 children: [
-  //                   //images section
-  //                   Container(
-  //                     width: Dimensions.pillIdentifierW,
-  //                     height: Dimensions.pillIdentifierH,
-  //                     decoration: BoxDecoration(
-  //                       borderRadius: BorderRadius.circular(
-  //                         Dimensions.radius20,
-  //                       ),
-  //                       color: Palette.p1,
-  //                       image: DecorationImage(
-  //                         fit: BoxFit.cover,
-  //                         image: AssetImage(img300),
-  //                       ),
-  //                     ),
-  //                   ),
-
-  //                   //text container
-  //                   Container(
-  //                     width: 350,
-  //                     decoration: BoxDecoration(
-  //                       borderRadius: BorderRadius.only(
-  //                         topRight: Radius.circular(Dimensions.radius20),
-  //                         bottomRight: Radius.circular(Dimensions.radius20),
-  //                       ),
-  //                       color: Colors.white,
-  //                     ),
-  //                     child: Column(
-  //                       crossAxisAlignment: CrossAxisAlignment.start,
-  //                       children: [
-  //                         AppTextTitle(
-  //                           text: data[index].title,
-  //                           color: Palette.textNo,
-  //                           size: Dimensions.font20,
-  //                           fontWeight: FontWeight.normal,
-  //                         ),
-  //                         AppText(
-  //                           text: data[index].price.toString(),
-  //                           color: Palette.textNo,
-  //                           size: Dimensions.font16,
-  //                           fontWeight: FontWeight.normal,
-  //                         ),
-  //                         AppText(
-  //                           text: data[index].description,
-  //                           color: Palette.textNo,
-  //                           size: Dimensions.font16,
-  //                           fontWeight: FontWeight.normal,
-  //                         ),
-  //                         AppText(
-  //                           text: data[index].category,
-  //                           color: Palette.textNo,
-  //                           size: Dimensions.font16,
-  //                           fontWeight: FontWeight.normal,
-  //                         ),
-  //                       ],
-  //                     ),
-  //                   ),
-  //                   SizedBox(height: Dimensions.height15)
-  //                 ],
-  //               ),
-  //             ),
-  //           ),
-  //         );
+  var data = {
+    "Nabumetone": "assets/images/drugs_pill/002282029.jpg",
+    "NAC": "assets/images/drugs_pill/005550972.jpg",
+    "Nadolol": "assets/images/drugs_pill/005550973.jpg",
+    "Naloxone": "assets/images/drugs_pill/493480042.jpg",
+    "Naltrexone": "assets/images/drugs_pill/521520215.jpg",
+    "Namenda": "assets/images/drugs_pill/634810629.jpg",
+    "Naprosyn": "assets/images/drugs_pill/646790936_PB.jpg",
+    "Naproxen": "assets/images/drugs_pill/646790937_PB.jpg",
+  };
 
   @override
   Widget build(BuildContext context) {
@@ -126,11 +60,75 @@ class _PillIdentifierListResultState extends State<PillIdentifierListResult> {
                   color: Palette.textNo,
                   size: Dimensions.font20,
                   fontWeight: FontWeight.normal,
-                  text: "Kết quả"),
+                  text:
+                      "Kết quả ${widget.query1} ${widget.query2} ${widget.query3} ${widget.query4} ${widget.query5}"),
             ),
 
             // List of sorted
-            // _sortedListData(cubit),
+            ListView.builder(
+              physics: NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              itemCount: data.length,
+              itemBuilder: (context, index) => Container(
+                margin: EdgeInsets.only(
+                  left: Dimensions.width20,
+                  right: Dimensions.width20,
+                  bottom: Dimensions.height10,
+                ),
+                child: GestureDetector(
+                  onTap: () {},
+                  child: Column(
+                    children: [
+                      //images section
+                      Container(
+                        width: Dimensions.pillIdentifierW,
+                        height: Dimensions.pillIdentifierH,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(
+                            Dimensions.radius20,
+                          ),
+                          color: Palette.p1,
+                          image: DecorationImage(
+                            fit: BoxFit.cover,
+                            image: AssetImage(data.values.elementAt(index)),
+                          ),
+                        ),
+                      ),
+
+                      // Text container
+                      Container(
+                        width: 350,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.only(
+                            topRight: Radius.circular(Dimensions.radius20),
+                            bottomRight: Radius.circular(Dimensions.radius20),
+                          ),
+                          color: Palette.grey300,
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            AppTextTitle(
+                              text: data.keys.elementAt(index),
+                              color: Palette.textNo,
+                              size: Dimensions.font20,
+                              fontWeight: FontWeight.normal,
+                            ),
+                            AppText(
+                              text: data.keys.elementAt(index),
+                              color: Palette.textNo,
+                              size: Dimensions.font16,
+                              fontWeight: FontWeight.normal,
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(height: Dimensions.height15)
+                    ],
+                  ),
+                ),
+              ),
+            )
           ],
         ),
       ),

@@ -71,9 +71,10 @@ class _DrugDetailsState extends State<DrugDetails> {
           SliverToBoxAdapter(
               child: Container(
             padding: EdgeInsets.only(
-                left: Dimensions.width10,
-                right: Dimensions.width10,
-                top: Dimensions.height20),
+              left: Dimensions.width10,
+              right: Dimensions.width10,
+              top: Dimensions.height10,
+            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -116,10 +117,11 @@ class _DrugDetailsState extends State<DrugDetails> {
             children: [
               IconButton(
                 onPressed: () {
+                  print("tapped");
                   // FavDrugModel data = FavDrugModel(
                   //   productName: info.productName,
                   //   approved: info.approved,
-                  //   country: info.country,
+                  //   country: info.country, 
                   //   drugbankID: info.drugbankID,
                   //   generic: info.generic,
                   //   otc: info.otc,

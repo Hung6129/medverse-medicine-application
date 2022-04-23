@@ -1,3 +1,4 @@
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:medverse_mobile_app/models/drug_bank_db/drug_model.dart';
 import 'package:medverse_mobile_app/models/drug_bank_db/product_model.dart';
 import 'package:medverse_mobile_app/utils/constants.dart';
@@ -64,7 +65,6 @@ List<Map<String, dynamic>> data = [];
 class TypeHead {
   static Future<List<Map<String, dynamic>>> getTypeAhead(String query) async {
     if (query.isEmpty && query.length < 2) {
-      print("Hãy nhập ít nhất 3 kí tự");
       return Future.value(data);
     }
     http.Response resTypeAhead =
@@ -80,8 +80,7 @@ class TypeHead {
     } else {
       print('Request failed with status: ${resTypeAhead.statusCode}.');
     }
-    return Future.value(suggestion.map((e) => {"productName": e}).toList());
-    // Future.value(
-    // suggestion.map((e) => {'productName': e.productName}).toList());
+    return Future.value(
+        suggestion.map((e) => {"productName": e.productName}).toList());
   }
 }

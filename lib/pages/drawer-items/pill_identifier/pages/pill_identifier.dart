@@ -349,24 +349,6 @@ class _IdentifierState extends State<Identifier> {
                     ),
                     child: TextButton(
                       onPressed: () {
-                        // if (dropDownColor.startsWith(colors.first)) {}
-                        // dropDownColor.startsWith(colors.first) ||
-                        //         dropdownShape.startsWith(shapes.first)
-                        //     ? Navigator.push(
-                        //         context,
-                        //         MaterialPageRoute(
-                        //           builder: (context) =>
-                        //               PillIdentifierListDrug(
-                        //             query1: "",
-                        //             query2: "",
-                        //           ),
-                        //         ))
-                        // ScaffoldMessenger.of(context).showSnackBar(
-                        //     const SnackBar(
-                        //       content: Text('Chọn một thuộc tính bất kỳ'),
-                        //     ),
-                        //   )
-                        // :
                         Navigator.push(
                           context,
                           MaterialPageRoute(
