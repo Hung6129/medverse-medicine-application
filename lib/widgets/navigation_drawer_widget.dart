@@ -8,7 +8,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import '/theme/palette.dart';
 import '/auth/login/login.dart';
 import '/pages/drawer-items/profile/pages/profile.dart';
-import '../pages/drawer-items/pill_identifier/pages/pill_identifier.dart';
+import '/pages/drawer-items/pill_identifier/pages/pill_identifier.dart';
 import '/pages/drawer-items/capture_images/pages/image_capture_page.dart';
 import '/pages/drawer-items/bmi_calculator/pages/input_screen.dart';
 import '/pages/drawer-items/check_interaction/pages/interaction_checker.dart';
@@ -16,6 +16,7 @@ import '/pages/drawer-items/compare_drugs/pages/compare_drug_screen.dart';
 import '/pages/drawer-items/medicine_dictionary/pages/medicine_dictionary.dart';
 import '/pages/drawer-items/health_profile/pages/health_profile.dart';
 import '/pages/drawer-items/drug_recommendation/pages/drug_recommedation.dart';
+import '/pages/drawer-items/introduction_side/pages/intro_slider_screen.dart';
 
 class NavigationDrawerWidget extends StatefulWidget {
   const NavigationDrawerWidget({Key key}) : super(key: key);
@@ -126,6 +127,11 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
                   padding: padding,
                   child: Column(
                     children: [
+                      buildMenuItem(
+                        text: 'Hướng dẫn sử dụng',
+                        icon: Icons.list_alt_outlined,
+                        onClicked: () => selectedItem(context, 10),
+                      ),
                       buildMenuItem(
                         text: 'Tìm kiếm nâng cao',
                         icon: Icons.zoom_in,
@@ -377,6 +383,13 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
         Navigator.of(context).push(
           MaterialPageRoute(
             builder: (context) => Login(),
+          ),
+        );
+        break;
+      case 10:
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => AnimatedIntroductionSlider(),
           ),
         );
         break;
