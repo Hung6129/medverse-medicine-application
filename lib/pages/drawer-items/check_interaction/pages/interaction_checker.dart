@@ -170,9 +170,11 @@ class _InteractionCheckerState extends State<InteractionChecker> {
                             child: Row(
                               children: [
                                 Icon(CupertinoIcons.clear),
-                                AppTextTitle(
-                                  text: addedItems[index],
-                                  size: Dimensions.font18,
+                                Container(
+                                  child: AppTextTitle(
+                                    text: addedItems[index],
+                                    size: Dimensions.font18,
+                                  ),
                                 ),
                               ],
                             ));
