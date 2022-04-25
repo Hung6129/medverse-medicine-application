@@ -1,5 +1,3 @@
-import 'package:hive_flutter/hive_flutter.dart';
-import 'package:medverse_mobile_app/models/drug_bank_db/drug_model.dart';
 import 'package:medverse_mobile_app/models/drug_bank_db/product_model.dart';
 import 'package:medverse_mobile_app/utils/constants.dart';
 import 'package:http/http.dart' as http;
@@ -36,24 +34,6 @@ class PopularData {
         throw Exception("Failed to fetch data");
       }
     } catch (e) {
-      throw Exception("No Internet Connection");
-    }
-  }
-}
-
-/// Get product drug infor
-class ProductDrugInfoService {
-  static Future<List<ProductDrugModel>> getProductDrugInfo() async {
-    try {
-      var response = await http.get(Uri.parse(Constants.PRODUCT_DRUG_INFOR));
-      if (response.statusCode == 200) {
-        List listTrend = json.decode(response.body) as List;
-        return listTrend.map((e) => ProductDrugModel.fromJson(e)).toList();
-      } else {
-        throw Exception("Failed to fetch data");
-      }
-    } catch (e) {
-      print(Constants.PRODUCT_DRUG_INFOR);
       throw Exception("No Internet Connection");
     }
   }

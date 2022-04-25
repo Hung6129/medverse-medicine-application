@@ -86,7 +86,11 @@ class _DrugDetailsState extends State<DrugDetails> {
                 RichTextCus(text1: "Độ mạnh:", text2: info.productStrength),
                 RichTextCus(text1: "Xuất xứ:", text2: info.country),
                 RichTextCus(text1: "Tên chất thuốc:", text2: info.productCode),
-
+                Divider(
+                  endIndent: Dimensions.width10,
+                  indent: Dimensions.width10,
+                  thickness: 3,
+                ),
                 // Drug
                 RichTextCus(text1: "Công dụng:", text2: ""),
                 RichTextCus(text1: "Trạng thái:", text2: ""),
@@ -121,7 +125,7 @@ class _DrugDetailsState extends State<DrugDetails> {
                   // FavDrugModel data = FavDrugModel(
                   //   productName: info.productName,
                   //   approved: info.approved,
-                  //   country: info.country, 
+                  //   country: info.country,
                   //   drugbankID: info.drugbankID,
                   //   generic: info.generic,
                   //   otc: info.otc,

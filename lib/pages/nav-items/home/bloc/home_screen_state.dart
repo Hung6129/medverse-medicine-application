@@ -26,3 +26,4 @@ class LoadingErrorState extends HomeScreenState {
   @override
   List<Object> get props => [];
 }
+
