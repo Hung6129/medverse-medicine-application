@@ -5,16 +5,15 @@ class PillIdentifierModel {
   String pillSize;
   String pillColors;
   String pillImprints;
-  String pillImprintsColor;
 
-  PillIdentifierModel(
-      {this.pillDataId,
-      this.pillInfo,
-      this.pillShape,
-      this.pillSize,
-      this.pillColors,
-      this.pillImprints,
-      this.pillImprintsColor});
+  PillIdentifierModel({
+    this.pillDataId,
+    this.pillInfo,
+    this.pillShape,
+    this.pillSize,
+    this.pillColors,
+    this.pillImprints,
+  });
 
   PillIdentifierModel.fromJson(Map<String, dynamic> json) {
     pillDataId = json['pill_data_id'];
@@ -23,7 +22,6 @@ class PillIdentifierModel {
     pillSize = json['pill_size'];
     pillColors = json['pill_colors'];
     pillImprints = json['pill_imprints'];
-    pillImprintsColor = json['pill_imprints_color'];
   }
 
   Map<String, dynamic> toJson() {
@@ -34,7 +32,6 @@ class PillIdentifierModel {
     data['pill_size'] = this.pillSize;
     data['pill_colors'] = this.pillColors;
     data['pill_imprints'] = this.pillImprints;
-    data['pill_imprints_color'] = this.pillImprintsColor;
     return data;
   }
 }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '/widgets/typeahead_search_bar.dart';
+import '../../../../widgets/typeahead/typeahead_search_bar.dart';
 import '/theme/palette.dart';
 
 class CompareDrug extends StatefulWidget {

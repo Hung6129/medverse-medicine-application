@@ -297,11 +297,7 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
   Future<void> logout(BuildContext context) async {
     await FirebaseAuth.instance.signOut();
     Fluttertoast.showToast(msg: "Đã thoát tài khoản");
-    Navigator.of(context).pushReplacement(
-      MaterialPageRoute(
-        builder: (context) => Login(),
-      ),
-    );
+    Navigator.pushNamed(context, "/home");
   }
 
   Widget buildMenuItem({

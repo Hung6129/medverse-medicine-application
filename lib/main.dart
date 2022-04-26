@@ -13,10 +13,10 @@ import '/utils/providers.dart';
 import 'models/drug_bank_db/fav_drug_model.dart';
 
 void main() async {
-  await Hive.initFlutter();
-  Hive.registerAdapter<FavDrugModel>((FavDrugModelAdapter()));
-  await Hive.openBox<FavDrugModel>("fav-list");
-  await Hive.openBox("search-cache");
+  // await Hive.initFlutter();
+  // Hive.registerAdapter<FavDrugModel>((FavDrugModelAdapter()));
+  // await Hive.openBox<FavDrugModel>("fav-list");
+  // await Hive.openBox("search-cache");
   WidgetsFlutterBinding.ensureInitialized();
   await Config.initFirebase();
   runApp(MyApp());
@@ -43,24 +43,20 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: providers,
-      child: Consumer<ThemeNotifier>(
-        builder: (context, ThemeNotifier notifier, child) {
-          return MaterialApp(
-            debugShowCheckedModeBanner: false,
-            theme: notifier.dark ? Constants.darkTheme : Constants.lightTheme,
-            home: MultiBlocProvider(
-              providers: [
-                BlocProvider(
-                  create: (context) => HomeScreenBloc(),
-                ),
-              ],
-              child: GetMaterialApp(
-                debugShowCheckedModeBanner: false,
-                onGenerateRoute: AppRoutes.onGeneratedRoutes,
-              ),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        // theme: notifier.dark ? Constants.darkTheme : Constants.lightTheme,
+        home: MultiBlocProvider(
+          providers: [
+            BlocProvider(
+              create: (context) => HomeScreenBloc(),
             ),
-          );
-        },
+          ],
+          child: GetMaterialApp(
+            debugShowCheckedModeBanner: false,
+            onGenerateRoute: AppRoutes.onGeneratedRoutes,
+          ),
+        ),
       ),
     );
   }
