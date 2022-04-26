@@ -27,29 +27,29 @@ class _TabScreenState extends State<TabScreen> {
       'page': HomeScreen(),
       'index': 0,
     },
-    {
-      'title': 'Tìm kiếm người dùng',
-      'icon': CupertinoIcons.group_solid,
-      'page': Search(),
-      'index': 1,
-    },
+    // {
+    //   'title': 'Tìm kiếm người dùng',
+    //   'icon': CupertinoIcons.group_solid,
+    //   'page': Search(),
+    //   'index': 1,
+    // },
     {
       'title': 'Đã lưu',
       'icon': CupertinoIcons.square_favorites_alt_fill,
       'page': FavoriteDrugsListScreenNav(),
-      'index': 2,
+      'index': 1,
     },
     {
       'title': 'Thông báo',
       'icon': CupertinoIcons.bell_solid,
       'page': Activities(),
-      'index': 3,
+      'index': 2,
     },
     {
       'title': 'Mạng xã hội',
       'icon': CupertinoIcons.news_solid,
       'page': Timeline(),
-      'index': 4,
+      'index': 3,
     },
   ];
 

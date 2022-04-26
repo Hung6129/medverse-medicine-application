@@ -21,9 +21,3 @@ class LoadingSucessState extends HomeScreenState {
   List<Object> get props => [];
 }
 
-class LoadingErrorState extends HomeScreenState {
-  const LoadingErrorState();
-  @override
-  List<Object> get props => [];
-}
-

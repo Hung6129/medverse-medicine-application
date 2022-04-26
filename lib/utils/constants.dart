@@ -5,12 +5,12 @@ class Constants {
   /// DrugDB URL
   static const String PRODUCTNAME_TYPE_AHEAD =
       "http://192.168.1.4:8080/products/name?name=";
+  // Top10 popular drug
   static const String PRODUCT_POPULAR_TOP_10 =
-      // "http://192.168.1.4:8080/products/name?name=hung";
-      "http://192.168.1.4:8080/products/id?productId=PID061299";
-  static const String PRODUCT_RECOMMENDED_TOP_10 =
-      // "http://192.168.1.4:8080/products/name?name=parace";
-      "http://192.168.1.4:8080/products/id?productId=PID033358";
+      "http://192.168.1.4:8080/products/name?name=hung";
+  // Top10 recommended drug
+  // static const String PRODUCT_RECOMMENDED_TOP_10 =
+  //     "http://192.168.1.4:8080/products/name?name=para";
 
   /// App related strings
   static String appName = "Social App";
@@ -18,14 +18,10 @@ class Constants {
   /// Colors for theme
   static Color lightPrimary = Color(0xfff3f4f9);
   static Color darkPrimary = Color(0xff2B2B2B);
-
   static Color lightAccent = Color(0xFF0D47A1);
-
   static Color darkAccent = Color(0xFF0D47A1);
-
   static Color lightBG = Color(0xfff3f4f9);
   static Color darkBG = Color(0xff2B2B2B);
-
   static ThemeData lightTheme = ThemeData(
     fontFamily: 'Lato-Regular',
     backgroundColor: lightBG,
@@ -84,7 +80,6 @@ class Constants {
     for (var i = 0; i < list.length; i++) {
       result.add(handler(i, list[i]));
     }
-
     return result;
   }
 }

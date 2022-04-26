@@ -22,7 +22,7 @@ class TypeAheadSearchBar extends StatefulWidget {
 class _TypeAheadSearchBarState extends State<TypeAheadSearchBar> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _typeAheadController = TextEditingController();
-  var _box = Hive.box("search-cache");
+  // var _box = Hive.box("search-cache");
   String _selectedDrug;
   @override
   void initState() {

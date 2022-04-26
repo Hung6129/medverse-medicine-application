@@ -46,12 +46,6 @@ class _WellcomeScreenState extends State<WellcomeScreen>
               ),
             ),
           ),
-          // Center(
-          //   child: Image.asset(
-          //     "assets/image/logo part 2.png",
-          //     width: Dimensions.splashImg,
-          //   ),
-          // )
         ],
       ),
     );

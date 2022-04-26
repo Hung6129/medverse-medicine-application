@@ -97,12 +97,12 @@ class _PillIdentifierListResultState extends State<PillIdentifierListResult> {
 
                       // Text container
                       Container(
-                        width: 350,
+                        width: 300,
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.only(
-                            topRight: Radius.circular(Dimensions.radius20),
-                            bottomRight: Radius.circular(Dimensions.radius20),
-                          ),
+                          // borderRadius: BorderRadius.only(
+                          //   topRight: Radius.circular(Dimensions.radius20),
+                          //   bottomRight: Radius.circular(Dimensions.radius20),
+                          // ),
                           color: Palette.grey300,
                         ),
                         child: Column(
