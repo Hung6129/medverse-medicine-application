@@ -11,10 +11,10 @@ class FeaturedTutorialsContent extends StatelessWidget {
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     final crossAxisCount =
-    screenWidth >= Breakpoints.twoColLayoutMinWidth ? 2 : 1;
+    screenWidth >= Breakpoints.twoColLayoutMinWidth ? 2 : 2;
     return Padding(
       padding: EdgeInsets.symmetric(
-          horizontal: sliverHorizontalPadding(screenWidth)),
+          horizontal: 0.0),
       child: ItemCardLayoutGrid(
         crossAxisCount: crossAxisCount,
         items: ItemCardData.allItemsData,

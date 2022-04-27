@@ -15,10 +15,13 @@ class BorderMouseHover extends StatefulWidget {
 
 class _BorderMouseHoverState extends State<BorderMouseHover>
     with SingleTickerProviderStateMixin {
-  final _controller = AnimationController(
-    vsync: _BorderMouseHoverState(),
-    duration: const Duration(milliseconds: 150),
-  );
+  var _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(duration: const Duration(milliseconds: 150), vsync: this);
+  }
 
   @override
   void dispose() {
@@ -35,14 +38,12 @@ class _BorderMouseHoverState extends State<BorderMouseHover>
         animation: _controller,
         builder: (context, _) {
           return Container(
-              margin: const EdgeInsets.all(2),
               decoration: BoxDecoration(
                 color: Colors.transparent, // AppColors.neutral5,
                 border: Border.all(
                   color: Palette.primary.withOpacity(_controller.value),
-                  width: 2,
                 ),
-                borderRadius: BorderRadius.circular(18),
+                borderRadius: BorderRadius.circular(16),
               ),
               child: DecoratedBox(
                 decoration: BoxDecoration(

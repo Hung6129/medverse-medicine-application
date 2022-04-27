@@ -26,9 +26,9 @@ class ItemCardLayoutGrid extends StatelessWidget {
       columnSizes: crossAxisCount == 2 ? [1.fr, 1.fr] : [1.fr],
       // set all the row sizes to auto (self-sizing height)
       rowSizes: rowSizes,
-      rowGap: 40,
+      rowGap: 0,
       // equivalent to mainAxisSpacing
-      columnGap: 24,
+      columnGap: 0,
       // equivalent to crossAxisSpacing
       // note: there's no childAspectRatio
       children: [
@@ -60,11 +60,10 @@ class ItemCardGridView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
-      padding: padding,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: crossAxisCount,
-        mainAxisSpacing: 40,
-        crossAxisSpacing: 24,
+        mainAxisSpacing: 0.0,
+        crossAxisSpacing: 0.0,
         childAspectRatio: 0.75, // width / height
       ),
       itemBuilder: (context, i) => ItemCard(data: items[i]),

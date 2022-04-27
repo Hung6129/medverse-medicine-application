@@ -10,7 +10,9 @@ class CompareResult extends StatelessWidget {
       child: SafeArea(
         child: CustomScrollView(
           slivers: [
-            SliverToBoxAdapter(child: FeaturedTutorialsContent()),
+            SliverToBoxAdapter(
+              child: FeaturedTutorialsContent(),
+            ),
           ],
         ),
       ),
