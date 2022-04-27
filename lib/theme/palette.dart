@@ -18,4 +18,10 @@ class Palette {
   static const Color whiteText = Color(0xFFffffff);
   static const Color textNo = Color(0xFF000000);
   static const Color textTil = Color(0xFF142F43);
+
+
+  /// GridView Card Colors
+  static const primary = Color(0xFF2E54FF);
+  static const neutral2 = Color(0xFFD7D7DB);
+  static const neutral5 = Color(0xFF4A4B4F);
 }
