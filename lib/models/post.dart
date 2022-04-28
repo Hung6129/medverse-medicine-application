@@ -25,12 +25,13 @@ class PostModel {
     this.username,
     this.timestamp,
   });
+
   PostModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     postId = json['postId'];
     ownerId = json['ownerId'];
     location = json['location'];
-    username= json['username'];
+    username = json['username'];
     description = json['description'];
     mediaUrl = json['mediaUrl'];
     timestamp = json['timestamp'];
@@ -47,6 +48,7 @@ class PostModel {
     notifyListeners();
 */
   }
+
   /// Call service file upload
   final FileUploadService _fileUploadService = FileUploadService();
 

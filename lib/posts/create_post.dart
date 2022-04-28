@@ -35,6 +35,7 @@ class _CreatePostState extends State<CreatePost> {
         child: Scaffold(
           key: viewModel.scaffoldKey,
           appBar: AppBar(
+            backgroundColor: Palette.mainBlueTheme,
             leading: IconButton(
               icon: Icon(Feather.x),
               onPressed: () {
@@ -57,7 +58,7 @@ class _CreatePostState extends State<CreatePost> {
                     'Đăng bài',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      fontSize: 15.0,
+                      fontSize: 10.0,
                       color: Palette.whiteText,
                     ),
                   ),

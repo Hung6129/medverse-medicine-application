@@ -40,7 +40,10 @@ class LoginViewModel extends ChangeNotifier {
               builder: (context) => TabScreen(),
             ),
           );
-          Fluttertoast.showToast(msg: 'Đăng nhập thành công', backgroundColor: Palette.activeButton,);
+          Fluttertoast.showToast(
+            msg: 'Đăng nhập thành công',
+            backgroundColor: Palette.activeButton,
+          );
         }
       } catch (e) {
         loading = false;
@@ -61,8 +64,7 @@ class LoginViewModel extends ChangeNotifier {
     form.save();
     print(Validations.validateEmail(email));
     if (Validations.validateEmail(email) != null) {
-      showInSnackBar(
-          'Hãy nhập Email hợp lệ để lấy lại mật khẩu', context);
+      showInSnackBar('Hãy nhập Email hợp lệ để lấy lại mật khẩu', context);
     } else {
       try {
         await auth.forgotPassword(email);
