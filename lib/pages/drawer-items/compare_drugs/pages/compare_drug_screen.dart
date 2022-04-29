@@ -46,9 +46,9 @@ class MapScreenState extends State<CompareDrug> {
                   SizedBox(
                     height: 10,
                   ),
-                  Container(
-                    child: TypeAheadSearchBar(),
-                  ),
+                  // Container(
+                  //   child: TypeAheadSearchBar(),
+                  // ),
                   SizedBox(height: 30),
                   Container(
                     height: 150,

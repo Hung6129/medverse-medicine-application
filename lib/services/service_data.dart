@@ -1,3 +1,4 @@
+import 'package:medverse_mobile_app/models/drug_bank_db/pill_identifiter_model.dart';
 import 'package:medverse_mobile_app/models/drug_bank_db/product_model.dart';
 import 'package:medverse_mobile_app/utils/constants.dart';
 import 'package:http/http.dart' as http;
@@ -40,12 +41,12 @@ class PopularData {
 }
 
 /// Typeahead search call api
-List<Map<String, dynamic>> data = [];
+List<ProductModel> data = [];
 
 class TypeHead {
-  static Future<List<Map<String, dynamic>>> getTypeAhead(String query) async {
-    if (query.isEmpty && query.length < 2) {
-      return Future.value(data);
+  static Future<List<ProductModel>> getTypeAhead(String query) async {
+    if (query.isEmpty) {
+      return data;
     }
     http.Response resTypeAhead =
         await http.get(Uri.parse(Constants.PRODUCTNAME_TYPE_AHEAD + query));
@@ -60,7 +61,23 @@ class TypeHead {
     } else {
       print('Request failed with status: ${resTypeAhead.statusCode}.');
     }
-    return Future.value(
-        suggestion.map((e) => {"productName": e.productName}).toList());
+    return suggestion;
+  }
+}
+
+class PillIdentifierData {
+  static Future<List<PillIdentifierModel>> getPillIdentifierData(String input) async {
+    try {
+      var response =
+          await http.get(Uri.parse(Constants.PILL_IDENTIFIER_SIZE + input));
+      if (response.statusCode == 200) {
+        List listTrend = json.decode(response.body) as List;
+        return listTrend.map((e) => PillIdentifierModel.fromJson(e)).toList();
+      } else {
+        throw Exception("Failed to fetch data");
+      }
+    } catch (e) {
+      throw Exception("No Internet Connection");
+    }
   }
 }

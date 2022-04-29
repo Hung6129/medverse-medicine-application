@@ -20,8 +20,7 @@ CollectionReference followingRef = firestore.collection('following');
 CollectionReference likesRef = firestore.collection('likes');
 CollectionReference favUsersRef = firestore.collection('favoriteUsers');
 
-
-
 // Storage refs
-Reference profilePic =storage.ref().child('profilePic');
-Reference posts =storage.ref().child('posts');
+Reference profilePic = storage.ref().child('profilePic');
+Reference posts = storage.ref().child('posts');
+

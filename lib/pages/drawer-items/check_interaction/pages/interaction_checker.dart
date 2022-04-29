@@ -83,76 +83,76 @@ class _InteractionCheckerState extends State<InteractionChecker> {
               child: Column(
                 children: [
                   // Text field box
-                  Form(
-                    key: this._formKey,
-                    child: Column(
-                      children: [
-                        TypeAheadFormField(
-                          textFieldConfiguration: TextFieldConfiguration(
-                            autocorrect: true,
-                            controller: this._typeAheadController,
-                            decoration: InputDecoration(
-                                suffixIcon: IconButton(
-                                  onPressed: () {
-                                    print(_typeAheadController.text);
-                                  },
-                                  icon: Icon(
-                                    CupertinoIcons.search,
-                                    color: Palette.mainBlueTheme,
-                                  ),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(Dimensions.radius20),
-                                  ),
-                                  borderSide:
-                                      BorderSide(color: Palette.mainBlueTheme),
-                                ),
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(Dimensions.radius20),
-                                  ),
-                                  borderSide: BorderSide(
-                                      width: 3, color: Palette.mainBlueTheme),
-                                ),
-                                labelText: 'Nhập thuốc bạn muốn kiểm tra'),
-                          ),
-                          suggestionsCallback: (String pattern) {
-                            return TypeHead.getTypeAhead(pattern);
-                          },
-                          itemBuilder:
-                              (context, Map<String, dynamic> suggestion) {
-                            return ListTile(
-                              title: AppTextTitle(
-                                  text: suggestion["productName"],
-                                  color: Colors.black54,
-                                  size: Dimensions.font18,
-                                  fontWeight: FontWeight.normal),
-                            );
-                          },
-                          transitionBuilder:
-                              (context, suggestionsBox, controller) {
-                            return suggestionsBox;
-                          },
-                          onSuggestionSelected:
-                              (Map<String, dynamic> suggestion) {
-                            _typeAheadController.text =
-                                suggestion["productName"];
-                            print(_typeAheadController.text);
-                            __addItemToList(_typeAheadController.text);
-                          },
-                          // validator: (value) {
-                          //   if (value.isEmpty) {
-                          //     return 'Hãy chọn nhập và chọn một tên thuốc bất kì';
-                          //   }
-                          // },
-                          onSaved: (value) {
-                            this._selectedDrug = value;
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
+                  // Form(
+                  //   key: this._formKey,
+                  //   child: Column(
+                  //     children: [
+                  //       TypeAheadFormField(
+                  //         textFieldConfiguration: TextFieldConfiguration(
+                  //           autocorrect: true,
+                  //           controller: this._typeAheadController,
+                  //           decoration: InputDecoration(
+                  //               suffixIcon: IconButton(
+                  //                 onPressed: () {
+                  //                   print(_typeAheadController.text);
+                  //                 },
+                  //                 icon: Icon(
+                  //                   CupertinoIcons.search,
+                  //                   color: Palette.mainBlueTheme,
+                  //                 ),
+                  //               ),
+                  //               focusedBorder: OutlineInputBorder(
+                  //                 borderRadius: BorderRadius.all(
+                  //                   Radius.circular(Dimensions.radius20),
+                  //                 ),
+                  //                 borderSide:
+                  //                     BorderSide(color: Palette.mainBlueTheme),
+                  //               ),
+                  //               border: OutlineInputBorder(
+                  //                 borderRadius: BorderRadius.all(
+                  //                   Radius.circular(Dimensions.radius20),
+                  //                 ),
+                  //                 borderSide: BorderSide(
+                  //                     width: 3, color: Palette.mainBlueTheme),
+                  //               ),
+                  //               labelText: 'Nhập thuốc bạn muốn kiểm tra'),
+                  //         ),
+                  //         suggestionsCallback: (String pattern) {
+                  //           return TypeHead.getTypeAhead(pattern);
+                  //         },
+                  //         itemBuilder:
+                  //             (context, Map<String, dynamic> suggestion) {
+                  //           return ListTile(
+                  //             title: AppTextTitle(
+                  //                 text: suggestion["productName"],
+                  //                 color: Colors.black54,
+                  //                 size: Dimensions.font18,
+                  //                 fontWeight: FontWeight.normal),
+                  //           );
+                  //         },
+                  //         transitionBuilder:
+                  //             (context, suggestionsBox, controller) {
+                  //           return suggestionsBox;
+                  //         },
+                  //         onSuggestionSelected:
+                  //             (Map<String, dynamic> suggestion) {
+                  //           _typeAheadController.text =
+                  //               suggestion["productName"];
+                  //           print(_typeAheadController.text);
+                  //           __addItemToList(_typeAheadController.text);
+                  //         },
+                  //         // validator: (value) {
+                  //         //   if (value.isEmpty) {
+                  //         //     return 'Hãy chọn nhập và chọn một tên thuốc bất kì';
+                  //         //   }
+                  //         // },
+                  //         onSaved: (value) {
+                  //           this._selectedDrug = value;
+                  //         },
+                  //       ),
+                  //     ],
+                  //   ),
+                  // ),
 
                   SizedBox(height: 20),
 

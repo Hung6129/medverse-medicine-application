@@ -6,18 +6,18 @@ import 'package:flutter/material.dart';
 
 class PillIdentifierListResult extends StatefulWidget {
   final String query1;
-  final String query2;
-  final String query3;
-  final String query4;
-  final String query5;
+  // final String query2;
+  // final String query3;
+  // final String query4;
+  // final String query5;
 
   const PillIdentifierListResult({
     Key key,
     this.query1,
-    this.query2,
-    this.query3,
-    this.query4,
-    this.query5,
+    // this.query2,
+    // this.query3,
+    // this.query4,
+    // this.query5,
   }) : super(key: key);
 
   @override
@@ -61,7 +61,8 @@ class _PillIdentifierListResultState extends State<PillIdentifierListResult> {
                   size: Dimensions.font20,
                   fontWeight: FontWeight.normal,
                   text:
-                      "Kết quả ${widget.query1} ${widget.query2} ${widget.query3} ${widget.query4} ${widget.query5}"),
+                      // ${widget.query2} ${widget.query3} ${widget.query4} ${widget.query5}
+                      "Kết quả ${widget.query1} "),
             ),
 
             // List of sorted

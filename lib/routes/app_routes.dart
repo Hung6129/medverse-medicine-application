@@ -1,5 +1,6 @@
 import 'package:medverse_mobile_app/models/drug_bank_db/product_model.dart';
 import 'package:medverse_mobile_app/pages/detail_screen/drug_detail.dart';
+import 'package:medverse_mobile_app/pages/drawer-items/pill_identifier/pages/pill_identifier_result.dart';
 
 import '../pages/drawer-items/pill_identifier/pages/pill_identifier.dart';
 import '/pages/drawer-items/check_interaction/pages/interaction_checker.dart';
@@ -46,6 +47,10 @@ class AppRoutes {
 
       case "/health-profile":
         return getMaterialRoute(TabHealthProfile());
+
+      case "/pill-identifier":
+        return getMaterialRoute(PillIdentifierListResult());
+
       case "/detail-page":
         return getMaterialRoute(
           DrugDetails(

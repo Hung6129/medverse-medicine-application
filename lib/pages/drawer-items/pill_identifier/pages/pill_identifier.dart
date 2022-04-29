@@ -1,3 +1,6 @@
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:medverse_mobile_app/utils/firebase.dart';
+
 import '/widgets/app_text_title.dart';
 import '/theme/palette.dart';
 import '/widgets/app_text.dart';
@@ -18,7 +21,7 @@ class _IdentifierState extends State<Identifier> {
   TextEditingController txtCon = TextEditingController();
 
 // List of Color 1
-  List<String> pill_color_1 = [
+  List<String>  pill_color_1 = [
     "Màu sắc 1",
     "CAM",
     "ĐEN",
@@ -34,7 +37,7 @@ class _IdentifierState extends State<Identifier> {
     "XANH",
   ];
 
-// List of Color 1
+// List of Color 2
   List<String> pill_color_2 = [
     "Màu sắc 2",
     "CAM",
@@ -107,6 +110,15 @@ class _IdentifierState extends State<Identifier> {
   String dropdownShape = "Hình dạng";
   String dropdownSize = "Kích thước";
 
+  //
+  // String input = "00002-4463-30_RXNAVIMAGE10_B5155ACA.jpg";
+  // __getPillData() async {
+  //   Reference pillImage =
+  //       storage.ref().child('pill_images/image/images/gallery/300/' + input);
+  //   var url = await pillImage.getDownloadURL();
+  //   print(url);
+  // }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -155,6 +167,8 @@ class _IdentifierState extends State<Identifier> {
                 ],
               ),
               padding: EdgeInsets.all(Dimensions.height25),
+
+              /// All the field
               child: Column(
                 children: [
                   // Imprint query
@@ -353,11 +367,11 @@ class _IdentifierState extends State<Identifier> {
                           context,
                           MaterialPageRoute(
                             builder: (context) => PillIdentifierListResult(
-                              query1: txtCon.text,
-                              query2: dropDownColor1,
-                              query3: dropDownColor2,
-                              query4: dropdownShape,
-                              query5: dropdownSize,
+                              // query1: txtCon.text,
+                              // query2: dropDownColor1,
+                              // query3: dropDownColor2,
+                              // query4: dropdownShape,
+                              query1: dropdownSize,
                             ),
                           ),
                         );
