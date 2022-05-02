@@ -53,12 +53,12 @@ class _TimelineState extends State<Timeline> {
     QuerySnapshot querySnapshot;
     if (lastDocument == null) {
       querySnapshot = await postRef
-          .orderBy('timestamp', descending: false)
+          .orderBy('timestamp', descending: true)
           .limit(documentLimit)
           .get();
     } else {
       querySnapshot = await postRef
-          .orderBy('timestamp', descending: false)
+          .orderBy('timestamp', descending: true)
           .startAfterDocument(lastDocument)
           .limit(documentLimit)
           .get();
@@ -109,7 +109,6 @@ class _TimelineState extends State<Timeline> {
             : ListView.builder(
                 controller: _scrollController,
                 itemCount: post.length,
-                reverse: true,
                 itemBuilder: (context, index) {
                   internetChecker(context);
                   PostModel posts = PostModel.fromJson(
@@ -135,6 +134,7 @@ class _TimelineState extends State<Timeline> {
     return Container(
       height: 45.0,
       width: 45.0,
+
       /// ignore: missing_required_param
       child: FabContainer(
         icon: Feather.plus,

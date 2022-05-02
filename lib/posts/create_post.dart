@@ -1,9 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:provider/provider.dart';
+import '/utils/app_text_theme.dart';
 import '/components/custom_image.dart';
 import '/models/user.dart';
 import '/utils/firebase.dart';
@@ -43,24 +45,24 @@ class _CreatePostState extends State<CreatePost> {
                 Navigator.pop(context);
               },
             ),
-            title: Text('Tạo bài viết'),
+            title: Text(
+              'Tạo bài viết',
+              style: MobileTextTheme().appBarStyle,
+            ),
             centerTitle: true,
             actions: [
               GestureDetector(
                 onTap: () async {
                   await viewModel.uploadPosts(context);
-                  Navigator.pop(context);
+                  Navigator.pushReplacementNamed(context, "/social");
                   viewModel.resetPost();
                 },
                 child: Padding(
-                  padding: const EdgeInsets.all(20.0),
+                  padding:
+                      const EdgeInsets.only(left: 20.0, right: 20.0, top: 20.0),
                   child: Text(
                     'Đăng bài',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 10.0,
-                      color: Palette.whiteText,
-                    ),
+                    style: MobileTextTheme().appBarActionButton,
                   ),
                 ),
               )
@@ -82,12 +84,11 @@ class _CreatePostState extends State<CreatePost> {
                       ),
                       title: Text(
                         user?.username,
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                        ),
+                        style: MobileTextTheme().currentUsernameTitle,
                       ),
                       subtitle: Text(
                         user?.email,
+                        style: MobileTextTheme().currentEmailTitle,
                       ),
                     );
                   }
@@ -119,9 +120,7 @@ class _CreatePostState extends State<CreatePost> {
                           ? Center(
                               child: Text(
                                 'Nhấn vào đây để tải hình ảnh lên',
-                                style: TextStyle(
-                                  color: Palette.mainBlueTheme,
-                                ),
+                                style: MobileTextTheme().choosePictureRequired,
                               ),
                             )
                           : Image.file(
@@ -135,12 +134,10 @@ class _CreatePostState extends State<CreatePost> {
               SizedBox(height: 20.0),
               Text(
                 'Mô tả bài viết'.toUpperCase(),
-                style: TextStyle(
-                  fontSize: 15.0,
-                  fontWeight: FontWeight.w600,
-                ),
+                style: MobileTextTheme().inputDescriptionAndLocationTitle,
               ),
               TextFormField(
+                style: MobileTextTheme().inputDescriptionAndLocation,
                 initialValue: viewModel.description,
                 decoration: InputDecoration(
                   hintText: 'Eg. Đây là một bức hình đẹp',
@@ -152,16 +149,14 @@ class _CreatePostState extends State<CreatePost> {
               SizedBox(height: 20.0),
               Text(
                 'Vị trí'.toUpperCase(),
-                style: TextStyle(
-                  fontSize: 15.0,
-                  fontWeight: FontWeight.w600,
-                ),
+                style: MobileTextTheme().inputDescriptionAndLocationTitle,
               ),
               ListTile(
                 contentPadding: EdgeInsets.all(0.0),
                 title: Container(
                   width: 250.0,
                   child: TextFormField(
+                    style: MobileTextTheme().inputDescriptionAndLocation,
                     controller: viewModel.locationTEC,
                     decoration: InputDecoration(
                       contentPadding: EdgeInsets.all(0.0),
@@ -208,15 +203,16 @@ class _CreatePostState extends State<CreatePost> {
                 padding: const EdgeInsets.symmetric(horizontal: 10.0),
                 child: Text(
                   'Lựa chọn hình ảnh',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: MobileTextTheme().chooseImageTitle,
                 ),
               ),
               Divider(),
               ListTile(
                 leading: Icon(Feather.camera),
-                title: Text('Chọn từ máy ảnh'),
+                title: Text(
+                  'Chọn từ máy ảnh',
+                  style: MobileTextTheme().selectCamera,
+                ),
                 onTap: () {
                   Navigator.pop(context);
                   viewModel.pickImage(camera: true);
@@ -224,7 +220,10 @@ class _CreatePostState extends State<CreatePost> {
               ),
               ListTile(
                 leading: Icon(Feather.image),
-                title: Text('Chọn từ thư viện'),
+                title: Text(
+                  'Chọn từ thư viện',
+                  style: MobileTextTheme().selectGallery,
+                ),
                 onTap: () {
                   Navigator.pop(context);
                   viewModel.pickImage();
@@ -234,6 +233,19 @@ class _CreatePostState extends State<CreatePost> {
           ),
         );
       },
+    );
+  }
+
+  postSuccessfully(context) async {
+    showInSnackBar('Không có kết nối mạng', context);
+  }
+
+  void showInSnackBar(String value, context) {
+    ScaffoldMessenger.of(context).removeCurrentSnackBar();
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(value),
+      ),
     );
   }
 }

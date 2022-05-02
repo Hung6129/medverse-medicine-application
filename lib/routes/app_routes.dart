@@ -1,7 +1,7 @@
-import 'package:medverse_mobile_app/models/drug_bank_db/product_model.dart';
-import 'package:medverse_mobile_app/pages/detail_screen/drug_detail.dart';
-
-import '../pages/drawer-items/pill_identifier/pages/pill_identifier.dart';
+import '/models/drug_bank_db/product_model.dart';
+import '/pages/detail_screen/drug_detail.dart';
+import '/pages/nav-items/feeds/pages/feeds.dart';
+import '/pages/drawer-items/pill_identifier/pages/pill_identifier.dart';
 import '/pages/drawer-items/check_interaction/pages/interaction_checker.dart';
 import '/pages/drawer-items/compare_drugs/pages/compare_drug_screen.dart';
 import '/pages/drawer-items/health_profile/pages/health_profile.dart';
@@ -34,6 +34,9 @@ class AppRoutes {
 
       case "/home":
         return getMaterialRoute(TabScreen());
+
+      case "/social":
+        return getMaterialRoute(Timeline());
 
       case "/pill-identifier":
         return getMaterialRoute(Identifier());

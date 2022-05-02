@@ -7,6 +7,10 @@ abstract class AppTextTheme {
   /// Using for all app bar in UI
   TextStyle get appBarStyle;
 
+  /// Using for all app bar action button
+  TextStyle get appBarActionButton;
+
+  /// Using for all tab bar in UI
   TextStyle get tabBarStyle;
 
   TextStyle get navigationDrawerStyle;
@@ -15,15 +19,25 @@ abstract class AppTextTheme {
 
   TextStyle get drawerHeaderTextStyle;
 
-  TextStyle get h1;
+  /// Using for all current user name title
+  TextStyle get currentUsernameTitle;
 
-  TextStyle get h2;
+  /// Using for all current email title
+  TextStyle get currentEmailTitle;
 
-  TextStyle get h3;
+  /// Using for all choose picture box
+  TextStyle get choosePictureRequired;
 
-  TextStyle get h4;
+  TextStyle get inputDescriptionAndLocationTitle;
 
-  TextStyle get h5;
+  TextStyle get inputDescriptionAndLocation;
+
+  /// Using for show image choices UI
+  TextStyle get chooseImageTitle;
+
+  TextStyle get selectCamera;
+
+  TextStyle get selectGallery;
 
   TextStyle get h6;
 
@@ -40,10 +54,6 @@ abstract class AppTextTheme {
   TextStyle get subhead;
 
   TextStyle get subheadAllCaps;
-
-  TextStyle get button;
-
-  TextStyle get footnote;
 
   TextStyle get footnoteAllCaps;
 
@@ -76,17 +86,43 @@ abstract class AppTextTheme {
 
   TextStyle get postLocationTitle;
 
+  /// Using for post details UI
+  TextStyle get postDetailsUsernameTitle;
+
+  TextStyle get postDetailsTimePostTitle;
+
+  /// Using for fab container
+  TextStyle get fabContainerTitle;
+
+  TextStyle get fabContainerContent;
+
   static final latoTextStyle = GoogleFonts.lato();
 }
 
 class MobileTextTheme implements AppTextTheme {
+  /// Using for all app bar in UI
   @override
   final appBarStyle = GoogleFonts.oswald(
     fontWeight: FontWeight.normal,
   );
 
+  /// Using for all app bar action button
+  @override
+  final appBarActionButton = GoogleFonts.oswald(
+    fontWeight: FontWeight.bold,
+    fontSize: 10.0,
+    color: Palette.whiteText,
+  );
+
+  /// Using for all tab bar in UI
   @override
   final tabBarStyle = GoogleFonts.oswald();
+
+  /// Using for all choose picture box
+  @override
+  final choosePictureRequired = GoogleFonts.oswald(
+    color: Palette.mainBlueTheme,
+  );
 
   @override
   final navigationDrawerStyle = GoogleFonts.oswald(
@@ -94,8 +130,10 @@ class MobileTextTheme implements AppTextTheme {
   );
 
   @override
-  final drawerHeader =
-      GoogleFonts.oswald(fontSize: 20, color: Palette.whiteText);
+  final drawerHeader = GoogleFonts.oswald(
+    fontSize: 20,
+    color: Palette.whiteText,
+  );
 
   @override
   final drawerHeaderTextStyle = GoogleFonts.oswald(
@@ -103,19 +141,39 @@ class MobileTextTheme implements AppTextTheme {
     fontWeight: FontWeight.w500,
   );
 
+  /// Using for all current user name title
   @override
-  final h1 = GoogleFonts.lato(fontSize: 54, fontWeight: FontWeight.w900);
+  final currentUsernameTitle = GoogleFonts.oswald(
+    fontWeight: FontWeight.bold,
+  );
+
+  /// Using for all current email title
   @override
-  final h2 = GoogleFonts.lato(fontSize: 40, fontWeight: FontWeight.w900);
+  final currentEmailTitle = GoogleFonts.oswald();
+
   @override
-  final h3 = GoogleFonts.lato(fontSize: 36, fontWeight: FontWeight.w900);
+  final inputDescriptionAndLocationTitle = GoogleFonts.oswald(
+    fontSize: 15.0,
+    fontWeight: FontWeight.w600,
+  );
+
   @override
-  final h4 = GoogleFonts.lato(fontSize: 27, fontWeight: FontWeight.bold);
+  final inputDescriptionAndLocation = GoogleFonts.oswald();
+
+  /// Using for choose image choice UI
   @override
-  final h5 = GoogleFonts.lato(fontSize: 24, fontWeight: FontWeight.bold);
+  final chooseImageTitle = GoogleFonts.oswald(
+    fontWeight: FontWeight.bold,
+  );
+
+  @override
+  final selectCamera = GoogleFonts.oswald();
+
+  @override
+  final selectGallery = GoogleFonts.oswald();
+
   @override
   final h6 = GoogleFonts.lato(fontSize: 18, fontWeight: FontWeight.w900);
-
   @override
   final subtitle1 = GoogleFonts.lato(fontSize: 16, fontWeight: FontWeight.bold);
   @override
@@ -235,4 +293,22 @@ class MobileTextTheme implements AppTextTheme {
     fontSize: 10.0,
     color: Palette.greyBlack,
   );
+
+  /// Using for post details UI
+  @override
+  final postDetailsUsernameTitle = GoogleFonts.oswald(
+    fontWeight: FontWeight.w800,
+  );
+
+  @override
+  final postDetailsTimePostTitle = GoogleFonts.oswald();
+
+  /// Using for fab container UI
+  final fabContainerTitle = GoogleFonts.oswald(
+    fontWeight: FontWeight.bold,
+    color: Palette.mainBlueTheme,
+  );
+
+  @override
+  final fabContainerContent = GoogleFonts.oswald();
 }
