@@ -2,8 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:medverse_mobile_app/models/user.dart';
+import '../../../../utils/app_text_theme.dart';
 import '/widgets/dimension.dart';
-import '/widgets/constants.dart';
 import '/theme/palette.dart';
 import '/auth/login/login.dart';
 
@@ -79,7 +79,7 @@ class _AccountInfomationState extends State<AccountInformation> {
                         SizedBox(width: 10),
                         Text(
                           'Tên người dùng:',
-                          style: black_kLabelStyle,
+                          style: MobileTextTheme().blackKLabelStyle,
                         ),
                       ],
                     ),
@@ -88,12 +88,13 @@ class _AccountInfomationState extends State<AccountInformation> {
                             loggedInUser.username.isEmpty
                         ? Text(
                             'Không có dữ liệu',
+                            style: MobileTextTheme()
+                                .accountInformationDataTextStyle,
                           )
                         : Text(
                             '${loggedInUser.username}',
-                            style: TextStyle(
-                              color: Palette.textNo,
-                            ),
+                            style: MobileTextTheme()
+                                .accountInformationDataTextStyle,
                           ),
                   ],
                 ),
@@ -137,7 +138,7 @@ class _AccountInfomationState extends State<AccountInformation> {
                         SizedBox(width: 10),
                         Text(
                           'Email người dùng:',
-                          style: black_kLabelStyle,
+                          style: MobileTextTheme().blackKLabelStyle,
                         ),
                       ],
                     ),
@@ -145,12 +146,13 @@ class _AccountInfomationState extends State<AccountInformation> {
                     loggedInUser.email == null || loggedInUser.email.isEmpty
                         ? Text(
                             'Không có dữ liệu',
+                            style: MobileTextTheme()
+                                .accountInformationDataTextStyle,
                           )
                         : Text(
                             '${loggedInUser.email}',
-                            style: TextStyle(
-                              color: Palette.textNo,
-                            ),
+                            style: MobileTextTheme()
+                                .accountInformationDataTextStyle,
                           ),
                   ],
                 ),
@@ -195,7 +197,7 @@ class _AccountInfomationState extends State<AccountInformation> {
                         SizedBox(width: 10),
                         Text(
                           'Quốc gia:',
-                          style: black_kLabelStyle,
+                          style: MobileTextTheme().blackKLabelStyle,
                         ),
                       ],
                     ),
@@ -203,12 +205,13 @@ class _AccountInfomationState extends State<AccountInformation> {
                     loggedInUser.country == null || loggedInUser.country.isEmpty
                         ? Text(
                             'Không có dữ liệu',
+                            style: MobileTextTheme()
+                                .accountInformationDataTextStyle,
                           )
                         : Text(
                             '${loggedInUser.country}',
-                            style: TextStyle(
-                              color: Palette.textNo,
-                            ),
+                            style: MobileTextTheme()
+                                .accountInformationDataTextStyle,
                           ),
                   ],
                 ),
@@ -253,7 +256,7 @@ class _AccountInfomationState extends State<AccountInformation> {
                         SizedBox(width: 10),
                         Text(
                           'Giới thiệu:',
-                          style: black_kLabelStyle,
+                          style: MobileTextTheme().blackKLabelStyle,
                         ),
                       ],
                     ),
@@ -261,12 +264,13 @@ class _AccountInfomationState extends State<AccountInformation> {
                     loggedInUser.bio == null || loggedInUser.bio.isEmpty
                         ? Text(
                             'Không có dữ liệu',
+                            style: MobileTextTheme()
+                                .accountInformationDataTextStyle,
                           )
                         : Text(
                             '${loggedInUser.bio}',
-                            style: TextStyle(
-                              color: Palette.textNo,
-                            ),
+                            style: MobileTextTheme()
+                                .accountInformationDataTextStyle,
                           ),
                   ],
                 ),

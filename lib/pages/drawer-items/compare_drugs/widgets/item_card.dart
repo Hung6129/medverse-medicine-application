@@ -161,7 +161,7 @@ class ItemCard extends StatelessWidget {
                 Text(
                   data.description,
                   // TODO: Responsive?
-                  style: DesktopTextTheme()
+                  style: MobileTextTheme()
                       .paragraph18
                       .copyWith(color: Palette.neutral2, height: 1.666),
                 ),
@@ -191,14 +191,14 @@ class ItemMetadataWidget extends StatelessWidget {
       '$startText | $endText',
       textAlign: TextAlign.left,
       style:
-          DesktopTextTheme().subheadAllCaps.copyWith(color: Palette.neutral2),
+      MobileTextTheme().subheadAllCaps.copyWith(color: Palette.neutral2),
     );
     // TODO: Would be nice to make this work without overflow
     return Row(
       children: [
         Text(
           startText,
-          style: DesktopTextTheme()
+          style: MobileTextTheme()
               .subheadAllCaps
               .copyWith(color: Palette.neutral2),
         ),
@@ -212,7 +212,7 @@ class ItemMetadataWidget extends StatelessWidget {
         Text(
           endText,
           overflow: TextOverflow.clip,
-          style: DesktopTextTheme()
+          style: MobileTextTheme()
               .subheadAllCaps
               .copyWith(color: Palette.neutral2),
         ),

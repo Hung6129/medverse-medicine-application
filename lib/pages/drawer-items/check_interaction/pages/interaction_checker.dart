@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
-import '../../../../services/service_data.dart';
-import '../../../../widgets/app_text_title.dart';
+import 'package:medverse_mobile_app/utils/app_text_theme.dart';
+import '/services/service_data.dart';
+import '/widgets/app_text_title.dart';
 import '/theme/palette.dart';
 import '/widgets/app_text.dart';
 import '/widgets/dimension.dart';
@@ -42,7 +43,7 @@ class _InteractionCheckerState extends State<InteractionChecker> {
         backgroundColor: Palette.mainBlueTheme,
         title: Text(
           'Kiểm tra tương kị thuốc',
-          style: TextStyle(fontWeight: FontWeight.w900),
+          style: MobileTextTheme().appBarStyle,
         ),
         centerTitle: true,
       ),

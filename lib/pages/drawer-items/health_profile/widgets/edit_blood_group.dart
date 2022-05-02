@@ -2,11 +2,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import '/utils/app_text_theme.dart';
 import '/models/user_health_profile_model.dart';
 import '/auth/login/login.dart';
 import '/widgets/dimension.dart';
 import '/theme/palette.dart';
-import '/widgets/constants.dart';
 
 class EditBloodGroup extends StatefulWidget {
   const EditBloodGroup({Key key}) : super(key: key);
@@ -154,7 +154,7 @@ class _EditHealthProfilePageState extends State<EditBloodGroup> {
                       children: [
                         Text(
                           'Nhóm máu',
-                          style: black_kLabelStyle,
+                          style: MobileTextTheme().blackKLabelStyle,
                         ),
                       ],
                     ),

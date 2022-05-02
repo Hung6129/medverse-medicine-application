@@ -3,6 +3,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import '/theme/palette.dart';
+import '/utils/app_text_theme.dart';
 import '/components/custom_card.dart';
 import '/components/custom_image.dart';
 import '/models/post.dart';
@@ -146,11 +148,7 @@ class UserPost extends StatelessWidget {
                                 const EdgeInsets.only(left: 10.0, top: 3.0),
                             child: Text(
                               '${post?.description ?? ""}',
-                              style: TextStyle(
-                                color:
-                                    Theme.of(context).textTheme.caption.color,
-                                fontSize: 15.0,
-                              ),
+                              style: MobileTextTheme().postDescription,
                               maxLines: 2,
                             ),
                           ),
@@ -158,8 +156,12 @@ class UserPost extends StatelessWidget {
                         SizedBox(height: 3.0),
                         Padding(
                           padding: const EdgeInsets.all(3.0),
-                          child: Text(timeago.format(post.timestamp.toDate()),
-                              style: TextStyle(fontSize: 10.0)),
+                          child: Text(
+                            timeago.format(
+                              post.timestamp.toDate(),
+                            ),
+                            style: MobileTextTheme().timePost,
+                          ),
                         ),
                         // SizedBox(height: 5.0),
                       ],
@@ -205,7 +207,7 @@ class UserPost extends StatelessWidget {
                   )
                 : Icon(
                     CupertinoIcons.heart_fill,
-                    color: Colors.red,
+                    color: Palette.red,
                   ),
           );
         }
@@ -230,10 +232,7 @@ class UserPost extends StatelessWidget {
       padding: const EdgeInsets.only(left: 7.0),
       child: Text(
         '$count likes',
-        style: TextStyle(
-          fontWeight: FontWeight.bold,
-          fontSize: 10.0,
-        ),
+        style: MobileTextTheme().likesCount,
       ),
     );
   }
@@ -243,7 +242,7 @@ class UserPost extends StatelessWidget {
       padding: const EdgeInsets.only(top: 0.5),
       child: Text(
         '-   $count comments',
-        style: TextStyle(fontSize: 8.5, fontWeight: FontWeight.bold),
+        style: MobileTextTheme().commentCount,
       ),
     );
   }
@@ -262,11 +261,11 @@ class UserPost extends StatelessWidget {
               Navigator.of(context).push(
                 CupertinoPageRoute(
                   builder: (_) => EditPostScreen(
-                      documentId: post.postId,
-                      currentUserID: post.ownerId,
-                      currentImageUrl: post.mediaUrl,
-                      currentDescription: post.description,
-                      currentLocation: post.location,
+                    documentId: post.postId,
+                    currentUserID: post.ownerId,
+                    currentImageUrl: post.mediaUrl,
+                    currentDescription: post.description,
+                    currentLocation: post.location,
                     /*postId: post.postId,
                     postPicture: post.mediaUrl,
                     postDescription: post.description,
@@ -299,9 +298,9 @@ class UserPost extends StatelessWidget {
             child: Align(
               alignment: Alignment.topCenter,
               child: Container(
-                height: 40.0,
+                height: 50.0,
                 decoration: BoxDecoration(
-                  color: Colors.white60,
+                  color: Palette.white60,
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(10.0),
                     topRight: Radius.circular(10.0),
@@ -317,13 +316,13 @@ class UserPost extends StatelessWidget {
                         user.photoUrl.isNotEmpty
                             ? CircleAvatar(
                                 radius: 14.0,
-                                backgroundColor: Color(0xff4D4D4D),
+                                backgroundColor: Palette.greyBlack,
                                 backgroundImage: CachedNetworkImageProvider(
                                     user?.photoUrl ?? ""),
                               )
                             : CircleAvatar(
                                 radius: 14.0,
-                                backgroundColor: Color(0xff4D4D4D),
+                                backgroundColor: Palette.greyBlack,
                               ),
                         SizedBox(width: 5.0),
                         Column(
@@ -332,18 +331,12 @@ class UserPost extends StatelessWidget {
                           children: [
                             Text(
                               '${post?.username ?? ""}',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Color(0xff4D4D4D),
-                              ),
+                              style: MobileTextTheme().postUserNameTitle,
                               overflow: TextOverflow.ellipsis,
                             ),
                             Text(
                               '${post?.location ?? 'Wooble'}',
-                              style: TextStyle(
-                                fontSize: 10.0,
-                                color: Color(0xff4D4D4D),
-                              ),
+                              style: MobileTextTheme().postLocationTitle,
                             ),
                           ],
                         ),
@@ -361,7 +354,10 @@ class UserPost extends StatelessWidget {
     );
   }
 
-  showProfile(BuildContext context, {String profileId,}) {
+  showProfile(
+    BuildContext context, {
+    String profileId,
+  }) {
     Navigator.push(
       context,
       CupertinoPageRoute(

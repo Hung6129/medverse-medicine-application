@@ -40,6 +40,7 @@ dependencies:
 
   #Firebase Dependencies
   cloud_firestore: any
+  firebase: any
   firebase_auth: any
   firebase_core: any
   firebase_storage: any

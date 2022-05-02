@@ -1,4 +1,5 @@
 import 'package:medverse_mobile_app/auth/login/login.dart';
+import '/utils/app_text_theme.dart';
 import '/widgets/dimension.dart';
 import '/models/user_health_profile_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -6,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '/theme/palette.dart';
-import '/widgets/constants.dart';
 
 class EditWeight extends StatefulWidget {
   const EditWeight({Key key}) : super(key: key);
@@ -137,7 +137,7 @@ class _EditHealthProfilePageState extends State<EditWeight> {
                       children: [
                         Text(
                           'Cân nặng',
-                          style: black_kLabelStyle,
+                          style: MobileTextTheme().blackKLabelStyle,
                         ),
                       ],
                     ),
