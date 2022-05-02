@@ -322,7 +322,7 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
       case 1:
         Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (context) => Identifier(),
+            builder: (context) => PillIdentifier(),
           ),
         );
         break;

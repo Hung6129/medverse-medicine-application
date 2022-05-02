@@ -1,6 +1,3 @@
-import 'package:firebase_storage/firebase_storage.dart';
-import 'package:medverse_mobile_app/utils/firebase.dart';
-
 import '/widgets/app_text_title.dart';
 import '/theme/palette.dart';
 import '/widgets/app_text.dart';
@@ -9,19 +6,19 @@ import 'package:flutter/material.dart';
 
 import 'pill_identifier_result.dart';
 
-class Identifier extends StatefulWidget {
-  const Identifier({Key key}) : super(key: key);
+class PillIdentifier extends StatefulWidget {
+  const PillIdentifier({Key key}) : super(key: key);
 
   @override
-  _IdentifierState createState() => _IdentifierState();
+  _PillIdentifierState createState() => _PillIdentifierState();
 }
 
-class _IdentifierState extends State<Identifier> {
+class _PillIdentifierState extends State<PillIdentifier> {
 // Imprint input controller
   TextEditingController txtCon = TextEditingController();
 
 // List of Color 1
-  List<String>  pill_color_1 = [
+  List<String> pill_color_1 = [
     "Màu sắc 1",
     "CAM",
     "ĐEN",
@@ -109,15 +106,6 @@ class _IdentifierState extends State<Identifier> {
   String dropDownColor2 = "Màu sắc 2";
   String dropdownShape = "Hình dạng";
   String dropdownSize = "Kích thước";
-
-  //
-  // String input = "00002-4463-30_RXNAVIMAGE10_B5155ACA.jpg";
-  // __getPillData() async {
-  //   Reference pillImage =
-  //       storage.ref().child('pill_images/image/images/gallery/300/' + input);
-  //   var url = await pillImage.getDownloadURL();
-  //   print(url);
-  // }
 
   @override
   Widget build(BuildContext context) {

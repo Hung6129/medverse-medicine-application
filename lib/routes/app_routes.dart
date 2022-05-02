@@ -1,7 +1,6 @@
-import 'package:medverse_mobile_app/models/drug_bank_db/product_model.dart';
-import 'package:medverse_mobile_app/pages/detail_screen/drug_detail.dart';
-import 'package:medverse_mobile_app/pages/drawer-items/pill_identifier/pages/pill_identifier_result.dart';
-
+import '/models/drug_bank_db/product_model.dart';
+import '/pages/detail_screen/drug_detail.dart';
+import '/pages/drawer-items/pill_identifier/pages/pill_identifier_result.dart';
 import '../pages/drawer-items/pill_identifier/pages/pill_identifier.dart';
 import '/pages/drawer-items/check_interaction/pages/interaction_checker.dart';
 import '/pages/drawer-items/compare_drugs/pages/compare_drug_screen.dart';
@@ -30,33 +29,40 @@ class AppRoutes {
   static Route onGeneratedRoutes(RouteSettings route) {
     debugPrint('onGenerateRoute: ${route.name}');
     switch (route.name) {
+
+      //wellconme page
       case "/":
         return getPageRoute(WellcomeScreen());
 
+      /// home page
       case "/home":
         return getMaterialRoute(TabScreen());
 
-      case "/pill-identifier":
-        return getMaterialRoute(Identifier());
-
-      case "/compare-drug":
-        return getMaterialRoute(CompareDrug());
-
-      case "/interaction-checker":
-        return getMaterialRoute(InteractionChecker());
-
-      case "/health-profile":
-        return getMaterialRoute(TabHealthProfile());
-
-      case "/pill-identifier":
-        return getMaterialRoute(PillIdentifierListResult());
-
+      /// detail page
       case "/detail-page":
         return getMaterialRoute(
           DrugDetails(
             drugData: route.arguments as ProductModel,
           ),
         );
+
+      /// pill identifier route
+      case "/pill-identifier":
+        return getMaterialRoute(PillIdentifier());
+      case "/pill-identifier-result":
+        return getMaterialRoute(PillIdentifierListResult());
+
+      /// compare route
+      case "/compare-drug":
+        return getMaterialRoute(CompareDrug());
+
+      /// interaction checker route
+      case "/interaction-checker":
+        return getMaterialRoute(InteractionChecker());
+
+      /// health profile
+      case "/health-profile":
+        return getMaterialRoute(TabHealthProfile());
     }
   }
 }
