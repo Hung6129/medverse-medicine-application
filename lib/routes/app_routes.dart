@@ -1,5 +1,7 @@
 import '/models/drug_bank_db/product_model.dart';
 import '/pages/detail_screen/drug_detail.dart';
+import '/pages/drawer-items/pill_identifier/pages/pill_identifier_result.dart';
+import '../pages/drawer-items/pill_identifier/pages/pill_identifier.dart';
 import '/pages/nav-items/feeds/pages/feeds.dart';
 import '/pages/drawer-items/pill_identifier/pages/pill_identifier.dart';
 import '/pages/drawer-items/check_interaction/pages/interaction_checker.dart';
@@ -29,32 +31,43 @@ class AppRoutes {
   static Route onGeneratedRoutes(RouteSettings route) {
     debugPrint('onGenerateRoute: ${route.name}');
     switch (route.name) {
+
+      //wellconme page
       case "/":
         return getPageRoute(WellcomeScreen());
 
+      /// home page
       case "/home":
         return getMaterialRoute(TabScreen());
 
-      case "/social":
-        return getMaterialRoute(Timeline());
-
-      case "/pill-identifier":
-        return getMaterialRoute(Identifier());
-
-      case "/compare-drug":
-        return getMaterialRoute(CompareDrug());
-
-      case "/interaction-checker":
-        return getMaterialRoute(InteractionChecker());
-
-      case "/health-profile":
-        return getMaterialRoute(TabHealthProfile());
+      /// detail page
       case "/detail-page":
         return getMaterialRoute(
           DrugDetails(
             drugData: route.arguments as ProductModel,
           ),
         );
+
+      /// pill identifier route
+      case "/social":
+        return getMaterialRoute(Timeline());
+
+      case "/pill-identifier":
+        return getMaterialRoute(PillIdentifier());
+      case "/pill-identifier-result":
+        return getMaterialRoute(PillIdentifierListResult());
+
+      /// compare route
+      case "/compare-drug":
+        return getMaterialRoute(CompareDrug());
+
+      /// interaction checker route
+      case "/interaction-checker":
+        return getMaterialRoute(InteractionChecker());
+
+      /// health profile
+      case "/health-profile":
+        return getMaterialRoute(TabHealthProfile());
     }
   }
 }

@@ -6,14 +6,14 @@ import 'package:flutter/material.dart';
 
 import 'pill_identifier_result.dart';
 
-class Identifier extends StatefulWidget {
-  const Identifier({Key key}) : super(key: key);
+class PillIdentifier extends StatefulWidget {
+  const PillIdentifier({Key key}) : super(key: key);
 
   @override
-  _IdentifierState createState() => _IdentifierState();
+  _PillIdentifierState createState() => _PillIdentifierState();
 }
 
-class _IdentifierState extends State<Identifier> {
+class _PillIdentifierState extends State<PillIdentifier> {
 // Imprint input controller
   TextEditingController txtCon = TextEditingController();
 
@@ -34,7 +34,7 @@ class _IdentifierState extends State<Identifier> {
     "XANH",
   ];
 
-// List of Color 1
+// List of Color 2
   List<String> pill_color_2 = [
     "Màu sắc 2",
     "CAM",
@@ -155,6 +155,8 @@ class _IdentifierState extends State<Identifier> {
                 ],
               ),
               padding: EdgeInsets.all(Dimensions.height25),
+
+              /// All the field
               child: Column(
                 children: [
                   // Imprint query
@@ -353,11 +355,11 @@ class _IdentifierState extends State<Identifier> {
                           context,
                           MaterialPageRoute(
                             builder: (context) => PillIdentifierListResult(
-                              query1: txtCon.text,
-                              query2: dropDownColor1,
-                              query3: dropDownColor2,
-                              query4: dropdownShape,
-                              query5: dropdownSize,
+                              // query1: txtCon.text,
+                              // query2: dropDownColor1,
+                              // query3: dropDownColor2,
+                              // query4: dropdownShape,
+                              query1: dropdownSize,
                             ),
                           ),
                         );
