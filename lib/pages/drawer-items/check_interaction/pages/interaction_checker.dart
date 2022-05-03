@@ -19,6 +19,7 @@ class InteractionChecker extends StatefulWidget {
 class _InteractionCheckerState extends State<InteractionChecker> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _typeAheadController = TextEditingController();
+
   // String _selectedDrug;
   List<String> addedItemsList = [];
 
@@ -34,6 +35,19 @@ class _InteractionCheckerState extends State<InteractionChecker> {
         addedItemsList.insert(0, value);
       });
     }
+  }
+
+  FocusNode focusNode;
+  @override
+  void initState() {
+    super.initState();
+    focusNode = FocusNode();
+  }
+
+  @override
+  void dispose() {
+    focusNode.dispose();
+    super.dispose();
   }
 
   @override
@@ -94,6 +108,7 @@ class _InteractionCheckerState extends State<InteractionChecker> {
                       children: [
                         TypeAheadFormField(
                           textFieldConfiguration: TextFieldConfiguration(
+                            focusNode: focusNode,
                             autocorrect: true,
                             controller: this._typeAheadController,
                             decoration: InputDecoration(
@@ -227,6 +242,11 @@ class _InteractionCheckerState extends State<InteractionChecker> {
                             SnackBar(
                               content: AppText(
                                 text: "Chọn 2 thuốc để kiểm tra tương kỵ",
+                              ),
+                              duration: Duration(seconds: 4),
+                              action: SnackBarAction(
+                                label: "Thêm",
+                                onPressed: () => focusNode.requestFocus(),
                               ),
                             ),
                           );
