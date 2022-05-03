@@ -192,6 +192,7 @@ class MobileTextTheme implements AppTextTheme {
 
   @override
   final subhead = GoogleFonts.lato(fontSize: 14, fontWeight: FontWeight.normal);
+
   @override
   final subheadAllCaps = GoogleFonts.lato(
       fontSize: 14, fontWeight: FontWeight.normal, letterSpacing: 2.5);
