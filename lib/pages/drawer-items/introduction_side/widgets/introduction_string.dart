@@ -1,10 +1,10 @@
-const firstIntrTitleText = 'Welcome';
+const firstIntrTitleText = 'MedverseApp';
 const secondIntrTitleText = 'Awesome';
 const thirdIntrTitleTextt = 'More';
 const warningIntrTitleText = 'Cảnh báo';
 
 const firstIntrContentText =
-    'Welcome to our beautiful introduction application i hope that you are enjoying!';
+    'Giúp người dùng có kiến thức để quản lý tốt hơn việc chăm sóc sức khỏe của chính họ và cải thiện sự an toàn của người tiêu dùng bằng cách hỗ trợ giảm thiểu sai sót về thuốc.!';
 
 const secondIntrContentText =
     'it was awesome to share with you this mesmerised package which is easy to use   ';

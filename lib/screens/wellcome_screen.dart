@@ -1,7 +1,6 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:medverse_mobile_app/theme/palette.dart';
+import '/theme/palette.dart';
 
 class WellcomeScreen extends StatefulWidget {
   const WellcomeScreen({Key key}) : super(key: key);
@@ -33,7 +32,7 @@ class _WellcomeScreenState extends State<WellcomeScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Palette.whiteText,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

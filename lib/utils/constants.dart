@@ -83,6 +83,33 @@ class Constants {
     }
     return result;
   }
+
+  /// Assets path configuration
+  static const appLogo = 'assets/grid_view_images/app-logo.png';
+  static const toggleDay = 'assets/grid_view_images/toggle-day.png';
+  static const search = 'assets/grid_view_images/search.png';
+  static const hamburgerMenu = 'assets/grid_view_images/hamburger-menu.png';
+
+  static const iconDart = 'assets/grid_view_images/icon-dart.svg';
+  static const iconFirebase = 'assets/grid_view_images/icon-firebase.svg';
+  static const iconFlutter = 'assets/grid_view_images/icon-flutter.svg';
+
+  static const tutorial1 = 'assets/grid_view_images/how-to-parse-json.webp';
+  static const tutorial2 = 'assets/grid_view_images/side-effects.webp';
+  static const tutorial3 = 'assets/grid_view_images/split-view.webp';
+  static const tutorial4 = 'assets/grid_view_images/learn-flutter-animations.webp';
+
+  static const dartCourse = 'assets/grid_view_images/dart-course-banner-small.webp';
+  static const flutterAnimationsCourse =
+      'assets/grid_view_images/flutter-animations-course-banner-small.webp';
+  static const flutterFirebaseCourse =
+      'assets/grid_view_images/flutter-firebase-course-banner-small.webp';
+  static const flutterRestApiCourse =
+      'assets/grid_view_images/flutter-rest-api-course-banner-small.webp';
+
+  static const iconStar = 'assets/grid_view_images/icon-star.svg';
+  static const andreaAvatar = 'assets/grid_view_images/andrea-avatar.webp';
+
 }
 
 class ThemeNotifier extends ChangeNotifier {

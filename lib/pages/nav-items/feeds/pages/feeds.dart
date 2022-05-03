@@ -4,10 +4,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_icons/flutter_icons.dart';
-import 'package:medverse_mobile_app/auth/login/login.dart';
-import 'package:medverse_mobile_app/theme/palette.dart';
-import 'package:medverse_mobile_app/widgets/navigation_drawer_widget.dart';
-import '../../../../components/fab_container.dart';
+import '/auth/login/login.dart';
+import '/theme/palette.dart';
+import '/utils/app_text_theme.dart';
+import '/widgets/navigation_drawer_widget.dart';
+import '/components/fab_container.dart';
 import '/models/post.dart';
 import '/utils/firebase.dart';
 import '/widgets/indicators.dart';
@@ -52,12 +53,12 @@ class _TimelineState extends State<Timeline> {
     QuerySnapshot querySnapshot;
     if (lastDocument == null) {
       querySnapshot = await postRef
-          .orderBy('timestamp', descending: false)
+          .orderBy('timestamp', descending: true)
           .limit(documentLimit)
           .get();
     } else {
       querySnapshot = await postRef
-          .orderBy('timestamp', descending: false)
+          .orderBy('timestamp', descending: true)
           .startAfterDocument(lastDocument)
           .limit(documentLimit)
           .get();
@@ -99,7 +100,7 @@ class _TimelineState extends State<Timeline> {
           backgroundColor: Palette.mainBlueTheme,
           title: Text(
             'Mạng xã hội',
-            style: TextStyle(fontWeight: FontWeight.w900),
+            style: MobileTextTheme().appBarStyle,
           ),
           centerTitle: true,
         ),
@@ -108,7 +109,6 @@ class _TimelineState extends State<Timeline> {
             : ListView.builder(
                 controller: _scrollController,
                 itemCount: post.length,
-                reverse: true,
                 itemBuilder: (context, index) {
                   internetChecker(context);
                   PostModel posts = PostModel.fromJson(
@@ -134,7 +134,8 @@ class _TimelineState extends State<Timeline> {
     return Container(
       height: 45.0,
       width: 45.0,
-      // ignore: missing_required_param
+
+      /// ignore: missing_required_param
       child: FabContainer(
         icon: Feather.plus,
         mini: true,

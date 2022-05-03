@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../../../widgets/typeahead/typeahead_search_bar.dart';
+import '/widgets/typeahead/typeahead_search_bar.dart';
+import '/pages/drawer-items/compare_drugs/pages/compare_result.dart';
 import '/theme/palette.dart';
 
 class CompareDrug extends StatefulWidget {
@@ -20,7 +21,8 @@ class MapScreenState extends State<CompareDrug> {
           style: TextStyle(fontWeight: FontWeight.w900),
         ),
         centerTitle: true,
-      ),      body: SingleChildScrollView(
+      ),
+      body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
             Container(
@@ -95,8 +97,14 @@ class MapScreenState extends State<CompareDrug> {
             SizedBox(height: 30),
             Container(
               child: InkWell(
-                onTap: () {},
-                child: new Text("Chưa có danh sách thuốc nào được so sánh"),
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => CompareResult(),
+                    ),
+                  );
+                },
+                child: new Text("Tylenol và Paranol"),
               ),
             ),
           ],

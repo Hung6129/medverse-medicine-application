@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:medverse_mobile_app/utils/app_text_theme.dart';
 import '/utils/firebase.dart';
 import '/models/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -17,6 +18,7 @@ import '/pages/drawer-items/medicine_dictionary/pages/medicine_dictionary.dart';
 import '/pages/drawer-items/health_profile/pages/health_profile.dart';
 import '/pages/drawer-items/drug_recommendation/pages/drug_recommedation.dart';
 import '/pages/drawer-items/introduction_side/pages/intro_slider_screen.dart';
+import '/pages/drawer-items/firestore_images/pages/load_images_from_firebase_storage.dart';
 
 class NavigationDrawerWidget extends StatefulWidget {
   const NavigationDrawerWidget({Key key}) : super(key: key);
@@ -101,19 +103,13 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
                             children: <Widget>[
                               Text(
                                 "${loggedInUser.username}",
-                                style: TextStyle(
-                                  color: Palette.p1,
-                                  fontWeight: FontWeight.w500,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
+                                style: MobileTextTheme().drawerHeaderTextStyle,
+                                overflow: TextOverflow.ellipsis,
                               ),
                               Text(
                                 "${loggedInUser.email}",
-                                style: TextStyle(
-                                  color: Palette.p1,
-                                  fontWeight: FontWeight.w500,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
+                                style: MobileTextTheme().drawerHeaderTextStyle,
+                                overflow: TextOverflow.ellipsis,
                               ),
                             ],
                           ),
@@ -127,11 +123,6 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
                   padding: padding,
                   child: Column(
                     children: [
-                      buildMenuItem(
-                        text: 'Hướng dẫn sử dụng',
-                        icon: Icons.list_alt_outlined,
-                        onClicked: () => selectedItem(context, 10),
-                      ),
                       buildMenuItem(
                         text: 'Tìm kiếm nâng cao',
                         icon: Icons.zoom_in,
@@ -172,7 +163,17 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
                         icon: Icons.list_alt_outlined,
                         onClicked: () => selectedItem(context, 8),
                       ),
-                      Divider(color: Colors.white70),
+                      buildMenuItem(
+                        text: 'Hướng dẫn sử dụng',
+                        icon: Icons.list_alt_outlined,
+                        onClicked: () => selectedItem(context, 10),
+                      ),
+                      buildMenuItem(
+                        text: 'Firebase Storage Images',
+                        icon: Icons.list_alt_outlined,
+                        onClicked: () => selectedItem(context, 11),
+                      ),
+                      Divider(color: Palette.grey),
                       buildMenuItem(
                         text: 'Đăng xuất',
                         icon: Icons.logout_outlined,
@@ -240,7 +241,7 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
                         icon: Icons.list_alt_outlined,
                         onClicked: () => selectedItem(context, 8),
                       ),
-                      Divider(color: Colors.white70),
+                      Divider(color: Palette.grey),
                       buildMenuItem(
                         text: 'Đăng nhập',
                         icon: Icons.login_outlined,
@@ -279,12 +280,12 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
                 children: [
                   Text(
                     name,
-                    style: const TextStyle(fontSize: 20, color: Colors.white),
+                    style: MobileTextTheme().drawerHeader,
                   ),
                   const SizedBox(height: 4),
                   Text(
                     email,
-                    style: const TextStyle(fontSize: 14, color: Colors.white),
+                    style: MobileTextTheme().drawerHeader,
                   ),
                 ],
               ),
@@ -310,8 +311,8 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
 
     return ListTile(
       leading: Icon(icon, color: color),
-      title: Text(text, style: const TextStyle(color: color)),
-      hoverColor: hoverColor,
+      title: Text(text, style: MobileTextTheme().navigationDrawerStyle),
+      hoverColor: Palette.grey,
       onTap: onClicked,
     );
   }
@@ -386,6 +387,13 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
         Navigator.of(context).push(
           MaterialPageRoute(
             builder: (context) => AnimatedIntroductionSlider(),
+          ),
+        );
+        break;
+      case 11:
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => LoadFirbaseStorageImage(),
           ),
         );
         break;

@@ -12,13 +12,6 @@ final kLabelStyle = TextStyle(
   fontFamily: 'OpenSans',
 );
 
-final black_kLabelStyle = TextStyle(
-  fontSize: 15,
-  fontWeight: FontWeight.w900,
-  fontFamily: 'OpenSans',
-  color: Palette.textNo,
-);
-
 final kBoxDecorationStyle = BoxDecoration(
   color: Color(0xFF6CA8F1),
   borderRadius: BorderRadius.circular(10.0),

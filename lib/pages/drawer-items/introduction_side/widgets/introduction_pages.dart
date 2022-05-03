@@ -1,18 +1,25 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:intro_views_flutter/intro_views_flutter.dart';
 import 'package:medverse_mobile_app/theme/palette.dart';
+import 'package:medverse_mobile_app/utils/app_text_theme.dart';
 import '/pages/drawer-items/introduction_side/widgets/introduction_string.dart';
 
 final pages = [
   PageViewModel(
       pageColor: const Color(0xFF03A9F4),
       //  bubble: CachedNetworkImage(imageUrl: firstImageIcon),
-      iconImageAssetPath: 'assets/images/one.png',
-      body: const Text(firstIntrContentText),
-      title: const Text(
+      title: Text(
         firstIntrTitleText,
+        style: MobileTextTheme().introTitleFont,
       ),
-      textStyle: const TextStyle(fontFamily: 'MyFont', color: Colors.white),
+      iconImageAssetPath: 'assets/images/one.png',
+      body: Text(
+        firstIntrContentText,
+        style: MobileTextTheme().introContentFont,
+        textAlign: TextAlign.center,
+      ),
       mainImage: Image.asset(
         'assets/images/one.png',
         height: 285.0,

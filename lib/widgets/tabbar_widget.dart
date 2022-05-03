@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:medverse_mobile_app/theme/palette.dart';
+import 'package:medverse_mobile_app/utils/app_text_theme.dart';
 
 class TabBarWidget extends StatelessWidget {
   final String title;
@@ -18,7 +19,10 @@ class TabBarWidget extends StatelessWidget {
         length: tabs.length,
         child: Scaffold(
           appBar: AppBar(
-            title: Text(title),
+            title: Text(
+              title,
+              style: MobileTextTheme().appBarStyle,
+            ),
             centerTitle: true,
             flexibleSpace: Container(
               decoration: BoxDecoration(
@@ -37,6 +41,7 @@ class TabBarWidget extends StatelessWidget {
               indicatorColor: Palette.whiteText,
               indicatorWeight: 5,
               tabs: tabs,
+              labelStyle: MobileTextTheme().tabBarStyle,
             ),
             elevation: 20,
             titleSpacing: 20,

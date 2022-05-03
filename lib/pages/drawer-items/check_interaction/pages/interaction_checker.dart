@@ -3,6 +3,9 @@ import 'package:flutter_typeahead/flutter_typeahead.dart';
 import '/models/drug_bank_db/product_model.dart';
 import '../../../../services/service_data.dart';
 import '../../../../widgets/app_text_title.dart';
+import 'package:medverse_mobile_app/utils/app_text_theme.dart';
+import '/services/service_data.dart';
+import '/widgets/app_text_title.dart';
 import '/theme/palette.dart';
 import '/widgets/app_text.dart';
 import '/widgets/dimension.dart';
@@ -56,8 +59,8 @@ class _InteractionCheckerState extends State<InteractionChecker> {
       appBar: AppBar(
         backgroundColor: Palette.mainBlueTheme,
         title: Text(
-          'Kiểm tra tương kỵ thuốc',
-          style: TextStyle(fontWeight: FontWeight.w900),
+          'Kiểm tra tương kị thuốc',
+          style: MobileTextTheme().appBarStyle,
         ),
         centerTitle: true,
       ),
