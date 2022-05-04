@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_icons/flutter_icons.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '/auth/login/login.dart';
 import '/theme/palette.dart';
 import '/utils/app_text_theme.dart';
@@ -115,7 +116,10 @@ class _TimelineState extends State<Timeline> {
                     post[index].data(),
                   );
                   return Padding(
-                    padding: const EdgeInsets.all(10.0),
+                    padding: const EdgeInsets.only(
+                      top: 10.0,
+                      bottom: 10.0,
+                    ),
                     child: UserPost(
                       post: posts,
                     ),
@@ -150,11 +154,16 @@ class _TimelineState extends State<Timeline> {
     }
   }
 
+  /// Config snack bar message style
   void showInSnackBar(String value, context) {
     ScaffoldMessenger.of(context).removeCurrentSnackBar();
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text(value),
+        content: Text(
+          value,
+          style: GoogleFonts.oswald(),
+        ),
+        backgroundColor: Palette.red,
       ),
     );
   }
