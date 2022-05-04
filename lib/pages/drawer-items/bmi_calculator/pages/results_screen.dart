@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import '/utils/app_text_theme.dart';
 import '/theme/palette.dart';
-import '/widgets/constants.dart';
 import '/pages/drawer-items/bmi_calculator/widgets/reusable_card.dart';
 import '/pages/drawer-items/bmi_calculator/widgets/bottom_button.dart';
 
@@ -23,7 +23,7 @@ class ResultsPage extends StatelessWidget {
           backgroundColor: Palette.mainBlueTheme,
           title: Text(
             'Tính chỉ số BMI',
-            style: TextStyle(fontWeight: FontWeight.w900),
+            style: MobileTextTheme().appBarStyle,
           ),
           centerTitle: true,
         ),
@@ -37,30 +37,30 @@ class ResultsPage extends StatelessWidget {
                 alignment: Alignment.center,
                 child: Text(
                   'Kết quả của bạn',
-                  style: kTitleTextStyle,
+                  style: MobileTextTheme().kTitleTextStyle,
                 ),
               ),
             ),
             Expanded(
               flex: 5,
               child: ReusableCard(
-                colour: kInactiveCardColour,
+                colour: MobileTextTheme().kInactiveCardColour,
                 cardChild: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     Text(
                       resultText.toUpperCase(),
-                      style: kResultTextStyle,
+                      style: MobileTextTheme().kResultTextStyle,
                     ),
                     Text(
                       bmiResult,
-                      style: kBMITextStyle,
+                      style: MobileTextTheme().kBMITextStyle,
                     ),
                     Text(
                       interpretation,
                       textAlign: TextAlign.center,
-                      style: kBodyTextStyle,
+                      style: MobileTextTheme().kBodyTextStyle,
                     ),
                   ],
                 ),

@@ -1,6 +1,6 @@
-import '/theme/palette.dart';
 import 'package:flutter/material.dart';
-import '/widgets/constants.dart';
+import '/utils/app_text_theme.dart';
+import '/theme/palette.dart';
 
 class IconContent extends StatelessWidget {
   IconContent({
@@ -26,7 +26,7 @@ class IconContent extends StatelessWidget {
         ),
         Text(
           label,
-          style: kLabelTextStyle,
+          style: MobileTextTheme().kLabelTextStyle,
         )
       ],
     );
