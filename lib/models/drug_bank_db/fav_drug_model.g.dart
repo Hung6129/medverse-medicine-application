@@ -21,6 +21,7 @@ class FavDrugModelAdapter extends TypeAdapter<FavDrugModel> {
       drugbankID: fields[1] as String,
       productName: fields[2] as String,
       productLabeller: fields[3] as String,
+      productImage: fields[12] as String,
       productCode: fields[4] as String,
       productRoute: fields[5] as String,
       productStrength: fields[6] as String,
@@ -29,13 +30,24 @@ class FavDrugModelAdapter extends TypeAdapter<FavDrugModel> {
       otc: fields[9] as String,
       generic: fields[10] as String,
       country: fields[11] as String,
+      drugName: fields[13] as String,
+      drugDescription: fields[14] as String,
+      drugState: fields[15] as String,
+      drugIndication: fields[16] as String,
+      drugPharmaco: fields[17] as String,
+      drugMechan: fields[18] as String,
+      drugToxicity: fields[19] as String,
+      drugMetabolism: fields[20] as String,
+      drugHalflife: fields[21] as String,
+      drugElimination: fields[22] as String,
+      drugClearance: fields[23] as String,
     );
   }
 
   @override
   void write(BinaryWriter writer, FavDrugModel obj) {
     writer
-      ..writeByte(12)
+      ..writeByte(24)
       ..writeByte(0)
       ..write(obj.productID)
       ..writeByte(1)
@@ -59,7 +71,31 @@ class FavDrugModelAdapter extends TypeAdapter<FavDrugModel> {
       ..writeByte(10)
       ..write(obj.generic)
       ..writeByte(11)
-      ..write(obj.country);
+      ..write(obj.country)
+      ..writeByte(12)
+      ..write(obj.productImage)
+      ..writeByte(13)
+      ..write(obj.drugName)
+      ..writeByte(14)
+      ..write(obj.drugDescription)
+      ..writeByte(15)
+      ..write(obj.drugState)
+      ..writeByte(16)
+      ..write(obj.drugIndication)
+      ..writeByte(17)
+      ..write(obj.drugPharmaco)
+      ..writeByte(18)
+      ..write(obj.drugMechan)
+      ..writeByte(19)
+      ..write(obj.drugToxicity)
+      ..writeByte(20)
+      ..write(obj.drugMetabolism)
+      ..writeByte(21)
+      ..write(obj.drugHalflife)
+      ..writeByte(22)
+      ..write(obj.drugElimination)
+      ..writeByte(23)
+      ..write(obj.drugClearance);
   }
 
   @override

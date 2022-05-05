@@ -8,14 +8,13 @@ import '/services/user_service.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '/utils/config.dart';
-import '/utils/constants.dart';
 import '/utils/providers.dart';
 import 'models/drug_bank_db/fav_drug_model.dart';
 
 void main() async {
-  // await Hive.initFlutter();
-  // Hive.registerAdapter<FavDrugModel>((FavDrugModelAdapter()));
-  // await Hive.openBox<FavDrugModel>("fav-list");
+  await Hive.initFlutter();
+  Hive.registerAdapter<FavDrugModel>((FavDrugModelAdapter()));
+  await Hive.openBox<FavDrugModel>("fav-list");
   // await Hive.openBox("search-cache");
   WidgetsFlutterBinding.ensureInitialized();
   await Config.initFirebase();
