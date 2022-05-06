@@ -1,5 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import '../../models/drug_bank_db/fav_drug_model.dart';
 import '../../models/drug_bank_db/product_model.dart';
 import '../../theme/palette.dart';
 import '../../widgets/app_text_title.dart';
@@ -19,13 +22,66 @@ class DrugDetails extends StatefulWidget {
 }
 
 class _DrugDetailsState extends State<DrugDetails> {
-  // var _box = Hive.box<FavDrugModel>("fav-list");
+  
+  // Hive box
+  var _box = Hive.box<FavDrugModel>("fav-list");
+
+  // Test images
   String imagesFav = "assets/images/drugs_pill/300.jpg";
+
+  // Icon checker setup
+  Widget getIcons(String id) {
+    if (_box.containsKey(id)) {
+      return Icon(CupertinoIcons.heart_fill, color: Colors.red);
+    } else {
+      return Icon(CupertinoIcons.heart);
+    }
+  }
+
+  // Heart on tap evnent
+  onFavoriteTap(String id) {
+    if (_box.containsKey(id)) {
+      _box.delete(id);
+      return print("Deleted");
+    } else {
+      var info = widget.drugData;
+      FavDrugModel data = FavDrugModel(
+        productName: info.productName,
+        approved: info.approved,
+        country: info.country,
+        drugbankID: info.drugbankID,
+        generic: info.generic,
+        otc: info.otc,
+        productCode: info.productCode,
+        productID: info.productID,
+        productLabeller: info.productLabeller,
+        productRoute: info.productRoute,
+        productStrength: info.productStrength,
+        productdosage: info.productdosage,
+        productImage: info.productImage,
+        drugClearance: info.drugClearance,
+        drugDescription: info.drugDescription,
+        drugElimination: info.drugElimination,
+        drugHalflife: info.drugHalflife,
+        drugIndication: info.drugIndication,
+        drugMechan: info.drugMechan,
+        drugMetabolism: info.drugMetabolism,
+        drugName: info.drugName,
+        drugPharmaco: info.drugPharmaco,
+        drugState: info.drugState,
+        drugToxicity: info.drugToxicity,
+      );
+      _box.put(info.productID, data);
+      Fluttertoast.showToast(
+        msg: 'Lưu thành công',
+        backgroundColor: Palette.activeButton,
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     var info = widget.drugData;
-
     return Scaffold(
       body: CustomScrollView(
         slivers: [
@@ -115,43 +171,24 @@ class _DrugDetailsState extends State<DrugDetails> {
       bottomNavigationBar: BottomAppBar(
         child: Container(
           decoration: BoxDecoration(
-              border: Border(
-            top: BorderSide(
-              width: 0.5,
-              color: Palette.textNo.withOpacity(0.3),
+            border: Border(
+              top: BorderSide(
+                width: 0.5,
+                color: Palette.textNo.withOpacity(0.3),
+              ),
             ),
-          )),
+          ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              IconButton(
-                onPressed: () {
-                  print("tapped");
-                  // FavDrugModel data = FavDrugModel(
-                  //   productName: info.productName,
-                  //   approved: info.approved,
-                  //   country: info.country,
-                  //   drugbankID: info.drugbankID,
-                  //   generic: info.generic,
-                  //   otc: info.otc,
-                  //   productCode: info.productCode,
-                  //   productID: info.productID,
-                  //   productLabeller: info.productLabeller,
-                  //   productRoute: info.productRoute,
-                  //   productStrength: info.productStrength,
-                  //   productdosage: info.productdosage,
-                  // );
-                  // _box.add(data);
-                  // Fluttertoast.showToast(
-                  //   msg: 'Lưu thành công',
-                  //   backgroundColor: Palette.activeButton,
-                  // );
+              ValueListenableBuilder(
+                valueListenable: _box.listenable(),
+                builder: (context, Box<FavDrugModel> box, _) {
+                  return IconButton(
+                    onPressed: () => onFavoriteTap(info.productID),
+                    icon: getIcons(info.productID),
+                  );
                 },
-                icon: Icon(
-                  CupertinoIcons.heart,
-                  color: Palette.redTheme,
-                  size: Dimensions.icon28,
-                ),
               ),
               IconButton(
                 onPressed: () {

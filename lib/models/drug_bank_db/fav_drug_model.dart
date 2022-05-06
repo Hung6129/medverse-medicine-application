@@ -27,12 +27,37 @@ class FavDrugModel {
   String generic;
   @HiveField(11)
   String country;
+  @HiveField(12)
+  String productImage;
+  @HiveField(13)
+  String drugName;
+  @HiveField(14)
+  String drugDescription;
+  @HiveField(15)
+  String drugState;
+  @HiveField(16)
+  String drugIndication;
+  @HiveField(17)
+  String drugPharmaco;
+  @HiveField(18)
+  String drugMechan;
+  @HiveField(19)
+  String drugToxicity;
+  @HiveField(20)
+  String drugMetabolism;
+  @HiveField(21)
+  String drugHalflife;
+  @HiveField(22)
+  String drugElimination;
+  @HiveField(23)
+  String drugClearance;
 
   FavDrugModel(
       {this.productID,
       this.drugbankID,
       this.productName,
       this.productLabeller,
+      this.productImage,
       this.productCode,
       this.productRoute,
       this.productStrength,
@@ -40,37 +65,16 @@ class FavDrugModel {
       this.approved,
       this.otc,
       this.generic,
-      this.country});
-
-  // FavDrugModel.fromJson(Map<String, dynamic> json) {
-  //   productID = json['productID'];
-  //   drugbankID = json['drugbankID'];
-  //   productName = json['productName'];
-  //   productLabeller = json['productLabeller'];
-  //   productCode = json['productCode'];
-  //   productRoute = json['productRoute'];
-  //   productStrength = json['productStrength'];
-  //   productdosage = json['productdosage'];
-  //   approved = json['approved'];
-  //   otc = json['otc'];
-  //   generic = json['generic'];
-  //   country = json['country'];
-  // }
-
-  // Map<String, dynamic> toJson() {
-  //   final Map<String, dynamic> data = new Map<String, dynamic>();
-  //   data['productID'] = this.productID;
-  //   data['drugbankID'] = this.drugbankID;
-  //   data['productName'] = this.productName;
-  //   data['productLabeller'] = this.productLabeller;
-  //   data['productCode'] = this.productCode;
-  //   data['productRoute'] = this.productRoute;
-  //   data['productStrength'] = this.productStrength;
-  //   data['productdosage'] = this.productdosage;
-  //   data['approved'] = this.approved;
-  //   data['otc'] = this.otc;
-  //   data['generic'] = this.generic;
-  //   data['country'] = this.country;
-  //   return data;
-  // }
+      this.country,
+      this.drugName,
+      this.drugDescription,
+      this.drugState,
+      this.drugIndication,
+      this.drugPharmaco,
+      this.drugMechan,
+      this.drugToxicity,
+      this.drugMetabolism,
+      this.drugHalflife,
+      this.drugElimination,
+      this.drugClearance});
 }

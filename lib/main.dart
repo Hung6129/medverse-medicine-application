@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/adapters.dart';
 import '/pages/nav-items/home/bloc/home_screen_bloc.dart';
 import '/routes/app_routes.dart';
 import 'package:provider/provider.dart';
@@ -8,11 +10,12 @@ import '/services/user_service.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '/utils/config.dart';
 import '/utils/providers.dart';
+import 'models/drug_bank_db/fav_drug_model.dart';
 
 void main() async {
-  // await Hive.initFlutter();
-  // Hive.registerAdapter<FavDrugModel>((FavDrugModelAdapter()));
-  // await Hive.openBox<FavDrugModel>("fav-list");
+  await Hive.initFlutter();
+  Hive.registerAdapter<FavDrugModel>((FavDrugModelAdapter()));
+  await Hive.openBox<FavDrugModel>("fav-list");
   // await Hive.openBox("search-cache");
   WidgetsFlutterBinding.ensureInitialized();
   await Config.initFirebase();

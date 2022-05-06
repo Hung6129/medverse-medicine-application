@@ -1,7 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:medverse_mobile_app/theme/palette.dart';
+import '/theme/palette.dart';
+import '/utils/app_text_theme.dart';
 import '/components/stream_comments_wrapper.dart';
 import '/models/comments.dart';
 import '/models/post.dart';
@@ -44,7 +45,10 @@ class _CommentsState extends State<Comments> {
         ),
         centerTitle: true,
         backgroundColor: Palette.mainBlueTheme,
-        title: Text('Bình luận bài viết'),
+        title: Text(
+          'Bình luận bài viết',
+          style: MobileTextTheme().appBarStyle,
+        ),
       ),
       body: Container(
         height: MediaQuery.of(context).size.height,
