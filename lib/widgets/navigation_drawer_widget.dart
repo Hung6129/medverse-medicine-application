@@ -155,12 +155,12 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
                       ),
                       buildMenuItem(
                         text: 'Từ điển y học',
-                        icon: Icons.health_and_safety_outlined,
+                        icon: Icons.list_alt_outlined,
                         onClicked: () => selectedItem(context, 7),
                       ),
                       buildMenuItem(
                         text: 'Hồ sơ sức khỏe',
-                        icon: Icons.list_alt_outlined,
+                        icon: Icons.health_and_safety_outlined,
                         onClicked: () => selectedItem(context, 8),
                       ),
                       Divider(color: Palette.grey),
@@ -233,12 +233,12 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
                       ),
                       buildMenuItem(
                         text: 'Từ điển y học',
-                        icon: Icons.health_and_safety_outlined,
+                        icon: Icons.list_alt_outlined,
                         onClicked: () => selectedItem(context, 7),
                       ),
                       buildMenuItem(
                         text: 'Hồ sơ sức khỏe',
-                        icon: Icons.list_alt_outlined,
+                        icon: Icons.health_and_safety_outlined,
                         onClicked: () => selectedItem(context, 8),
                       ),
                       Divider(color: Palette.grey),

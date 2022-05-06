@@ -225,6 +225,204 @@ class _HelpScreenState extends State<HelpScreen> {
               ),
             ),
             SizedBox(height: 10),
+
+            /// Drug interaction title
+            Padding(
+              padding: const EdgeInsets.only(left: 15.0, right: 15.0),
+              child: Row(
+                children: [
+                  Icon(
+                    Icons.do_disturb_alt_outlined,
+                    color: Palette.textNo,
+                  ),
+                  SizedBox(width: 10),
+                  Container(
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        'Tương kị thuốc',
+                        style: MobileTextTheme().introTitleFont,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(height: 20),
+
+            /// Drug interaction description content
+            Container(
+              padding: const EdgeInsets.only(left: 15.0, right: 15.0),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Đây là loại tương kị thuốc phổ biến nhất. Bạn càng dùng nhiều loại thuốc, cơ hội để thuốc của bạn tương tác với một loại thuốc khác càng lớn. Tương kị thuốc - thuốc có thể làm giảm hiệu quả hoạt động của thuốc, có thể làm tăng các tác dụng phụ không mong muốn nhẹ hoặc nghiêm trọng, hoặc thậm chí làm tăng nồng độ thuốc trong máu và độc tính có thể có của một loại thuốc nhất định. Công cụ này giúp bạn có thể tra cưu tính tương kị giữa 2 loại thuốc.',
+                  style: MobileTextTheme().introContentFont,
+                ),
+              ),
+            ),
+            SizedBox(height: 10),
+
+            /// Drug report description content
+            Container(
+              padding: const EdgeInsets.only(left: 15.0, right: 15.0),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Nếu bạn tìm kiếm thuốc trên app mà không có loại thuốc mình đang tìm kiếm. Bạn có thể dùng chúc năng báo cáo thuốc đến Admin để chụp ảnh và viết mô tả gửi đến Admin. Admin sẽ xem xét và cập nhật thông tin loại thuốc mới.',
+                  style: MobileTextTheme().introContentFont,
+                ),
+              ),
+            ),
+            SizedBox(height: 10),
+
+            /// Drug comparison title
+            Padding(
+              padding: const EdgeInsets.only(left: 15.0, right: 15.0),
+              child: Row(
+                children: [
+                  Icon(
+                    Icons.compare_outlined,
+                    color: Palette.textNo,
+                  ),
+                  SizedBox(width: 10),
+                  Container(
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        'So sánh thuốc',
+                        style: MobileTextTheme().introTitleFont,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(height: 20),
+
+            /// Drug comparison description content
+            Container(
+              padding: const EdgeInsets.only(left: 15.0, right: 15.0),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Xem cách các loại thuốc của bạn xếp chồng lên nhau. Xem các so sánh song song về việc sử dụng thuốc, xếp hạng và đánh giá, giá cả, cảnh báo của FDA, tác dụng phụ, tương tác thuốc, ngày phê duyệt, phân loại, tính khả dụng chung và hơn thế nữa.',
+                  style: MobileTextTheme().introContentFont,
+                ),
+              ),
+            ),
+            SizedBox(height: 10),
+
+            /// Drug dictionary title
+            Padding(
+              padding: const EdgeInsets.only(left: 15.0, right: 15.0),
+              child: Row(
+                children: [
+                  Icon(
+                    Icons.list_alt_outlined,
+                    color: Palette.textNo,
+                  ),
+                  SizedBox(width: 10),
+                  Container(
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        'Từ điển y học',
+                        style: MobileTextTheme().introTitleFont,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(height: 20),
+
+            /// Drug dictionary description content
+            Container(
+              padding: const EdgeInsets.only(left: 15.0, right: 15.0),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Xem cách các loại thuốc của bạn xếp chồng lên nhau. Xem các so sánh song song về việc sử dụng thuốc, xếp hạng và đánh giá, giá cả, cảnh báo của FDA, tác dụng phụ, tương tác thuốc, ngày phê duyệt, phân loại, tính khả dụng chung và hơn thế nữa.',
+                  style: MobileTextTheme().introContentFont,
+                ),
+              ),
+            ),
+            SizedBox(height: 10),
+
+            /// Health profile title
+            Padding(
+              padding: const EdgeInsets.only(left: 15.0, right: 15.0),
+              child: Row(
+                children: [
+                  Icon(
+                    Icons.health_and_safety_outlined,
+                    color: Palette.textNo,
+                  ),
+                  SizedBox(width: 10),
+                  Container(
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        'Hồ sơ sức khỏe',
+                        style: MobileTextTheme().introTitleFont,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(height: 20),
+
+            /// Health profile description content
+            Container(
+              padding: const EdgeInsets.only(left: 15.0, right: 15.0),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Hồ sơ sức khỏe là tập hợp các chỉ số về tình trạng sức khỏe cơ bản như: chiều cao, cân nặng, BMI, huyết áp, nhịp tim, nhóm máu. Bạn có thể cập nhật các chỉ số bằng cách ấn vào mục tương ứng và nhập chỉ số phù hợp với sức khỏe của bạn. Ngoài ra hồ sơ sức khỏe còn chứa các thông tin cá nhân cơ bản.',
+                  style: MobileTextTheme().introContentFont,
+                ),
+              ),
+            ),
+            SizedBox(height: 10),
+
+            /// Social drug post title
+            Padding(
+              padding: const EdgeInsets.only(left: 15.0, right: 15.0),
+              child: Row(
+                children: [
+                  Icon(
+                    CupertinoIcons.news_solid,
+                    color: Palette.textNo,
+                  ),
+                  SizedBox(width: 10),
+                  Container(
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        'Mạng xã hội',
+                        style: MobileTextTheme().introTitleFont,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(height: 20),
+
+            /// Social drug post description content
+            Container(
+              padding: const EdgeInsets.only(left: 15.0, right: 15.0),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Đây là một chức năng cho phép bạn có thể đăng bài viết về thuốc nhằm mục đích chia sẻ thuốc bạn đang sử đến với mọi người. Những người xem khác có thể "Thích" hoặc "Bình luận lên bài viết của bạn."',
+                  style: MobileTextTheme().introContentFont,
+                ),
+              ),
+            ),
+            SizedBox(height: 10),
           ],
         ),
       ),
