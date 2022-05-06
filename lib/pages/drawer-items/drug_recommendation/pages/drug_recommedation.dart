@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:medverse_mobile_app/utils/app_text_theme.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';
-import '../../../../widgets/app_text.dart';
-import '../../../../widgets/app_text_title.dart';
-import '../../../../widgets/dimension.dart';
+import '/widgets/app_text_title.dart';
+import '/widgets/dimension.dart';
 import '/theme/palette.dart';
 
 class DrugRecommendation extends StatefulWidget {
@@ -76,7 +76,7 @@ class _DrugRecommendationState extends State<DrugRecommendation> {
           backgroundColor: Palette.mainBlueTheme,
           title: Text(
             'Gợi ý thuốc',
-            style: TextStyle(fontWeight: FontWeight.w900),
+            style: MobileTextTheme().appBarStyle,
           ),
           centerTitle: true,
         ),

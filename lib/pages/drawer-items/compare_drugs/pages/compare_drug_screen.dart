@@ -91,18 +91,6 @@ class MapScreenState extends State<CompareDrug> {
                   ),
                   SizedBox(height: 10),
                   Container(
-                    height: 150,
-                    width: 300.0,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage('assets/images/compare-hero-bg.png'),
-                        fit: BoxFit.fill,
-                      ),
-                      shape: BoxShape.rectangle,
-                    ),
-                  ),
-                  SizedBox(height: 10),
-                  Container(
                     padding: EdgeInsets.all(Dimensions.height20),
                     width: 340,
                     decoration: BoxDecoration(

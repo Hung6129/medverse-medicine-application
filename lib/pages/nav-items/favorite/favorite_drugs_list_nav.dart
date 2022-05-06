@@ -1,15 +1,8 @@
-import 'package:medverse_mobile_app/models/drug_bank_db/fav_drug_model.dart';
-import 'package:medverse_mobile_app/widgets/header.dart';
-
-import '../../detail_screen/fav_drug_details.dart';
-import 'package:hive_flutter/hive_flutter.dart';
-import '/theme/palette.dart';
-import '/widgets/app_text.dart';
-import '/widgets/app_text_title.dart';
-import '/widgets/dimension.dart';
-import '/widgets/navigation_drawer_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
+import '/utils/app_text_theme.dart';
+import '/theme/palette.dart';
+import '/widgets/app_text_title.dart';
+import '/widgets/navigation_drawer_widget.dart';
 
 class FavoriteDrugsListScreenNav extends StatefulWidget {
   const FavoriteDrugsListScreenNav({Key key}) : super(key: key);
@@ -32,7 +25,7 @@ class _FavoriteDrugsListScreenNavState
           backgroundColor: Palette.mainBlueTheme,
           title: Text(
             'Danh sách yêu thích',
-            style: TextStyle(fontWeight: FontWeight.w900),
+            style: MobileTextTheme().appBarStyle,
           ),
           centerTitle: true,
         ),

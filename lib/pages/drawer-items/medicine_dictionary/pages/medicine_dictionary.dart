@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '/utils/app_text_theme.dart';
 import '/theme/palette.dart';
 import '/models/dictionary_model.dart';
 import '/pages/drawer-items/medicine_dictionary/widgets/WordsDao.dart';
@@ -35,10 +36,7 @@ class _MedicineDictionaryState extends State<MedicineDictionary> {
               ? TextField(
                   decoration: InputDecoration(
                     hintText: "Mời bạn nhập từ khóa",
-                    hintStyle: TextStyle(
-                      color: Palette.whiteText,
-                      fontSize: 15.0,
-                    ),
+                    hintStyle: MobileTextTheme().introContentFont,
                   ),
                   onChanged: (searchResult) {
                     setState(
@@ -47,19 +45,11 @@ class _MedicineDictionaryState extends State<MedicineDictionary> {
                       },
                     );
                   },
-                  style: TextStyle(
-                    color: Palette.whiteText,
-                    fontFamily: "Cairo-Bold",
-                    fontSize: 22.0,
-                  ),
+                  style: MobileTextTheme().kBodyTextStyle,
                 )
               : Text(
                   'Từ điển y học',
-                  style: TextStyle(
-                    color: Palette.whiteText,
-                    fontFamily: "Cairo-Bold",
-                    fontSize: 22.0,
-                  ),
+                  style: MobileTextTheme().appBarStyle,
                 ),
           actions: [
             isSearching
@@ -101,7 +91,7 @@ class _MedicineDictionaryState extends State<MedicineDictionary> {
                       /*Navigator.push(context, MaterialPageRoute(builder: (context) => DetailPage(list[i])));*/
                     },
                     child: SizedBox(
-                      height: 50,
+                      height: 100,
                       child: Card(
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
@@ -112,7 +102,7 @@ class _MedicineDictionaryState extends State<MedicineDictionary> {
                             Flexible(
                               child: Text(
                                 word.eng,
-                                style: TextStyle(fontWeight: FontWeight.bold),
+                                style: MobileTextTheme().healthProfileNoDataTextStyle,
                               ),
                             ),
                             SizedBox(
@@ -122,6 +112,7 @@ class _MedicineDictionaryState extends State<MedicineDictionary> {
                               child: Text(
                                 word.tur,
                                 textAlign: TextAlign.start,
+                                style: MobileTextTheme().tabBarStyle,
                               ),
                             ),
                           ],

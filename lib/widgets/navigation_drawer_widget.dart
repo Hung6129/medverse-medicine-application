@@ -409,7 +409,7 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
       case 10:
         Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (context) => AnimatedIntroductionSlider(),
+            builder: (context) => HelpScreen(),
           ),
         );
         break;

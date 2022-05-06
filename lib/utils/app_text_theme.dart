@@ -3,6 +3,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:medverse_mobile_app/theme/palette.dart';
 
 abstract class AppTextTheme {
+  /// Using for app bar in only home UI
+  TextStyle get homeAppBarStyle;
+
   /// Using for all app bar in UI
   TextStyle get appBarStyle;
 
@@ -96,10 +99,17 @@ abstract class AppTextTheme {
 
   TextStyle get fabContainerContent;
 
-  static final latoTextStyle = GoogleFonts.lato();
+  static final oswaldTextStyle = GoogleFonts.oswald();
 }
 
 class MobileTextTheme implements AppTextTheme {
+  /// Using for app bar in only home UI
+  @override
+  final homeAppBarStyle = GoogleFonts.oswald(
+    fontWeight: FontWeight.w900,
+    color: Palette.mainBlueTheme,
+  );
+
   /// Using for all app bar in UI
   @override
   final appBarStyle = GoogleFonts.oswald(
@@ -241,13 +251,13 @@ class MobileTextTheme implements AppTextTheme {
   @override
   final introContentFont = GoogleFonts.oswald(
     fontSize: 15,
-    color: Palette.whiteText,
+    color: Palette.textNo,
   );
 
   @override
   final introTitleFont = GoogleFonts.oswald(
-    fontSize: 30,
-    color: Palette.whiteText,
+    fontSize: 20,
+    color: Palette.textNo,
   );
 
   /// Using for health profile UI
