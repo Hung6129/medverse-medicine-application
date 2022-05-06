@@ -42,65 +42,6 @@ class ItemCardData {
       metadata1: 'AUG 03, 2021',
       metadata2: '7 MIN READ',
     ),
-    ItemCardData(
-      imageName: Constants.tutorial3,
-      title: 'Responsive layouts in Flutter: Split View and Drawer Navigation',
-      description:
-          'How to implement a responsive layout in Flutter by using a split view on large screens and drawer navigation on mobile.',
-      tags: ['dart', 'flutter', 'layouts', 'state-management', 'riverpod'],
-      metadata1: 'JUL 26, 2021',
-      metadata2: '17 MIN READ',
-    ),
-    ItemCardData(
-      imageName: Constants.tutorial4,
-      title:
-          'Learn Flutter Animations in 8 Minutes + Free Gallery App on GitHub',
-      description:
-          'Learn how to use the most common Flutter animation APIs with examples and a free gallery app on GitHub.',
-      tags: ['dart', 'flutter', 'animations'],
-      metadata1: 'JUL 16, 2021',
-      metadata2: '13 MIN READ',
-    ),
-  ];
-
-  static const allCoursesData = [
-    ItemCardData(
-      imageName: Constants.dartCourse,
-      title: 'The Complete Dart Developer Guide',
-      description:
-          'Learn Dart Programming in depth. Includes: basic to advanced topics, exercises, and projects. Fully updated to Dart 2.12.',
-      tags: [],
-      metadata1: 'BEGINNER',
-      metadata2: '10 HOURS',
-    ),
-    ItemCardData(
-      imageName: Constants.flutterAnimationsCourse,
-      title: 'Flutter Animations Masterclass - Full Course',
-      description:
-          'Master Flutter animations and build a completely custom habit tracking application.',
-      tags: [],
-      metadata1: 'INTERMEDIATE',
-      metadata2: '7 HOURS',
-    ),
-    ItemCardData(
-      imageName: Constants.flutterFirebaseCourse,
-      title:
-          'Flutter & Firebase Course: Build a Complete App for iOS & Android',
-      description:
-          'A full course with in-depth content, taking you from the basics all the way up to more advanced topics.',
-      tags: [],
-      metadata1: 'BEGINNER - INTERMEDIATE',
-      metadata2: '21 HOURS',
-    ),
-    ItemCardData(
-      imageName: Constants.flutterRestApiCourse,
-      title: 'Flutter REST API Crash Course',
-      description:
-          'Build a Coronavirus Tracking App, and learn how to use REST APIs in Flutter.',
-      tags: [],
-      metadata1: 'BEGINNER - INTERMEDIATE',
-      metadata2: '2.5 HOURS',
-    ),
   ];
 }
 

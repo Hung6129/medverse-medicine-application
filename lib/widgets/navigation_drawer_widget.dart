@@ -1,11 +1,11 @@
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:medverse_mobile_app/utils/app_text_theme.dart';
 import '/utils/firebase.dart';
 import '/models/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import '/theme/palette.dart';
 import '/auth/login/login.dart';
 import '/pages/drawer-items/profile/pages/profile.dart';
@@ -163,17 +163,17 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
                         icon: Icons.list_alt_outlined,
                         onClicked: () => selectedItem(context, 8),
                       ),
+                      Divider(color: Palette.grey),
                       buildMenuItem(
                         text: 'Hướng dẫn sử dụng',
-                        icon: Icons.list_alt_outlined,
+                        icon: Icons.help_outline_sharp,
                         onClicked: () => selectedItem(context, 10),
                       ),
                       buildMenuItem(
-                        text: 'Firebase Storage Images',
-                        icon: Icons.list_alt_outlined,
+                        text: 'Miễn trừ trách nhiệm',
+                        icon: Icons.info_outlined,
                         onClicked: () => selectedItem(context, 11),
                       ),
-                      Divider(color: Palette.grey),
                       buildMenuItem(
                         text: 'Đăng xuất',
                         icon: Icons.logout_outlined,
@@ -243,6 +243,16 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
                       ),
                       Divider(color: Palette.grey),
                       buildMenuItem(
+                        text: 'Hướng dẫn sử dụng',
+                        icon: Icons.help_outline_sharp,
+                        onClicked: () => selectedItem(context, 10),
+                      ),
+                      buildMenuItem(
+                        text: 'Miễn trừ trách nhiệm',
+                        icon: Icons.info_outlined,
+                        onClicked: () => selectedItem(context, 11),
+                      ),
+                      buildMenuItem(
                         text: 'Đăng nhập',
                         icon: Icons.login_outlined,
                         onClicked: () => selectedItem(context, 9),
@@ -297,8 +307,8 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
   // the logout function
   Future<void> logout(BuildContext context) async {
     await FirebaseAuth.instance.signOut();
-    Fluttertoast.showToast(msg: "Đã thoát tài khoản");
-    Navigator.pushNamed(context, "/home");
+    showInSnackBar('Đã thoát tài khoản thành công', context);
+    Navigator.pushReplacementNamed(context, "/home");
   }
 
   Widget buildMenuItem({
@@ -306,14 +316,27 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
     IconData icon,
     VoidCallback onClicked,
   }) {
-    const color = Colors.white;
-    const hoverColor = Colors.white70;
+    const color = Palette.whiteText;
 
     return ListTile(
       leading: Icon(icon, color: color),
       title: Text(text, style: MobileTextTheme().navigationDrawerStyle),
       hoverColor: Palette.grey,
       onTap: onClicked,
+    );
+  }
+
+  /// Config snack bar message style
+  void showInSnackBar(String value, context) {
+    ScaffoldMessenger.of(context).removeCurrentSnackBar();
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(
+          value,
+          style: GoogleFonts.oswald(),
+        ),
+        backgroundColor: Palette.activeButton,
+      ),
     );
   }
 
@@ -386,7 +409,7 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
       case 10:
         Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (context) => AnimatedIntroductionSlider(),
+            builder: (context) => HelpScreen(),
           ),
         );
         break;

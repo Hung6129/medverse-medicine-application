@@ -5,11 +5,9 @@ import '/routes/app_routes.dart';
 import 'package:provider/provider.dart';
 import '/components/life_cycle_event_handler.dart';
 import '/services/user_service.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '/utils/config.dart';
 import '/utils/providers.dart';
-import 'models/drug_bank_db/fav_drug_model.dart';
 
 void main() async {
   await Hive.initFlutter();

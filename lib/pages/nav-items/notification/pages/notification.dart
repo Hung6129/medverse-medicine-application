@@ -2,8 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:medverse_mobile_app/auth/login/login.dart';
-import 'package:medverse_mobile_app/models/user.dart';
+import '/auth/login/login.dart';
+import '/utils/app_text_theme.dart';
 import '/theme/palette.dart';
 import '/widgets/navigation_drawer_widget.dart';
 import '/components/notification_stream_wrapper.dart';
@@ -34,7 +34,7 @@ class _ActivitiesState extends State<Activities> {
           backgroundColor: Palette.mainBlueTheme,
           title: Text(
             'Thông báo',
-            style: TextStyle(fontWeight: FontWeight.w900),
+            style: MobileTextTheme().appBarStyle,
           ),
           centerTitle: true,
           actions: [

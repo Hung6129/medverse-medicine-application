@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import '/widgets/constants.dart';
+import '/utils/app_text_theme.dart';
 import '/theme/palette.dart';
 import '/pages/drawer-items/bmi_calculator/widgets/bottom_button.dart';
 import '/pages/drawer-items/bmi_calculator/widgets/round_icon_button.dart';
@@ -33,7 +33,7 @@ class _InputPageState extends State<InputCalculateBMI> {
           backgroundColor: Palette.mainBlueTheme,
           title: Text(
             'Tính chỉ số BMI',
-            style: TextStyle(fontWeight: FontWeight.w900),
+            style: MobileTextTheme().appBarStyle,
           ),
           centerTitle: true,
         ),
@@ -51,8 +51,8 @@ class _InputPageState extends State<InputCalculateBMI> {
                         });
                       },
                       colour: selectedGender == Gender.male
-                          ? kActiveCardColour
-                          : kInactiveCardColour,
+                          ? MobileTextTheme().kActiveCardColour
+                          : MobileTextTheme().kInactiveCardColour,
                       cardChild: IconContent(
                         icon: FontAwesomeIcons.mars,
                         label: 'Nam',
@@ -67,8 +67,8 @@ class _InputPageState extends State<InputCalculateBMI> {
                         });
                       },
                       colour: selectedGender == Gender.female
-                          ? kActiveCardColour
-                          : kInactiveCardColour,
+                          ? MobileTextTheme().kActiveCardColour
+                          : MobileTextTheme().kInactiveCardColour,
                       cardChild: IconContent(
                         icon: FontAwesomeIcons.venus,
                         label: 'Nữ',
@@ -80,13 +80,13 @@ class _InputPageState extends State<InputCalculateBMI> {
             ),
             Expanded(
               child: ReusableCard(
-                colour: kInactiveCardColour,
+                colour: MobileTextTheme().kInactiveCardColour,
                 cardChild: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Text(
                       'Chiều cao',
-                      style: kLabelTextStyle,
+                      style: MobileTextTheme().kLabelTextStyle,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -95,18 +95,18 @@ class _InputPageState extends State<InputCalculateBMI> {
                       children: <Widget>[
                         Text(
                           height.toString(),
-                          style: kNumberTextStyle,
+                          style: MobileTextTheme().kNumberTextStyle,
                         ),
                         Text(
                           'cm',
-                          style: kLabelTextStyle,
+                          style: MobileTextTheme().kLabelTextStyle,
                         )
                       ],
                     ),
                     SliderTheme(
                       data: SliderTheme.of(context).copyWith(
                         inactiveTrackColor: Color(0xFF8D8E98),
-                        activeTrackColor: Colors.white,
+                        activeTrackColor: Palette.whiteText,
                         thumbColor: Palette.mainBlueTheme,
                         overlayColor: Palette.p1,
                         thumbShape:
@@ -134,17 +134,17 @@ class _InputPageState extends State<InputCalculateBMI> {
                 children: <Widget>[
                   Expanded(
                     child: ReusableCard(
-                      colour: kInactiveCardColour,
+                      colour: MobileTextTheme().kInactiveCardColour,
                       cardChild: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           Text(
                             'Cân nặng',
-                            style: kLabelTextStyle,
+                            style: MobileTextTheme().kLabelTextStyle,
                           ),
                           Text(
                             weight.toString(),
-                            style: kNumberTextStyle,
+                            style: MobileTextTheme().kNumberTextStyle,
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -178,17 +178,17 @@ class _InputPageState extends State<InputCalculateBMI> {
                   ),
                   Expanded(
                     child: ReusableCard(
-                      colour: kInactiveCardColour,
+                      colour: MobileTextTheme().kInactiveCardColour,
                       cardChild: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           Text(
                             'Tuổi',
-                            style: kLabelTextStyle,
+                            style: MobileTextTheme().kLabelTextStyle,
                           ),
                           Text(
                             age.toString(),
-                            style: kNumberTextStyle,
+                            style: MobileTextTheme().kNumberTextStyle,
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:medverse_mobile_app/pages/drawer-items/health_profile/widgets/main_screen_health_profile.dart';
 import 'package:medverse_mobile_app/theme/palette.dart';
 
 abstract class AppTextTheme {
+  /// Using for app bar in only home UI
+  TextStyle get homeAppBarStyle;
+
   /// Using for all app bar in UI
   TextStyle get appBarStyle;
 
@@ -39,29 +41,30 @@ abstract class AppTextTheme {
 
   TextStyle get selectGallery;
 
-  TextStyle get h6;
-
-  TextStyle get subtitle1;
-
-  TextStyle get subtitle2;
-
-  TextStyle get paragraph20;
-
   TextStyle get paragraph18;
 
-  TextStyle get body;
-
-  TextStyle get subhead;
-
   TextStyle get subheadAllCaps;
-
-  TextStyle get footnoteAllCaps;
 
   TextStyle get introContentFont;
 
   TextStyle get introTitleFont;
 
   TextStyle get blackKLabelStyle;
+
+  /// Using for BMI calculator UI
+  TextStyle get kLabelTextStyle;
+
+  TextStyle get kNumberTextStyle;
+
+  TextStyle get kLargeButtonTextStyle;
+
+  TextStyle get kTitleTextStyle;
+
+  TextStyle get kResultTextStyle;
+
+  TextStyle get kBMITextStyle;
+
+  TextStyle get kBodyTextStyle;
 
   /// Using for health profile UI
   TextStyle get healthProfileDataTextFont;
@@ -96,10 +99,17 @@ abstract class AppTextTheme {
 
   TextStyle get fabContainerContent;
 
-  static final latoTextStyle = GoogleFonts.lato();
+  static final oswaldTextStyle = GoogleFonts.oswald();
 }
 
 class MobileTextTheme implements AppTextTheme {
+  /// Using for app bar in only home UI
+  @override
+  final homeAppBarStyle = GoogleFonts.oswald(
+    fontWeight: FontWeight.w900,
+    color: Palette.mainBlueTheme,
+  );
+
   /// Using for all app bar in UI
   @override
   final appBarStyle = GoogleFonts.oswald(
@@ -172,62 +182,81 @@ class MobileTextTheme implements AppTextTheme {
   @override
   final selectGallery = GoogleFonts.oswald();
 
-  @override
-  final h6 = GoogleFonts.lato(fontSize: 18, fontWeight: FontWeight.w900);
-  @override
-  final subtitle1 = GoogleFonts.lato(fontSize: 16, fontWeight: FontWeight.bold);
-  @override
-  final subtitle2 = GoogleFonts.lato(fontSize: 14, fontWeight: FontWeight.bold);
+  /// Using for BMI calculator UI
+  final kBottomContainerHeight = 50.0;
 
-  @override
-  final paragraph20 =
-      GoogleFonts.lato(fontSize: 20, fontWeight: FontWeight.normal);
-  @override
-  final paragraph18 =
-      GoogleFonts.lato(fontSize: 18, fontWeight: FontWeight.normal);
+  final kActiveCardColour = Palette.activeButton;
 
-  @override
-  final body = GoogleFonts.lato(
-      fontSize: 16, fontWeight: FontWeight.normal, height: 1.5);
+  final kInactiveCardColour = Palette.mainBlueTheme;
 
-  @override
-  final subhead = GoogleFonts.lato(fontSize: 14, fontWeight: FontWeight.normal);
-  @override
-  final subheadAllCaps = GoogleFonts.lato(
-      fontSize: 14, fontWeight: FontWeight.normal, letterSpacing: 2.5);
-
-  @override
-  final button = GoogleFonts.lato(fontSize: 14, fontWeight: FontWeight.bold);
-
-  @override
-  final footnote = GoogleFonts.lato(
-    fontSize: 12,
-    fontWeight: FontWeight.normal,
-  );
-
-  @override
-  final footnoteAllCaps = GoogleFonts.lato(
-    fontSize: 12,
-    fontWeight: FontWeight.normal,
-    letterSpacing: 2.5,
-  );
-
-  @override
-  final introContentFont = GoogleFonts.oswald(
-    fontSize: 15,
-    color: Palette.whiteText,
-  );
-
-  @override
-  final introTitleFont = GoogleFonts.oswald(
-    fontSize: 30,
-    color: Palette.whiteText,
-  );
+  final kBottomContainerColour = Palette.mainBlueTheme;
 
   @override
   final blackKLabelStyle = GoogleFonts.oswald(
     fontWeight: FontWeight.w700,
     fontSize: 15,
+    color: Palette.textNo,
+  );
+
+  @override
+  final kLabelTextStyle = GoogleFonts.oswald(
+    fontSize: 18.0,
+    color: Palette.p1,
+  );
+
+  @override
+  final kNumberTextStyle = GoogleFonts.oswald(
+    fontSize: 50.0,
+    fontWeight: FontWeight.w900,
+    color: Palette.p1,
+  );
+
+  @override
+  final paragraph18 = GoogleFonts.lato(
+    fontSize: 18,
+    fontWeight: FontWeight.normal,
+  );
+
+  @override
+  final subheadAllCaps = GoogleFonts.lato(
+      fontSize: 14, fontWeight: FontWeight.normal, letterSpacing: 2.5);
+
+  @override
+  final kLargeButtonTextStyle = GoogleFonts.oswald(
+    fontSize: 25.0,
+    fontWeight: FontWeight.bold,
+    color: Palette.p1,
+  );
+
+  @override
+  final kTitleTextStyle = GoogleFonts.oswald(
+    fontSize: 35.0,
+    fontWeight: FontWeight.bold,
+  );
+
+  @override
+  final kResultTextStyle = GoogleFonts.oswald(
+    color: Color(0xFF24D876),
+    fontSize: 25.0,
+    fontWeight: FontWeight.bold,
+  );
+
+  @override
+  final kBMITextStyle = GoogleFonts.oswald(
+      fontSize: 100.0, fontWeight: FontWeight.bold, color: Palette.p1);
+
+  @override
+  final kBodyTextStyle = GoogleFonts.oswald(fontSize: 22.0, color: Palette.p1);
+
+  @override
+  final introContentFont = GoogleFonts.oswald(
+    fontSize: 15,
+    color: Palette.textNo,
+  );
+
+  @override
+  final introTitleFont = GoogleFonts.oswald(
+    fontSize: 20,
     color: Palette.textNo,
   );
 

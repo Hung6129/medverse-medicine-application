@@ -57,16 +57,14 @@ class UserPost extends StatelessWidget {
             children: [
               Column(
                 children: [
+                  buildUser(context),
+                  SizedBox(height: 5.0),
                   ClipRRect(
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(10.0),
-                      topRight: Radius.circular(10.0),
-                    ),
                     child: CustomImage(
                       imageUrl: post?.mediaUrl ?? '',
-                      height: 300.0,
+                      height: MediaQuery.of(context).size.width,
+                      width: MediaQuery.of(context).size.width,
                       fit: BoxFit.cover,
-                      width: double.infinity,
                     ),
                   ),
                   Padding(
@@ -169,7 +167,6 @@ class UserPost extends StatelessWidget {
                   )
                 ],
               ),
-              buildUser(context),
             ],
           );
         },
@@ -266,10 +263,6 @@ class UserPost extends StatelessWidget {
                     currentImageUrl: post.mediaUrl,
                     currentDescription: post.description,
                     currentLocation: post.location,
-                    /*postId: post.postId,
-                    postPicture: post.mediaUrl,
-                    postDescription: post.description,
-                    postLocation: post.location,*/
                   ),
                 ),
               );
@@ -285,63 +278,58 @@ class UserPost extends StatelessWidget {
   }
 
   buildUser(BuildContext context) {
-    /// Check if this post is your current authenticated
-    bool isMe = currentUserId() == post.ownerId;
     return StreamBuilder(
       stream: usersRef.doc(post.ownerId).snapshots(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           DocumentSnapshot snap = snapshot.data;
           UserModel user = UserModel.fromJson(snap.data());
-          return Visibility(
-            visible: !isMe,
-            child: Align(
-              alignment: Alignment.topCenter,
-              child: Container(
-                height: 50.0,
-                decoration: BoxDecoration(
-                  color: Palette.white60,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(10.0),
-                    topRight: Radius.circular(10.0),
-                  ),
+          return Align(
+            alignment: Alignment.topCenter,
+            child: Container(
+              height: 80.0,
+              decoration: BoxDecoration(
+                color: Palette.white60,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(10.0),
+                  topRight: Radius.circular(10.0),
                 ),
-                child: GestureDetector(
-                  onTap: () => showProfile(context, profileId: user?.id),
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 10.0),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        user.photoUrl.isNotEmpty
-                            ? CircleAvatar(
-                                radius: 14.0,
-                                backgroundColor: Palette.greyBlack,
-                                backgroundImage: CachedNetworkImageProvider(
-                                    user?.photoUrl ?? ""),
-                              )
-                            : CircleAvatar(
-                                radius: 14.0,
-                                backgroundColor: Palette.greyBlack,
-                              ),
-                        SizedBox(width: 5.0),
-                        Column(
-                          mainAxisSize: MainAxisSize.min,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              '${post?.username ?? ""}',
-                              style: MobileTextTheme().postUserNameTitle,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                            Text(
-                              '${post?.location ?? 'Wooble'}',
-                              style: MobileTextTheme().postLocationTitle,
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
+              ),
+              child: GestureDetector(
+                onTap: () => showProfile(context, profileId: user?.id),
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 10.0),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      user.photoUrl.isNotEmpty
+                          ? CircleAvatar(
+                        radius: 14.0,
+                        backgroundColor: Palette.greyBlack,
+                        backgroundImage: CachedNetworkImageProvider(
+                            user?.photoUrl ?? ""),
+                      )
+                          : CircleAvatar(
+                        radius: 14.0,
+                        backgroundColor: Palette.greyBlack,
+                      ),
+                      SizedBox(width: 5.0),
+                      Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            '${post?.username ?? ""}',
+                            style: MobileTextTheme().postUserNameTitle,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          Text(
+                            '${post?.location ?? 'Không có vị trí'}',
+                            style: MobileTextTheme().postLocationTitle,
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
                 ),
               ),
