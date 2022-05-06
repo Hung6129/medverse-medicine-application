@@ -15,10 +15,18 @@ class FeaturedTutorialsContent extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(
           horizontal: 0.0),
-      child: ItemCardLayoutGrid(
-        crossAxisCount: crossAxisCount,
-        items: ItemCardData.allItemsData,
-      ),
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            SizedBox(height: 10),
+            ItemCardLayoutGrid(
+              crossAxisCount: crossAxisCount,
+              items: ItemCardData.allItemsData,
+            ),
+            SizedBox(height: 10),
+          ],
+        ),
+      )
     );
   }
 }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '/widgets/constants.dart';
+import '/utils/app_text_theme.dart';
 
 class BottomButton extends StatelessWidget {
   final Function() onTap;
@@ -16,18 +16,18 @@ class BottomButton extends StatelessWidget {
       onTap: onTap,
       child: Container(
         decoration: BoxDecoration(
-          color: kBottomContainerColour,
+          color: MobileTextTheme().kBottomContainerColour,
           borderRadius: BorderRadius.circular(10.0),
         ),
         child: Center(
           child: Text(
             buttonTitle,
-            style: kLargeButtonTextStyle,
+            style: MobileTextTheme().kLargeButtonTextStyle,
           ),
         ),
         margin: EdgeInsets.all(15),
         width: double.infinity,
-        height: kBottomContainerHeight,
+        height: MobileTextTheme().kBottomContainerHeight,
       ),
     );
   }

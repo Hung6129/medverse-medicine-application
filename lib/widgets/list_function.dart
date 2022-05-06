@@ -22,11 +22,18 @@ class _ListIconFunctionState extends State<ListIconFunction> {
       size: Dimensions.icon24,
       color: Palette.textNo,
     ): "So sánh",
-    Icon(CupertinoIcons.drop_triangle_fill,
-        size: Dimensions.icon24, color: Palette.textNo): "Tương kị",
-    Icon(CupertinoIcons.profile_circled,
-        size: Dimensions.icon24, color: Palette.textNo): "Hồ sơ",
+    Icon(
+      CupertinoIcons.drop_triangle_fill,
+      size: Dimensions.icon24,
+      color: Palette.textNo,
+    ): "Tương kị",
+    Icon(
+      CupertinoIcons.profile_circled,
+      size: Dimensions.icon24,
+      color: Palette.textNo,
+    ): "Hồ sơ",
   };
+
   @override
   Widget build(BuildContext context) {
     return Padding(

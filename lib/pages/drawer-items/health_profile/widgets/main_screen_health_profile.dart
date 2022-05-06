@@ -1,9 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:medverse_mobile_app/utils/app_text_theme.dart';
-import '/widgets/constants.dart';
 import '/widgets/dimension.dart';
 import '/theme/palette.dart';
 import '/auth/login/login.dart';

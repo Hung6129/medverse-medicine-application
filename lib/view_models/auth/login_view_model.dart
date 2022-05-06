@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '/theme/palette.dart';
 import '/screens/mainscreen.dart';
 import '/services/auth_service.dart';
@@ -23,8 +23,10 @@ class LoginViewModel extends ChangeNotifier {
     if (!form.validate()) {
       validate = true;
       notifyListeners();
-      showInSnackBar(
-          'Vui lòng hoàn thành điền thông tin trước khi đăng nhập. ', context);
+      showErrorInSnackBar(
+        'Vui lòng hoàn thành điền thông tin trước khi đăng nhập. ',
+        context,
+      );
     } else {
       loading = true;
       notifyListeners();
@@ -40,16 +42,16 @@ class LoginViewModel extends ChangeNotifier {
               builder: (context) => TabScreen(),
             ),
           );
-          Fluttertoast.showToast(
-            msg: 'Đăng nhập thành công',
-            backgroundColor: Palette.activeButton,
+          showActiveInSnackBar(
+            'Đăng nhập thành công',
+            context,
           );
         }
       } catch (e) {
         loading = false;
         notifyListeners();
         print(e);
-        showInSnackBar(
+        showErrorInSnackBar(
             '${auth.handleFirebaseAuthError(e.toString())}', context);
       }
       loading = false;
@@ -64,16 +66,23 @@ class LoginViewModel extends ChangeNotifier {
     form.save();
     print(Validations.validateEmail(email));
     if (Validations.validateEmail(email) != null) {
-      showInSnackBar('Hãy nhập Email hợp lệ để lấy lại mật khẩu', context);
+      showErrorInSnackBar(
+        'Hãy nhập Email hợp lệ để lấy lại mật khẩu',
+        context,
+      );
     } else {
       try {
         await auth.forgotPassword(email);
-        showInSnackBar(
-            'Vui lòng kiểm tra email của bạn để được hướng dẫn '
-            'đặt lại mật khẩu',
-            context);
+        showErrorInSnackBar(
+          'Vui lòng kiểm tra email của bạn để được hướng dẫn '
+          'đặt lại mật khẩu',
+          context,
+        );
       } catch (e) {
-        showInSnackBar('${e.toString()}', context);
+        showErrorInSnackBar(
+          '${e.toString()}',
+          context,
+        );
       }
     }
     loading = false;
@@ -90,8 +99,31 @@ class LoginViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void showInSnackBar(String value, context) {
+  /// This message will show when validation is failed
+  void showErrorInSnackBar(String value, context) {
     ScaffoldMessenger.of(context).removeCurrentSnackBar();
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(value)));
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(
+          value,
+          style: GoogleFonts.oswald(),
+        ),
+        backgroundColor: Palette.red,
+      ),
+    );
+  }
+
+  /// This message will show when validation is successful
+  void showActiveInSnackBar(String value, context) {
+    ScaffoldMessenger.of(context).removeCurrentSnackBar();
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(
+          value,
+          style: GoogleFonts.oswald(),
+        ),
+        backgroundColor: Palette.activeButton,
+      ),
+    );
   }
 }
