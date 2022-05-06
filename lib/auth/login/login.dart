@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:medverse_mobile_app/theme/palette.dart';
+import 'package:medverse_mobile_app/widgets/dimension.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:provider/provider.dart';
 import '/auth/register/register.dart';
@@ -25,7 +26,7 @@ class _LoginState extends State<Login> {
       progressIndicator: circularProgress(context),
       inAsyncCall: viewModel.loading,
       child: Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: Palette.whiteText,
         key: viewModel.scaffoldKey,
         body: ListView(
           padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 20.0),
@@ -86,6 +87,24 @@ class _LoginState extends State<Login> {
                 ),
               ],
             ),
+            SizedBox(
+              height: Dimensions.height30,
+            ),
+            // Return
+            Center(
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.pushNamed(context, "/home");
+                },
+                child: Text(
+                  'Quay lại',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Palette.mainBlueTheme,
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
       ),
@@ -140,6 +159,7 @@ class _LoginState extends State<Login> {
                       'Quên mật khẩu?',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
+                        color: Palette.textNo,
                       ),
                     ),
                   ),

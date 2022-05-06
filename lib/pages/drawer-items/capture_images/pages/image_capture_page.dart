@@ -1,13 +1,18 @@
 import 'dart:io';
 import 'dart:io' as io;
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:firebase_core/firebase_core.dart' as firebase_core;
-import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
-import 'package:path/path.dart';
-import 'package:path_provider/path_provider.dart';
+import 'package:medverse_mobile_app/view_models/auth/capture_image_view_model.dart';
+import 'package:medverse_mobile_app/widgets/indicators.dart';
+import 'package:modal_progress_hud/modal_progress_hud.dart';
+import 'package:provider/provider.dart';
+import '/components/custom_image.dart';
+import '/models/user.dart';
+import '/utils/firebase.dart';
 import '/theme/palette.dart';
 
 class CaptureimagePage extends StatefulWidget {
@@ -21,105 +26,187 @@ class _CaptureimagePageState extends State<CaptureimagePage> {
   File _image;
   final imagePicker = ImagePicker();
 
-  Future getImage() async {
-    try {
-      var pickedImage = await imagePicker.pickImage(source: ImageSource.camera);
-      setState(() {
-        _image = File(pickedImage.path);
-      });
-    } on PlatformException catch (e) {
-      // ignore: avoid_print
-      print('Failed to capture image: $e');
-    }
-  }
-
-  Future uploadImageToFirebase(BuildContext context) async {
-    WidgetsFlutterBinding.ensureInitialized();
-    await firebase_core.Firebase.initializeApp();
-    String fileName = basename(_image.path);
-    firebase_storage.Reference ref = firebase_storage.FirebaseStorage.instance
-        .ref()
-        .child('drug-report')
-        .child('/$fileName');
-
-    final metadata = firebase_storage.SettableMetadata(
-        contentType: 'image/jpeg',
-        customMetadata: {'picked-file-path': fileName});
-    firebase_storage.UploadTask uploadTask;
-    //late StorageUploadTask uploadTask = firebaseStorageRef.putFile(_imageFile);
-    uploadTask = ref.putFile(io.File(_image.path), metadata);
-
-    firebase_storage.UploadTask task = await Future.value(uploadTask);
-    Future.value(uploadTask)
-        .then((value) => {
-              showSuccess(),
-            })
-        .onError((error, stackTrace) => {
-              showError(),
-            });
-  }
-
-  Future<File> saveImage(String imagePath) async {
-    final directory = await getApplicationDocumentsDirectory();
-    final name = basename(imagePath);
-    final image = File('${directory.path}/$name');
-    return File(imagePath).copy(image.path);
-  }
-
-  showSuccess() => Fluttertoast.showToast(
-        msg: "Đăng ảnh thành công",
-        fontSize: 18,
-        backgroundColor: Palette.activeButton,
-        textColor: Palette.whiteText,
-        gravity: ToastGravity.CENTER,
-      );
-
-  showError() => Fluttertoast.showToast(
-        msg: "Đăng ảnh thất bại",
-        fontSize: 18,
-        gravity: ToastGravity.CENTER,
-        backgroundColor: Palette.red,
-        textColor: Palette.whiteText,
-      );
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Palette.mainBlueTheme,
-        title: Text(
-          'Báo cáo thuốc đến Admin',
-          style: TextStyle(fontWeight: FontWeight.w900),
-        ),
-        centerTitle: true,
-      ),
-      body: Center(
-        child: _image != null
-            ? Image.file(_image)
-            : const Text(
-                "Chưa có ảnh. Mời bạn lựa chọn hình ảnh",
-                style: TextStyle(
-                  fontWeight: FontWeight.w500,
+    currentUserId() {
+      return firebaseAuth.currentUser.uid;
+    }
+
+    CaptureImageViewModel viewModel =
+        Provider.of<CaptureImageViewModel>(context);
+    return WillPopScope(
+      onWillPop: () async {
+        await viewModel.resetPost();
+        return true;
+      },
+      child: ModalProgressHUD(
+        progressIndicator: circularProgress(context),
+        inAsyncCall: viewModel.loading,
+        child: Scaffold(
+          appBar: AppBar(
+            backgroundColor: Palette.mainBlueTheme,
+            title: Text(
+              'Báo cáo thuốc đến Admin',
+              style: TextStyle(fontWeight: FontWeight.w900),
+            ),
+            actions: [
+              GestureDetector(
+                onTap: () async {
+                  await viewModel.uploadCapture(context);
+                  Navigator.pushReplacementNamed(context, "/home");
+                  Fluttertoast.showToast(
+                    msg: "Gửi bài báo cáo thành công!",
+                    backgroundColor: Palette.activeButton,
+                  );
+                  viewModel.resetPost();
+                },
+                child: Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Text(
+                    'Gửi',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 10.0,
+                      color: Palette.whiteText,
+                    ),
+                  ),
+                ),
+              )
+            ],
+            centerTitle: true,
+          ),
+          body: ListView(
+            padding: EdgeInsets.symmetric(horizontal: 15.0),
+            children: [
+              SizedBox(height: 15.0),
+              StreamBuilder(
+                stream: usersRef.doc(currentUserId()).snapshots(),
+                builder: (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+                  if (snapshot.hasData) {
+                    UserModel user = UserModel.fromJson(snapshot.data.data());
+                    return ListTile(
+                      leading: CircleAvatar(
+                        radius: 25.0,
+                        backgroundImage: NetworkImage(user?.photoUrl),
+                      ),
+                      title: Text(
+                        user?.username,
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      subtitle: Text(
+                        user?.email,
+                      ),
+                    );
+                  }
+                  return Container();
+                },
+              ),
+              InkWell(
+                onTap: () => showImageChoices(context, viewModel),
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.width - 30,
+                  decoration: BoxDecoration(
+                    color: Colors.grey[300],
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(5.0),
+                    ),
+                    border: Border.all(
+                      color: Theme.of(context).accentColor,
+                    ),
+                  ),
+                  child: viewModel.imgLink != null
+                      ? CustomImage(
+                          imageUrl: viewModel.imgLink,
+                          width: MediaQuery.of(context).size.width,
+                          height: MediaQuery.of(context).size.width - 30,
+                          fit: BoxFit.cover,
+                        )
+                      : viewModel.captureUrl == null
+                          ? Center(
+                              child: Text(
+                                'Mời bạn ấn vào đây để tải ảnh lên.',
+                                style: TextStyle(
+                                  color: Theme.of(context).accentColor,
+                                ),
+                              ),
+                            )
+                          : Image.file(
+                              viewModel.captureUrl,
+                              width: MediaQuery.of(context).size.width,
+                              height: MediaQuery.of(context).size.width - 30,
+                              fit: BoxFit.cover,
+                            ),
                 ),
               ),
+              SizedBox(height: 20.0),
+              Text(
+                'Mô tả thuốc'.toUpperCase(),
+                style: TextStyle(
+                  fontSize: 15.0,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              TextFormField(
+                initialValue: viewModel.description,
+                decoration: InputDecoration(
+                  hintText: 'Mời bạn nhập mô tả!',
+                  focusedBorder: UnderlineInputBorder(),
+                ),
+                maxLines: null,
+                onChanged: (val) => viewModel.setDescription(val),
+              ),
+              SizedBox(height: 20.0),
+            ],
+          ),
+        ),
       ),
-      floatingActionButton: _getCondition(context),
     );
   }
 
-  Widget _getCondition(BuildContext context) {
-    if (_image != null) {
-      return FloatingActionButton(
-        onPressed: () => uploadImageToFirebase(context),
-        backgroundColor: Palette.mainBlueTheme,
-        child: const Icon(Icons.upload_sharp),
-      );
-    } else {
-      return FloatingActionButton(
-        onPressed: getImage,
-        backgroundColor: Palette.mainBlueTheme,
-        child: const Icon(Icons.camera_alt_rounded),
-      );
-    }
+  showImageChoices(BuildContext context, CaptureImageViewModel viewModel) {
+    showModalBottomSheet(
+      context: context,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10.0),
+      ),
+      builder: (BuildContext context) {
+        return FractionallySizedBox(
+          heightFactor: .6,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(height: 20.0),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                child: Text(
+                  'Lựa chọn hình ảnh',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              Divider(),
+              ListTile(
+                leading: Icon(Feather.camera),
+                title: Text('Chọn từ máy ảnh'),
+                onTap: () {
+                  Navigator.pop(context);
+                  viewModel.pickImage(camera: true);
+                },
+              ),
+              ListTile(
+                leading: Icon(Feather.image),
+                title: Text('Chọn từ thư viện'),
+                onTap: () {
+                  Navigator.pop(context);
+                  viewModel.pickImage();
+                },
+              ),
+            ],
+          ),
+        );
+      },
+    );
   }
 }

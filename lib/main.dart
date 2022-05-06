@@ -1,16 +1,14 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
-import 'package:medverse_mobile_app/routes/app_routes.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/adapters.dart';
+import '/pages/nav-items/home/bloc/home_screen_bloc.dart';
+import '/routes/app_routes.dart';
 import 'package:provider/provider.dart';
 import '/components/life_cycle_event_handler.dart';
-import '/landing/landing_page.dart';
 import '/services/user_service.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'controller/cubit/drugs_data/drugs_data_cubit.dart';
 import '/utils/config.dart';
-import '/utils/constants.dart';
 import '/utils/providers.dart';
 import 'models/drug_bank_db/fav_drug_model.dart';
 
@@ -18,7 +16,7 @@ void main() async {
   await Hive.initFlutter();
   Hive.registerAdapter<FavDrugModel>((FavDrugModelAdapter()));
   await Hive.openBox<FavDrugModel>("fav-list");
-  await Hive.openBox("search-cache");
+  // await Hive.openBox("search-cache");
   WidgetsFlutterBinding.ensureInitialized();
   await Config.initFirebase();
   runApp(MyApp());
@@ -45,29 +43,20 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: providers,
-      child: Consumer<ThemeNotifier>(
-        builder: (context, ThemeNotifier notifier, child) {
-          return MaterialApp(
-            debugShowCheckedModeBanner: false,
-            theme: notifier.dark ? Constants.darkTheme : Constants.lightTheme,
-            home: StreamBuilder(
-              stream: FirebaseAuth.instance.authStateChanges(),
-              builder: (BuildContext context, AsyncSnapshot<User> snapshot) {
-                if (snapshot.hasData) {
-                  return BlocProvider(
-                    create: (context) => DrugsDataCubit(),
-                    child: GetMaterialApp(
-                      debugShowCheckedModeBanner: false,
-                      onGenerateRoute: AppRoutes.onGeneratedRoutes,
-                    ),
-                  );
-                } else {
-                  return Landing();
-                }
-              },
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        // theme: notifier.dark ? Constants.darkTheme : Constants.lightTheme,
+        home: MultiBlocProvider(
+          providers: [
+            BlocProvider(
+              create: (context) => HomeScreenBloc(),
             ),
-          );
-        },
+          ],
+          child: GetMaterialApp(
+            debugShowCheckedModeBanner: false,
+            onGenerateRoute: AppRoutes.onGeneratedRoutes,
+          ),
+        ),
       ),
     );
   }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-
-import '../theme/palette.dart';
+import '/utils/app_text_theme.dart';
+import '/theme/palette.dart';
 
 AppBar appBarMain({
   String titleText,
@@ -8,11 +8,10 @@ AppBar appBarMain({
   return AppBar(
     elevation: 0,
     iconTheme: IconThemeData(color: Palette.mainBlueTheme),
-    backgroundColor: Colors.white,
+    backgroundColor: Palette.whiteText,
     title: Text(
       titleText,
-      style:
-          TextStyle(fontWeight: FontWeight.w900, color: Palette.mainBlueTheme),
+      style: MobileTextTheme().homeAppBarStyle,
     ),
     centerTitle: true,
   );

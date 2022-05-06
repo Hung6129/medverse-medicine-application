@@ -1,6 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import '/auth/login/login.dart';
+import '/utils/app_text_theme.dart';
 import '/theme/palette.dart';
 import '/widgets/navigation_drawer_widget.dart';
 import '/components/notification_stream_wrapper.dart';
@@ -14,43 +17,53 @@ class Activities extends StatefulWidget {
 }
 
 class _ActivitiesState extends State<Activities> {
+  User user = FirebaseAuth.instance.currentUser;
+
   currentUserId() {
     return firebaseAuth.currentUser.uid;
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      drawer: const NavigationDrawerWidget(),
-      appBar: AppBar(
-        backgroundColor: Palette.mainBlueTheme,
-        title: Text(
-          'Thông báo',
-          style: TextStyle(fontWeight: FontWeight.w900),
-        ),
-        centerTitle: true,
-        actions: [
-          Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: GestureDetector(
-              onTap: () => deleteAllItems(),
-              child: Text(
-                'Xóa',
-                style: TextStyle(
-                  fontSize: 13.0,
-                  fontWeight: FontWeight.w900,
+    Widget checkAuthentication;
+
+    if (user != null) {
+      checkAuthentication = Scaffold(
+        drawer: const NavigationDrawerWidget(),
+        appBar: AppBar(
+          backgroundColor: Palette.mainBlueTheme,
+          title: Text(
+            'Thông báo',
+            style: MobileTextTheme().appBarStyle,
+          ),
+          centerTitle: true,
+          actions: [
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: GestureDetector(
+                onTap: () => deleteAllItems(),
+                child: Text(
+                  'Xóa',
+                  style: TextStyle(
+                    fontSize: 13.0,
+                    fontWeight: FontWeight.w900,
+                  ),
                 ),
               ),
             ),
-          ),
-        ],
-      ),
-      body: ListView(
-        children: [
-          getActivities(),
-        ],
-      ),
-    );
+          ],
+        ),
+        body: ListView(
+          children: [
+            getActivities(),
+          ],
+        ),
+      );
+    } else {
+      checkAuthentication = new Login();
+    }
+
+    return checkAuthentication;
   }
 
   getActivities() {

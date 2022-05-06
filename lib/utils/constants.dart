@@ -2,26 +2,27 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Constants {
-  // DrugDB URL
-  static const String TYPE_AHEAD =
-      "http://192.168.56.1:8080/products/name?name=";
-  static const String POPULAR_TOP_10 =
-      "http://192.168.56.1:8080/products/name?name=hung";
+  /// DrugDB URL
+  static const String PRODUCTNAME_TYPE_AHEAD =
+      "http://192.168.1.120:8080/products/name?name=";
+  // Top10 popular drug
+  static const String PRODUCT_POPULAR_TOP_10 =
+      "http://192.168.1.120:8080/products/name?name=hung";
+  // Top10 recommended drug
+  // static const String PRODUCT_RECOMMENDED_TOP_10 =
+  //     "http://192.168.1.4:8080/products/name?name=para";
 
-  //App related strings
-  static String appName = "Social App";
+  // Pill identifier
+  static const String PILL_IDENTIFIER_SIZE =
+      "http://192.168.1.120:8080/pills/size?sz=";
 
-  //Colors for theme
+  /// Colors for theme
   static Color lightPrimary = Color(0xfff3f4f9);
   static Color darkPrimary = Color(0xff2B2B2B);
-
   static Color lightAccent = Color(0xFF0D47A1);
-
   static Color darkAccent = Color(0xFF0D47A1);
-
   static Color lightBG = Color(0xfff3f4f9);
   static Color darkBG = Color(0xff2B2B2B);
-
   static ThemeData lightTheme = ThemeData(
     fontFamily: 'Lato-Regular',
     backgroundColor: lightBG,
@@ -80,9 +81,35 @@ class Constants {
     for (var i = 0; i < list.length; i++) {
       result.add(handler(i, list[i]));
     }
-
     return result;
   }
+
+  /// Assets path configuration
+  static const appLogo = 'assets/grid_view_images/app-logo.png';
+  static const toggleDay = 'assets/grid_view_images/toggle-day.png';
+  static const search = 'assets/grid_view_images/search.png';
+  static const hamburgerMenu = 'assets/grid_view_images/hamburger-menu.png';
+
+  static const iconDart = 'assets/grid_view_images/icon-dart.svg';
+  static const iconFirebase = 'assets/grid_view_images/icon-firebase.svg';
+  static const iconFlutter = 'assets/grid_view_images/icon-flutter.svg';
+
+  static const tutorial1 = 'assets/grid_view_images/how-to-parse-json.webp';
+  static const tutorial2 = 'assets/grid_view_images/side-effects.webp';
+  static const tutorial3 = 'assets/grid_view_images/split-view.webp';
+  static const tutorial4 = 'assets/grid_view_images/learn-flutter-animations.webp';
+
+  static const dartCourse = 'assets/grid_view_images/dart-course-banner-small.webp';
+  static const flutterAnimationsCourse =
+      'assets/grid_view_images/flutter-animations-course-banner-small.webp';
+  static const flutterFirebaseCourse =
+      'assets/grid_view_images/flutter-firebase-course-banner-small.webp';
+  static const flutterRestApiCourse =
+      'assets/grid_view_images/flutter-rest-api-course-banner-small.webp';
+
+  static const iconStar = 'assets/grid_view_images/icon-star.svg';
+  static const andreaAvatar = 'assets/grid_view_images/andrea-avatar.webp';
+
 }
 
 class ThemeNotifier extends ChangeNotifier {

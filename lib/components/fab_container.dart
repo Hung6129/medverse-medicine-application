@@ -1,7 +1,8 @@
 import 'package:animations/animations.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:medverse_mobile_app/theme/palette.dart';
+import '/theme/palette.dart';
+import '/utils/app_text_theme.dart';
 import '/posts/create_post.dart';
 
 class FabContainer extends StatelessWidget {
@@ -66,9 +67,7 @@ class FabContainer extends StatelessWidget {
                   child: Text(
                     'Tạo bài viết',
                     textAlign: TextAlign.center,
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Theme.of(context).accentColor),
+                    style: MobileTextTheme().fabContainerTitle,
                   ),
                 ),
               ),
@@ -78,7 +77,10 @@ class FabContainer extends StatelessWidget {
                   CupertinoIcons.camera_on_rectangle,
                   size: 25.0,
                 ),
-                title: Text('Viết bài viết mới'),
+                title: Text(
+                  'Viết bài viết mới',
+                  style: MobileTextTheme().fabContainerContent,
+                ),
                 onTap: () {
                   Navigator.pop(context);
                   Navigator.of(context).push(

@@ -1,14 +1,15 @@
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:medverse_mobile_app/utils/app_text_theme.dart';
 import '/utils/firebase.dart';
 import '/models/user.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import '/theme/palette.dart';
 import '/auth/login/login.dart';
 import '/pages/drawer-items/profile/pages/profile.dart';
-import '/pages/drawer-items/pill_identifier/pages/pill_identifier_screen.dart';
+import '/pages/drawer-items/pill_identifier/pages/pill_identifier.dart';
 import '/pages/drawer-items/capture_images/pages/image_capture_page.dart';
 import '/pages/drawer-items/bmi_calculator/pages/input_screen.dart';
 import '/pages/drawer-items/check_interaction/pages/interaction_checker.dart';
@@ -16,6 +17,8 @@ import '/pages/drawer-items/compare_drugs/pages/compare_drug_screen.dart';
 import '/pages/drawer-items/medicine_dictionary/pages/medicine_dictionary.dart';
 import '/pages/drawer-items/health_profile/pages/health_profile.dart';
 import '/pages/drawer-items/drug_recommendation/pages/drug_recommedation.dart';
+import '/pages/drawer-items/introduction_side/pages/intro_slider_screen.dart';
+import '/pages/drawer-items/disclaimer/pages/disclaimer.dart';
 
 class NavigationDrawerWidget extends StatefulWidget {
   const NavigationDrawerWidget({Key key}) : super(key: key);
@@ -100,19 +103,13 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
                             children: <Widget>[
                               Text(
                                 "${loggedInUser.username}",
-                                style: TextStyle(
-                                  color: Palette.p1,
-                                  fontWeight: FontWeight.w500,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
+                                style: MobileTextTheme().drawerHeaderTextStyle,
+                                overflow: TextOverflow.ellipsis,
                               ),
                               Text(
                                 "${loggedInUser.email}",
-                                style: TextStyle(
-                                  color: Palette.p1,
-                                  fontWeight: FontWeight.w500,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
+                                style: MobileTextTheme().drawerHeaderTextStyle,
+                                overflow: TextOverflow.ellipsis,
                               ),
                             ],
                           ),
@@ -158,15 +155,25 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
                       ),
                       buildMenuItem(
                         text: 'Từ điển y học',
-                        icon: Icons.health_and_safety_outlined,
+                        icon: Icons.list_alt_outlined,
                         onClicked: () => selectedItem(context, 7),
                       ),
                       buildMenuItem(
                         text: 'Hồ sơ sức khỏe',
-                        icon: Icons.list_alt_outlined,
+                        icon: Icons.health_and_safety_outlined,
                         onClicked: () => selectedItem(context, 8),
                       ),
-                      Divider(color: Colors.white70),
+                      Divider(color: Palette.grey),
+                      buildMenuItem(
+                        text: 'Hướng dẫn sử dụng',
+                        icon: Icons.help_outline_sharp,
+                        onClicked: () => selectedItem(context, 10),
+                      ),
+                      buildMenuItem(
+                        text: 'Miễn trừ trách nhiệm',
+                        icon: Icons.info_outlined,
+                        onClicked: () => selectedItem(context, 11),
+                      ),
                       buildMenuItem(
                         text: 'Đăng xuất',
                         icon: Icons.logout_outlined,
@@ -226,15 +233,25 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
                       ),
                       buildMenuItem(
                         text: 'Từ điển y học',
-                        icon: Icons.health_and_safety_outlined,
+                        icon: Icons.list_alt_outlined,
                         onClicked: () => selectedItem(context, 7),
                       ),
                       buildMenuItem(
                         text: 'Hồ sơ sức khỏe',
-                        icon: Icons.list_alt_outlined,
+                        icon: Icons.health_and_safety_outlined,
                         onClicked: () => selectedItem(context, 8),
                       ),
-                      Divider(color: Colors.white70),
+                      Divider(color: Palette.grey),
+                      buildMenuItem(
+                        text: 'Hướng dẫn sử dụng',
+                        icon: Icons.help_outline_sharp,
+                        onClicked: () => selectedItem(context, 10),
+                      ),
+                      buildMenuItem(
+                        text: 'Miễn trừ trách nhiệm',
+                        icon: Icons.info_outlined,
+                        onClicked: () => selectedItem(context, 11),
+                      ),
                       buildMenuItem(
                         text: 'Đăng nhập',
                         icon: Icons.login_outlined,
@@ -273,12 +290,12 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
                 children: [
                   Text(
                     name,
-                    style: const TextStyle(fontSize: 20, color: Colors.white),
+                    style: MobileTextTheme().drawerHeader,
                   ),
                   const SizedBox(height: 4),
                   Text(
                     email,
-                    style: const TextStyle(fontSize: 14, color: Colors.white),
+                    style: MobileTextTheme().drawerHeader,
                   ),
                 ],
               ),
@@ -290,12 +307,8 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
   // the logout function
   Future<void> logout(BuildContext context) async {
     await FirebaseAuth.instance.signOut();
-    Fluttertoast.showToast(msg: "Đã thoát tài khoản");
-    Navigator.of(context).pushReplacement(
-      MaterialPageRoute(
-        builder: (context) => Login(),
-      ),
-    );
+    showInSnackBar('Đã thoát tài khoản thành công', context);
+    Navigator.pushReplacementNamed(context, "/home");
   }
 
   Widget buildMenuItem({
@@ -303,14 +316,27 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
     IconData icon,
     VoidCallback onClicked,
   }) {
-    const color = Colors.white;
-    const hoverColor = Colors.white70;
+    const color = Palette.whiteText;
 
     return ListTile(
       leading: Icon(icon, color: color),
-      title: Text(text, style: const TextStyle(color: color)),
-      hoverColor: hoverColor,
+      title: Text(text, style: MobileTextTheme().navigationDrawerStyle),
+      hoverColor: Palette.grey,
       onTap: onClicked,
+    );
+  }
+
+  /// Config snack bar message style
+  void showInSnackBar(String value, context) {
+    ScaffoldMessenger.of(context).removeCurrentSnackBar();
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(
+          value,
+          style: GoogleFonts.oswald(),
+        ),
+        backgroundColor: Palette.activeButton,
+      ),
     );
   }
 
@@ -320,7 +346,7 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
       case 1:
         Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (context) => Identifier(),
+            builder: (context) => PillIdentifier(),
           ),
         );
         break;
@@ -377,6 +403,20 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
         Navigator.of(context).push(
           MaterialPageRoute(
             builder: (context) => Login(),
+          ),
+        );
+        break;
+      case 10:
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => HelpScreen(),
+          ),
+        );
+        break;
+      case 11:
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => Disclaimer(),
           ),
         );
         break;

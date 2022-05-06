@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:medverse_mobile_app/theme/palette.dart';
+import 'package:medverse_mobile_app/utils/app_text_theme.dart';
 import '/models/post.dart';
 import '/models/user.dart';
 import '/utils/firebase.dart';
@@ -37,7 +38,7 @@ class _ViewImageState extends State<ViewImage> {
         backgroundColor: Palette.mainBlueTheme,
         title: Text(
           'Chi tiết bài đăng',
-          style: TextStyle(fontWeight: FontWeight.w900),
+          style: MobileTextTheme().appBarStyle,
         ),
         centerTitle: true,
       ),
@@ -52,6 +53,7 @@ class _ViewImageState extends State<ViewImage> {
               buildImage(context),
               SizedBox(height: 10.0),
               buildDescription(context),
+              SizedBox(height: 30.0),
             ],
           ),
         ),
@@ -73,7 +75,7 @@ class _ViewImageState extends State<ViewImage> {
                       children: [
                         Text(
                           widget.post.username,
-                          style: TextStyle(fontWeight: FontWeight.w800),
+                          style: MobileTextTheme().postUserNameTitle,
                         ),
                       ],
                     ),
@@ -87,6 +89,7 @@ class _ViewImageState extends State<ViewImage> {
                           timeago.format(
                             widget.post.timestamp.toDate(),
                           ),
+                          style: MobileTextTheme().postDetailsTimePostTitle,
                         ),
                       ],
                     ),
@@ -127,7 +130,10 @@ class _ViewImageState extends State<ViewImage> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10.0),
       child: Container(
-        child: Text(widget.post.description),
+        child: Text(
+          widget.post.description,
+          style: MobileTextTheme().postDescription,
+        ),
       ),
     );
   }

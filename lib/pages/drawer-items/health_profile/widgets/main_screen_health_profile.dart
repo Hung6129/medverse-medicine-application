@@ -1,8 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import '/widgets/constants.dart';
+import 'package:medverse_mobile_app/utils/app_text_theme.dart';
 import '/widgets/dimension.dart';
 import '/theme/palette.dart';
 import '/auth/login/login.dart';
@@ -66,14 +65,6 @@ class MapScreenState extends State<HealthProfile>
 
       /// Check if user is authenticated
       _checkAuthentication = new Scaffold(
-        // appBar: AppBar(
-        //   backgroundColor: Palette.mainBlueTheme,
-        //   title: Text(
-        //     'Danh sách yêu thích',
-        //     style: TextStyle(fontWeight: FontWeight.w900),
-        //   ),
-        //   centerTitle: true,
-        // ),
         body: new Container(
           child: new SingleChildScrollView(
             scrollDirection: Axis.vertical,
@@ -136,7 +127,7 @@ class MapScreenState extends State<HealthProfile>
                             children: <Widget>[
                               Text(
                                 'Chiều cao:',
-                                style: black_kLabelStyle,
+                                style: MobileTextTheme().blackKLabelStyle,
                               ),
                               SizedBox(height: 10),
                               Row(
@@ -145,26 +136,19 @@ class MapScreenState extends State<HealthProfile>
                                           userHealthProfileModel.height.isEmpty
                                       ? Text(
                                           'Không có dữ liệu',
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: Palette.textNo,
-                                          ),
+                                          style: MobileTextTheme()
+                                              .healthProfileNoDataTextStyle,
                                         )
                                       : Text(
                                           '${userHealthProfileModel.height}',
-                                          style: TextStyle(
-                                            fontSize: 20,
-                                            fontWeight: FontWeight.bold,
-                                            color: Palette.textNo,
-                                          ),
+                                          style: MobileTextTheme()
+                                              .healthProfileDataTextFont,
                                         ),
                                   SizedBox(width: 5),
                                   Text(
                                     'cm',
-                                    style: TextStyle(
-                                      fontSize: 15,
-                                      color: Palette.textNo,
-                                    ),
+                                    style: MobileTextTheme()
+                                        .healthProfileUnitTextStyle,
                                   ),
                                 ],
                               ),
@@ -231,7 +215,7 @@ class MapScreenState extends State<HealthProfile>
                             children: <Widget>[
                               Text(
                                 'Cân nặng:',
-                                style: black_kLabelStyle,
+                                style: MobileTextTheme().blackKLabelStyle,
                               ),
                               SizedBox(height: 10),
                               Row(
@@ -240,26 +224,19 @@ class MapScreenState extends State<HealthProfile>
                                           userHealthProfileModel.weight.isEmpty
                                       ? Text(
                                           'Không có dữ liệu',
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: Palette.textNo,
-                                          ),
+                                          style: MobileTextTheme()
+                                              .healthProfileNoDataTextStyle,
                                         )
                                       : Text(
                                           '${userHealthProfileModel.weight}',
-                                          style: TextStyle(
-                                            fontSize: 20,
-                                            fontWeight: FontWeight.bold,
-                                            color: Palette.textNo,
-                                          ),
+                                          style: MobileTextTheme()
+                                              .healthProfileDataTextFont,
                                         ),
                                   SizedBox(width: 5),
                                   Text(
                                     'kg',
-                                    style: TextStyle(
-                                      fontSize: 15,
-                                      color: Palette.textNo,
-                                    ),
+                                    style: MobileTextTheme()
+                                        .healthProfileUnitTextStyle,
                                   ),
                                 ],
                               ),
@@ -327,7 +304,7 @@ class MapScreenState extends State<HealthProfile>
                             children: <Widget>[
                               Text(
                                 'Chỉ số BMI:',
-                                style: black_kLabelStyle,
+                                style: MobileTextTheme().blackKLabelStyle,
                               ),
                               SizedBox(height: 10),
                               Row(
@@ -336,26 +313,19 @@ class MapScreenState extends State<HealthProfile>
                                           userHealthProfileModel.bmi.isEmpty
                                       ? Text(
                                           'Không có dữ liệu',
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: Palette.textNo,
-                                          ),
+                                          style: MobileTextTheme()
+                                              .healthProfileNoDataTextStyle,
                                         )
                                       : Text(
                                           '${userHealthProfileModel.bmi}',
-                                          style: TextStyle(
-                                            fontSize: 20,
-                                            fontWeight: FontWeight.bold,
-                                            color: Palette.textNo,
-                                          ),
+                                          style: MobileTextTheme()
+                                              .healthProfileDataTextFont,
                                         ),
                                   SizedBox(width: 5),
                                   Text(
                                     'kg/m2',
-                                    style: TextStyle(
-                                      fontSize: 15,
-                                      color: Palette.textNo,
-                                    ),
+                                    style: MobileTextTheme()
+                                        .healthProfileUnitTextStyle,
                                   ),
                                 ],
                               ),
@@ -423,7 +393,7 @@ class MapScreenState extends State<HealthProfile>
                             children: <Widget>[
                               Text(
                                 'Huyết áp:',
-                                style: black_kLabelStyle,
+                                style: MobileTextTheme().blackKLabelStyle,
                               ),
                               SizedBox(height: 10),
                               Row(
@@ -434,26 +404,19 @@ class MapScreenState extends State<HealthProfile>
                                           userHealthProfileModel.DBP.isEmpty
                                       ? Text(
                                           'Không có dữ liệu',
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: Palette.textNo,
-                                          ),
+                                          style: MobileTextTheme()
+                                              .healthProfileNoDataTextStyle,
                                         )
                                       : Text(
                                           '${userHealthProfileModel.SBP}/${userHealthProfileModel.DBP}',
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 20,
-                                            color: Palette.textNo,
-                                          ),
+                                          style: MobileTextTheme()
+                                              .healthProfileDataTextFont,
                                         ),
                                   SizedBox(width: 5),
                                   Text(
                                     'mmHg',
-                                    style: TextStyle(
-                                      fontSize: 15,
-                                      color: Palette.textNo,
-                                    ),
+                                    style: MobileTextTheme()
+                                        .healthProfileUnitTextStyle,
                                   ),
                                 ],
                               ),
@@ -521,7 +484,7 @@ class MapScreenState extends State<HealthProfile>
                             children: <Widget>[
                               Text(
                                 'Nhịp tim:',
-                                style: black_kLabelStyle,
+                                style: MobileTextTheme().blackKLabelStyle,
                               ),
                               SizedBox(height: 10),
                               Row(
@@ -530,26 +493,19 @@ class MapScreenState extends State<HealthProfile>
                                           userHealthProfileModel.SP02.isEmpty
                                       ? Text(
                                           'Không có dữ liệu',
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: Palette.textNo,
-                                          ),
+                                          style: MobileTextTheme()
+                                              .healthProfileNoDataTextStyle,
                                         )
                                       : Text(
                                           '${userHealthProfileModel.SP02}',
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 20,
-                                            color: Palette.textNo,
-                                          ),
+                                          style: MobileTextTheme()
+                                              .healthProfileDataTextFont,
                                         ),
                                   SizedBox(width: 5),
                                   Text(
                                     'nhịp/phút',
-                                    style: TextStyle(
-                                      fontSize: 15,
-                                      color: Palette.textNo,
-                                    ),
+                                    style: MobileTextTheme()
+                                        .healthProfileUnitTextStyle,
                                   ),
                                 ],
                               ),
@@ -617,7 +573,7 @@ class MapScreenState extends State<HealthProfile>
                             children: <Widget>[
                               Text(
                                 'Nhóm máu:',
-                                style: black_kLabelStyle,
+                                style: MobileTextTheme().blackKLabelStyle,
                               ),
                               SizedBox(height: 10),
                               Row(
@@ -627,18 +583,13 @@ class MapScreenState extends State<HealthProfile>
                                               .bloodGroup.isEmpty
                                       ? Text(
                                           'Không có dữ liệu',
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: Palette.textNo,
-                                          ),
+                                          style: MobileTextTheme()
+                                              .healthProfileNoDataTextStyle,
                                         )
                                       : Text(
                                           '${userHealthProfileModel.bloodGroup}',
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 20,
-                                            color: Palette.textNo,
-                                          ),
+                                          style: MobileTextTheme()
+                                              .healthProfileDataTextFont,
                                         ),
                                 ],
                               ),

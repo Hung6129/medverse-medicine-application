@@ -2,10 +2,10 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import '/utils/app_text_theme.dart';
 import '/auth/login/login.dart';
 import '/widgets/dimension.dart';
 import '/theme/palette.dart';
-import '/widgets/constants.dart';
 import '/models/user_health_profile_model.dart';
 
 class EditBMI extends StatefulWidget {
@@ -137,7 +137,7 @@ class _EditHealthProfilePageState extends State<EditBMI> {
                       children: [
                         Text(
                           'Chỉ số BMI',
-                          style: black_kLabelStyle,
+                          style: MobileTextTheme().blackKLabelStyle,
                         ),
                       ],
                     ),

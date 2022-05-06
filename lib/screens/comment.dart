@@ -1,7 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:medverse_mobile_app/theme/palette.dart';
+import '/theme/palette.dart';
+import '/utils/app_text_theme.dart';
 import '/components/stream_comments_wrapper.dart';
 import '/models/comments.dart';
 import '/models/post.dart';
@@ -44,7 +45,10 @@ class _CommentsState extends State<Comments> {
         ),
         centerTitle: true,
         backgroundColor: Palette.mainBlueTheme,
-        title: Text('Bình luận bài viết'),
+        title: Text(
+          'Bình luận bài viết',
+          style: MobileTextTheme().appBarStyle,
+        ),
       ),
       body: Container(
         height: MediaQuery.of(context).size.height,
@@ -67,8 +71,7 @@ class _CommentsState extends State<Comments> {
             Align(
               alignment: Alignment.bottomCenter,
               child: Container(
-                decoration: BoxDecoration(
-                ),
+                decoration: BoxDecoration(),
                 constraints: BoxConstraints(
                   maxHeight: 190.0,
                 ),
@@ -151,47 +154,44 @@ class _CommentsState extends State<Comments> {
         ),
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Row(
+          child: Column(
+/*            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,*/
             children: [
-              Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
+              Text(
+                widget.post.description,
+                style: TextStyle(
+                  fontWeight: FontWeight.w800,
+                ),
+              ),
+              SizedBox(height: 4.0),
+              Row(
                 children: [
+                  StreamBuilder(
+                    stream: likesRef
+                        .where('postId', isEqualTo: widget.post.postId)
+                        .snapshots(),
+                    builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                      if (snapshot.hasData) {
+                        QuerySnapshot snap = snapshot.data;
+                        List<DocumentSnapshot> docs = snap.docs;
+                        return buildLikesCount(context, docs?.length ?? 0);
+                      } else {
+                        return buildLikesCount(context, 0);
+                      }
+                    },
+                  ),
+                  buildLikeButton(),
+                  Spacer(),
                   Text(
-                    widget.post.description,
-                    style: TextStyle(
-                      fontWeight: FontWeight.w800,
+                    timeago.format(
+                      widget.post.timestamp.toDate(),
                     ),
+                    style: TextStyle(),
                   ),
-                  SizedBox(height: 4.0),
-                  Row(
-                    children: [
-                      Text(
-                        timeago.format(widget.post.timestamp.toDate()),
-                        style: TextStyle(),
-                      ),
-                      SizedBox(width: 3.0),
-                      StreamBuilder(
-                        stream: likesRef
-                            .where('postId', isEqualTo: widget.post.postId)
-                            .snapshots(),
-                        builder:
-                            (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                          if (snapshot.hasData) {
-                            QuerySnapshot snap = snapshot.data;
-                            List<DocumentSnapshot> docs = snap.docs;
-                            return buildLikesCount(context, docs?.length ?? 0);
-                          } else {
-                            return buildLikesCount(context, 0);
-                          }
-                        },
-                      ),
-                    ],
-                  ),
+                  SizedBox(width: 3.0),
                 ],
               ),
-              Spacer(),
-              buildLikeButton(),
             ],
           ),
         ),
