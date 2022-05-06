@@ -51,30 +51,34 @@ class FavDrugModel {
   String drugElimination;
   @HiveField(23)
   String drugClearance;
+  // @HiveField(24)
+  // String savedTime;
 
-  FavDrugModel(
-      {this.productID,
-      this.drugbankID,
-      this.productName,
-      this.productLabeller,
-      this.productImage,
-      this.productCode,
-      this.productRoute,
-      this.productStrength,
-      this.productdosage,
-      this.approved,
-      this.otc,
-      this.generic,
-      this.country,
-      this.drugName,
-      this.drugDescription,
-      this.drugState,
-      this.drugIndication,
-      this.drugPharmaco,
-      this.drugMechan,
-      this.drugToxicity,
-      this.drugMetabolism,
-      this.drugHalflife,
-      this.drugElimination,
-      this.drugClearance});
+  FavDrugModel({
+    this.productID,
+    this.drugbankID,
+    this.productName,
+    this.productLabeller,
+    this.productImage,
+    this.productCode,
+    this.productRoute,
+    this.productStrength,
+    this.productdosage,
+    this.approved,
+    this.otc,
+    this.generic,
+    this.country,
+    this.drugName,
+    this.drugDescription,
+    this.drugState,
+    this.drugIndication,
+    this.drugPharmaco,
+    this.drugMechan,
+    this.drugToxicity,
+    this.drugMetabolism,
+    this.drugHalflife,
+    this.drugElimination,
+    this.drugClearance,
+    // this.savedTime,
+  });
 }

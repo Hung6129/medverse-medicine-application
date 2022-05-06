@@ -41,13 +41,14 @@ class FavDrugModelAdapter extends TypeAdapter<FavDrugModel> {
       drugHalflife: fields[21] as String,
       drugElimination: fields[22] as String,
       drugClearance: fields[23] as String,
+      // savedTime: fields[24] as String,
     );
   }
 
   @override
   void write(BinaryWriter writer, FavDrugModel obj) {
     writer
-      ..writeByte(24)
+      ..writeByte(25)
       ..writeByte(0)
       ..write(obj.productID)
       ..writeByte(1)
@@ -96,6 +97,8 @@ class FavDrugModelAdapter extends TypeAdapter<FavDrugModel> {
       ..write(obj.drugElimination)
       ..writeByte(23)
       ..write(obj.drugClearance);
+    // ..writeByte(24)
+    // ..write(obj.savedTime);
   }
 
   @override

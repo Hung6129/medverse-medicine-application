@@ -4,10 +4,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 class Constants {
   /// DrugDB URL
   static const String PRODUCTNAME_TYPE_AHEAD =
-      "http://192.168.1.14:8080/products/name?name=";
+      "http://192.168.1.14:8081/api/products/name?name=";
   // Top10 popular drug
   static const String PRODUCT_POPULAR_TOP_10 =
-      "http://192.168.1.14:8080/products/name?name=hung";
+      "http://192.168.1.14:8081/api/products/name?name=hung";
   // Top10 recommended drug
   // static const String PRODUCT_RECOMMENDED_TOP_10 =
   //     "http://192.168.1.4:8080/products/name?name=para";

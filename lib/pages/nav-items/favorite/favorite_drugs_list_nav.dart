@@ -1,7 +1,5 @@
 import 'package:medverse_mobile_app/models/drug_bank_db/fav_drug_model.dart';
-import 'package:medverse_mobile_app/widgets/header.dart';
-
-import '../../detail_screen/fav_drug_details.dart';
+import 'fav_drug_details.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import '/theme/palette.dart';
 import '/widgets/app_text.dart';
@@ -163,9 +161,17 @@ class _FavoriteDrugsListScreenNavState
                                                     fontWeight:
                                                         FontWeight.normal,
                                                   ),
-                                                  SizedBox(
-                                                    height: Dimensions.height10,
-                                                  ),
+                                                  // SizedBox(
+                                                  //   height: Dimensions.height10,
+                                                  // ),
+                                                  // AppText(
+                                                  //   text: _item.savedTime
+                                                  //       .toString(),
+                                                  //   color: Palette.textNo,
+                                                  //   size: Dimensions.font16,
+                                                  //   fontWeight:
+                                                  //       FontWeight.normal,
+                                                  // ),
                                                 ],
                                               ),
                                             ),
