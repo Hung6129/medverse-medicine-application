@@ -258,6 +258,7 @@ class MobileTextTheme implements AppTextTheme {
   final introTitleFont = GoogleFonts.oswald(
     fontSize: 20,
     color: Palette.textNo,
+    fontWeight: FontWeight.bold
   );
 
   /// Using for health profile UI
