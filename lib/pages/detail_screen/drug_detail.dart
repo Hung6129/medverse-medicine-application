@@ -22,7 +22,6 @@ class DrugDetails extends StatefulWidget {
 }
 
 class _DrugDetailsState extends State<DrugDetails> {
-  
   // Hive box
   var _box = Hive.box<FavDrugModel>("fav-list");
 
@@ -34,15 +33,49 @@ class _DrugDetailsState extends State<DrugDetails> {
     if (_box.containsKey(id)) {
       return Icon(CupertinoIcons.heart_fill, color: Colors.red);
     } else {
-      return Icon(CupertinoIcons.heart);
+      return Icon(CupertinoIcons.heart, color: Colors.red);
     }
+  }
+
+  // Show Dialog
+  showAlertDialog(BuildContext context, String id) {
+    // set up the buttons
+    Widget cancelButton = TextButton(
+      child: Text("Huỷ"),
+      onPressed: () {
+        Navigator.of(context).pop();
+      },
+    );
+    Widget continueButton = TextButton(
+      child: Text("Bỏ lưu"),
+      onPressed: () {
+        _box.delete(id);
+      },
+    );
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: Text(""),
+      content: Text("Bạn có chắc muốn bỏ lưu thuốc này ?"),
+      actions: [
+        cancelButton,
+        continueButton,
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
   }
 
   // Heart on tap evnent
   onFavoriteTap(String id) {
     if (_box.containsKey(id)) {
-      _box.delete(id);
-      return print("Deleted");
+      showAlertDialog(this.context, id);
     } else {
       var info = widget.drugData;
       FavDrugModel data = FavDrugModel(
@@ -70,6 +103,7 @@ class _DrugDetailsState extends State<DrugDetails> {
         drugPharmaco: info.drugPharmaco,
         drugState: info.drugState,
         drugToxicity: info.drugToxicity,
+        // savedTime: DateTime.now().toString(),
       );
       _box.put(info.productID, data);
       Fluttertoast.showToast(

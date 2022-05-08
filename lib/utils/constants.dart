@@ -4,17 +4,21 @@ import 'package:shared_preferences/shared_preferences.dart';
 class Constants {
   /// DrugDB URL
   static const String PRODUCTNAME_TYPE_AHEAD =
-      "http://192.168.11.131:8080/products/name?name=";
+      "http://192.168.1.14:8081/api/products/name?name=";
   // Top10 popular drug
   static const String PRODUCT_POPULAR_TOP_10 =
-      "http://192.168.11.131:8080/products/name?name=hung";
+      "http://192.168.1.14:8081/api/products/name?name=hung";
   // Top10 recommended drug
   // static const String PRODUCT_RECOMMENDED_TOP_10 =
   //     "http://192.168.1.4:8080/products/name?name=para";
 
-  // Pill identifier
+  /// Pill identifier
   static const String PILL_IDENTIFIER_SIZE =
       "http://192.168.11.131:8080/pills/size?sz=";
+
+  /// Pill identifier
+  static const String INTERACTION_CHECKER =
+      "http://localhost:8081/api/interactions/checkByTwoIDs?firstID=DB00010&secondID=DB00029";
 
   /// Colors for theme
   static Color lightPrimary = Color(0xfff3f4f9);
@@ -97,9 +101,11 @@ class Constants {
   static const tutorial1 = 'assets/grid_view_images/how-to-parse-json.webp';
   static const tutorial2 = 'assets/grid_view_images/side-effects.webp';
   static const tutorial3 = 'assets/grid_view_images/split-view.webp';
-  static const tutorial4 = 'assets/grid_view_images/learn-flutter-animations.webp';
+  static const tutorial4 =
+      'assets/grid_view_images/learn-flutter-animations.webp';
 
-  static const dartCourse = 'assets/grid_view_images/dart-course-banner-small.webp';
+  static const dartCourse =
+      'assets/grid_view_images/dart-course-banner-small.webp';
   static const flutterAnimationsCourse =
       'assets/grid_view_images/flutter-animations-course-banner-small.webp';
   static const flutterFirebaseCourse =
@@ -109,7 +115,6 @@ class Constants {
 
   static const iconStar = 'assets/grid_view_images/icon-star.svg';
   static const andreaAvatar = 'assets/grid_view_images/andrea-avatar.webp';
-
 }
 
 class ThemeNotifier extends ChangeNotifier {
