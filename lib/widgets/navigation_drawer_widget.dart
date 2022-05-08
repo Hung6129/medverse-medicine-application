@@ -18,7 +18,7 @@ import '/pages/drawer-items/medicine_dictionary/pages/medicine_dictionary.dart';
 import '/pages/drawer-items/health_profile/pages/health_profile.dart';
 import '/pages/drawer-items/drug_recommendation/pages/drug_recommedation.dart';
 import '/pages/drawer-items/introduction_side/pages/intro_slider_screen.dart';
-import '/pages/drawer-items/firestore_images/pages/load_images_from_firebase_storage.dart';
+import '/pages/drawer-items/disclaimer/pages/disclaimer.dart';
 
 class NavigationDrawerWidget extends StatefulWidget {
   const NavigationDrawerWidget({Key key}) : super(key: key);
@@ -155,12 +155,12 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
                       ),
                       buildMenuItem(
                         text: 'Từ điển y học',
-                        icon: Icons.health_and_safety_outlined,
+                        icon: Icons.list_alt_outlined,
                         onClicked: () => selectedItem(context, 7),
                       ),
                       buildMenuItem(
                         text: 'Hồ sơ sức khỏe',
-                        icon: Icons.list_alt_outlined,
+                        icon: Icons.health_and_safety_outlined,
                         onClicked: () => selectedItem(context, 8),
                       ),
                       Divider(color: Palette.grey),
@@ -233,12 +233,12 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
                       ),
                       buildMenuItem(
                         text: 'Từ điển y học',
-                        icon: Icons.health_and_safety_outlined,
+                        icon: Icons.list_alt_outlined,
                         onClicked: () => selectedItem(context, 7),
                       ),
                       buildMenuItem(
                         text: 'Hồ sơ sức khỏe',
-                        icon: Icons.list_alt_outlined,
+                        icon: Icons.health_and_safety_outlined,
                         onClicked: () => selectedItem(context, 8),
                       ),
                       Divider(color: Palette.grey),
@@ -416,7 +416,7 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
       case 11:
         Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (context) => LoadFirbaseStorageImage(),
+            builder: (context) => Disclaimer(),
           ),
         );
         break;

@@ -1,9 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
-import 'package:medverse_mobile_app/theme/palette.dart';
-import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:provider/provider.dart';
+import 'package:modal_progress_hud/modal_progress_hud.dart';
+import '/theme/palette.dart';
+import '/utils/app_text_theme.dart';
 import '/auth/login/login.dart';
 import '/components/password_text_field.dart';
 import '/components/text_form_builder.dart';
@@ -31,10 +32,7 @@ class _RegisterState extends State<Register> {
             SizedBox(height: 10.0),
             Text(
               'Chào mừng đến với ứng dụng Medverse. Hãy tạo tài khoản để tìm kiếm thông tin thuốc',
-              style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18.0,
-                  fontFamily: 'Roboto-Regular'),
+              style: MobileTextTheme().registerIntroText,
             ),
             SizedBox(height: 30.0),
             buildForm(viewModel, context),
@@ -44,18 +42,19 @@ class _RegisterState extends State<Register> {
               children: [
                 Text(
                   'Đã có tài khoản?  ',
+                  style: MobileTextTheme().forgotPassword,
                 ),
                 GestureDetector(
                   onTap: () {
-                    Navigator.of(context)
-                        .push(CupertinoPageRoute(builder: (_) => Login()));
+                    Navigator.of(context).push(
+                      CupertinoPageRoute(
+                        builder: (_) => Login(),
+                      ),
+                    );
                   },
                   child: Text(
                     'Đăng nhập',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Palette.mainBlueTheme,
-                    ),
+                    style: MobileTextTheme().registerText,
                   ),
                 ),
               ],
@@ -150,16 +149,12 @@ class _RegisterState extends State<Register> {
                     borderRadius: BorderRadius.circular(40.0),
                   ),
                 ),
-                backgroundColor: MaterialStateProperty.all<Color>(
-                    Palette.mainBlueTheme),
+                backgroundColor:
+                    MaterialStateProperty.all<Color>(Palette.mainBlueTheme),
               ),
               child: Text(
                 'Đăng ký',
-                style: TextStyle(
-                  color: Palette.whiteText,
-                  fontSize: 12.0,
-                  fontWeight: FontWeight.w600,
-                ),
+                style: MobileTextTheme().loginButton,
               ),
               onPressed: () => viewModel.register(context),
             ),

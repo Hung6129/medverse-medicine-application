@@ -14,7 +14,7 @@ class Constants {
 
   /// Pill identifier
   static const String PILL_IDENTIFIER_SIZE =
-      "http://192.168.1.120:8080/pills/size?sz=";
+      "http://192.168.11.131:8080/pills/size?sz=";
 
   /// Pill identifier
   static const String INTERACTION_CHECKER =

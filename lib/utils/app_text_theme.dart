@@ -21,6 +21,19 @@ abstract class AppTextTheme {
 
   TextStyle get drawerHeaderTextStyle;
 
+  /// Using for login UI
+  TextStyle get welcomeBack;
+
+  TextStyle get loginToContinue;
+
+  TextStyle get registerText;
+
+  TextStyle get registerIntroText;
+
+  TextStyle get forgotPassword;
+
+  TextStyle get loginButton;
+
   /// Using for all current user name title
   TextStyle get currentUsernameTitle;
 
@@ -99,7 +112,9 @@ abstract class AppTextTheme {
 
   TextStyle get fabContainerContent;
 
-  static final oswaldTextStyle = GoogleFonts.oswald();
+  static final oswaldTextStyle = GoogleFonts.oswald(
+    color: Palette.textNo,
+  );
 }
 
 class MobileTextTheme implements AppTextTheme {
@@ -149,6 +164,46 @@ class MobileTextTheme implements AppTextTheme {
   final drawerHeaderTextStyle = GoogleFonts.oswald(
     color: Palette.p1,
     fontWeight: FontWeight.w500,
+  );
+
+  /// Using for login UI
+  @override
+  final welcomeBack = GoogleFonts.oswald(
+    fontSize: 23.0,
+    fontWeight: FontWeight.w900,
+    color: Palette.textNo,
+  );
+
+  @override
+  final loginToContinue = GoogleFonts.oswald(
+    fontSize: 12.0,
+    fontWeight: FontWeight.w300,
+    color: Palette.textNo,
+  );
+
+  @override
+  final registerText = GoogleFonts.oswald(
+    fontWeight: FontWeight.bold,
+    color: Palette.mainBlueTheme,
+  );
+
+  @override
+  final registerIntroText = GoogleFonts.oswald(
+    fontWeight: FontWeight.bold,
+    fontSize: 18.0,
+  );
+
+  @override
+  final forgotPassword = GoogleFonts.oswald(
+    fontWeight: FontWeight.bold,
+    color: Palette.textNo,
+  );
+
+  @override
+  final loginButton = GoogleFonts.oswald(
+    fontSize: 12.0,
+    fontWeight: FontWeight.w600,
+    color: Palette.whiteText,
   );
 
   /// Using for all current user name title
@@ -219,7 +274,10 @@ class MobileTextTheme implements AppTextTheme {
 
   @override
   final subheadAllCaps = GoogleFonts.lato(
-      fontSize: 14, fontWeight: FontWeight.normal, letterSpacing: 2.5);
+    fontSize: 14,
+    fontWeight: FontWeight.normal,
+    letterSpacing: 2.5,
+  );
 
   @override
   final kLargeButtonTextStyle = GoogleFonts.oswald(
@@ -243,10 +301,16 @@ class MobileTextTheme implements AppTextTheme {
 
   @override
   final kBMITextStyle = GoogleFonts.oswald(
-      fontSize: 100.0, fontWeight: FontWeight.bold, color: Palette.p1);
+    fontSize: 100.0,
+    fontWeight: FontWeight.bold,
+    color: Palette.p1,
+  );
 
   @override
-  final kBodyTextStyle = GoogleFonts.oswald(fontSize: 22.0, color: Palette.p1);
+  final kBodyTextStyle = GoogleFonts.oswald(
+    fontSize: 22.0,
+    color: Palette.p1,
+  );
 
   @override
   final introContentFont = GoogleFonts.oswald(
@@ -258,6 +322,7 @@ class MobileTextTheme implements AppTextTheme {
   final introTitleFont = GoogleFonts.oswald(
     fontSize: 20,
     color: Palette.textNo,
+    fontWeight: FontWeight.bold,
   );
 
   /// Using for health profile UI
