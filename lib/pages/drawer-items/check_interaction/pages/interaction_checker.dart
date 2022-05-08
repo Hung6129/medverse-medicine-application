@@ -145,7 +145,7 @@ class _InteractionCheckerState extends State<InteractionChecker> {
                               title: AppTextTitle(
                                   text: suggestion.productName,
                                   color: Colors.black54,
-                                  size: Dimensions.font18,
+                                  size: Dimensions.font16,
                                   fontWeight: FontWeight.normal),
                             );
                           },
@@ -165,10 +165,7 @@ class _InteractionCheckerState extends State<InteractionChecker> {
                       ],
                     ),
                   ),
-
-                  SizedBox(
-                    height: Dimensions.height10,
-                  ),
+                  SizedBox(height: Dimensions.height10),
 
                   // List Box Items
                   Container(
@@ -227,7 +224,6 @@ class _InteractionCheckerState extends State<InteractionChecker> {
                       ),
                     ),
                   ),
-
                   SizedBox(height: Dimensions.height10),
 
                   // Check Interaction btn
