@@ -38,7 +38,6 @@ class CompareResult extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Container(),
             SizedBox(
               height: Dimensions.height10,
             ),
@@ -52,7 +51,7 @@ class CompareResult extends StatelessWidget {
                 TableRow(children: [
                   _buildBox("Penicillin", 50),
                   SizedBox(),
-                  _buildBox("Morphin", 50)
+                  _buildBox("Morphin", 50),
                 ]),
                 TableRow(
                   children: [
