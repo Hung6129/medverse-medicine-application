@@ -1,15 +1,11 @@
 import 'package:animations/animations.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_icons/flutter_icons.dart';
 import 'package:medverse_mobile_app/theme/palette.dart';
 import '/pages/nav-items/favorite/favorite_drugs_list_nav.dart';
 import '/widgets/navigation_drawer_widget.dart';
-import '/components/fab_container.dart';
 import '/pages/nav-items/notification/pages/notification.dart';
 import '/pages/nav-items/home/pages/home_screen.dart';
-import '../pages/nav-items/search/pages/search.dart';
 import '/pages/nav-items/feeds/pages/feeds.dart';
 
 class TabScreen extends StatefulWidget {
@@ -27,12 +23,6 @@ class _TabScreenState extends State<TabScreen> {
       'page': HomeScreen(),
       'index': 0,
     },
-    // {
-    //   'title': 'Tìm kiếm người dùng',
-    //   'icon': CupertinoIcons.group_solid,
-    //   'page': Search(),
-    //   'index': 1,
-    // },
     {
       'title': 'Đã lưu',
       'icon': CupertinoIcons.square_favorites_alt_fill,

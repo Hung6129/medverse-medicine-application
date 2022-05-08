@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
-import 'package:medverse_mobile_app/theme/palette.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:provider/provider.dart';
+import '/theme/palette.dart';
+import '/utils/app_text_theme.dart';
 import '/components/custom_image.dart';
 import '/view_models/auth/posts_view_model.dart';
 import '/widgets/indicators.dart';
@@ -86,6 +87,7 @@ class _ProfilePictureState extends State<ProfilePicture> {
                   child: Center(
                     child: Text(
                       'Đã hoàn tất',
+                      style: AppTextTheme.oswaldTextStyle,
                     ),
                   ),
                   onPressed: () => viewModel.uploadProfilePicture(context),
