@@ -1,3 +1,6 @@
+import 'package:google_fonts/google_fonts.dart';
+import 'package:medverse_mobile_app/utils/app_text_theme.dart';
+
 import '/models/post.dart';
 import '/theme/palette.dart';
 import 'package:flutter/material.dart';
@@ -90,7 +93,9 @@ class _EditItemFormState extends State<EditItemForm> {
                                   selectImage(ImageSource.camera);
                                 },
                                 icon: const Icon(UniconsLine.camera),
-                                label: const Text('Chọn từ Máy ảnh'),
+                                label: const Text(
+                                  'Chọn từ Máy ảnh',
+                                ),
                               ),
                               const Divider(),
                               TextButton.icon(
@@ -138,10 +143,7 @@ class _EditItemFormState extends State<EditItemForm> {
                   ),
                   Text(
                     'Mô tả bài viết'.toUpperCase(),
-                    style: TextStyle(
-                      fontSize: 15.0,
-                      fontWeight: FontWeight.w600,
-                    ),
+                    style: MobileTextTheme().inputDescriptionAndLocationTitle,
                   ),
                   CustomFormField(
                     maxLines: null,
@@ -163,10 +165,7 @@ class _EditItemFormState extends State<EditItemForm> {
                   SizedBox(height: 20.0),
                   Text(
                     'Vị trí'.toUpperCase(),
-                    style: TextStyle(
-                      fontSize: 15.0,
-                      fontWeight: FontWeight.w600,
-                    ),
+                    style: MobileTextTheme().inputDescriptionAndLocation,
                   ),
                   CustomFormField(
                     maxLines: null,
@@ -200,18 +199,13 @@ class _EditItemFormState extends State<EditItemForm> {
                     ),
                   )
                 : Container(
-                    width: double.maxFinite,
-                    child: ElevatedButton(
-                      style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(
-                          Palette.mainBlueTheme,
-                        ),
-                        shape: MaterialStateProperty.all(
-                          RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30),
-                          ),
-                        ),
-                      ),
+                    width: 350,
+                    height: 50,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      color: Palette.mainBlueTheme,
+                    ),
+                    child: TextButton(
                       onPressed: () async {
                         widget.titleFocusNode.unfocus();
                         widget.descriptionFocusNode.unfocus();
@@ -238,20 +232,9 @@ class _EditItemFormState extends State<EditItemForm> {
                           Navigator.of(context).pop();
                         }
                       },
-                      child: Padding(
-                        padding: EdgeInsets.only(
-                          top: 16.0,
-                          bottom: 16.0,
-                        ),
-                        child: Text(
-                          'Cập nhật bài viết',
-                          style: TextStyle(
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
-                            color: Palette.whiteText,
-                            letterSpacing: 2,
-                          ),
-                        ),
+                      child: Text(
+                        'Cập nhật bài viết',
+                        style: MobileTextTheme().kLargeButtonTextStyle,
                       ),
                     ),
                   ),

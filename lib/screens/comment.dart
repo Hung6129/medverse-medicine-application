@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -22,6 +24,10 @@ class Comments extends StatefulWidget {
 
 class _CommentsState extends State<Comments> {
   UserModel user;
+
+  List badWord = [
+    'cc', 'fuck', 'dm', 'đệt', 'cặc', 'đụ', 'địt', 'chó', 'đẻ', 'ngu', 'mẹ', 'má', 'fa', 'kè', 'tiệt'
+  ];
 
   PostService services = PostService();
   final DateTime timestamp = DateTime.now();
@@ -113,13 +119,20 @@ class _CommentsState extends State<Comments> {
                         ),
                         trailing: GestureDetector(
                           onTap: () async {
-                            await services.uploadComment(
-                              currentUserId(),
-                              commentsTEC.text,
-                              widget.post.postId,
-                              widget.post.ownerId,
-                              widget.post.mediaUrl,
-                            );
+                            String input = commentsTEC.text;
+
+                            if(cleanComment(input)) {
+                              await services.uploadComment(
+                                currentUserId(),
+                                commentsTEC.text,
+                                widget.post.postId,
+                                widget.post.ownerId,
+                                widget.post.mediaUrl,
+                              );
+                            }
+                            else {
+                              return print('Bad comment');
+                            }
                             commentsTEC.clear();
                           },
                           child: Padding(
@@ -139,6 +152,23 @@ class _CommentsState extends State<Comments> {
         ),
       ),
     );
+  }
+
+  /// Check bad word comment
+  bool cleanComment(String commentInput) {
+    List<String> inputArray = commentInput.split(" ");
+    bool result = true;
+    for(final item in inputArray ) {
+      for(final badWord in badWord) {
+        if(item.toLowerCase() == badWord) {
+          print(item.toLowerCase());
+          print(badWord);
+          print('Test');
+          result = false;
+        }
+      }
+    }
+    return result;
   }
 
   buildFullPost() {

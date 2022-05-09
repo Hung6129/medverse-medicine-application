@@ -1,7 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:medverse_mobile_app/models/user.dart';
-import 'package:medverse_mobile_app/utils/firebase.dart';
+import '/models/user.dart';
+import '/utils/app_text_theme.dart';
+import '/utils/firebase.dart';
 import '/models/post.dart';
 import '/theme/palette.dart';
 import '/pages/nav-items/feeds/widgets/edit_post_form.dart';
@@ -47,7 +48,7 @@ class _EditScreenState extends State<EditPostScreen> {
           backgroundColor: Palette.mainBlueTheme,
           title: Text(
             'Chỉnh sửa bài viết',
-            style: TextStyle(fontWeight: FontWeight.w900),
+            style: MobileTextTheme().appBarStyle,
           ),
           centerTitle: true,
           actions: [
@@ -104,12 +105,11 @@ class _EditScreenState extends State<EditPostScreen> {
                     ),
                     title: Text(
                       user?.username,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style: MobileTextTheme().currentUsernameTitle,
                     ),
                     subtitle: Text(
                       user?.email,
+                      style: MobileTextTheme().currentEmailTitle,
                     ),
                   );
                 } else {

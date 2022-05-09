@@ -4,21 +4,21 @@ import 'package:shared_preferences/shared_preferences.dart';
 class Constants {
   /// DrugDB URL
   static const String PRODUCTNAME_TYPE_AHEAD =
-      "http://192.168.1.14:8081/api/products/name?name=";
+      "http://192.168.1.227:8080/products/name?name=";
   // Top10 popular drug
   static const String PRODUCT_POPULAR_TOP_10 =
-      "http://192.168.1.14:8081/api/products/name?name=hung";
+      "http://192.168.1.227:8080/products/name?name=hung";
   // Top10 recommended drug
   // static const String PRODUCT_RECOMMENDED_TOP_10 =
   //     "http://192.168.1.4:8080/products/name?name=para";
 
   /// Pill identifier
   static const String PILL_IDENTIFIER_SIZE =
-      "http://192.168.11.131:8080/pills/size?sz=";
+      "http://192.168.1.227:8080/pills/size?sz=";
 
   /// Pill identifier
   static const String INTERACTION_CHECKER =
-      "http://localhost:8081/api/interactions/checkByTwoIDs?firstID=DB00010&secondID=DB00029";
+      "http://192.168.1.227:8080/interactions/checkByTwoIDs?firstID=DB00010&secondID=DB00029";
 
   /// Colors for theme
   static Color lightPrimary = Color(0xfff3f4f9);
