@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
-import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
 import '/pages/nav-items/home/bloc/home_screen_bloc.dart';
 import '/routes/app_routes.dart';

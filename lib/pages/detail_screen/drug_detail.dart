@@ -25,6 +25,9 @@ class _DrugDetailsState extends State<DrugDetails> {
   // Hive box
   var _box = Hive.box<FavDrugModel>("fav-list");
 
+  // Close hive box
+
+
   // Test images
   String imagesFav = "assets/images/drugs_pill/300.jpg";
 
