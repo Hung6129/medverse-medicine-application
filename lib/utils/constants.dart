@@ -4,7 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class Constants {
   /// DrugDB URL
   static const String PRODUCTNAME_TYPE_AHEAD =
-      "http://192.168.1.14:8081/api/products/name?name=";
+      "http://192.168.1.227:8080/products/name?name=";
   // Top10 popular drug
   static const String PRODUCT_POPULAR_TOP_10 =
       "http://192.168.1.14:8081/api/products/name?name=hung";
@@ -19,7 +19,7 @@ class Constants {
 
   /// Pill identifier
   static const String INTERACTION_CHECKER =
-      "http://localhost:8081/api/interactions/checkByTwoIDs?firstID=DB00010&secondID=DB00029";
+      "http://192.168.1.227:8080/interactions/checkByTwoIDs?firstID=DB00010&secondID=DB00029";
 
   /// Colors for theme
   static Color lightPrimary = Color(0xfff3f4f9);

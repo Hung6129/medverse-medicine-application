@@ -3,6 +3,7 @@ import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
+import 'package:medverse_mobile_app/utils/validation.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:provider/provider.dart';
 import '/utils/app_text_theme.dart';
@@ -21,6 +22,8 @@ class CreatePost extends StatefulWidget {
 class _CreatePostState extends State<CreatePost> {
   @override
   Widget build(BuildContext context) {
+    GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
     currentUserId() {
       return firebaseAuth.currentUser.uid;
     }
@@ -52,6 +55,7 @@ class _CreatePostState extends State<CreatePost> {
             centerTitle: true,
             actions: [
               GestureDetector(
+                key: formKey,
                 onTap: () async {
                   await viewModel.uploadPosts(context);
                   Navigator.pushReplacementNamed(context, "/social");
@@ -132,55 +136,73 @@ class _CreatePostState extends State<CreatePost> {
                 ),
               ),
               SizedBox(height: 20.0),
-              Text(
-                'Mô tả bài viết'.toUpperCase(),
-                style: MobileTextTheme().inputDescriptionAndLocationTitle,
-              ),
-              TextFormField(
-                style: MobileTextTheme().inputDescriptionAndLocation,
-                initialValue: viewModel.description,
-                decoration: InputDecoration(
-                  hintText: 'Eg. Đây là một bức hình đẹp',
-                  focusedBorder: UnderlineInputBorder(),
-                ),
-                maxLines: null,
-                onChanged: (val) => viewModel.setDescription(val),
-              ),
-              SizedBox(height: 20.0),
-              Text(
-                'Vị trí'.toUpperCase(),
-                style: MobileTextTheme().inputDescriptionAndLocationTitle,
-              ),
-              ListTile(
-                contentPadding: EdgeInsets.all(0.0),
-                title: Container(
-                  width: 250.0,
-                  child: TextFormField(
-                    style: MobileTextTheme().inputDescriptionAndLocation,
-                    controller: viewModel.locationTEC,
-                    decoration: InputDecoration(
-                      contentPadding: EdgeInsets.all(0.0),
-                      hintText: 'Việt Nam, Hồ Chí Minh',
-                      focusedBorder: UnderlineInputBorder(),
-                    ),
-                    maxLines: null,
-                    onChanged: (val) => viewModel.setLocation(val),
-                  ),
-                ),
-                trailing: IconButton(
-                  tooltip: "Sử dụng vị trí hiện tại của bạn",
-                  icon: Icon(
-                    CupertinoIcons.map_pin_ellipse,
-                    size: 25.0,
-                  ),
-                  iconSize: 30.0,
-                  color: Palette.mainBlueTheme,
-                  onPressed: () => viewModel.getLocation(),
-                ),
-              ),
+              buildForm(context, viewModel),
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  buildForm(BuildContext context, PostsViewModel viewModel) {
+    return Form(
+      key: viewModel.formKey,
+      child: Column(
+        children: [
+          Text(
+            'Mô tả bài viết'.toUpperCase(),
+            style: MobileTextTheme().inputDescriptionAndLocationTitle,
+          ),
+          TextFormField(
+            style: MobileTextTheme().inputDescriptionAndLocation,
+            initialValue: viewModel.description,
+            decoration: InputDecoration(
+              hintText: 'Eg. Đây là một bức hình đẹp',
+              focusedBorder: UnderlineInputBorder(),
+            ),
+            validator: (value) {
+              Validations.validateDescription(
+                value: value,
+              );
+              viewModel.setDescription(value);
+              return null;
+            },
+            maxLines: null,
+            onChanged: (val) => viewModel.setDescription(val),
+          ),
+          SizedBox(height: 20.0),
+          Text(
+            'Vị trí'.toUpperCase(),
+            style: MobileTextTheme().inputDescriptionAndLocationTitle,
+          ),
+          ListTile(
+            contentPadding: EdgeInsets.all(0.0),
+            title: Container(
+              width: 250.0,
+              child: TextFormField(
+                style: MobileTextTheme().inputDescriptionAndLocation,
+                controller: viewModel.locationTEC,
+                decoration: InputDecoration(
+                  contentPadding: EdgeInsets.all(0.0),
+                  hintText: 'Việt Nam, Hồ Chí Minh',
+                  focusedBorder: UnderlineInputBorder(),
+                ),
+                maxLines: null,
+                onChanged: (val) => viewModel.setLocation(val),
+              ),
+            ),
+            trailing: IconButton(
+              tooltip: "Sử dụng vị trí hiện tại của bạn",
+              icon: Icon(
+                CupertinoIcons.map_pin_ellipse,
+                size: 25.0,
+              ),
+              iconSize: 30.0,
+              color: Palette.mainBlueTheme,
+              onPressed: () => viewModel.getLocation(),
+            ),
+          ),
+        ],
       ),
     );
   }

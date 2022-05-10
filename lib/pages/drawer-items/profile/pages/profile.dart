@@ -3,7 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
-import 'package:medverse_mobile_app/widgets/dimension.dart';
+import '/utils/app_text_theme.dart';
+import '/widgets/dimension.dart';
 import '/theme/palette.dart';
 import '/auth/register/register.dart';
 import '/components/stream_builder_wrapper.dart';
@@ -69,6 +70,7 @@ class _ProfileState extends State<Profile> {
         title: Expanded(
           child: Text(
             'Thông tin tài khoản',
+            style: MobileTextTheme().appBarStyle,
           ),
         ),
         actions: [
@@ -87,10 +89,7 @@ class _ProfileState extends State<Profile> {
                       },
                       child: Text(
                         'Đăng xuất',
-                        style: TextStyle(
-                          fontWeight: FontWeight.w900,
-                          fontSize: 10.0,
-                        ),
+                        style: MobileTextTheme().appBarActionButton,
                       ),
                     ),
                   ),

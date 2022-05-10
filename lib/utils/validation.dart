@@ -27,4 +27,15 @@ class Validations {
     }
     return null;
   }
+
+  static String validateDescription({String value}) {
+    if (value.isEmpty) {
+      return 'TextField cannot be empty';
+    }
+    return null;
+  }
+
+  static List badWord = [
+    'cc', 'fuck', 'dm', 'đệt', 'cặc', 'đụ', 'địt', 'chó', 'đẻ', 'ngu', 'mẹ', 'má', 'fa', 'kè', 'tiệt'
+  ];
 }

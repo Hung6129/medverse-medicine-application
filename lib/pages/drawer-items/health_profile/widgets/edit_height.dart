@@ -62,7 +62,7 @@ class _EditHealthProfilePageState extends State<EditHeight> {
           color: Palette.textNo,
         ),
         contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
-        hintText: "Mờ bạn chiều cao",
+        hintText: "Mời bạn chiều cao",
         hintStyle: TextStyle(color: Palette.textNo),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),

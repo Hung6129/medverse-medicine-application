@@ -44,10 +44,7 @@ class _ActivitiesState extends State<Activities> {
                 onTap: () => deleteAllItems(),
                 child: Text(
                   'Xóa',
-                  style: TextStyle(
-                    fontSize: 13.0,
-                    fontWeight: FontWeight.w900,
-                  ),
+                  style: MobileTextTheme().appBarActionButton,
                 ),
               ),
             ),
