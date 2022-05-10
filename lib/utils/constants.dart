@@ -8,13 +8,14 @@ class Constants {
   // Top10 popular drug
   static const String PRODUCT_POPULAR_TOP_10 =
       "http://192.168.1.14:8081/api/products/name?name=hung";
+
   // Top10 recommended drug
   // static const String PRODUCT_RECOMMENDED_TOP_10 =
   //     "http://192.168.1.4:8080/products/name?name=para";
 
   /// Pill identifier
   static const String PILL_IDENTIFIER_SIZE =
-      "http://192.168.11.131:8080/pills/size?sz=";
+      "http://192.168.1.14:8080/pills/size?sz=";
 
   /// Pill identifier
   static const String INTERACTION_CHECKER =

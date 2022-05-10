@@ -13,8 +13,8 @@ import 'models/drug_bank_db/fav_drug_model.dart';
 
 void main() async {
   await Hive.initFlutter();
-  Hive.registerAdapter<FavDrugModel>((FavDrugModelAdapter()));
   await Hive.openBox<FavDrugModel>("fav-list");
+  Hive.registerAdapter<FavDrugModel>((FavDrugModelAdapter()));
   // await Hive.openBox("search-cache");
   WidgetsFlutterBinding.ensureInitialized();
   await Config.initFirebase();
