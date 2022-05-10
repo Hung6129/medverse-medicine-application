@@ -3,9 +3,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:medverse_mobile_app/theme/palette.dart';
+import 'package:medverse_mobile_app/utils/validation.dart';
 import '/models/post.dart';
 import '/screens/mainscreen.dart';
 import '/services/post_service.dart';
@@ -30,6 +32,7 @@ class PostsViewModel extends ChangeNotifier {
   File mediaUrl;
   final picker = ImagePicker();
   String location;
+  bool validate = false;
   Position position;
   Placemark placemark;
   String bio;
@@ -155,12 +158,22 @@ class PostsViewModel extends ChangeNotifier {
 
   uploadPosts(BuildContext context) async {
     try {
-      loading = true;
-      notifyListeners();
-      await postService.uploadPost(mediaUrl, location, description);
-      loading = false;
-      resetPost();
-      notifyListeners();
+      FormState form = formKey.currentState;
+      form.save();
+      if (form.validate()) {
+        notifyListeners();
+        showInSnackBar(
+          'Vui lòng hoàn thành điền thông tin trước khi đăng nhập. ',
+          context,
+        );
+      } else {
+        loading = true;
+        notifyListeners();
+        await postService.uploadPost(mediaUrl, location, description);
+        loading = false;
+        resetPost();
+        notifyListeners();
+      }
     } catch (e) {
       print(e);
       loading = false;

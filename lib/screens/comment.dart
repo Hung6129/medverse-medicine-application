@@ -1,8 +1,8 @@
-import 'dart:ffi';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import '/utils/validation.dart';
+import '/widgets/awesome_dialog.dart';
 import '/theme/palette.dart';
 import '/utils/app_text_theme.dart';
 import '/components/stream_comments_wrapper.dart';
@@ -24,10 +24,6 @@ class Comments extends StatefulWidget {
 
 class _CommentsState extends State<Comments> {
   UserModel user;
-
-  List badWord = [
-    'cc', 'fuck', 'dm', 'đệt', 'cặc', 'đụ', 'địt', 'chó', 'đẻ', 'ngu', 'mẹ', 'má', 'fa', 'kè', 'tiệt'
-  ];
 
   PostService services = PostService();
   final DateTime timestamp = DateTime.now();
@@ -120,7 +116,6 @@ class _CommentsState extends State<Comments> {
                         trailing: GestureDetector(
                           onTap: () async {
                             String input = commentsTEC.text;
-
                             if(cleanComment(input)) {
                               await services.uploadComment(
                                 currentUserId(),
@@ -131,7 +126,18 @@ class _CommentsState extends State<Comments> {
                               );
                             }
                             else {
-                              return print('Bad comment');
+                              AwesomeDialog(
+                                context: context,
+                                dialogType: DialogType.WARNING,
+                                headerAnimationLoop: false,
+                                animType: AnimType.TOPSLIDE,
+                                showCloseIcon: true,
+                                closeIcon: const Icon(Icons.close_fullscreen_outlined),
+                                title: 'Cảnh báo',
+                                desc:
+                                'Cảnh báo! Nội dung bạn nhập có chứa từ ngữ nghiêm cấm',
+                                btnOkOnPress: () {},
+                              ).show();
                             }
                             commentsTEC.clear();
                           },
@@ -159,7 +165,7 @@ class _CommentsState extends State<Comments> {
     List<String> inputArray = commentInput.split(" ");
     bool result = true;
     for(final item in inputArray ) {
-      for(final badWord in badWord) {
+      for(final badWord in Validations.badWord) {
         if(item.toLowerCase() == badWord) {
           print(item.toLowerCase());
           print(badWord);

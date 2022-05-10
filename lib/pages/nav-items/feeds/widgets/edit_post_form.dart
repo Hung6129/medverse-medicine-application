@@ -194,13 +194,12 @@ class _EditItemFormState extends State<EditItemForm> {
                     ),
                     child: CircularProgressIndicator(
                       valueColor: AlwaysStoppedAnimation<Color>(
-                        Colors.orangeAccent,
+                        Palette.mainBlueTheme,
                       ),
                     ),
                   )
                 : Container(
-                    width: 350,
-                    height: 50,
+                    width: MediaQuery.of(context).size.width,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
                       color: Palette.mainBlueTheme,
@@ -232,9 +231,12 @@ class _EditItemFormState extends State<EditItemForm> {
                           Navigator.of(context).pop();
                         }
                       },
-                      child: Text(
-                        'Cập nhật bài viết',
-                        style: MobileTextTheme().kLargeButtonTextStyle,
+                      child: Padding(
+                        padding: const EdgeInsets.all(2.0),
+                        child: Text(
+                          'Cập nhật bài viết',
+                          style: MobileTextTheme().kLargeButtonTextStyle,
+                        ),
                       ),
                     ),
                   ),
