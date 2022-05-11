@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get_connect/http/src/utils/utils.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:medverse_mobile_app/theme/palette.dart';
@@ -128,7 +129,7 @@ class PostsViewModel extends ChangeNotifier {
     } catch (e) {
       loading = false;
       notifyListeners();
-      showInSnackBar('Hủy bỏ', context);
+      showErrorInSnackBar('Hủy bỏ', context);
     }
   }
 
@@ -160,9 +161,10 @@ class PostsViewModel extends ChangeNotifier {
     try {
       FormState form = formKey.currentState;
       form.save();
-      if (form.validate()) {
+      if (form.validate() && mediaUrl == null) {
         notifyListeners();
-        showInSnackBar(
+        Navigator.of(context).pop();
+        showErrorInSnackBar(
           'Vui lòng hoàn thành điền thông tin trước khi đăng nhập. ',
           context,
         );
@@ -170,6 +172,7 @@ class PostsViewModel extends ChangeNotifier {
         loading = true;
         notifyListeners();
         await postService.uploadPost(mediaUrl, location, description);
+        showActiveInSnackBar('Tạo bài viết thành công!', context);
         loading = false;
         resetPost();
         notifyListeners();
@@ -178,14 +181,13 @@ class PostsViewModel extends ChangeNotifier {
       print(e);
       loading = false;
       resetPost();
-      showInSnackBar('Tạo bài viết thành công!', context);
       notifyListeners();
     }
   }
 
   uploadProfilePicture(BuildContext context) async {
     if (mediaUrl == null) {
-      showInSnackBar('Vui lòng chọn hình ảnh', context);
+      showErrorInSnackBar('Vui lòng chọn hình ảnh', context);
     } else {
       try {
         loading = true;
@@ -199,7 +201,7 @@ class PostsViewModel extends ChangeNotifier {
       } catch (e) {
         print(e);
         loading = false;
-        showInSnackBar('Tải ảnh lên thành công!', context);
+        showActiveInSnackBar('Tải ảnh lên thành công!', context);
         notifyListeners();
       }
     }
@@ -213,8 +215,31 @@ class PostsViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void showInSnackBar(String value, context) {
+  /// This message will show when validation is failed
+  void showErrorInSnackBar(String value, context) {
     ScaffoldMessenger.of(context).removeCurrentSnackBar();
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(value)));
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(
+          value,
+          style: GoogleFonts.oswald(),
+        ),
+        backgroundColor: Palette.red,
+      ),
+    );
+  }
+
+  /// This message will show when validation is successful
+  void showActiveInSnackBar(String value, context) {
+    ScaffoldMessenger.of(context).removeCurrentSnackBar();
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(
+          value,
+          style: GoogleFonts.oswald(),
+        ),
+        backgroundColor: Palette.activeButton,
+      ),
+    );
   }
 }

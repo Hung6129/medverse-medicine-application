@@ -6,6 +6,7 @@ import 'package:flutter_icons/flutter_icons.dart';
 import 'package:medverse_mobile_app/utils/validation.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:provider/provider.dart';
+import '../widgets/awesome_dialog.dart';
 import '/utils/app_text_theme.dart';
 import '/components/custom_image.dart';
 import '/models/user.dart';
@@ -20,6 +21,9 @@ class CreatePost extends StatefulWidget {
 }
 
 class _CreatePostState extends State<CreatePost> {
+  /// Editing Controllers
+  TextEditingController description = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     GlobalKey<FormState> formKey = GlobalKey<FormState>();
@@ -57,9 +61,28 @@ class _CreatePostState extends State<CreatePost> {
               GestureDetector(
                 key: formKey,
                 onTap: () async {
-                  await viewModel.uploadPosts(context);
-                  Navigator.pushReplacementNamed(context, "/social");
-                  viewModel.resetPost();
+                  String input = description.text;
+
+                  if(cleanDescription(input)) {
+                    await viewModel.uploadPosts(context);
+                    Navigator.pushReplacementNamed(context, "/social");
+                    viewModel.resetPost();
+                  }
+                  else {
+                    AwesomeDialog(
+                      context: context,
+                      dialogType: DialogType.WARNING,
+                      headerAnimationLoop: false,
+                      animType: AnimType.TOPSLIDE,
+                      showCloseIcon: true,
+                      closeIcon: const Icon(Icons.close_fullscreen_outlined),
+                      title: 'Cảnh báo!',
+                      desc:
+                      'Oops! Đừng ghi vậy nha bạn. Bạn định ghi vậy thật sao',
+                      descTextStyle: AppTextTheme.oswaldTextStyle,
+                      btnOkOnPress: () {},
+                    ).show();
+                  }
                 },
                 child: Padding(
                   padding:
@@ -99,43 +122,6 @@ class _CreatePostState extends State<CreatePost> {
                   return Container();
                 },
               ),
-              InkWell(
-                onTap: () => showImageChoices(context, viewModel),
-                child: Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.width - 30,
-                  decoration: BoxDecoration(
-                    color: Palette.grey300,
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(5.0),
-                    ),
-                    border: Border.all(
-                      color: Palette.mainBlueTheme,
-                    ),
-                  ),
-                  child: viewModel.imgLink != null
-                      ? CustomImage(
-                          imageUrl: viewModel.imgLink,
-                          width: MediaQuery.of(context).size.width,
-                          height: MediaQuery.of(context).size.width - 30,
-                          fit: BoxFit.cover,
-                        )
-                      : viewModel.mediaUrl == null
-                          ? Center(
-                              child: Text(
-                                'Nhấn vào đây để tải hình ảnh lên',
-                                style: MobileTextTheme().choosePictureRequired,
-                              ),
-                            )
-                          : Image.file(
-                              viewModel.mediaUrl,
-                              width: MediaQuery.of(context).size.width,
-                              height: MediaQuery.of(context).size.width - 30,
-                              fit: BoxFit.cover,
-                            ),
-                ),
-              ),
-              SizedBox(height: 20.0),
               buildForm(context, viewModel),
             ],
           ),
@@ -149,13 +135,50 @@ class _CreatePostState extends State<CreatePost> {
       key: viewModel.formKey,
       child: Column(
         children: [
+          InkWell(
+            onTap: () => showImageChoices(context, viewModel),
+            child: Container(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.width - 30,
+              decoration: BoxDecoration(
+                color: Palette.grey300,
+                borderRadius: BorderRadius.all(
+                  Radius.circular(5.0),
+                ),
+                border: Border.all(
+                  color: Palette.mainBlueTheme,
+                ),
+              ),
+              child: viewModel.imgLink != null
+                  ? CustomImage(
+                imageUrl: viewModel.imgLink,
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.width - 30,
+                fit: BoxFit.cover,
+              )
+                  : viewModel.mediaUrl == null
+                  ? Center(
+                child: Text(
+                  'Nhấn vào đây để tải hình ảnh lên',
+                  style: MobileTextTheme().choosePictureRequired,
+                ),
+              )
+                  : Image.file(
+                viewModel.mediaUrl,
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.width - 30,
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+          SizedBox(height: 20.0),
           Text(
             'Mô tả bài viết'.toUpperCase(),
             style: MobileTextTheme().inputDescriptionAndLocationTitle,
           ),
           TextFormField(
             style: MobileTextTheme().inputDescriptionAndLocation,
-            initialValue: viewModel.description,
+            controller: description,
             decoration: InputDecoration(
               hintText: 'Eg. Đây là một bức hình đẹp',
               focusedBorder: UnderlineInputBorder(),
@@ -164,7 +187,6 @@ class _CreatePostState extends State<CreatePost> {
               Validations.validateDescription(
                 value: value,
               );
-              viewModel.setDescription(value);
               return null;
             },
             maxLines: null,
@@ -205,6 +227,23 @@ class _CreatePostState extends State<CreatePost> {
         ],
       ),
     );
+  }
+
+  /// Check bad word comment
+  bool cleanDescription(String descriptionInput) {
+    List<String> inputArray = descriptionInput.split(" ");
+    bool result = true;
+    for(final item in inputArray ) {
+      for(final badWord in Validations.badWord) {
+        if(item.toLowerCase() == badWord) {
+          print(item.toLowerCase());
+          print(badWord);
+          print('Test');
+          result = false;
+        }
+      }
+    }
+    return result;
   }
 
   /// Show box select image choice
