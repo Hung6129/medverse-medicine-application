@@ -63,12 +63,12 @@ class _CreatePostState extends State<CreatePost> {
                 onTap: () async {
                   String input = description.text;
 
-                  if(cleanDescription(input)) {
+                  if (cleanDescription(input)) {
                     await viewModel.uploadPosts(context);
-                    Navigator.pushReplacementNamed(context, "/social");
+                    Navigator.pop(context);
+                    // Navigator.pushReplacementNamed(context, "/home");
                     viewModel.resetPost();
-                  }
-                  else {
+                  } else {
                     AwesomeDialog(
                       context: context,
                       dialogType: DialogType.WARNING,
@@ -78,7 +78,7 @@ class _CreatePostState extends State<CreatePost> {
                       closeIcon: const Icon(Icons.close_fullscreen_outlined),
                       title: 'Cảnh báo!',
                       desc:
-                      'Oops! Đừng ghi vậy nha bạn. Bạn định ghi vậy thật sao',
+                          'Oops! Đừng ghi vậy nha bạn. Bạn định ghi vậy thật sao',
                       descTextStyle: AppTextTheme.oswaldTextStyle,
                       btnOkOnPress: () {},
                     ).show();
@@ -151,24 +151,24 @@ class _CreatePostState extends State<CreatePost> {
               ),
               child: viewModel.imgLink != null
                   ? CustomImage(
-                imageUrl: viewModel.imgLink,
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.width - 30,
-                fit: BoxFit.cover,
-              )
+                      imageUrl: viewModel.imgLink,
+                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.width - 30,
+                      fit: BoxFit.cover,
+                    )
                   : viewModel.mediaUrl == null
-                  ? Center(
-                child: Text(
-                  'Nhấn vào đây để tải hình ảnh lên',
-                  style: MobileTextTheme().choosePictureRequired,
-                ),
-              )
-                  : Image.file(
-                viewModel.mediaUrl,
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.width - 30,
-                fit: BoxFit.cover,
-              ),
+                      ? Center(
+                          child: Text(
+                            'Nhấn vào đây để tải hình ảnh lên',
+                            style: MobileTextTheme().choosePictureRequired,
+                          ),
+                        )
+                      : Image.file(
+                          viewModel.mediaUrl,
+                          width: MediaQuery.of(context).size.width,
+                          height: MediaQuery.of(context).size.width - 30,
+                          fit: BoxFit.cover,
+                        ),
             ),
           ),
           SizedBox(height: 20.0),
@@ -233,9 +233,9 @@ class _CreatePostState extends State<CreatePost> {
   bool cleanDescription(String descriptionInput) {
     List<String> inputArray = descriptionInput.split(" ");
     bool result = true;
-    for(final item in inputArray ) {
-      for(final badWord in Validations.badWord) {
-        if(item.toLowerCase() == badWord) {
+    for (final item in inputArray) {
+      for (final badWord in Validations.badWord) {
+        if (item.toLowerCase() == badWord) {
           print(item.toLowerCase());
           print(badWord);
           print('Test');

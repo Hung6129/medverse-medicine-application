@@ -173,6 +173,7 @@ class PostsViewModel extends ChangeNotifier {
         notifyListeners();
         await postService.uploadPost(mediaUrl, location, description);
         showActiveInSnackBar('Tạo bài viết thành công!', context);
+        Navigator.pushReplacementNamed(context, "/social");
         loading = false;
         resetPost();
         notifyListeners();

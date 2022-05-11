@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:medverse_mobile_app/models/user.dart';
 import '/services/file_upload_service.dart';
 import '/utils/firebase.dart';
@@ -123,13 +124,13 @@ class PostModel {
   }
 
   Future<void> deletePost({
+    BuildContext context,
     String postId,
   }) async {
     DocumentReference documentReference = postRef.doc(postId);
 
     await documentReference
         .delete()
-        .whenComplete(() => print('Note item deleted from the database'))
-        .catchError((e) => print(e));
+        .whenComplete(() => Navigator.pushReplacementNamed(context, "/social"));
   }
 }
