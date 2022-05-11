@@ -62,8 +62,8 @@ dependencies:
   path: any
   bloc: any
   equatable: any
-  hive: any
-  hive_flutter: any
+  hive: ^2.1.0
+  hive_flutter: ^1.1.0
   http: any
   sqflite: any
 

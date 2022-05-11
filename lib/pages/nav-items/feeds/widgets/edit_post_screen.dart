@@ -77,8 +77,7 @@ class _EditScreenState extends State<EditPostScreen> {
                         showCloseIcon: true,
                         closeIcon: const Icon(Icons.close_fullscreen_outlined),
                         title: 'Thông báo',
-                        desc:
-                        'Bạn có chắc muốn xóa bài viết này?',
+                        desc: 'Bạn có chắc muốn xóa bài viết này?',
                         descTextStyle: AppTextTheme.oswaldTextStyle,
                         btnCancelOnPress: () {},
                         btnOkOnPress: () async {
@@ -88,12 +87,16 @@ class _EditScreenState extends State<EditPostScreen> {
 
                           /// Calling delete post method in Post Manager model
                           await _postModel.deletePost(
+                            context: context,
                             postId: widget.documentId,
                           );
                           setState(() {
                             _isDeleting = false;
                           });
-                          Navigator.pushReplacementNamed(context, "/social");
+                          Navigator.pushReplacementNamed(
+                            context,
+                            "home",
+                          );
                         },
                       ).show();
                     },

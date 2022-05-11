@@ -25,6 +25,12 @@ class _FavoriteDrugsListScreenNavState
   var _box = Hive.box<FavDrugModel>("fav-list");
 
   @override
+  void dispose() {
+    _box.close();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: NavigationDrawerWidget(),

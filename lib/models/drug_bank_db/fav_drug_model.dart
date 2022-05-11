@@ -1,7 +1,7 @@
 import 'package:hive/hive.dart';
 part 'fav_drug_model.g.dart';
 
-@HiveType(typeId: 0)
+@HiveType(typeId: 1)
 class FavDrugModel {
   @HiveField(0)
   String productID;
@@ -51,8 +51,6 @@ class FavDrugModel {
   String drugElimination;
   @HiveField(23)
   String drugClearance;
-  // @HiveField(24)
-  // String savedTime;
 
   FavDrugModel({
     this.productID,
@@ -79,6 +77,5 @@ class FavDrugModel {
     this.drugHalflife,
     this.drugElimination,
     this.drugClearance,
-    // this.savedTime,
   });
 }

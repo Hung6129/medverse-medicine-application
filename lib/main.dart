@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
-import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
 import '/pages/nav-items/home/bloc/home_screen_bloc.dart';
 import '/routes/app_routes.dart';
@@ -14,8 +13,8 @@ import 'models/drug_bank_db/fav_drug_model.dart';
 
 void main() async {
   await Hive.initFlutter();
-  Hive.registerAdapter<FavDrugModel>((FavDrugModelAdapter()));
   await Hive.openBox<FavDrugModel>("fav-list");
+  Hive.registerAdapter<FavDrugModel>((FavDrugModelAdapter()));
   // await Hive.openBox("search-cache");
   WidgetsFlutterBinding.ensureInitialized();
   await Config.initFirebase();
@@ -47,11 +46,7 @@ class _MyAppState extends State<MyApp> {
         debugShowCheckedModeBanner: false,
         // theme: notifier.dark ? Constants.darkTheme : Constants.lightTheme,
         home: MultiBlocProvider(
-          providers: [
-            BlocProvider(
-              create: (context) => HomeScreenBloc(),
-            ),
-          ],
+          providers: [BlocProvider(create: (context) => HomeScreenBloc())],
           child: GetMaterialApp(
             debugShowCheckedModeBanner: false,
             onGenerateRoute: AppRoutes.onGeneratedRoutes,
