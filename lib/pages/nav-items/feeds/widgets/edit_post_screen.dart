@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import '/widgets/awesome_dialog.dart';
 import '/models/user.dart';
 import '/utils/app_text_theme.dart';
 import '/utils/firebase.dart';
@@ -68,18 +69,33 @@ class _EditScreenState extends State<EditPostScreen> {
                   )
                 : IconButton(
                     onPressed: () async {
-                      setState(() {
-                        _isDeleting = true;
-                      });
+                      AwesomeDialog(
+                        context: context,
+                        dialogType: DialogType.ERROR,
+                        headerAnimationLoop: false,
+                        animType: AnimType.TOPSLIDE,
+                        showCloseIcon: true,
+                        closeIcon: const Icon(Icons.close_fullscreen_outlined),
+                        title: 'Thông báo',
+                        desc:
+                        'Bạn có chắc muốn xóa bài viết này?',
+                        descTextStyle: AppTextTheme.oswaldTextStyle,
+                        btnCancelOnPress: () {},
+                        btnOkOnPress: () async {
+                          setState(() {
+                            _isDeleting = true;
+                          });
 
-                      /// Calling delete post method in Post Manager model
-                      await _postModel.deletePost(
-                        postId: widget.documentId,
-                      );
-                      setState(() {
-                        _isDeleting = false;
-                      });
-                      Navigator.of(context).pop();
+                          /// Calling delete post method in Post Manager model
+                          await _postModel.deletePost(
+                            postId: widget.documentId,
+                          );
+                          setState(() {
+                            _isDeleting = false;
+                          });
+                          Navigator.pushReplacementNamed(context, "/social");
+                        },
+                      ).show();
                     },
                     icon: Icon(
                       Icons.delete_forever,

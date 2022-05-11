@@ -1,13 +1,14 @@
-import 'package:medverse_mobile_app/models/drug_bank_db/fav_drug_model.dart';
-import 'package:medverse_mobile_app/pages/nav-items/favorite/fav_drug_details.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import '/utils/app_text_theme.dart';
 import '/theme/palette.dart';
 import '/widgets/app_text.dart';
 import '/widgets/app_text_title.dart';
 import '/widgets/dimension.dart';
+import '/models/drug_bank_db/fav_drug_model.dart';
+import '/pages/nav-items/favorite/fav_drug_details.dart';
 import '/widgets/navigation_drawer_widget.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
 
 class FavoriteDrugsListScreenNav extends StatefulWidget {
   const FavoriteDrugsListScreenNav({Key key}) : super(key: key);
@@ -31,16 +32,15 @@ class _FavoriteDrugsListScreenNavState
         backgroundColor: Palette.mainBlueTheme,
         title: Text(
           'Danh sách yêu thích',
-          style: TextStyle(fontWeight: FontWeight.w900),
+          style: MobileTextTheme().appBarStyle,
         ),
         centerTitle: true,
       ),
       body: _box.isEmpty
           ? Center(
-              child: AppTextTitle(
-                text: "Bạn chưa thêm thuốc mới",
-                size: 20,
-                fontWeight: FontWeight.w500,
+              child: Text(
+                'Bạn chưa thêm thuốc mới!',
+                style: MobileTextTheme().introTitleFont,
               ),
             )
           : SingleChildScrollView(

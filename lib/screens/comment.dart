@@ -133,9 +133,10 @@ class _CommentsState extends State<Comments> {
                                 animType: AnimType.TOPSLIDE,
                                 showCloseIcon: true,
                                 closeIcon: const Icon(Icons.close_fullscreen_outlined),
-                                title: 'Cảnh báo',
+                                title: 'Cảnh báo!',
                                 desc:
-                                'Cảnh báo! Nội dung bạn nhập có chứa từ ngữ nghiêm cấm',
+                                'Oops! Đừng ghi vậy nha bạn. Bạn định ghi vậy thật sao',
+                                descTextStyle: AppTextTheme.oswaldTextStyle,
                                 btnOkOnPress: () {},
                               ).show();
                             }

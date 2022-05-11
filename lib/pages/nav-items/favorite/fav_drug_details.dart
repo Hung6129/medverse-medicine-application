@@ -1,12 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:medverse_mobile_app/models/drug_bank_db/fav_drug_model.dart';
-
-import 'package:medverse_mobile_app/widgets/header.dart';
-import '../../../widgets/app_text.dart';
+import '/models/drug_bank_db/fav_drug_model.dart';
 import '/theme/palette.dart';
 import '/widgets/app_text_title.dart';
 import '/widgets/dimension.dart';
@@ -120,7 +116,7 @@ class FavDrugDetail extends StatelessWidget {
               preferredSize: Size.fromHeight(20),
               child: Container(
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: Palette.whiteText,
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(Dimensions.radius20),
                     topRight: Radius.circular(Dimensions.radius20),

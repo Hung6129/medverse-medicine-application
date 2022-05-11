@@ -47,7 +47,7 @@ class FlareHeader extends StatelessWidget {
         );
       case DialogType.ERROR:
         return FlareActor(
-          'packages/awesome_dialog/assets/flare/error.flr',
+          'assets/flare/error.flr',
           fit: BoxFit.fill,
           animation: loop ? 'Error' : 'Error_no_loop',
         );
