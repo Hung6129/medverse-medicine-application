@@ -46,11 +46,7 @@ class _MyAppState extends State<MyApp> {
         debugShowCheckedModeBanner: false,
         // theme: notifier.dark ? Constants.darkTheme : Constants.lightTheme,
         home: MultiBlocProvider(
-          providers: [
-            BlocProvider(
-              create: (context) => HomeScreenBloc(),
-            ),
-          ],
+          providers: [BlocProvider(create: (context) => HomeScreenBloc())],
           child: GetMaterialApp(
             debugShowCheckedModeBanner: false,
             onGenerateRoute: AppRoutes.onGeneratedRoutes,

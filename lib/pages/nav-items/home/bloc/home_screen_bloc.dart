@@ -28,9 +28,7 @@ class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
   Future<void> onRefeshing(
       RefeshingEvent event, Emitter<HomeScreenState> emit) async {
     drugPoTop10.clear();
-    // drugReTop10.clear();
     emit(LoadingState());
-    // drugReTop10 = await RecommenedData.getRecommened();
     drugPoTop10 = await PopularData.getPopular();
     if (drugPoTop10.isEmpty) {
       emit(LoadingState());
