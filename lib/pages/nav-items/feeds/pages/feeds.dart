@@ -34,7 +34,7 @@ class _TimelineState extends State<Timeline> {
 
   bool hasMore = true;
 
-  int documentLimit = 10;
+  int documentLimit = 20;
 
   DocumentSnapshot lastDocument;
 
@@ -54,11 +54,13 @@ class _TimelineState extends State<Timeline> {
     QuerySnapshot querySnapshot;
     if (lastDocument == null) {
       querySnapshot = await postRef
+          .where('status' == '1')
           .orderBy('timestamp', descending: true)
           .limit(documentLimit)
           .get();
     } else {
       querySnapshot = await postRef
+          .where('status' == '1')
           .orderBy('timestamp', descending: true)
           .startAfterDocument(lastDocument)
           .limit(documentLimit)
@@ -107,7 +109,7 @@ class _TimelineState extends State<Timeline> {
         ),
         body: isLoading
             ? circularProgress(context)
-            : ListView.builder(
+            : ListView.separated(
                 controller: _scrollController,
                 itemCount: post.length,
                 itemBuilder: (context, index) {
@@ -124,7 +126,7 @@ class _TimelineState extends State<Timeline> {
                       post: posts,
                     ),
                   );
-                },
+                }, separatorBuilder:  (context, index) => const Divider(),
               ),
         floatingActionButton: buildFab(),
       );

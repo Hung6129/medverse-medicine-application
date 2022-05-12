@@ -34,10 +34,11 @@ class PostService extends Service {
       "postId": ref.id,
       "username": user.username,
       "ownerId": firebaseAuth.currentUser.uid,
-      "mediaUrl": link,
+      "mediaUrl": link ?? "",
       "description": description ?? "",
-      "location": location ?? "Wooble",
+      "location": location ?? "Không có vị trí",
       "timestamp": Timestamp.now(),
+      "status": 1,
     }).catchError((e) {
       print(e);
     });

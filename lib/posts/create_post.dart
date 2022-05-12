@@ -23,6 +23,7 @@ class CreatePost extends StatefulWidget {
 class _CreatePostState extends State<CreatePost> {
   /// Editing Controllers
   TextEditingController description = TextEditingController();
+  bool loading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -65,8 +66,7 @@ class _CreatePostState extends State<CreatePost> {
 
                   if (cleanDescription(input)) {
                     await viewModel.uploadPosts(context);
-                    Navigator.pop(context);
-                    // Navigator.pushReplacementNamed(context, "/home");
+                    loading = true;
                     viewModel.resetPost();
                   } else {
                     AwesomeDialog(
@@ -122,7 +122,89 @@ class _CreatePostState extends State<CreatePost> {
                   return Container();
                 },
               ),
-              buildForm(context, viewModel),
+              InkWell(
+                onTap: () => showImageChoices(context, viewModel),
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.width - 30,
+                  decoration: BoxDecoration(
+                    color: Palette.grey300,
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(5.0),
+                    ),
+                    border: Border.all(
+                      color: Palette.mainBlueTheme,
+                    ),
+                  ),
+                  child: viewModel.imgLink != null
+                      ? CustomImage(
+                    imageUrl: viewModel.imgLink,
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.width - 30,
+                    fit: BoxFit.cover,
+                  )
+                      : viewModel.mediaUrl == null
+                      ? Center(
+                    child: Text(
+                      'Nhấn vào đây để tải hình ảnh lên',
+                      style: MobileTextTheme().choosePictureRequired,
+                    ),
+                  )
+                      : Image.file(
+                    viewModel.mediaUrl,
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.width - 30,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+              SizedBox(height: 20.0),
+              Text(
+                'Mô tả bài viết'.toUpperCase(),
+                style: MobileTextTheme().inputDescriptionAndLocationTitle,
+              ),
+              TextFormField(
+                style: MobileTextTheme().inputDescriptionAndLocation,
+                initialValue: viewModel.description,
+                decoration: InputDecoration(
+                  hintText: 'Eg. Đây là một bức hình đẹp',
+                  focusedBorder: UnderlineInputBorder(),
+                ),
+                maxLines: null,
+                onChanged: (val) => viewModel.setDescription(val),
+              ),
+              SizedBox(height: 20.0),
+              Text(
+                'Vị trí'.toUpperCase(),
+                style: MobileTextTheme().inputDescriptionAndLocationTitle,
+              ),
+              ListTile(
+                contentPadding: EdgeInsets.all(0.0),
+                title: Container(
+                  width: 250.0,
+                  child: TextFormField(
+                    style: MobileTextTheme().inputDescriptionAndLocation,
+                    controller: viewModel.locationTEC,
+                    decoration: InputDecoration(
+                      contentPadding: EdgeInsets.all(0.0),
+                      hintText: 'Việt Nam, Hồ Chí Minh',
+                      focusedBorder: UnderlineInputBorder(),
+                    ),
+                    maxLines: null,
+                    onChanged: (val) => viewModel.setLocation(val),
+                  ),
+                ),
+                trailing: IconButton(
+                  tooltip: "Sử dụng vị trí hiện tại của bạn",
+                  icon: Icon(
+                    CupertinoIcons.map_pin_ellipse,
+                    size: 25.0,
+                  ),
+                  iconSize: 30.0,
+                  color: Palette.mainBlueTheme,
+                  onPressed: () => viewModel.getLocation(),
+                ),
+              ),
             ],
           ),
         ),
@@ -135,95 +217,7 @@ class _CreatePostState extends State<CreatePost> {
       key: viewModel.formKey,
       child: Column(
         children: [
-          InkWell(
-            onTap: () => showImageChoices(context, viewModel),
-            child: Container(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.width - 30,
-              decoration: BoxDecoration(
-                color: Palette.grey300,
-                borderRadius: BorderRadius.all(
-                  Radius.circular(5.0),
-                ),
-                border: Border.all(
-                  color: Palette.mainBlueTheme,
-                ),
-              ),
-              child: viewModel.imgLink != null
-                  ? CustomImage(
-                      imageUrl: viewModel.imgLink,
-                      width: MediaQuery.of(context).size.width,
-                      height: MediaQuery.of(context).size.width - 30,
-                      fit: BoxFit.cover,
-                    )
-                  : viewModel.mediaUrl == null
-                      ? Center(
-                          child: Text(
-                            'Nhấn vào đây để tải hình ảnh lên',
-                            style: MobileTextTheme().choosePictureRequired,
-                          ),
-                        )
-                      : Image.file(
-                          viewModel.mediaUrl,
-                          width: MediaQuery.of(context).size.width,
-                          height: MediaQuery.of(context).size.width - 30,
-                          fit: BoxFit.cover,
-                        ),
-            ),
-          ),
-          SizedBox(height: 20.0),
-          Text(
-            'Mô tả bài viết'.toUpperCase(),
-            style: MobileTextTheme().inputDescriptionAndLocationTitle,
-          ),
-          TextFormField(
-            style: MobileTextTheme().inputDescriptionAndLocation,
-            controller: description,
-            decoration: InputDecoration(
-              hintText: 'Eg. Đây là một bức hình đẹp',
-              focusedBorder: UnderlineInputBorder(),
-            ),
-            validator: (value) {
-              Validations.validateDescription(
-                value: value,
-              );
-              return null;
-            },
-            maxLines: null,
-            onChanged: (val) => viewModel.setDescription(val),
-          ),
-          SizedBox(height: 20.0),
-          Text(
-            'Vị trí'.toUpperCase(),
-            style: MobileTextTheme().inputDescriptionAndLocationTitle,
-          ),
-          ListTile(
-            contentPadding: EdgeInsets.all(0.0),
-            title: Container(
-              width: 250.0,
-              child: TextFormField(
-                style: MobileTextTheme().inputDescriptionAndLocation,
-                controller: viewModel.locationTEC,
-                decoration: InputDecoration(
-                  contentPadding: EdgeInsets.all(0.0),
-                  hintText: 'Việt Nam, Hồ Chí Minh',
-                  focusedBorder: UnderlineInputBorder(),
-                ),
-                maxLines: null,
-                onChanged: (val) => viewModel.setLocation(val),
-              ),
-            ),
-            trailing: IconButton(
-              tooltip: "Sử dụng vị trí hiện tại của bạn",
-              icon: Icon(
-                CupertinoIcons.map_pin_ellipse,
-                size: 25.0,
-              ),
-              iconSize: 30.0,
-              color: Palette.mainBlueTheme,
-              onPressed: () => viewModel.getLocation(),
-            ),
-          ),
+
         ],
       ),
     );

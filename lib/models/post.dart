@@ -15,6 +15,7 @@ class PostModel {
   String mediaUrl;
   Timestamp timestamp;
   String pictureUrl;
+  int status;
 
   PostModel({
     this.id,
@@ -25,6 +26,7 @@ class PostModel {
     this.mediaUrl,
     this.username,
     this.timestamp,
+    this.status,
   });
 
   PostModel.fromJson(Map<String, dynamic> json) {
@@ -36,6 +38,7 @@ class PostModel {
     description = json['description'];
     mediaUrl = json['mediaUrl'];
     timestamp = json['timestamp'];
+    status = json['status'];
   }
 
   String _message = '';

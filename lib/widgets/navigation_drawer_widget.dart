@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:medverse_mobile_app/pages/drawer-items/test_image_from_sqlite/pages/load_drug.dart';
 import 'package:medverse_mobile_app/utils/app_text_theme.dart';
 import '/utils/firebase.dart';
 import '/models/user.dart';
@@ -173,6 +174,11 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
                         text: 'Miễn trừ trách nhiệm',
                         icon: Icons.info_outlined,
                         onClicked: () => selectedItem(context, 11),
+                      ),
+                      buildMenuItem(
+                        text: 'Test load hình thuốc',
+                        icon: Icons.info_outlined,
+                        onClicked: () => selectedItem(context, 12),
                       ),
                       buildMenuItem(
                         text: 'Đăng xuất',
@@ -417,6 +423,13 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
         Navigator.of(context).push(
           MaterialPageRoute(
             builder: (context) => Disclaimer(),
+          ),
+        );
+        break;
+      case 12:
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => LoadDrug(),
           ),
         );
         break;

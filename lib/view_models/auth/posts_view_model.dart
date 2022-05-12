@@ -159,25 +159,14 @@ class PostsViewModel extends ChangeNotifier {
 
   uploadPosts(BuildContext context) async {
     try {
-      FormState form = formKey.currentState;
-      form.save();
-      if (form.validate() && mediaUrl == null) {
-        notifyListeners();
-        Navigator.of(context).pop();
-        showErrorInSnackBar(
-          'Vui lòng hoàn thành điền thông tin trước khi đăng nhập. ',
-          context,
-        );
-      } else {
-        loading = true;
-        notifyListeners();
-        await postService.uploadPost(mediaUrl, location, description);
-        showActiveInSnackBar('Tạo bài viết thành công!', context);
-        Navigator.pushReplacementNamed(context, "/social");
-        loading = false;
-        resetPost();
-        notifyListeners();
-      }
+      loading = true;
+      notifyListeners();
+      await postService.uploadPost(mediaUrl, location, description);
+      showActiveInSnackBar('Tạo bài viết thành công!', context);
+      Navigator.of(context).pop();
+      loading = false;
+      resetPost();
+      notifyListeners();
     } catch (e) {
       print(e);
       loading = false;
@@ -196,8 +185,11 @@ class PostsViewModel extends ChangeNotifier {
         await postService.uploadProfilePicture(
             mediaUrl, firebaseAuth.currentUser);
         loading = false;
-        Navigator.of(context)
-            .pushReplacement(CupertinoPageRoute(builder: (_) => TabScreen()));
+        Navigator.of(context).pushReplacement(
+          CupertinoPageRoute(
+            builder: (_) => TabScreen(),
+          ),
+        );
         notifyListeners();
       } catch (e) {
         print(e);

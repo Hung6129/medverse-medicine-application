@@ -36,6 +36,6 @@ class Validations {
   }
 
   static List badWord = [
-    'cc', 'fuck', 'dm', 'đệt', 'cặc', 'đụ', 'địt', 'chó', 'đẻ', 'ngu', 'mẹ', 'má', 'fa', 'kè', 'tiệt'
+    'cc', 'fuck', 'dm', 'đệt', 'cặc', 'đụ', 'địt', 'chó', 'đẻ', 'ngu', 'mẹ', 'má', 'fa', 'kè', 'tiệt', 'cờ hó', 'dcm', 'dmm'
   ];
 }

@@ -109,7 +109,7 @@ class _UserPostState extends State<UserPost> {
                                 child: StreamBuilder(
                                   stream: likesRef
                                       .where('postId',
-                                          isEqualTo: widget.post.postId)
+                                          isEqualTo: widget.post.postId, )
                                       .snapshots(),
                                   builder: (context,
                                       AsyncSnapshot<QuerySnapshot> snapshot) {

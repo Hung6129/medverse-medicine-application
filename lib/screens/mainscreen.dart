@@ -92,8 +92,10 @@ class _TabScreenState extends State<TabScreen> {
   }
 
   void navigationTapped(int page) {
-    setState(() {
-      _page = page;
-    });
+    setState(
+      () {
+        _page = page;
+      },
+    );
   }
 }
