@@ -1,7 +1,7 @@
 class DrugModel {
-  String sta;
+  String name;
 
   DrugModel(
-    this.sta,
+    this.name,
   );
 }

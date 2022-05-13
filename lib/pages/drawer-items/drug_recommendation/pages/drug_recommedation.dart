@@ -14,61 +14,6 @@ class DrugRecommendation extends StatefulWidget {
 
 class _DrugRecommendationState extends State<DrugRecommendation> {
   // Loading Shimmer Recommended
-  Widget __loadingReShimmer() {
-    return ListView.builder(
-      physics: NeverScrollableScrollPhysics(),
-      shrinkWrap: true,
-      itemCount: 5,
-      itemBuilder: (context, index) => Container(
-        margin: EdgeInsets.only(
-          left: Dimensions.width20,
-          right: Dimensions.width20,
-          bottom: Dimensions.height10,
-        ),
-        child: Row(
-          children: [
-            //images section
-            Container(
-              width: Dimensions.itemsSizeImgHeight - 30,
-              height: Dimensions.itemsSizeImgHeight - 30,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(
-                  Dimensions.radius20,
-                ),
-              ),
-              child: Shimmer(
-                  child: Container(
-                color: Palette.grey300,
-              )),
-            ),
-
-            //text container
-            Expanded(
-              child: Container(
-                height: Dimensions.height45,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                    topRight: Radius.circular(Dimensions.radius20),
-                    bottomRight: Radius.circular(Dimensions.radius20),
-                  ),
-                ),
-                child: Padding(
-                  padding: EdgeInsets.only(
-                    left: Dimensions.width10,
-                  ),
-                  child: Shimmer(
-                      child: Container(
-                    color: Palette.grey300,
-                  )),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
   String imagesFav = "assets/images/drugs_pill/300.jpg";
   @override
   Widget build(BuildContext context) => Scaffold(

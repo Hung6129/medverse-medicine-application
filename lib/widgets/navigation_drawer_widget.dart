@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:medverse_mobile_app/pages/drawer-items/test_image_from_sqlite/pages/load_drug.dart';
+import '/pages/drawer-items/drug_index/pages/drug_index.dart';
 import 'package:medverse_mobile_app/utils/app_text_theme.dart';
 import '/utils/firebase.dart';
 import '/models/user.dart';
@@ -429,7 +429,7 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
       case 12:
         Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (context) => LoadDrug(),
+            builder: (context) => DrugIndex(),
           ),
         );
         break;

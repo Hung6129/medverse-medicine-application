@@ -1,29 +1,23 @@
 import 'package:flutter/material.dart';
+import '/models/drug_model.dart';
+import '/utils/data_dao.dart';
 import '/utils/app_text_theme.dart';
 import '/theme/palette.dart';
-import '/models/dictionary_model.dart';
-import '/utils/data_dao.dart';
 
-class MedicineDictionary extends StatefulWidget {
-  const MedicineDictionary({Key key}) : super(key: key);
+class DrugIndex extends StatefulWidget {
+  const DrugIndex({Key key}) : super(key: key);
 
   @override
-  State<MedicineDictionary> createState() => _MedicineDictionaryState();
+  State<DrugIndex> createState() => _MedicineDictionaryState();
 }
 
-class _MedicineDictionaryState extends State<MedicineDictionary> {
+class _MedicineDictionaryState extends State<DrugIndex> {
   bool isSearching = false;
   String searchWord = "";
 
   /// Method call all data from SQLite
-  Future<List<Dictionary>> getAllWord() async {
-    var list = await DataDao().allWords();
-    return list;
-  }
-
-  /// Method search keyword in SQLite
-  Future<List<Dictionary>> search(String search) async {
-    var list = await DataDao().searchWord(search);
+  Future<List<DrugModel>> getAllDrugs() async {
+    var list = await DataDao().getDrugs();
     return list;
   }
 
@@ -48,7 +42,7 @@ class _MedicineDictionaryState extends State<MedicineDictionary> {
                   style: MobileTextTheme().kBodyTextStyle,
                 )
               : Text(
-                  'Từ điển y học',
+                  'Danh sách thuốc',
                   style: MobileTextTheme().appBarStyle,
                 ),
           actions: [
@@ -73,9 +67,9 @@ class _MedicineDictionaryState extends State<MedicineDictionary> {
                   ),
           ],
         ),
-        body: FutureBuilder<List<Dictionary>>(
+        body: FutureBuilder<List<DrugModel>>(
           /// Check status if user input available keyword then show the result. If not, show all data
-          future: isSearching ? search(searchWord) : getAllWord(),
+          future: getAllDrugs(),
           builder: (context, snapshot) {
             /// Check if already have data
             if (snapshot.hasData) {
@@ -90,34 +84,21 @@ class _MedicineDictionaryState extends State<MedicineDictionary> {
                     onTap: () {
                       /*Navigator.push(context, MaterialPageRoute(builder: (context) => DetailPage(list[i])));*/
                     },
-                    child: SizedBox(
-                      height: 100,
-                      child: Card(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            SizedBox(
-                              width: 20,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          //color: Colors.pink[200],
+                          child: Padding(
+                            padding: EdgeInsets.only(
+                              left: 5,
+                              right: 5,
                             ),
-                            Flexible(
-                              child: Text(
-                                word.eng,
-                                style: MobileTextTheme().healthProfileNoDataTextStyle,
-                              ),
-                            ),
-                            SizedBox(
-                              width: 50,
-                            ),
-                            Flexible(
-                              child: Text(
-                                word.tur,
-                                textAlign: TextAlign.start,
-                                style: MobileTextTheme().tabBarStyle,
-                              ),
-                            ),
-                          ],
+                            child: new Text(word.name),
+                          ),
                         ),
-                      ),
+                        Divider(),
+                      ],
                     ),
                   );
                 },
