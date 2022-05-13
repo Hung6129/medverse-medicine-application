@@ -54,13 +54,11 @@ class _TimelineState extends State<Timeline> {
     QuerySnapshot querySnapshot;
     if (lastDocument == null) {
       querySnapshot = await postRef
-          .where('status' == '1')
           .orderBy('timestamp', descending: true)
           .limit(documentLimit)
           .get();
     } else {
       querySnapshot = await postRef
-          .where('status' == '1')
           .orderBy('timestamp', descending: true)
           .startAfterDocument(lastDocument)
           .limit(documentLimit)

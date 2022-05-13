@@ -15,7 +15,7 @@ class PostModel {
   String mediaUrl;
   Timestamp timestamp;
   String pictureUrl;
-  int status;
+  String status;
 
   PostModel({
     this.id,

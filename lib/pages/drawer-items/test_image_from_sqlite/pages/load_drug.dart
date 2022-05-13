@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:medverse_mobile_app/models/drug_bank_db/product_model.dart';
+import 'package:medverse_mobile_app/models/drug_model.dart';
 import 'package:medverse_mobile_app/pages/drawer-items/test_image_from_sqlite/widgets/search_dao.dart';
 import '/utils/app_text_theme.dart';
 import '/theme/palette.dart';
@@ -18,7 +19,7 @@ class _MedicineDictionaryState extends State<LoadDrug> {
   String searchWord = "";
 
   /// Method call all data from SQLite
-  Future<List<ProductModel>> getAllWord() async {
+  Future<List<DrugModel>> getAllWord() async {
     var list = await SearchDao().allWords();
     return list;
   }
@@ -69,8 +70,9 @@ class _MedicineDictionaryState extends State<LoadDrug> {
         ),
       ],
     ),
-    body: FutureBuilder<List<ProductModel>>(
+    body: FutureBuilder<List<DrugModel>>(
       /// Check status if user input available keyword then show the result. If not, show all data
+      future: getAllWord(),
       builder: (context, snapshot) {
         /// Check if already have data
         if (snapshot.hasData) {
@@ -96,20 +98,20 @@ class _MedicineDictionaryState extends State<LoadDrug> {
                         ),
                         Flexible(
                           child: Text(
-                            word.drugDescription,
+                            word.sta,
                             style: MobileTextTheme().healthProfileNoDataTextStyle,
                           ),
                         ),
                         SizedBox(
                           width: 50,
                         ),
-                        Flexible(
+                        /*Flexible(
                           child: Text(
-                            word.drugName,
+                            word.sta,
                             textAlign: TextAlign.start,
                             style: MobileTextTheme().tabBarStyle,
                           ),
-                        ),
+                        ),*/
                       ],
                     ),
                   ),
