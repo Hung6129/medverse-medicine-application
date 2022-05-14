@@ -38,7 +38,7 @@ class PostService extends Service {
       "description": description ?? "",
       "location": location ?? "Không có vị trí",
       "timestamp": Timestamp.now(),
-      "status": 1,
+      "status": "1",
     }).catchError((e) {
       print(e);
     });

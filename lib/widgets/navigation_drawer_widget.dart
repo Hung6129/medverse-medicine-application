@@ -125,6 +125,11 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
                   child: Column(
                     children: [
                       buildMenuItem(
+                        text: 'Chỉ mục danh sách thuốc',
+                        icon: Icons.info_outlined,
+                        onClicked: () => selectedItem(context, 12),
+                      ),
+                      buildMenuItem(
                         text: 'Tìm kiếm nâng cao',
                         icon: Icons.zoom_in,
                         onClicked: () => selectedItem(context, 1),
@@ -176,11 +181,6 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
                         onClicked: () => selectedItem(context, 11),
                       ),
                       buildMenuItem(
-                        text: 'Test load hình thuốc',
-                        icon: Icons.info_outlined,
-                        onClicked: () => selectedItem(context, 12),
-                      ),
-                      buildMenuItem(
                         text: 'Đăng xuất',
                         icon: Icons.logout_outlined,
                         onClicked: () {
@@ -207,6 +207,11 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
                   padding: padding,
                   child: Column(
                     children: [
+                      buildMenuItem(
+                        text: 'Chỉ mục danh sách thuốc',
+                        icon: Icons.info_outlined,
+                        onClicked: () => selectedItem(context, 12),
+                      ),
                       buildMenuItem(
                         text: 'Tìm kiếm nâng cao',
                         icon: Icons.zoom_in,
