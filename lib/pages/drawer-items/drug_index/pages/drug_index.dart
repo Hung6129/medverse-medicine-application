@@ -47,43 +47,43 @@ class _MedicineDictionaryState extends State<DrugIndex> {
         backgroundColor: Palette.mainBlueTheme,
         title: isSearching
             ? TextField(
-          decoration: InputDecoration(
-            hintText: "Mời bạn nhập từ khóa",
-            hintStyle: MobileTextTheme().introContentFont,
-          ),
-          onChanged: (searchResult) {
-            setState(
-                  () {
-                searchWord = searchResult;
-              },
-            );
-          },
-          style: MobileTextTheme().kBodyTextStyle,
-        )
+                decoration: InputDecoration(
+                  hintText: "Mời bạn nhập từ khóa",
+                  hintStyle: MobileTextTheme().introContentFont,
+                ),
+                onChanged: (searchResult) {
+                  setState(
+                    () {
+                      searchWord = searchResult;
+                    },
+                  );
+                },
+                style: MobileTextTheme().kBodyTextStyle,
+              )
             : Text(
-          'Danh sách chỉ mục thuốc',
-          style: MobileTextTheme().appBarStyle,
-        ),
+                'Danh sách chỉ mục thuốc',
+                style: MobileTextTheme().appBarStyle,
+              ),
         actions: [
           isSearching
               ? IconButton(
-            onPressed: () {
-              setState(() {
-                isSearching = false;
-              });
-            },
-            icon: Icon(Icons.cancel),
-          )
+                  onPressed: () {
+                    setState(() {
+                      isSearching = false;
+                    });
+                  },
+                  icon: Icon(Icons.cancel),
+                )
               : IconButton(
-            onPressed: () {
-              setState(
-                    () {
-                  isSearching = true;
-                },
-              );
-            },
-            icon: Icon(Icons.search),
-          ),
+                  onPressed: () {
+                    setState(
+                      () {
+                        isSearching = true;
+                      },
+                    );
+                  },
+                  icon: Icon(Icons.search),
+                ),
         ],
       ),
       body: Container(
@@ -92,15 +92,17 @@ class _MedicineDictionaryState extends State<DrugIndex> {
           children: <Widget>[
             SizedBox(height: 1.0),
             DefaultTabController(
-              length: 10, // length of tabs
+              length: 26, // length of tabs
               initialIndex: 0,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
                   Container(
                     child: TabBar(
+                      isScrollable: true,
                       labelColor: Colors.green,
                       unselectedLabelColor: Colors.black,
+                      labelPadding: EdgeInsets.symmetric (horizontal: 15),
                       tabs: [
                         Tab(text: 'A'),
                         Tab(text: 'B'),
@@ -112,7 +114,22 @@ class _MedicineDictionaryState extends State<DrugIndex> {
                         Tab(text: 'H'),
                         Tab(text: 'I'),
                         Tab(text: 'J'),
-
+                        Tab(text: 'K'),
+                        Tab(text: 'L'),
+                        Tab(text: 'M'),
+                        Tab(text: 'N'),
+                        Tab(text: 'O'),
+                        Tab(text: 'P'),
+                        Tab(text: 'Q'),
+                        Tab(text: 'R'),
+                        Tab(text: 'S'),
+                        Tab(text: 'T'),
+                        Tab(text: 'U'),
+                        Tab(text: 'V'),
+                        Tab(text: 'W'),
+                        Tab(text: 'X'),
+                        Tab(text: 'Y'),
+                        Tab(text: 'Z'),
                       ],
                     ),
                   ),
@@ -120,8 +137,10 @@ class _MedicineDictionaryState extends State<DrugIndex> {
                   Container(
                     height: 400, //height of TabBarView
                     decoration: BoxDecoration(
-                        border: Border(
-                            top: BorderSide(color: Colors.grey, width: 0.5))),
+                      border: Border(
+                        top: BorderSide(color: Colors.grey, width: 0.5),
+                      ),
+                    ),
                     child: TabBarView(
                       children: <Widget>[
                         DrugA(),
@@ -134,7 +153,22 @@ class _MedicineDictionaryState extends State<DrugIndex> {
                         DrugH(),
                         DrugI(),
                         DrugJ(),
-
+                        DrugK(),
+                        DrugL(),
+                        DrugM(),
+                        DrugN(),
+                        DrugO(),
+                        DrugP(),
+                        DrugQ(),
+                        DrugR(),
+                        DrugS(),
+                        DrugT(),
+                        DrugU(),
+                        DrugV(),
+                        DrugW(),
+                        DrugX(),
+                        DrugY(),
+                        DrugZ(),
                       ],
                     ),
                   )

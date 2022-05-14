@@ -33,4 +33,6 @@ class Palette {
   static const pastel3 = Color(0xFFb8e0d2);
   static const pastel4 = Color(0xFFd6eadf);
   static const pastel5 = Color(0xFFeac4d5);
+  static const warningColor = Color(0xFFFF7878);
+
 }

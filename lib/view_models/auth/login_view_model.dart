@@ -2,10 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '/widgets/awesome_dialog.dart';
 import '/theme/palette.dart';
 import '/screens/mainscreen.dart';
 import '/services/auth_service.dart';
 import '/utils/validation.dart';
+import '/utils/app_text_theme.dart';
 
 class LoginViewModel extends ChangeNotifier {
   GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
@@ -23,10 +25,21 @@ class LoginViewModel extends ChangeNotifier {
     if (!form.validate()) {
       validate = true;
       notifyListeners();
-      showErrorInSnackBar(
-        'Vui lòng hoàn thành điền thông tin trước khi đăng nhập. ',
-        context,
-      );
+      AwesomeDialog(
+        autoHide: Duration(seconds: 3),
+        btnCancelColor: Palette.warningColor,
+        context: context,
+        dialogType: DialogType.ERROR,
+        headerAnimationLoop: false,
+        animType: AnimType.TOPSLIDE,
+        showCloseIcon: true,
+        closeIcon: const Icon(Icons.close_fullscreen_outlined),
+        title: 'Thông báo!',
+        desc: 'Vui lòng hoàn thành điền thông tin trước khi đăng nhập. ',
+        descTextStyle: AppTextTheme.oswaldTextStyle,
+        btnCancelOnPress: () {},
+        btnCancelText: 'Hủy bỏ',
+      ).show();
     } else {
       loading = true;
       notifyListeners();

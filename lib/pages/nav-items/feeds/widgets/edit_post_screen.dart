@@ -81,18 +81,22 @@ class _EditScreenState extends State<EditPostScreen> {
                         descTextStyle: AppTextTheme.oswaldTextStyle,
                         btnCancelOnPress: () {},
                         btnOkOnPress: () async {
-                          setState(() {
-                            _isDeleting = true;
-                          });
+                          setState(
+                            () {
+                              _isDeleting = true;
+                            },
+                          );
 
                           /// Calling delete post method in Post Manager model
                           await _postModel.deletePost(
                             context: context,
                             postId: widget.documentId,
                           );
-                          setState(() {
-                            _isDeleting = false;
-                          });
+                          setState(
+                            () {
+                              _isDeleting = false;
+                            },
+                          );
                           Navigator.pushReplacementNamed(
                             context,
                             "home",
