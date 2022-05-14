@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class Palette {
   static const Color p1 = Color(0xFFF8F5F1);
-  static const Color mainBlueTheme = Color(0xFF0D47A1);
+  static const Color mainBlueTheme = Color(0xFF809bce);
   static const Color blue = Colors.blue;
   static const Color starRating = Color(0xFFF3950D);
   static const Color online = Color(0xFF4BCB1F);
@@ -22,9 +22,15 @@ class Palette {
   static const Color textNo = Color(0xFF000000);
   static const Color textTil = Color(0xFF142F43);
 
-
   /// GridView Card Colors
   static const primary = Color(0xFF2E54FF);
   static const neutral2 = Color(0xFFD7D7DB);
   static const neutral5 = Color(0xFF4A4B4F);
+
+  /// new Pastel color
+  static const pastel1 = Color(0xFF809bce);
+  static const pastel2 = Color(0xFF95b8d1);
+  static const pastel3 = Color(0xFFb8e0d2);
+  static const pastel4 = Color(0xFFd6eadf);
+  static const pastel5 = Color(0xFFeac4d5);
 }

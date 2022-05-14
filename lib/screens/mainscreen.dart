@@ -75,8 +75,8 @@ class _TabScreenState extends State<TabScreen> {
                   icon: Icon(
                     item['icon'],
                     color: item['index'] != _page
-                        ? Palette.mainBlueTheme.withOpacity(0.4)
-                        : Palette.mainBlueTheme,
+                        ? Palette.pastel2.withOpacity(0.4)
+                        : Palette.pastel2,
                     size: 20.0,
                   ),
                   onPressed: () {

@@ -25,12 +25,6 @@ class _FavoriteDrugsListScreenNavState
   var _box = Hive.box<FavDrugModel>("fav-list");
 
   @override
-  void dispose() {
-    _box.close();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: NavigationDrawerWidget(),
@@ -44,11 +38,11 @@ class _FavoriteDrugsListScreenNavState
       ),
       body: _box.isEmpty
           ? Center(
-              child: Text(
-                'Bạn chưa thêm thuốc mới!',
-                style: MobileTextTheme().introTitleFont,
-              ),
-            )
+              child: AppText(
+              text: "Bạn chưa thêm thuốc mới",
+              size: Dimensions.font16,
+              color: Palette.textNo,
+            ))
           : SingleChildScrollView(
               child: Column(
                 children: [

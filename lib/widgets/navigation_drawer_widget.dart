@@ -58,7 +58,7 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
         width: 300,
         child: Drawer(
           child: Material(
-            color: Palette.mainBlueTheme,
+            color: Palette.pastel2,
             child: ListView(
               children: <Widget>[
                 SizedBox(height: 20),

@@ -37,7 +37,7 @@ class _ListIconFunctionState extends State<ListIconFunction> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(bottom: Dimensions.height30),
+      padding: EdgeInsets.only(bottom: Dimensions.height20),
       child: Container(
         width: double.maxFinite,
         height: 120,
