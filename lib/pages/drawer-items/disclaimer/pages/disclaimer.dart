@@ -14,13 +14,13 @@ class _DisclaimerState extends State<Disclaimer> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-      backgroundColor: Palette.mainBlueTheme,
-      title: Text(
-        'Miễn trừ trách nhiệm',
-        style: MobileTextTheme().appBarStyle,
+        backgroundColor: Palette.mainBlueTheme,
+        title: Text(
+          'Miễn trừ trách nhiệm',
+          style: MobileTextTheme().appBarStyle,
+        ),
+        centerTitle: true,
       ),
-      centerTitle: true,
-    ),
       body: SingleChildScrollView(
         child: Column(
           children: [

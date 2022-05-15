@@ -9,11 +9,13 @@ class DataDao {
     var db = await DatabaseSqliteConnection.glossaryAccess();
 
     /// Query all data in database
-    List<Map<String,dynamic>> maps = await db.rawQuery("SELECT * FROM glossary");
+    List<Map<String, dynamic>> maps =
+        await db.rawQuery("SELECT * FROM glossary");
 
     return List.generate(maps.length, (index) {
       var row = maps[index];
-      return Dictionary(row["word_id"], row["wordEnglish"], row["wordVietnamese"]);
+      return Dictionary(
+          row["word_id"], row["wordEnglish"], row["wordVietnamese"]);
     });
   }
 
@@ -23,11 +25,13 @@ class DataDao {
     var db = await DatabaseSqliteConnection.glossaryAccess();
 
     /// Query keyword in database
-    List<Map<String,dynamic>> maps = await db.rawQuery("SELECT * FROM glossary WHERE wordEnglish like '%$searchWord%' or wordVietnamese like '%$searchWord%'");
+    List<Map<String, dynamic>> maps = await db.rawQuery(
+        "SELECT * FROM glossary WHERE wordEnglish like '%$searchWord%' or wordVietnamese like '%$searchWord%'");
 
     return List.generate(maps.length, (index) {
       var row = maps[index];
-      return Dictionary(row["word_id"], row["wordEnglish"], row["wordVietnamese"]);
+      return Dictionary(
+          row["word_id"], row["wordEnglish"], row["wordVietnamese"]);
     });
   }
 
@@ -37,26 +41,15 @@ class DataDao {
     var db = await DatabaseSqliteConnection.glossaryAccess();
 
     /// Query keyword in database
-    List<Map<String,dynamic>> maps = await db.rawQuery("SELECT * FROM drugs WHERE drug_state like '%$searchWord%'");
+    List<Map<String, dynamic>> maps = await db.rawQuery(
+        "SELECT * FROM products WHERE drug_state like '%$searchWord%'");
 
     return List.generate(maps.length, (index) {
       var row = maps[index];
-      return DrugModel(row["drug_state"]);
-    });
-  }
-
-  /// Call all data in database
-  Future<List<DrugModel>> getDrugs() async {
-    /// Call database and access to database
-    var db = await DatabaseSqliteConnection.drugBankAccess();
-
-    /// Query all data in database
-    List<Map<String,dynamic>> maps = await db.rawQuery("SELECT * FROM drugs WHERE drug_state LIKE 'a%'");
-    print(maps);
-
-    return List.generate(maps.length, (index) {
-      var row = maps[index];
-      return DrugModel(row["drug_state"]);
+      return DrugModel(
+        row["product_name"],
+        row["product_labeller"],
+      );
     });
   }
 
@@ -66,12 +59,13 @@ class DataDao {
     var db = await DatabaseSqliteConnection.drugBankAccess();
 
     /// Query all data in database
-    List<Map<String,dynamic>> maps = await db.rawQuery("SELECT * FROM drugs WHERE drug_state LIKE 'l%'");
+    List<Map<String, dynamic>> maps = await db.rawQuery(
+        "SELECT DISTINCT product_name, product_labeller FROM products WHERE lower(product_name) LIKE 'a%' ORDER BY product_name limit 20");
     print(maps);
 
     return List.generate(maps.length, (index) {
       var row = maps[index];
-      return DrugModel(row["drug_state"]);
+      return DrugModel(row["product_name"], row["product_labeller"]);
     });
   }
 
@@ -80,13 +74,14 @@ class DataDao {
     /// Call database and access to database
     var db = await DatabaseSqliteConnection.drugBankAccess();
 
-    /// Query all data in database
-    List<Map<String,dynamic>> maps = await db.rawQuery("SELECT * FROM drugs WHERE drug_state LIKE 's%'");
+    /// Query all data in databaseOM
+    List<Map<String, dynamic>> maps = await db.rawQuery(
+        "SELECT DISTINCT * FROM products WHERE lower(product_name) LIKE 'b%'");
     print(maps);
 
     return List.generate(maps.length, (index) {
       var row = maps[index];
-      return DrugModel(row["drug_state"]);
+      return DrugModel(row["product_name"], row["product_labeller"]);
     });
   }
 
@@ -96,12 +91,13 @@ class DataDao {
     var db = await DatabaseSqliteConnection.drugBankAccess();
 
     /// Query all data in database
-    List<Map<String,dynamic>> maps = await db.rawQuery("SELECT * FROM drugs WHERE drug_state LIKE 'c%'");
+    List<Map<String, dynamic>> maps = await db.rawQuery(
+        "SELECT DISTINCT * FROM products WHERE lower(product_name) LIKE 'c%'");
     print(maps);
 
     return List.generate(maps.length, (index) {
       var row = maps[index];
-      return DrugModel(row["drug_state"]);
+      return DrugModel(row["product_name"], row["product_labeller"]);
     });
   }
 
@@ -111,12 +107,13 @@ class DataDao {
     var db = await DatabaseSqliteConnection.drugBankAccess();
 
     /// Query all data in database
-    List<Map<String,dynamic>> maps = await db.rawQuery("SELECT * FROM drugs WHERE drug_state LIKE 'd%'");
+    List<Map<String, dynamic>> maps = await db
+        .rawQuery("SELECT * FROM products WHERE lower(product_name) LIKE 'd%'");
     print(maps);
 
     return List.generate(maps.length, (index) {
       var row = maps[index];
-      return DrugModel(row["drug_state"]);
+      return DrugModel(row["product_name"], row["product_labeller"]);
     });
   }
 }

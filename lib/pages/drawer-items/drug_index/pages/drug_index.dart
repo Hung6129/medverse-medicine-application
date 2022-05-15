@@ -43,50 +43,14 @@ class _MedicineDictionaryState extends State<DrugIndex> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        centerTitle: true,
         backgroundColor: Palette.mainBlueTheme,
-        title: isSearching
-            ? TextField(
-                decoration: InputDecoration(
-                  hintText: "Mời bạn nhập từ khóa",
-                  hintStyle: MobileTextTheme().introContentFont,
-                ),
-                onChanged: (searchResult) {
-                  setState(
-                    () {
-                      searchWord = searchResult;
-                    },
-                  );
-                },
-                style: MobileTextTheme().kBodyTextStyle,
-              )
-            : Text(
-                'Danh sách chỉ mục thuốc',
-                style: MobileTextTheme().appBarStyle,
-              ),
-        actions: [
-          isSearching
-              ? IconButton(
-                  onPressed: () {
-                    setState(() {
-                      isSearching = false;
-                    });
-                  },
-                  icon: Icon(Icons.cancel),
-                )
-              : IconButton(
-                  onPressed: () {
-                    setState(
-                      () {
-                        isSearching = true;
-                      },
-                    );
-                  },
-                  icon: Icon(Icons.search),
-                ),
-        ],
+        title: Text(
+          'Danh sách chỉ mục thuốc',
+          style: MobileTextTheme().appBarStyle,
+        ),
+        centerTitle: true,
       ),
-      body: Container(
+      body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
@@ -135,7 +99,8 @@ class _MedicineDictionaryState extends State<DrugIndex> {
                   ),
                   SizedBox(height: 20),
                   Container(
-                    height: 400, //height of TabBarView
+                    padding: EdgeInsets.only(top: 10),
+                    height: MediaQuery.of(context).size.height, //height of TabBarView
                     decoration: BoxDecoration(
                       border: Border(
                         top: BorderSide(color: Colors.grey, width: 0.5),

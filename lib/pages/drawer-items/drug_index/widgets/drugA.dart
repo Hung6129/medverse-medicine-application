@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:medverse_mobile_app/widgets/indicators.dart';
 import '/utils/data_dao.dart';
 import '/models/drug_model.dart';
-import '/theme/palette.dart';
 
 class DrugA extends StatefulWidget {
   const DrugA({Key key}) : super(key: key);
@@ -11,31 +11,54 @@ class DrugA extends StatefulWidget {
 }
 
 class _DrugBState extends State<DrugA> {
+  bool isLoading = false;
+  int count = 0;
+
   /// Method call all data from SQLite
   Future<List<DrugModel>> getAllDrugsA() async {
     var list = await DataDao().getDrugA();
+    print("21" + list.length.toString());
+    List displayList = new List();
     return list;
   }
 
-  /// Method search keyword in SQLite
-  Future<List<DrugModel>> search(String search) async {
-    var list = await DataDao().searchIndexDrugs(search);
-    return list;
+  /// Loading new data when scrolling down
+  Future _loadData() async {
+    // perform fetching data delay
+    await new Future.delayed(
+      new Duration(seconds: 2),
+    );
+
+    setState(() {
+      getAllDrugsA();
+      isLoading = false;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: FutureBuilder<List<DrugModel>>(
-        /// Check status if user input available keyword then show the result. If not, show all data
-        future: getAllDrugsA(),
-        builder: (context, snapshot) {
-          /// Check if already have data
-          if (snapshot.hasData) {
-            var list = snapshot.data;
+    return FutureBuilder<List<DrugModel>>(
+      /// Check status if user input available keyword then show the result. If not, show all data
+      future: getAllDrugsA(),
+      builder: (context, snapshot) {
+        /// Check if already have data
+        if (snapshot.hasData) {
+          var list = snapshot.data;
 
-            /// Show data
-            return ListView.builder(
+          /// Show data
+          return NotificationListener<ScrollNotification>(
+            onNotification: (ScrollNotification scrollInfo) {
+              if(!isLoading && scrollInfo.metrics.pixels == scrollInfo.metrics.maxScrollExtent) {
+                _loadData();
+
+                /// Start loading data
+                setState(() {
+                  isLoading = true;
+                });
+              }
+              return true;
+            },
+            child: ListView.builder(
               itemCount: list.length,
               itemBuilder: (context, i) {
                 var word = list[i];
@@ -53,7 +76,7 @@ class _DrugBState extends State<DrugA> {
                             left: 5,
                             right: 5,
                           ),
-                          child: new Text(word.name),
+                          child: new Text(word.name + ' - ' + word.labeller),
                         ),
                       ),
                       Divider(),
@@ -61,42 +84,14 @@ class _DrugBState extends State<DrugA> {
                   ),
                 );
               },
-            );
+            ),
+          );
 
-            /// Show message if it have no data
-          } else {
-            return Center(
-              child: Column(
-                children: [
-                  Expanded(
-                    child: Container(
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage(
-                            "assets/icons/NoData.png",
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 10, right: 10),
-                    child: Text(
-                      "Không tìm thấy dữ liệu",
-                      style: TextStyle(
-                        color: Palette.red,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 100),
-                ],
-              ),
-            );
-          }
-        },
-      ),
+          /// Show message if it have no data
+        } else {
+          return circularProgress(context);
+        }
+      },
     );
   }
 }

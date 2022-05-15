@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:medverse_mobile_app/widgets/indicators.dart';
 import '/utils/data_dao.dart';
 import '/models/drug_model.dart';
 import '/theme/palette.dart';
@@ -56,38 +57,9 @@ class _DrugBState extends State<DrugB> {
                 );
               },
             );
-
             /// Show message if it have no data
           } else {
-            return Center(
-              child: Column(
-                children: [
-                  Expanded(
-                    child: Container(
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage(
-                            "assets/icons/NoData.png",
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 10, right: 10),
-                    child: Text(
-                      "Không tìm thấy dữ liệu",
-                      style: TextStyle(
-                        color: Palette.red,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 100),
-                ],
-              ),
-            );
+            return circularProgress(context);
           }
         },
       ),
