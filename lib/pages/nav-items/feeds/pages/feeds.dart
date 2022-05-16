@@ -34,7 +34,7 @@ class _TimelineState extends State<Timeline> {
 
   bool hasMore = true;
 
-  int documentLimit = 20;
+  int documentLimit = 200;
 
   DocumentSnapshot lastDocument;
 

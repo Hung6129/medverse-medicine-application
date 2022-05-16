@@ -66,6 +66,7 @@ dependencies:
   hive_flutter: ^1.1.0
   http: any
   sqflite: any
+  sqlite3: any
 
   #Animation
   shimmer_animation: any

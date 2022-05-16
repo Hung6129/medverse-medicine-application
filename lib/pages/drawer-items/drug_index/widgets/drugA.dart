@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:medverse_mobile_app/widgets/indicators.dart';
+import '/widgets/indicators.dart';
 import '/utils/data_dao.dart';
 import '/models/drug_model.dart';
 
@@ -13,13 +13,17 @@ class DrugA extends StatefulWidget {
 class _DrugBState extends State<DrugA> {
   bool isLoading = false;
   int count = 0;
+  List _listA;
 
   /// Method call all data from SQLite
-  Future<List<DrugModel>> getAllDrugsA() async {
-    var list = await DataDao().getDrugA();
-    print("21" + list.length.toString());
-    List displayList = new List();
-    return list;
+  Future<List<DrugModel>> getAllDrugsA(int count) async {
+    if (count < 20) {
+      _listA = await DataDao().getDrugA(count);
+    } else {
+      var _newListA = await DataDao().getDrugA(count);
+      _listA.addAll(_newListA);
+    }
+    return _listA;
   }
 
   /// Loading new data when scrolling down
@@ -30,7 +34,8 @@ class _DrugBState extends State<DrugA> {
     );
 
     setState(() {
-      getAllDrugsA();
+      count = count + 20;
+      getAllDrugsA(count);
       isLoading = false;
     });
   }
@@ -39,7 +44,7 @@ class _DrugBState extends State<DrugA> {
   Widget build(BuildContext context) {
     return FutureBuilder<List<DrugModel>>(
       /// Check status if user input available keyword then show the result. If not, show all data
-      future: getAllDrugsA(),
+      future: getAllDrugsA(count),
       builder: (context, snapshot) {
         /// Check if already have data
         if (snapshot.hasData) {
@@ -48,7 +53,9 @@ class _DrugBState extends State<DrugA> {
           /// Show data
           return NotificationListener<ScrollNotification>(
             onNotification: (ScrollNotification scrollInfo) {
-              if(!isLoading && scrollInfo.metrics.pixels == scrollInfo.metrics.maxScrollExtent) {
+              if (!isLoading &&
+                  scrollInfo.metrics.pixels ==
+                      scrollInfo.metrics.maxScrollExtent) {
                 _loadData();
 
                 /// Start loading data
