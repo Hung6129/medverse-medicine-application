@@ -337,4 +337,354 @@ class DataDao {
       },
     );
   }
+
+  /// Get all drugs that start with the letter M
+  Future<List<DrugModel>> getDrugM(int m) async {
+    /// Call database and access to database
+    var db = await DatabaseSqliteConnection.drugBankAccess();
+    int position = m;
+
+    /// Query all data in databaseOM
+    List<Map<String, dynamic>> maps = await db.rawQuery(
+      "SELECT DISTINCT product_name, product_labeller FROM products WHERE lower(product_name) LIKE 'm%' ORDER BY product_name limit ?, 20",
+      [position],
+    );
+    print(maps);
+
+    return List.generate(
+      maps.length,
+          (index) {
+        var row = maps[index];
+        return DrugModel(
+          row["product_name"],
+          row["product_labeller"],
+        );
+      },
+    );
+  }
+
+  /// Get all drugs that start with the letter N
+  Future<List<DrugModel>> getDrugN(int n) async {
+    /// Call database and access to database
+    var db = await DatabaseSqliteConnection.drugBankAccess();
+    int position = n;
+
+    /// Query all data in databaseOM
+    List<Map<String, dynamic>> maps = await db.rawQuery(
+      "SELECT DISTINCT product_name, product_labeller FROM products WHERE lower(product_name) LIKE 'n%' ORDER BY product_name limit ?, 20",
+      [position],
+    );
+    print(maps);
+
+    return List.generate(
+      maps.length,
+          (index) {
+        var row = maps[index];
+        return DrugModel(
+          row["product_name"],
+          row["product_labeller"],
+        );
+      },
+    );
+  }
+
+  /// Get all drugs that start with the letter O
+  Future<List<DrugModel>> getDrugO(int o) async {
+    /// Call database and access to database
+    var db = await DatabaseSqliteConnection.drugBankAccess();
+    int position = o;
+
+    /// Query all data in databaseOM
+    List<Map<String, dynamic>> maps = await db.rawQuery(
+      "SELECT DISTINCT product_name, product_labeller FROM products WHERE lower(product_name) LIKE 'o%' ORDER BY product_name limit ?, 20",
+      [position],
+    );
+    print(maps);
+
+    return List.generate(
+      maps.length,
+          (index) {
+        var row = maps[index];
+        return DrugModel(
+          row["product_name"],
+          row["product_labeller"],
+        );
+      },
+    );
+  }
+
+  /// Get all drugs that start with the letter P
+  Future<List<DrugModel>> getDrugP(int p) async {
+    /// Call database and access to database
+    var db = await DatabaseSqliteConnection.drugBankAccess();
+    int position = p;
+
+    /// Query all data in databaseOM
+    List<Map<String, dynamic>> maps = await db.rawQuery(
+      "SELECT DISTINCT product_name, product_labeller FROM products WHERE lower(product_name) LIKE 'p%' ORDER BY product_name limit ?, 20",
+      [position],
+    );
+    print(maps);
+
+    return List.generate(
+      maps.length,
+          (index) {
+        var row = maps[index];
+        return DrugModel(
+          row["product_name"],
+          row["product_labeller"],
+        );
+      },
+    );
+  }
+
+  // Get all drugs that start with the letter Q
+  Future<List<DrugModel>> getDrugQ(int q) async {
+    /// Call database and access to database
+    var db = await DatabaseSqliteConnection.drugBankAccess();
+    int position = q;
+
+    /// Query all data in databaseOM
+    List<Map<String, dynamic>> maps = await db.rawQuery(
+      "SELECT DISTINCT product_name, product_labeller FROM products WHERE lower(product_name) LIKE 'q%' ORDER BY product_name limit ?, 20",
+      [position],
+    );
+    print(maps);
+
+    return List.generate(
+      maps.length,
+          (index) {
+        var row = maps[index];
+        return DrugModel(
+          row["product_name"],
+          row["product_labeller"],
+        );
+      },
+    );
+  }
+
+  /// Get all drugs that start with the letter R
+  Future<List<DrugModel>> getDrugR(int r) async {
+    /// Call database and access to database
+    var db = await DatabaseSqliteConnection.drugBankAccess();
+    int position = r;
+
+    /// Query all data in databaseOM
+    List<Map<String, dynamic>> maps = await db.rawQuery(
+      "SELECT DISTINCT product_name, product_labeller FROM products WHERE lower(product_name) LIKE 'r%' ORDER BY product_name limit ?, 20",
+      [position],
+    );
+    print(maps);
+
+    return List.generate(
+      maps.length,
+          (index) {
+        var row = maps[index];
+        return DrugModel(
+          row["product_name"],
+          row["product_labeller"],
+        );
+      },
+    );
+  }
+
+  /// Get all drugs that start with the letter S
+  Future<List<DrugModel>> getDrugS(int s) async {
+    /// Call database and access to database
+    var db = await DatabaseSqliteConnection.drugBankAccess();
+    int position = s;
+
+    /// Query all data in databaseOM
+    List<Map<String, dynamic>> maps = await db.rawQuery(
+      "SELECT DISTINCT product_name, product_labeller FROM products WHERE lower(product_name) LIKE 's%' ORDER BY product_name limit ?, 20",
+      [position],
+    );
+    print(maps);
+
+    return List.generate(
+      maps.length,
+          (index) {
+        var row = maps[index];
+        return DrugModel(
+          row["product_name"],
+          row["product_labeller"],
+        );
+      },
+    );
+  }
+
+  /// Get all drugs that start with the letter T
+  Future<List<DrugModel>> getDrugT(int t) async {
+    /// Call database and access to database
+    var db = await DatabaseSqliteConnection.drugBankAccess();
+    int position = t;
+
+    /// Query all data in databaseOM
+    List<Map<String, dynamic>> maps = await db.rawQuery(
+      "SELECT DISTINCT product_name, product_labeller FROM products WHERE lower(product_name) LIKE 't%' ORDER BY product_name limit ?, 20",
+      [position],
+    );
+    print(maps);
+
+    return List.generate(
+      maps.length,
+          (index) {
+        var row = maps[index];
+        return DrugModel(
+          row["product_name"],
+          row["product_labeller"],
+        );
+      },
+    );
+  }
+
+  /// Get all drugs that start with the letter U
+  Future<List<DrugModel>> getDrugU(int u) async {
+    /// Call database and access to database
+    var db = await DatabaseSqliteConnection.drugBankAccess();
+    int position = u;
+
+    /// Query all data in databaseOM
+    List<Map<String, dynamic>> maps = await db.rawQuery(
+      "SELECT DISTINCT product_name, product_labeller FROM products WHERE lower(product_name) LIKE 'u%' ORDER BY product_name limit ?, 20",
+      [position],
+    );
+    print(maps);
+
+    return List.generate(
+      maps.length,
+          (index) {
+        var row = maps[index];
+        return DrugModel(
+          row["product_name"],
+          row["product_labeller"],
+        );
+      },
+    );
+  }
+
+  /// Get all drugs that start with the letter V
+  Future<List<DrugModel>> getDrugV(int v) async {
+    /// Call database and access to database
+    var db = await DatabaseSqliteConnection.drugBankAccess();
+    int position = v;
+
+    /// Query all data in databaseOM
+    List<Map<String, dynamic>> maps = await db.rawQuery(
+      "SELECT DISTINCT product_name, product_labeller FROM products WHERE lower(product_name) LIKE 'v%' ORDER BY product_name limit ?, 20",
+      [position],
+    );
+    print(maps);
+
+    return List.generate(
+      maps.length,
+          (index) {
+        var row = maps[index];
+        return DrugModel(
+          row["product_name"],
+          row["product_labeller"],
+        );
+      },
+    );
+  }
+
+  /// Get all drugs that start with the letter W
+  Future<List<DrugModel>> getDrugW(int w) async {
+    /// Call database and access to database
+    var db = await DatabaseSqliteConnection.drugBankAccess();
+    int position = w;
+
+    /// Query all data in databaseOM
+    List<Map<String, dynamic>> maps = await db.rawQuery(
+      "SELECT DISTINCT product_name, product_labeller FROM products WHERE lower(product_name) LIKE 'w%' ORDER BY product_name limit ?, 20",
+      [position],
+    );
+    print(maps);
+
+    return List.generate(
+      maps.length,
+          (index) {
+        var row = maps[index];
+        return DrugModel(
+          row["product_name"],
+          row["product_labeller"],
+        );
+      },
+    );
+  }
+
+  /// Get all drugs that start with the letter X
+  Future<List<DrugModel>> getDrugX(int x) async {
+    /// Call database and access to database
+    var db = await DatabaseSqliteConnection.drugBankAccess();
+    int position = x;
+
+    /// Query all data in databaseOM
+    List<Map<String, dynamic>> maps = await db.rawQuery(
+      "SELECT DISTINCT product_name, product_labeller FROM products WHERE lower(product_name) LIKE 'x%' ORDER BY product_name limit ?, 20",
+      [position],
+    );
+    print(maps);
+
+    return List.generate(
+      maps.length,
+          (index) {
+        var row = maps[index];
+        return DrugModel(
+          row["product_name"],
+          row["product_labeller"],
+        );
+      },
+    );
+  }
+
+  /// Get all drugs that start with the letter Y
+  Future<List<DrugModel>> getDrugY(int y) async {
+    /// Call database and access to database
+    var db = await DatabaseSqliteConnection.drugBankAccess();
+    int position = y;
+
+    /// Query all data in databaseOM
+    List<Map<String, dynamic>> maps = await db.rawQuery(
+      "SELECT DISTINCT product_name, product_labeller FROM products WHERE lower(product_name) LIKE 'y%' ORDER BY product_name limit ?, 20",
+      [position],
+    );
+    print(maps);
+
+    return List.generate(
+      maps.length,
+          (index) {
+        var row = maps[index];
+        return DrugModel(
+          row["product_name"],
+          row["product_labeller"],
+        );
+      },
+    );
+  }
+
+  /// Get all drugs that start with the letter Z
+  Future<List<DrugModel>> getDrugZ(int z) async {
+    /// Call database and access to database
+    var db = await DatabaseSqliteConnection.drugBankAccess();
+    int position = z;
+
+    /// Query all data in databaseOM
+    List<Map<String, dynamic>> maps = await db.rawQuery(
+      "SELECT DISTINCT product_name, product_labeller FROM products WHERE lower(product_name) LIKE 'z%' ORDER BY product_name limit ?, 20",
+      [position],
+    );
+    print(maps);
+
+    return List.generate(
+      maps.length,
+          (index) {
+        var row = maps[index];
+        return DrugModel(
+          row["product_name"],
+          row["product_labeller"],
+        );
+      },
+    );
+  }
 }
