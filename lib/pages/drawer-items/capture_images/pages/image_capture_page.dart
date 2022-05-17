@@ -1,19 +1,17 @@
 import 'dart:io';
-import 'dart:io' as io;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:medverse_mobile_app/auth/login/login.dart';
-import 'package:medverse_mobile_app/utils/app_text_theme.dart';
-import 'package:medverse_mobile_app/view_models/auth/capture_image_view_model.dart';
-import 'package:medverse_mobile_app/widgets/indicators.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
+import '/auth/login/login.dart';
+import '/utils/app_text_theme.dart';
+import '/view_models/auth/capture_image_view_model.dart';
+import '/widgets/indicators.dart';
 import 'package:provider/provider.dart';
-import '../../../../widgets/awesome_dialog.dart';
+import '/widgets/awesome_dialog.dart';
 import '/utils/validation.dart';
 import '/components/custom_image.dart';
 import '/models/user.dart';
@@ -68,7 +66,6 @@ class _CaptureimagePageState extends State<CaptureimagePage> {
 
                         if (cleanDescription(input)) {
                           await viewModel.uploadCapture(context);
-                          Navigator.pushReplacementNamed(context, "/home");
                           viewModel.resetPost();
                         } else {
                           AwesomeDialog(
@@ -81,9 +78,10 @@ class _CaptureimagePageState extends State<CaptureimagePage> {
                                 const Icon(Icons.close_fullscreen_outlined),
                             title: 'Cảnh báo!',
                             desc:
-                                'Oops! Đừng ghi vậy nha bạn. Bạn định ghi vậy thật sao',
+                                'Mô tả bạn nhập có chứa ký tự vi phạm tiêu chuẩn cộng đồng của chúng tôi',
                             descTextStyle: AppTextTheme.oswaldTextStyle,
-                            btnOkOnPress: () {},
+                            btnCancelOnPress: () {},
+                            btnCancelText: 'Hủy bỏ',
                           ).show();
                         }
                       },
@@ -139,6 +137,7 @@ class _CaptureimagePageState extends State<CaptureimagePage> {
     return Form(
       key: viewModel.formKey,
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           InkWell(
             onTap: () => showImageChoices(context, viewModel),
@@ -180,7 +179,7 @@ class _CaptureimagePageState extends State<CaptureimagePage> {
           ),
           SizedBox(height: 20.0),
           Text(
-            'Mô tả thuốc'.toUpperCase(),
+            'Mô tả báo cáo'.toUpperCase(),
             style: TextStyle(
               fontSize: 15.0,
               fontWeight: FontWeight.w600,
@@ -192,6 +191,15 @@ class _CaptureimagePageState extends State<CaptureimagePage> {
               hintText: 'Mời bạn nhập mô tả!',
               focusedBorder: UnderlineInputBorder(),
             ),
+            validator: (value) {
+              if (value.isEmpty) {
+                return ("Mời bạn nhập mô tả báo cáo");
+              }
+              return null;
+            },
+            onSaved: (value) {
+              reportDescription.text = value;
+            },
             maxLines: null,
             onChanged: (val) => viewModel.setDescription(val),
           ),

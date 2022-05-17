@@ -3,12 +3,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:medverse_mobile_app/theme/palette.dart';
-import 'package:medverse_mobile_app/utils/validation.dart';
+import '/theme/palette.dart';
 import '/models/post.dart';
 import '/screens/mainscreen.dart';
 import '/services/post_service.dart';
@@ -158,20 +156,31 @@ class PostsViewModel extends ChangeNotifier {
   }
 
   uploadPosts(BuildContext context) async {
-    try {
-      loading = true;
-      notifyListeners();
-      await postService.uploadPost(mediaUrl, location, description);
-      showActiveInSnackBar('Tạo bài viết thành công!', context);
-      Navigator.of(context).pop();
-      loading = false;
-      resetPost();
-      notifyListeners();
-    } catch (e) {
-      print(e);
-      loading = false;
-      resetPost();
-      notifyListeners();
+    if(mediaUrl == null) {
+      showErrorInSnackBar('Vui lòng chọn hình ảnh', context);
+    } else {
+      if(formKey.currentState.validate()) {
+        try {
+          loading = true;
+          notifyListeners();
+          await postService.uploadPost(mediaUrl, location, description);
+          showActiveInSnackBar('Tạo bài viết thành công!', context);
+          Navigator.of(context).pop();
+          loading = true;
+          resetPost();
+          notifyListeners();
+        } catch (e) {
+          print(e);
+          loading = false;
+          resetPost();
+          notifyListeners();
+        }
+      } else {
+        loading = false;
+        resetPost();
+        showErrorInSnackBar('Vui lòng hoàn thành tất cả thông tin trước khi đăng bài', context);
+        notifyListeners();
+      }
     }
   }
 

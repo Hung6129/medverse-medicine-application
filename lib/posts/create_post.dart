@@ -20,14 +20,14 @@ class CreatePost extends StatefulWidget {
 }
 
 class _CreatePostState extends State<CreatePost> {
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
   /// Editing Controllers
   TextEditingController description = TextEditingController();
   bool loading = false;
 
   @override
   Widget build(BuildContext context) {
-    GlobalKey<FormState> formKey = GlobalKey<FormState>();
-
     currentUserId() {
       return firebaseAuth.currentUser.uid;
     }
@@ -59,11 +59,10 @@ class _CreatePostState extends State<CreatePost> {
             centerTitle: true,
             actions: [
               GestureDetector(
-                key: formKey,
                 onTap: () async {
                   String input = description.text;
 
-                  if (!cleanDescription(input)) {
+                  if (cleanDescription(input)) {
                     await viewModel.uploadPosts(context);
                     loading = true;
                     viewModel.resetPost();
@@ -77,9 +76,10 @@ class _CreatePostState extends State<CreatePost> {
                       closeIcon: const Icon(Icons.close_fullscreen_outlined),
                       title: 'Cảnh báo!',
                       desc:
-                          'Oops! Đừng ghi vậy nha bạn. Bạn định ghi vậy thật sao',
+                          'Mô tả bạn nhập có chứa ký tự vi phạm tiêu chuẩn cộng đồng của chúng tôi',
                       descTextStyle: AppTextTheme.oswaldTextStyle,
-                      btnOkOnPress: () {},
+                      btnCancelOnPress: () {},
+                      btnCancelText: 'Hủy bỏ',
                     ).show();
                   }
                 },
@@ -121,43 +121,6 @@ class _CreatePostState extends State<CreatePost> {
                   return Container();
                 },
               ),
-              InkWell(
-                onTap: () => showImageChoices(context, viewModel),
-                child: Container(
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.width - 30,
-                  decoration: BoxDecoration(
-                    color: Palette.grey300,
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(5.0),
-                    ),
-                    border: Border.all(
-                      color: Palette.mainBlueTheme,
-                    ),
-                  ),
-                  child: viewModel.imgLink != null
-                      ? CustomImage(
-                          imageUrl: viewModel.imgLink,
-                          width: MediaQuery.of(context).size.width,
-                          height: MediaQuery.of(context).size.width - 30,
-                          fit: BoxFit.cover,
-                        )
-                      : viewModel.mediaUrl == null
-                          ? Center(
-                              child: Text(
-                                'Nhấn vào đây để tải hình ảnh lên',
-                                style: MobileTextTheme().choosePictureRequired,
-                              ),
-                            )
-                          : Image.file(
-                              viewModel.mediaUrl,
-                              width: MediaQuery.of(context).size.width,
-                              height: MediaQuery.of(context).size.width - 30,
-                              fit: BoxFit.cover,
-                            ),
-                ),
-              ),
-              SizedBox(height: 20.0),
               buildForm(context, viewModel),
             ],
           ),
@@ -172,6 +135,43 @@ class _CreatePostState extends State<CreatePost> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          InkWell(
+            onTap: () => showImageChoices(context, viewModel),
+            child: Container(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.width - 30,
+              decoration: BoxDecoration(
+                color: Palette.grey300,
+                borderRadius: BorderRadius.all(
+                  Radius.circular(5.0),
+                ),
+                border: Border.all(
+                  color: Palette.mainBlueTheme,
+                ),
+              ),
+              child: viewModel.imgLink != null
+                  ? CustomImage(
+                      imageUrl: viewModel.imgLink,
+                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.width - 30,
+                      fit: BoxFit.cover,
+                    )
+                  : viewModel.mediaUrl == null
+                      ? Center(
+                          child: Text(
+                            'Nhấn vào đây để tải hình ảnh lên',
+                            style: MobileTextTheme().choosePictureRequired,
+                          ),
+                        )
+                      : Image.file(
+                          viewModel.mediaUrl,
+                          width: MediaQuery.of(context).size.width,
+                          height: MediaQuery.of(context).size.width - 30,
+                          fit: BoxFit.cover,
+                        ),
+            ),
+          ),
+          SizedBox(height: 20.0),
           Text(
             'Mô tả bài viết'.toUpperCase(),
             style: MobileTextTheme().inputDescriptionAndLocationTitle,
@@ -183,6 +183,15 @@ class _CreatePostState extends State<CreatePost> {
               hintText: 'Eg. Đây là một bức hình đẹp',
               focusedBorder: UnderlineInputBorder(),
             ),
+            validator: (value) {
+              if (value.isEmpty) {
+                return ("Mời bạn nhập mô tả bài viết");
+              }
+              return null;
+            },
+            onSaved: (value) {
+              description.text = value;
+            },
             maxLines: null,
             onChanged: (val) => viewModel.setDescription(val),
           ),
