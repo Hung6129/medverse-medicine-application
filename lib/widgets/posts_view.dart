@@ -5,6 +5,7 @@ import 'package:flutter_icons/flutter_icons.dart';
 
 //import 'package:like_button/like_button.dart';
 import '../pages/nav-items/feeds/widgets/edit_post_screen.dart';
+import '../utils/app_text_theme.dart';
 import '/models/post.dart';
 import '/models/user.dart';
 import '../pages/drawer-items/profile/pages/profile.dart';
@@ -13,6 +14,8 @@ import '/screens/view_image.dart';
 import '/utils/firebase.dart';
 import '/widgets/cached_image.dart';
 import 'package:timeago/timeago.dart' as timeago;
+
+import 'awesome_dialog.dart';
 
 class Posts extends StatefulWidget {
   final PostModel post;
@@ -24,6 +27,9 @@ class Posts extends StatefulWidget {
 }
 
 class _PostsState extends State<Posts> {
+  /// Loading animation
+  bool _isDeleting = false;
+
   final DateTime timestamp = DateTime.now();
 
   currentUserId() {
@@ -69,44 +75,49 @@ class _PostsState extends State<Posts> {
                 ),
                 subtitle: Padding(
                   padding: const EdgeInsets.only(top: 8.0),
-                  child: Row(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        timeago.format(widget.post.timestamp.toDate()),
+                      Row(
+                        children: [
+                          StreamBuilder(
+                            stream: likesRef
+                                .where('postId', isEqualTo: widget.post.postId)
+                                .snapshots(),
+                            builder:
+                                (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                              if (snapshot.hasData) {
+                                QuerySnapshot snap = snapshot.data;
+                                List<DocumentSnapshot> docs = snap.docs;
+                                return buildLikesCount(context, docs?.length ?? 0);
+                              } else {
+                                return buildLikesCount(context, 0);
+                              }
+                            },
+                          ),
+                          SizedBox(width: 5.0),
+                          StreamBuilder(
+                            stream: commentRef
+                                .doc(widget.post.postId)
+                                .collection("comments")
+                                .snapshots(),
+                            builder:
+                                (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                              if (snapshot.hasData) {
+                                QuerySnapshot snap = snapshot.data;
+                                List<DocumentSnapshot> docs = snap.docs;
+                                return buildCommentsCount(
+                                    context, docs?.length ?? 0);
+                              } else {
+                                return buildCommentsCount(context, 0);
+                              }
+                            },
+                          ),
+                        ],
                       ),
                       SizedBox(width: 3.0),
-                      StreamBuilder(
-                        stream: likesRef
-                            .where('postId', isEqualTo: widget.post.postId)
-                            .snapshots(),
-                        builder:
-                            (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                          if (snapshot.hasData) {
-                            QuerySnapshot snap = snapshot.data;
-                            List<DocumentSnapshot> docs = snap.docs;
-                            return buildLikesCount(context, docs?.length ?? 0);
-                          } else {
-                            return buildLikesCount(context, 0);
-                          }
-                        },
-                      ),
-                      SizedBox(width: 5.0),
-                      StreamBuilder(
-                        stream: commentRef
-                            .doc(widget.post.postId)
-                            .collection("comments")
-                            .snapshots(),
-                        builder:
-                            (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                          if (snapshot.hasData) {
-                            QuerySnapshot snap = snapshot.data;
-                            List<DocumentSnapshot> docs = snap.docs;
-                            return buildCommentsCount(
-                                context, docs?.length ?? 0);
-                          } else {
-                            return buildCommentsCount(context, 0);
-                          }
-                        },
+                      Text(
+                        timeago.format(widget.post.timestamp.toDate()),
                       ),
                     ],
                   ),
@@ -292,8 +303,34 @@ class _PostsState extends State<Posts> {
           children: [
             SimpleDialogOption(
               onPressed: () {
-                Navigator.pop(context);
-                deletePost();
+                AwesomeDialog(
+                  context: context,
+                  dialogType: DialogType.ERROR,
+                  headerAnimationLoop: false,
+                  animType: AnimType.TOPSLIDE,
+                  showCloseIcon: true,
+                  closeIcon: const Icon(Icons.close_fullscreen_outlined),
+                  title: 'Thông báo',
+                  desc: 'Bạn có chắc muốn xóa bài viết này?',
+                  descTextStyle: AppTextTheme.oswaldTextStyle,
+                  btnCancelOnPress: () {},
+                  btnOkOnPress: () async {
+                    setState(
+                          () {
+                        _isDeleting = true;
+                      },
+                    );
+
+                    /// Calling delete post method in Post Manager model
+                    deletePost();
+                    setState(
+                          () {
+                        _isDeleting = false;
+                      },
+                    );
+                    Navigator.pop(context);
+                  },
+                ).show();
               },
               child: Text('Xóa bài biết'),
             ),

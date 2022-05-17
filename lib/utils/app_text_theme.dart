@@ -112,6 +112,12 @@ abstract class AppTextTheme {
 
   TextStyle get fabContainerContent;
 
+  /// Using for profile
+  TextStyle get profileUserName;
+  TextStyle get profileLocation;
+  TextStyle get profileMail;
+
+
   static final oswaldTextStyle = GoogleFonts.roboto(
     color: Palette.textNo,
   );
@@ -405,4 +411,21 @@ class MobileTextTheme implements AppTextTheme {
 
   @override
   final fabContainerContent = GoogleFonts.roboto();
+
+  @override
+  final profileUserName = GoogleFonts.roboto(
+    fontSize: 15,
+    fontWeight: FontWeight.w900,
+  );
+
+  @override
+  final profileLocation = GoogleFonts.roboto(
+    fontSize: 12,
+    fontWeight: FontWeight.w600,
+  );
+
+  @override
+  final profileMail = GoogleFonts.roboto(
+    fontSize: 10,
+  );
 }

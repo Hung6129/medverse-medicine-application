@@ -3,6 +3,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
+import 'package:google_fonts/google_fonts.dart';
+import '/widgets/indicators.dart';
+import '/widgets/awesome_dialog.dart';
 import '/utils/app_text_theme.dart';
 import '/widgets/dimension.dart';
 import '/theme/palette.dart';
@@ -77,18 +80,43 @@ class _ProfileState extends State<Profile> {
                   child: Padding(
                     padding: const EdgeInsets.only(right: 25.0),
                     child: GestureDetector(
-                      onTap: () {
-                        firebaseAuth.signOut();
-                        Navigator.pushReplacementNamed(context, "/home");
+                      onTap: () {AwesomeDialog(
+                        context: context,
+                        dialogType: DialogType.ERROR,
+                        headerAnimationLoop: false,
+                        animType: AnimType.TOPSLIDE,
+                        showCloseIcon: true,
+                        closeIcon: const Icon(Icons.close_fullscreen_outlined),
+                        title: 'Thông báo',
+                        desc: 'Bạn có chắc muốn thoát tài khoản này?',
+                        descTextStyle: AppTextTheme.oswaldTextStyle,
+                        btnCancelOnPress: () {},
+                        btnOkOnPress: () async {
+                          setState(
+                                () {
+                              isLoading = true;
+                            },
+                          );
+
+                          /// Calling delete post method in Post Manager model
+                          firebaseAuth.signOut();
+                          setState(
+                                () {
+                              isLoading = false;
+                            },
+                          );
+                          showInSnackBar('Đã thoát tài khoản thành công', context);
+                          Navigator.pushReplacementNamed(context, "/home");
+                        },
+                      ).show();
                       },
-                      child: Text(
-                        'Đăng xuất',
-                        style: MobileTextTheme().appBarActionButton,
+                      child: Icon(
+                        Icons.logout_outlined,
                       ),
                     ),
                   ),
                 )
-              : SizedBox(),
+              : circularProgress(context),
         ],
       ),
       body: CustomScrollView(
@@ -99,13 +127,16 @@ class _ProfileState extends State<Profile> {
             floating: false,
             toolbarHeight: 5.0,
             collapsedHeight: 6.0,
+            backgroundColor: Palette.pastel3,
             expandedHeight: 220.0,
             flexibleSpace: FlexibleSpaceBar(
               background: StreamBuilder(
                 stream: usersRef.doc(widget.profileId).snapshots(),
                 builder: (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
                   if (snapshot.hasData) {
-                    UserModel user = UserModel.fromJson(snapshot.data.data());
+                    UserModel user = UserModel.fromJson(
+                      snapshot.data.data(),
+                    );
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -113,7 +144,8 @@ class _ProfileState extends State<Profile> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Padding(
-                              padding: const EdgeInsets.only(left: 20.0),
+                              padding:
+                                  const EdgeInsets.only(left: 20.0, top: 10.0),
                               child: CircleAvatar(
                                 backgroundImage: NetworkImage(user?.photoUrl),
                                 radius: 40.0,
@@ -142,22 +174,14 @@ class _ProfileState extends State<Profile> {
                                                   width: 130.0,
                                                   child: Text(
                                                     user?.username,
-                                                    style: TextStyle(
-                                                        fontSize: 15.0,
-                                                        fontWeight:
-                                                            FontWeight.w900),
-                                                    maxLines: null,
+                                                    style: MobileTextTheme().profileUserName,
                                                   ),
                                                 ),
                                                 Container(
                                                   width: 130.0,
                                                   child: Text(
                                                     user?.country,
-                                                    style: TextStyle(
-                                                      fontSize: 12.0,
-                                                      fontWeight:
-                                                          FontWeight.w600,
-                                                    ),
+                                                    style: MobileTextTheme().profileLocation,
                                                     maxLines: 1,
                                                     overflow:
                                                         TextOverflow.ellipsis,
@@ -178,10 +202,7 @@ class _ProfileState extends State<Profile> {
                                           children: [
                                             Text(
                                               user?.email,
-                                              style: TextStyle(
-                                                // color: Color(0xff4D4D4D),
-                                                fontSize: 10.0,
-                                              ),
+                                              style: MobileTextTheme().profileMail,
                                             ),
                                           ],
                                         ),
@@ -594,6 +615,20 @@ class _ProfileState extends State<Profile> {
         }
         return Container();
       },
+    );
+  }
+
+  /// Config snack bar message style
+  void showInSnackBar(String value, context) {
+    ScaffoldMessenger.of(context).removeCurrentSnackBar();
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(
+          value,
+          style: GoogleFonts.oswald(),
+        ),
+        backgroundColor: Palette.activeButton,
+      ),
     );
   }
 }
