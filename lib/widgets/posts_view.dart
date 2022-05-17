@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 
 //import 'package:like_button/like_button.dart';
+import '../pages/nav-items/feeds/widgets/edit_post_screen.dart';
 import '/models/post.dart';
 import '/models/user.dart';
 import '../pages/drawer-items/profile/pages/profile.dart';
@@ -36,7 +37,10 @@ class _PostsState extends State<Posts> {
     return GestureDetector(
       onTap: () {
         Navigator.of(context).push(
-            CupertinoPageRoute(builder: (_) => ViewImage(post: widget.post)));
+          CupertinoPageRoute(
+            builder: (_) => ViewImage(post: widget.post),
+          ),
+        );
       },
       child: Container(
         decoration: BoxDecoration(
@@ -158,27 +162,26 @@ class _PostsState extends State<Posts> {
   Widget buildPostHeader() {
     bool isMe = currentUserId() == widget.post.ownerId;
     return ListTile(
-        contentPadding: EdgeInsets.symmetric(horizontal: 5.0),
-        leading: buildUserDp(),
-        title: Text(
-    widget.post.username,
-    style: TextStyle(fontWeight: FontWeight.bold),
-        ),
-        subtitle: Text(
-    widget.post.location == null ? 'Wooble' : widget.post.location,
-        ),
-        trailing: isMe
-      ? IconButton(
-          icon: Icon(Feather.more_horizontal),
-          onPressed: () => handleDelete(context),
-        )
-      : IconButton(
-          ///Feature coming soon
-          icon: Icon(CupertinoIcons.bookmark, size: 25.0),
-          onPressed: () {},
-        ),
-      );
-
+      contentPadding: EdgeInsets.symmetric(horizontal: 5.0),
+      leading: buildUserDp(),
+      title: Text(
+        widget.post.username,
+        style: TextStyle(fontWeight: FontWeight.bold),
+      ),
+      subtitle: Text(
+        widget.post.location == null ? 'Không có vị trí' : widget.post.location,
+      ),
+      trailing: isMe
+          ? IconButton(
+              icon: Icon(Feather.more_horizontal),
+              onPressed: () => handleOption(context),
+            )
+          : IconButton(
+              ///Feature coming soon
+              icon: Icon(CupertinoIcons.bookmark, size: 25.0),
+              onPressed: () {},
+            ),
+    );
   }
 
   buildUserDp() {
@@ -277,58 +280,81 @@ class _PostsState extends State<Posts> {
     }
   }
 
-  handleDelete(BuildContext parentContext) {
+  handleOption(BuildContext parentContext) {
     //shows a simple dialog box
     return showDialog(
-        context: parentContext,
-        builder: (context) {
-          return SimpleDialog(
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(5.0)),
-            children: [
-              SimpleDialogOption(
-                onPressed: () {
-                  Navigator.pop(context);
-                  deletePost();
-                },
-                child: Text('Delete Post'),
-              ),
-              Divider(),
-              SimpleDialogOption(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                child: Text('Cancel'),
-              ),
-            ],
-          );
-        });
+      context: parentContext,
+      builder: (context) {
+        return SimpleDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(5.0),
+          ),
+          children: [
+            SimpleDialogOption(
+              onPressed: () {
+                Navigator.pop(context);
+                deletePost();
+              },
+              child: Text('Xóa bài biết'),
+            ),
+            Divider(),
+            SimpleDialogOption(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text('Hủy bỏ'),
+            ),
+            Divider(),
+            SimpleDialogOption(
+              onPressed: () {
+                Navigator.of(context).push(
+                  CupertinoPageRoute(
+                    builder: (_) => EditPostScreen(
+                      documentId: widget.post.postId,
+                      currentUserID: widget.post.ownerId,
+                      currentImageUrl: widget.post.mediaUrl,
+                      currentDescription: widget.post.description,
+                      currentLocation: widget.post.location,
+                    ),
+                  ),
+                );
+              },
+              child: Text('Chỉnh sửa bài viết'),
+            ),
+          ],
+        );
+      },
+    );
   }
 
-//you can only delete your own posts
+  /// You can only delete your own posts
   deletePost() async {
     postRef.doc(widget.post.id).delete();
 
-//delete notification associated with that given post
+    ///delete notification associated with that given post
     QuerySnapshot notificationsSnap = await notificationRef
         .doc(widget.post.ownerId)
         .collection('notifications')
         .where('postId', isEqualTo: widget.post.postId)
         .get();
-    notificationsSnap.docs.forEach((doc) {
-      if (doc.exists) {
-        doc.reference.delete();
-      }
-    });
+    notificationsSnap.docs.forEach(
+      (doc) {
+        if (doc.exists) {
+          doc.reference.delete();
+        }
+      },
+    );
 
-//delete all the comments associated with that given post
+    /// Delete all the comments associated with that given post
     QuerySnapshot commentSnapshot =
         await commentRef.doc(widget.post.postId).collection('comments').get();
-    commentSnapshot.docs.forEach((doc) {
-      if (doc.exists) {
-        doc.reference.delete();
-      }
-    });
+    commentSnapshot.docs.forEach(
+      (doc) {
+        if (doc.exists) {
+          doc.reference.delete();
+        }
+      },
+    );
   }
 
   showProfile(BuildContext context, {String profileId}) {

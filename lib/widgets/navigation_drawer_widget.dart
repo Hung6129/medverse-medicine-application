@@ -169,7 +169,7 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
                         icon: Icons.health_and_safety_outlined,
                         onClicked: () => selectedItem(context, 8),
                       ),
-                      Divider(color: Palette.grey),
+                      Divider(color: Palette.whiteText),
                       buildMenuItem(
                         text: 'Hướng dẫn sử dụng',
                         icon: Icons.help_outline_sharp,
@@ -252,7 +252,7 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
                         icon: Icons.health_and_safety_outlined,
                         onClicked: () => selectedItem(context, 8),
                       ),
-                      Divider(color: Palette.grey),
+                      Divider(color: Palette.whiteText),
                       buildMenuItem(
                         text: 'Hướng dẫn sử dụng',
                         icon: Icons.help_outline_sharp,

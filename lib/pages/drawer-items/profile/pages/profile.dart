@@ -6,13 +6,11 @@ import 'package:flutter_icons/flutter_icons.dart';
 import '/utils/app_text_theme.dart';
 import '/widgets/dimension.dart';
 import '/theme/palette.dart';
-import '/auth/register/register.dart';
 import '/components/stream_builder_wrapper.dart';
 import '/components/stream_grid_wrapper.dart';
 import '/models/post.dart';
 import '/models/user.dart';
 import '/screens/edit_profile.dart';
-import '/screens/settings.dart';
 import '/utils/firebase.dart';
 import '/widgets/post_tiles.dart';
 import '/widgets/posts_view.dart';
@@ -81,11 +79,7 @@ class _ProfileState extends State<Profile> {
                     child: GestureDetector(
                       onTap: () {
                         firebaseAuth.signOut();
-                        Navigator.of(context).push(
-                          CupertinoPageRoute(
-                            builder: (_) => Register(),
-                          ),
-                        );
+                        Navigator.pushReplacementNamed(context, "/home");
                       },
                       child: Text(
                         'Đăng xuất',
@@ -172,33 +166,8 @@ class _ProfileState extends State<Profile> {
                                               ],
                                             ),
                                             widget.profileId == currentUserId()
-                                                ? InkWell(
-                                                    onTap: () {
-                                                      Navigator.of(context)
-                                                          .push(
-                                                        CupertinoPageRoute(
-                                                          builder: (_) =>
-                                                              Setting(),
-                                                        ),
-                                                      );
-                                                    },
-                                                    child: Row(
-                                                      children: [
-                                                        Icon(
-                                                          Feather.settings,
-                                                          color:
-                                                              Palette.whiteText,
-                                                        ),
-                                                        SizedBox(width: 5.0),
-                                                        Text(
-                                                          'settings',
-                                                          style: TextStyle(
-                                                              fontSize: 11.5),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  )
-                                                : buildLikeButton()
+                                                ? Container()
+                                                : buildLikeButton(),
                                           ],
                                         ),
                                         SizedBox(width: 10.0),

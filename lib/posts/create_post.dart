@@ -1,12 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:medverse_mobile_app/utils/validation.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:provider/provider.dart';
-import '../widgets/awesome_dialog.dart';
+import '/widgets/awesome_dialog.dart';
 import '/utils/app_text_theme.dart';
 import '/components/custom_image.dart';
 import '/models/user.dart';
@@ -64,7 +63,7 @@ class _CreatePostState extends State<CreatePost> {
                 onTap: () async {
                   String input = description.text;
 
-                  if (cleanDescription(input)) {
+                  if (!cleanDescription(input)) {
                     await viewModel.uploadPosts(context);
                     loading = true;
                     viewModel.resetPost();
@@ -138,73 +137,28 @@ class _CreatePostState extends State<CreatePost> {
                   ),
                   child: viewModel.imgLink != null
                       ? CustomImage(
-                    imageUrl: viewModel.imgLink,
-                    width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.width - 30,
-                    fit: BoxFit.cover,
-                  )
+                          imageUrl: viewModel.imgLink,
+                          width: MediaQuery.of(context).size.width,
+                          height: MediaQuery.of(context).size.width - 30,
+                          fit: BoxFit.cover,
+                        )
                       : viewModel.mediaUrl == null
-                      ? Center(
-                    child: Text(
-                      'Nhấn vào đây để tải hình ảnh lên',
-                      style: MobileTextTheme().choosePictureRequired,
-                    ),
-                  )
-                      : Image.file(
-                    viewModel.mediaUrl,
-                    width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.width - 30,
-                    fit: BoxFit.cover,
-                  ),
+                          ? Center(
+                              child: Text(
+                                'Nhấn vào đây để tải hình ảnh lên',
+                                style: MobileTextTheme().choosePictureRequired,
+                              ),
+                            )
+                          : Image.file(
+                              viewModel.mediaUrl,
+                              width: MediaQuery.of(context).size.width,
+                              height: MediaQuery.of(context).size.width - 30,
+                              fit: BoxFit.cover,
+                            ),
                 ),
               ),
               SizedBox(height: 20.0),
-              Text(
-                'Mô tả bài viết'.toUpperCase(),
-                style: MobileTextTheme().inputDescriptionAndLocationTitle,
-              ),
-              TextFormField(
-                style: MobileTextTheme().inputDescriptionAndLocation,
-                initialValue: viewModel.description,
-                decoration: InputDecoration(
-                  hintText: 'Eg. Đây là một bức hình đẹp',
-                  focusedBorder: UnderlineInputBorder(),
-                ),
-                maxLines: null,
-                onChanged: (val) => viewModel.setDescription(val),
-              ),
-              SizedBox(height: 20.0),
-              Text(
-                'Vị trí'.toUpperCase(),
-                style: MobileTextTheme().inputDescriptionAndLocationTitle,
-              ),
-              ListTile(
-                contentPadding: EdgeInsets.all(0.0),
-                title: Container(
-                  width: 250.0,
-                  child: TextFormField(
-                    style: MobileTextTheme().inputDescriptionAndLocation,
-                    controller: viewModel.locationTEC,
-                    decoration: InputDecoration(
-                      contentPadding: EdgeInsets.all(0.0),
-                      hintText: 'Việt Nam, Hồ Chí Minh',
-                      focusedBorder: UnderlineInputBorder(),
-                    ),
-                    maxLines: null,
-                    onChanged: (val) => viewModel.setLocation(val),
-                  ),
-                ),
-                trailing: IconButton(
-                  tooltip: "Sử dụng vị trí hiện tại của bạn",
-                  icon: Icon(
-                    CupertinoIcons.map_pin_ellipse,
-                    size: 25.0,
-                  ),
-                  iconSize: 30.0,
-                  color: Palette.mainBlueTheme,
-                  onPressed: () => viewModel.getLocation(),
-                ),
-              ),
+              buildForm(context, viewModel),
             ],
           ),
         ),
@@ -216,8 +170,54 @@ class _CreatePostState extends State<CreatePost> {
     return Form(
       key: viewModel.formKey,
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-
+          Text(
+            'Mô tả bài viết'.toUpperCase(),
+            style: MobileTextTheme().inputDescriptionAndLocationTitle,
+          ),
+          TextFormField(
+            style: MobileTextTheme().inputDescriptionAndLocation,
+            controller: description,
+            decoration: InputDecoration(
+              hintText: 'Eg. Đây là một bức hình đẹp',
+              focusedBorder: UnderlineInputBorder(),
+            ),
+            maxLines: null,
+            onChanged: (val) => viewModel.setDescription(val),
+          ),
+          SizedBox(height: 20.0),
+          Text(
+            'Vị trí'.toUpperCase(),
+            style: MobileTextTheme().inputDescriptionAndLocationTitle,
+          ),
+          ListTile(
+            contentPadding: EdgeInsets.all(0.0),
+            title: Container(
+              width: 250.0,
+              child: TextFormField(
+                style: MobileTextTheme().inputDescriptionAndLocation,
+                controller: viewModel.locationTEC,
+                decoration: InputDecoration(
+                  contentPadding: EdgeInsets.all(0.0),
+                  hintText: 'Việt Nam, Hồ Chí Minh',
+                  focusedBorder: UnderlineInputBorder(),
+                ),
+                maxLines: null,
+                onChanged: (val) => viewModel.setLocation(val),
+              ),
+            ),
+            trailing: IconButton(
+              tooltip: "Sử dụng vị trí hiện tại của bạn",
+              icon: Icon(
+                CupertinoIcons.map_pin_ellipse,
+                size: 25.0,
+              ),
+              iconSize: 30.0,
+              color: Palette.mainBlueTheme,
+              onPressed: () => viewModel.getLocation(),
+            ),
+          ),
         ],
       ),
     );
