@@ -32,6 +32,7 @@ dependencies:
   flutter_svg: any
   page_transition: any
   intro_views_flutter: any
+  carousel_slider: ^4.1.1
 
   #Dialog
   simple_animations: any

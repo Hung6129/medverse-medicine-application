@@ -2,7 +2,10 @@ import 'package:medverse_mobile_app/models/drug_bank_db/pill_identifiter_model.d
 import 'package:medverse_mobile_app/models/drug_bank_db/product_model.dart';
 import 'package:medverse_mobile_app/utils/constants.dart';
 import 'package:http/http.dart' as http;
+import 'package:medverse_mobile_app/utils/database_sqlite_connection.dart';
 import 'dart:convert';
+
+import '../models/drug_bank_db/product_name.dart';
 
 /// Get a list of recommended item in api
 // class RecommenedData {
@@ -21,6 +24,35 @@ import 'dart:convert';
 //     }
 //   }
 // }
+class TypeAhead2 {
+
+  static Future<List<ProductName>> searchName(String keyword) async {
+
+    if (keyword.isEmpty) {
+
+      return <ProductName>[];
+
+    } else {
+
+      var db = await DatabaseSqliteConnection.drugBankAccess();
+
+      List<Map<String, dynamic>> allRows = await db.query('products',
+
+          where: 'product_name LIKE ?', whereArgs: ['%$keyword%']);
+
+      List<ProductName> listData =
+
+      allRows.map((product) => ProductName.fromJson(product)).toList();
+
+      print(listData.map((e) => e.product_name));
+
+      print("54" + listData.length.toString());
+
+      return listData;
+
+    }
+
+  }}
 
 /// Get a list of popular item in api
 class PopularData {
