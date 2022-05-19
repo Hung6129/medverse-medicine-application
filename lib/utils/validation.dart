@@ -22,8 +22,8 @@ class Validations {
   }
 
   static String validateField({String value}) {
-    if(value.isEmpty) {
-      return 'TextField cannot be empty';
+    if(value.isEmpty || RegExp(r"\s").hasMatch(value)) {
+      return 'Mời bạn nhập mô tả thuốc';
     }
     return null;
   }

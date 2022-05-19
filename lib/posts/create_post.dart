@@ -2,14 +2,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
-import 'package:medverse_mobile_app/utils/validation.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:provider/provider.dart';
 import '/widgets/awesome_dialog.dart';
-import '/utils/app_text_theme.dart';
 import '/components/custom_image.dart';
 import '/models/user.dart';
 import '/utils/firebase.dart';
+import '/utils/validation.dart';
+import '/utils/app_text_theme.dart';
 import '/view_models/auth/posts_view_model.dart';
 import '/widgets/indicators.dart';
 import '/theme/palette.dart';
@@ -172,9 +172,20 @@ class _CreatePostState extends State<CreatePost> {
             ),
           ),
           SizedBox(height: 20.0),
-          Text(
-            'Mô tả bài viết'.toUpperCase(),
-            style: MobileTextTheme().inputDescriptionAndLocationTitle,
+          Row(
+            children: [
+              Text(
+                'Mô tả bài viết'.toUpperCase(),
+                style: MobileTextTheme().inputDescriptionAndLocationTitle,
+              ),
+              SizedBox(width: 5),
+              Text(
+                '*',
+                style: TextStyle(
+                  color: Palette.red,
+                ),
+              ),
+            ],
           ),
           TextFormField(
             style: MobileTextTheme().inputDescriptionAndLocation,
@@ -184,7 +195,7 @@ class _CreatePostState extends State<CreatePost> {
               focusedBorder: UnderlineInputBorder(),
             ),
             validator: (value) {
-              if (value.isEmpty) {
+              if (value.isEmpty || RegExp(r"\s").hasMatch(description.text)) {
                 return ("Mời bạn nhập mô tả bài viết");
               }
               return null;

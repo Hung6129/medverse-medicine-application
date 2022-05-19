@@ -55,18 +55,17 @@ class _CommentsState extends State<Comments> {
       body: Container(
         height: MediaQuery.of(context).size.height,
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Flexible(
               child: ListView(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                    padding: EdgeInsets.only(top: 20),
                     child: buildFullPost(),
                   ),
                   Divider(thickness: 1.5),
-                  Flexible(
-                    child: buildComments(),
-                  )
+                  buildComments(),
                 ],
               ),
             ),
@@ -116,7 +115,7 @@ class _CommentsState extends State<Comments> {
                         trailing: GestureDetector(
                           onTap: () async {
                             String input = commentsTEC.text;
-                            if(cleanComment(input)) {
+                            if (cleanComment(input)) {
                               await services.uploadComment(
                                 currentUserId(),
                                 commentsTEC.text,
@@ -124,18 +123,18 @@ class _CommentsState extends State<Comments> {
                                 widget.post.ownerId,
                                 widget.post.mediaUrl,
                               );
-                            }
-                            else {
+                            } else {
                               AwesomeDialog(
                                 context: context,
                                 dialogType: DialogType.WARNING,
                                 headerAnimationLoop: false,
                                 animType: AnimType.TOPSLIDE,
                                 showCloseIcon: true,
-                                closeIcon: const Icon(Icons.close_fullscreen_outlined),
+                                closeIcon:
+                                    const Icon(Icons.close_fullscreen_outlined),
                                 title: 'Cảnh báo!',
                                 desc:
-                                'Oops! Đừng ghi vậy nha bạn. Bạn định ghi vậy thật sao',
+                                    'Bình luận bạn nhập có chứa nội dung vi phạm tiêu chuẩn cộng đồng của chúng tôi',
                                 descTextStyle: AppTextTheme.oswaldTextStyle,
                                 btnOkOnPress: () {},
                               ).show();
@@ -165,9 +164,9 @@ class _CommentsState extends State<Comments> {
   bool cleanComment(String commentInput) {
     List<String> inputArray = commentInput.split(" ");
     bool result = true;
-    for(final item in inputArray ) {
-      for(final badWord in Validations.badWord) {
-        if(item.toLowerCase() == badWord) {
+    for (final item in inputArray) {
+      for (final badWord in Validations.badWord) {
+        if (item.toLowerCase() == badWord) {
           print(item.toLowerCase());
           print(badWord);
           print('Test');
@@ -185,8 +184,8 @@ class _CommentsState extends State<Comments> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
-          height: 250.0,
-          width: MediaQuery.of(context).size.width - 20.0,
+          height: MediaQuery.of(context).size.width,
+          width: MediaQuery.of(context).size.width,
           child: cachedNetworkImage(widget.post.mediaUrl),
         ),
         Padding(
@@ -197,9 +196,7 @@ class _CommentsState extends State<Comments> {
             children: [
               Text(
                 widget.post.description,
-                style: TextStyle(
-                  fontWeight: FontWeight.w800,
-                ),
+                style: MobileTextTheme().postDescription,
               ),
               SizedBox(height: 4.0),
               Row(
@@ -271,7 +268,7 @@ class _CommentsState extends State<Comments> {
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
               child: Text(
                 comments.comment,
-                style: TextStyle(fontWeight: FontWeight.w400),
+                style: MobileTextTheme().postDescription,
               ),
             ),
             Divider()
@@ -343,15 +340,17 @@ class _CommentsState extends State<Comments> {
           .doc(widget.post.ownerId)
           .collection('notifications')
           .doc(widget.post.postId)
-          .set({
-        "type": "like",
-        "username": user.username,
-        "userId": currentUserId(),
-        "userDp": user.photoUrl,
-        "postId": widget.post.postId,
-        "mediaUrl": widget.post.mediaUrl,
-        "timestamp": timestamp,
-      });
+          .set(
+        {
+          "type": "like",
+          "username": user.username,
+          "userId": currentUserId(),
+          "userDp": user.photoUrl,
+          "postId": widget.post.postId,
+          "mediaUrl": widget.post.mediaUrl,
+          "timestamp": timestamp,
+        },
+      );
     }
   }
 
@@ -366,9 +365,14 @@ class _CommentsState extends State<Comments> {
           .collection('notifications')
           .doc(widget.post.postId)
           .get()
-          .then((doc) => {
-                if (doc.exists) {doc.reference.delete()}
-              });
+          .then(
+            (doc) => {
+              if (doc.exists)
+                {
+                  doc.reference.delete(),
+                }
+            },
+          );
     }
   }
 }

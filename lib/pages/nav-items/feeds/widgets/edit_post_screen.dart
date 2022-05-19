@@ -79,7 +79,9 @@ class _EditScreenState extends State<EditPostScreen> {
                         title: 'Thông báo',
                         desc: 'Bạn có chắc muốn xóa bài viết này?',
                         descTextStyle: AppTextTheme.oswaldTextStyle,
+                        btnCancelText: 'Hủy bỏ',
                         btnCancelOnPress: () {},
+                        btnOkText: 'Xóa',
                         btnOkOnPress: () async {
                           setState(
                             () {
@@ -97,10 +99,7 @@ class _EditScreenState extends State<EditPostScreen> {
                               _isDeleting = false;
                             },
                           );
-                          Navigator.pushReplacementNamed(
-                            context,
-                            "home",
-                          );
+                          Navigator.pushReplacementNamed(context, "/home");
                         },
                       ).show();
                     },

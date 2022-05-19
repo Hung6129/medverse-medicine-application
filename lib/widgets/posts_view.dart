@@ -313,7 +313,9 @@ class _PostsState extends State<Posts> {
                   title: 'Thông báo',
                   desc: 'Bạn có chắc muốn xóa bài viết này?',
                   descTextStyle: AppTextTheme.oswaldTextStyle,
+                  btnCancelText: 'Huỷ bỏ',
                   btnCancelOnPress: () {},
+                  btnOkText: 'Xóa',
                   btnOkOnPress: () async {
                     setState(
                           () {

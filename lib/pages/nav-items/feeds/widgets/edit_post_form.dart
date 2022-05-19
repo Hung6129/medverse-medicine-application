@@ -1,14 +1,12 @@
-import 'package:google_fonts/google_fonts.dart';
-import 'package:medverse_mobile_app/utils/app_text_theme.dart';
-
+import 'dart:io';
+import 'package:image_picker/image_picker.dart';
+import 'package:unicons/unicons.dart';
 import '/models/post.dart';
 import '/theme/palette.dart';
 import 'package:flutter/material.dart';
 import '/utils/validation.dart';
+import '/utils/app_text_theme.dart';
 import '/pages/nav-items/feeds/widgets/custom_form_field.dart';
-import 'dart:io';
-import 'package:image_picker/image_picker.dart';
-import 'package:unicons/unicons.dart';
 
 class EditItemForm extends StatefulWidget {
   final String documentId;
@@ -141,9 +139,21 @@ class _EditItemFormState extends State<EditItemForm> {
                   SizedBox(
                     height: 24.0,
                   ),
-                  Text(
-                    'Mô tả bài viết'.toUpperCase(),
-                    style: MobileTextTheme().inputDescriptionAndLocationTitle,
+                  Row(
+                    children: [
+                      Text(
+                        'Mô tả bài viết'.toUpperCase(),
+                        style:
+                            MobileTextTheme().inputDescriptionAndLocationTitle,
+                      ),
+                      SizedBox(width: 5),
+                      Text(
+                        '*',
+                        style: TextStyle(
+                          color: Palette.red,
+                        ),
+                      ),
+                    ],
                   ),
                   CustomFormField(
                     maxLines: null,
@@ -154,9 +164,10 @@ class _EditItemFormState extends State<EditItemForm> {
                     keyboardType: TextInputType.text,
                     inputAction: TextInputAction.next,
                     validator: (value) {
-                      Validations.validateField(
-                        value: value,
-                      );
+                      if (value.isEmpty ||
+                          RegExp(r"\s").hasMatch(_descriptionController.text)) {
+                        return ("Mời bạn nhập mô tả bài viết");
+                      }
                       updateDescription = value;
                     },
                     label: 'Mô tả bài viết',
@@ -170,7 +181,7 @@ class _EditItemFormState extends State<EditItemForm> {
                   CustomFormField(
                     maxLines: null,
                     isLabelEnabled: false,
-                    initialValue: widget.currentLocation,
+                    initialValue: widget.currentLocation ?? "Không có vị trí",
                     controller: _locationController,
                     focusNode: widget.descriptionFocusNode,
                     keyboardType: TextInputType.text,
@@ -219,6 +230,7 @@ class _EditItemFormState extends State<EditItemForm> {
                           await _postModel.updatePost(
                             postId: widget.documentId,
                             postImage: _postImageFile,
+                            currentImage: widget.currentImageUrl,
                             description: updateDescription,
                             location: updateLocation,
                           );
@@ -228,7 +240,7 @@ class _EditItemFormState extends State<EditItemForm> {
                               _isProcessing = false;
                             },
                           );
-                          Navigator.of(context).pop();
+                          Navigator.pushReplacementNamed(context, "/social");
                         }
                       },
                       child: Padding(
