@@ -128,7 +128,7 @@ class _ProfileState extends State<Profile> {
             toolbarHeight: 5.0,
             collapsedHeight: 6.0,
             backgroundColor: Palette.pastel3,
-            expandedHeight: 220.0,
+            expandedHeight: 250,
             flexibleSpace: FlexibleSpaceBar(
               background: StreamBuilder(
                 stream: usersRef.doc(widget.profileId).snapshots(),
