@@ -29,6 +29,8 @@ class _CommentsState extends State<Comments> {
   final DateTime timestamp = DateTime.now();
   TextEditingController commentsTEC = TextEditingController();
 
+  bool isCommentValidate = false;
+
   currentUserId() {
     return firebaseAuth.currentUser.uid;
   }
@@ -90,6 +92,7 @@ class _CommentsState extends State<Comments> {
                             color: Theme.of(context).textTheme.headline6.color,
                           ),
                           decoration: InputDecoration(
+                            errorText: isCommentValidate ? 'Mời bạn nhập nội dung bình luận' : null,
                             contentPadding: EdgeInsets.all(10.0),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(5.0),
@@ -116,13 +119,20 @@ class _CommentsState extends State<Comments> {
                           onTap: () async {
                             String input = commentsTEC.text;
                             if (cleanComment(input)) {
-                              await services.uploadComment(
-                                currentUserId(),
-                                commentsTEC.text,
-                                widget.post.postId,
-                                widget.post.ownerId,
-                                widget.post.mediaUrl,
-                              );
+                              if (commentsTEC.text.isEmpty || RegExp(r"\s").hasMatch(commentsTEC.text)) {
+                                setState(() {
+                                  isCommentValidate = true;
+                                });
+                                return false;
+                              } else {
+                                await services.uploadComment(
+                                  currentUserId(),
+                                  commentsTEC.text,
+                                  widget.post.postId,
+                                  widget.post.ownerId,
+                                  widget.post.mediaUrl,
+                                );
+                              }
                             } else {
                               AwesomeDialog(
                                 context: context,

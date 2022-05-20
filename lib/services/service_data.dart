@@ -44,11 +44,18 @@ class TypeAhead2 {
 
       allRows.map((product) => ProductName.fromJson(product)).toList();
 
-      print(listData.map((e) => e.product_name));
+/*      print(listData.map((e) => e.product_name));
 
       print("54" + listData.length.toString());
 
-      return listData;
+      return listData;*/
+      return List.generate(allRows.length, (i) {
+        return ProductName(
+          product_name: allRows[i]['product_name'],
+          product_id: allRows[i]['product_id'],
+          product_labeller: allRows[i]['product_labeller'],
+        );
+      });
 
     }
 

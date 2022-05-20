@@ -184,12 +184,12 @@ class _HomeScreenState extends State<HomeScreen> {
                 suggestionsCallback: (String pattern) {
                   return TypeAhead2.searchName(pattern);
                 },
-                itemBuilder: (context, ProductName suggestion) {
+                itemBuilder: (context,  suggestion) {
                   return ListTile(
                     title: AppTextTitle(
                       text: suggestion.product_name +
                           "--" +
-                          suggestion.product_labeller,
+                          suggestion.product_name,
                       color: Colors.black54,
                       size: Dimensions.font14,
                       fontWeight: FontWeight.normal,
