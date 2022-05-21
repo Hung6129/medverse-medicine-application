@@ -28,7 +28,11 @@ class _ProfilePictureState extends State<ProfilePicture> {
         child: Scaffold(
           key: viewModel.scaffoldKey,
           appBar: AppBar(
-            title: Text('Thêm một ảnh đại diện'),
+            backgroundColor: Palette.mainBlueTheme,
+            title: Text(
+              'Thêm một ảnh đại diện',
+              style: MobileTextTheme().appBarStyle,
+            ),
             centerTitle: true,
           ),
           body: ListView(
@@ -45,7 +49,7 @@ class _ProfilePictureState extends State<ProfilePicture> {
                       Radius.circular(3.0),
                     ),
                     border: Border.all(
-                      color: Theme.of(context).accentColor,
+                      color: Palette.mainBlueTheme,
                     ),
                   ),
                   child: viewModel.imgLink != null
@@ -59,9 +63,7 @@ class _ProfilePictureState extends State<ProfilePicture> {
                           ? Center(
                               child: Text(
                                 'Tải ảnh đại diện của bạn lên đây',
-                                style: TextStyle(
-                                  color: Theme.of(context).accentColor,
-                                ),
+                                style: MobileTextTheme().choosePictureRequired,
                               ),
                             )
                           : Image.file(
@@ -76,8 +78,8 @@ class _ProfilePictureState extends State<ProfilePicture> {
               Center(
                 child: ElevatedButton(
                   style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all<Color>(
-                        Theme.of(context).accentColor),
+                    backgroundColor:
+                        MaterialStateProperty.all<Color>(Palette.mainBlueTheme),
                     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                       RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(5.0),
@@ -125,7 +127,10 @@ class _ProfilePictureState extends State<ProfilePicture> {
               Divider(),
               ListTile(
                 leading: Icon(Feather.camera),
-                title: Text('Chọn từ máy ảnh'),
+                title: Text(
+                  'Chọn từ máy ảnh',
+                  style: MobileTextTheme().selectCamera,
+                ),
                 onTap: () {
                   Navigator.pop(context);
                   viewModel.pickImage(camera: true);
@@ -133,7 +138,10 @@ class _ProfilePictureState extends State<ProfilePicture> {
               ),
               ListTile(
                 leading: Icon(Feather.image),
-                title: Text('Chọn từ thư viện'),
+                title: Text(
+                  'Chọn từ thư viện',
+                  style: MobileTextTheme().selectGallery,
+                ),
                 onTap: () {
                   Navigator.pop(context);
                   viewModel.pickImage();

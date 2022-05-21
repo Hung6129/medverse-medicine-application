@@ -107,24 +107,33 @@ class _TimelineState extends State<Timeline> {
         ),
         body: isLoading
             ? circularProgress(context)
-            : ListView.separated(
-                controller: _scrollController,
-                itemCount: post.length,
-                itemBuilder: (context, index) {
-                  internetChecker(context);
-                  PostModel posts = PostModel.fromJson(
-                    post[index].data(),
+            : StreamBuilder(
+                stream: getPosts(),
+                builder: (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+                  return ListView.separated(
+                    controller: _scrollController,
+                    itemCount: post.length,
+                    itemBuilder: (context, index) {
+                      internetChecker(context);
+                      if(snapshot.hasData) {
+                        PostModel posts = PostModel.fromJson(
+                          post[index].data(),
+                        );
+                        return Padding(
+                          padding: const EdgeInsets.only(
+                            top: 10.0,
+                            bottom: 10.0,
+                          ),
+                          child: UserPost(
+                            post: posts,
+                          ),
+                        );
+                      }
+                      return Container();
+                    },
+                    separatorBuilder: (context, index) => const Divider(),
                   );
-                  return Padding(
-                    padding: const EdgeInsets.only(
-                      top: 10.0,
-                      bottom: 10.0,
-                    ),
-                    child: UserPost(
-                      post: posts,
-                    ),
-                  );
-                }, separatorBuilder:  (context, index) => const Divider(),
+                },
               ),
         floatingActionButton: buildFab(),
       );

@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:medverse_mobile_app/models/post.dart';
 import '/models/user.dart';
 import '/screens/view_image.dart';
@@ -13,7 +14,7 @@ class PostService extends Service {
   String postId = Uuid().v4();
   String userUid;
 
-/// Uploads profile picture to the users collection
+  /// Uploads profile picture to the users collection
   uploadProfilePicture(File image, User user) async {
     String link = await uploadImage(profilePic, image);
     var ref = usersRef.doc(user.uid);
