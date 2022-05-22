@@ -73,6 +73,7 @@ dependencies:
   shimmer_animation: any
   animations: any
   expandable: any
+  flutter_neumorphic: ^3.2.0
 
   get: any
   google_sign_in: any

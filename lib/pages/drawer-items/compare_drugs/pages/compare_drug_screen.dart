@@ -120,65 +120,65 @@ class MapScreenState extends State<CompareDrug> {
                     child: Column(
                       children: [
                         /// Input
-                        Form(
-                          key: this._formKey,
-                          child: TypeAheadFormField(
-                            textFieldConfiguration: TextFieldConfiguration(
-                              focusNode: focusNode,
-                              autocorrect: true,
-                              controller: this._typeAheadController,
-                              decoration: InputDecoration(
-                                  suffixIcon: IconButton(
-                                    icon: Icon(CupertinoIcons.clear),
-                                    onPressed: () {
-                                      _typeAheadController.clear();
-                                    },
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(Dimensions.radius20),
-                                    ),
-                                    borderSide: BorderSide(
-                                        color: Palette.mainBlueTheme),
-                                  ),
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(Dimensions.radius20),
-                                    ),
-                                    borderSide: BorderSide(
-                                      width: 3,
-                                      color: Palette.mainBlueTheme,
-                                    ),
-                                  ),
-                                  labelText: 'Nhập thuốc bạn muốn so sánh'),
-                            ),
-                            onSuggestionSelected: (ProductModel suggestion) {
-                              if (addedItemsList.length == 2) {
-                                print("cannot add");
-                              }
-                              _typeAheadController.text =
-                                  suggestion.productName;
-                              print(_typeAheadController.text);
-                              __addItemToList(_typeAheadController.text);
-                            },
-                            itemBuilder: (context, ProductModel suggestion) {
-                              return ListTile(
-                                title: AppTextTitle(
-                                    text: suggestion.productName,
-                                    color: Colors.black54,
-                                    size: Dimensions.font16,
-                                    fontWeight: FontWeight.normal),
-                              );
-                            },
-                            transitionBuilder:
-                                (context, suggestionsBox, controller) {
-                              return suggestionsBox;
-                            },
-                            suggestionsCallback: (String pattern) {
-                              return TypeHead.getTypeAhead(pattern);
-                            },
-                          ),
-                        ),
+                        // Form(
+                        //   key: this._formKey,
+                        //   child: TypeAheadFormField(
+                        //     textFieldConfiguration: TextFieldConfiguration(
+                        //       focusNode: focusNode,
+                        //       autocorrect: true,
+                        //       controller: this._typeAheadController,
+                        //       decoration: InputDecoration(
+                        //           suffixIcon: IconButton(
+                        //             icon: Icon(CupertinoIcons.clear),
+                        //             onPressed: () {
+                        //               _typeAheadController.clear();
+                        //             },
+                        //           ),
+                        //           focusedBorder: OutlineInputBorder(
+                        //             borderRadius: BorderRadius.all(
+                        //               Radius.circular(Dimensions.radius20),
+                        //             ),
+                        //             borderSide: BorderSide(
+                        //                 color: Palette.mainBlueTheme),
+                        //           ),
+                        //           border: OutlineInputBorder(
+                        //             borderRadius: BorderRadius.all(
+                        //               Radius.circular(Dimensions.radius20),
+                        //             ),
+                        //             borderSide: BorderSide(
+                        //               width: 3,
+                        //               color: Palette.mainBlueTheme,
+                        //             ),
+                        //           ),
+                        //           labelText: 'Nhập thuốc bạn muốn so sánh'),
+                        //     ),
+                        //     onSuggestionSelected: ( suggestion) {
+                        //       if (addedItemsList.length == 2) {
+                        //         print("cannot add");
+                        //       }
+                        //       _typeAheadController.text =
+                        //           suggestion.productName;
+                        //       print(_typeAheadController.text);
+                        //       __addItemToList(_typeAheadController.text);
+                        //     },
+                        //     itemBuilder: (context,  suggestion) {
+                        //       return ListTile(
+                        //         title: AppTextTitle(
+                        //             text: suggestion.productName,
+                        //             color: Colors.black54,
+                        //             size: Dimensions.font16,
+                        //             fontWeight: FontWeight.normal),
+                        //       );
+                        //     },
+                        //     transitionBuilder:
+                        //         (context, suggestionsBox, controller) {
+                        //       return suggestionsBox;
+                        //     },
+                        //     suggestionsCallback: (String pattern) {
+                        //       return TypeAhead2.searchName(pattern);
+                        //     },
+                        //   ),
+                        // ),
                         SizedBox(height: Dimensions.height10),
 
                         /// List Box Items

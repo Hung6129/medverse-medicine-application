@@ -153,7 +153,7 @@ class DataDao {
 
     return List.generate(
       maps.length,
-          (index) {
+      (index) {
         var row = maps[index];
         return DrugModel(
           row["product_name"],
@@ -178,7 +178,7 @@ class DataDao {
 
     return List.generate(
       maps.length,
-          (index) {
+      (index) {
         var row = maps[index];
         return DrugModel(
           row["product_name"],
@@ -203,7 +203,7 @@ class DataDao {
 
     return List.generate(
       maps.length,
-          (index) {
+      (index) {
         var row = maps[index];
         return DrugModel(
           row["product_name"],
@@ -228,7 +228,7 @@ class DataDao {
 
     return List.generate(
       maps.length,
-          (index) {
+      (index) {
         var row = maps[index];
         return DrugModel(
           row["product_name"],
@@ -253,7 +253,7 @@ class DataDao {
 
     return List.generate(
       maps.length,
-          (index) {
+      (index) {
         var row = maps[index];
         return DrugModel(
           row["product_name"],
@@ -278,7 +278,7 @@ class DataDao {
 
     return List.generate(
       maps.length,
-          (index) {
+      (index) {
         var row = maps[index];
         return DrugModel(
           row["product_name"],
@@ -303,7 +303,7 @@ class DataDao {
 
     return List.generate(
       maps.length,
-          (index) {
+      (index) {
         var row = maps[index];
         return DrugModel(
           row["product_name"],
@@ -328,7 +328,7 @@ class DataDao {
 
     return List.generate(
       maps.length,
-          (index) {
+      (index) {
         var row = maps[index];
         return DrugModel(
           row["product_name"],
@@ -353,7 +353,7 @@ class DataDao {
 
     return List.generate(
       maps.length,
-          (index) {
+      (index) {
         var row = maps[index];
         return DrugModel(
           row["product_name"],
@@ -378,7 +378,7 @@ class DataDao {
 
     return List.generate(
       maps.length,
-          (index) {
+      (index) {
         var row = maps[index];
         return DrugModel(
           row["product_name"],
@@ -403,7 +403,7 @@ class DataDao {
 
     return List.generate(
       maps.length,
-          (index) {
+      (index) {
         var row = maps[index];
         return DrugModel(
           row["product_name"],
@@ -428,7 +428,7 @@ class DataDao {
 
     return List.generate(
       maps.length,
-          (index) {
+      (index) {
         var row = maps[index];
         return DrugModel(
           row["product_name"],
@@ -453,7 +453,7 @@ class DataDao {
 
     return List.generate(
       maps.length,
-          (index) {
+      (index) {
         var row = maps[index];
         return DrugModel(
           row["product_name"],
@@ -478,7 +478,7 @@ class DataDao {
 
     return List.generate(
       maps.length,
-          (index) {
+      (index) {
         var row = maps[index];
         return DrugModel(
           row["product_name"],
@@ -503,7 +503,7 @@ class DataDao {
 
     return List.generate(
       maps.length,
-          (index) {
+      (index) {
         var row = maps[index];
         return DrugModel(
           row["product_name"],
@@ -528,7 +528,7 @@ class DataDao {
 
     return List.generate(
       maps.length,
-          (index) {
+      (index) {
         var row = maps[index];
         return DrugModel(
           row["product_name"],
@@ -553,7 +553,7 @@ class DataDao {
 
     return List.generate(
       maps.length,
-          (index) {
+      (index) {
         var row = maps[index];
         return DrugModel(
           row["product_name"],
@@ -578,7 +578,7 @@ class DataDao {
 
     return List.generate(
       maps.length,
-          (index) {
+      (index) {
         var row = maps[index];
         return DrugModel(
           row["product_name"],
@@ -603,7 +603,7 @@ class DataDao {
 
     return List.generate(
       maps.length,
-          (index) {
+      (index) {
         var row = maps[index];
         return DrugModel(
           row["product_name"],
@@ -628,7 +628,7 @@ class DataDao {
 
     return List.generate(
       maps.length,
-          (index) {
+      (index) {
         var row = maps[index];
         return DrugModel(
           row["product_name"],
@@ -653,7 +653,7 @@ class DataDao {
 
     return List.generate(
       maps.length,
-          (index) {
+      (index) {
         var row = maps[index];
         return DrugModel(
           row["product_name"],
@@ -678,7 +678,7 @@ class DataDao {
 
     return List.generate(
       maps.length,
-          (index) {
+      (index) {
         var row = maps[index];
         return DrugModel(
           row["product_name"],

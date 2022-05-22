@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import '/models/drug_bank_db/product_name.dart';
 import '/pages/nav-items/home/bloc/home_screen_bloc.dart';
@@ -56,50 +58,44 @@ class _HomeScreenState extends State<HomeScreen> {
   var imagesIcon = {
     Icon(
       CupertinoIcons.doc_text_search,
-      color: Palette.pastel2,
-      size: Dimensions.icon24,
+      color: Palette.textNo,
+      size: Dimensions.icon28,
     ): AppText(
       text: "Tìm kiếm",
       size: Dimensions.font14,
-      color: Palette.pastel2,
+      color: Palette.textNo,
     ),
     Icon(
       CupertinoIcons.command,
-      size: Dimensions.icon24,
-      color: Palette.pastel3,
+      size: Dimensions.icon28,
+      color: Palette.textNo,
     ): AppText(
       text: "So sánh",
       size: Dimensions.font14,
-      color: Palette.pastel3,
+      color: Palette.textNo,
     ),
     Icon(
       CupertinoIcons.drop_triangle_fill,
-      size: Dimensions.icon24,
-      color: Palette.pastel4,
+      size: Dimensions.icon28,
+      color: Palette.textNo,
     ): AppText(
       text: "Tương kỵ",
       size: Dimensions.font14,
-      color: Palette.pastel4,
+      color: Palette.textNo,
     ),
     Icon(
       CupertinoIcons.profile_circled,
-      size: Dimensions.icon24,
-      color: Palette.pastel5,
+      size: Dimensions.icon28,
+      color: Palette.textNo,
     ): AppText(
       text: "Hồ sơ",
-      color: Palette.pastel5,
+      color: Palette.textNo,
       size: Dimensions.font14,
     ),
   };
 
   @override
   Widget build(BuildContext context) {
-    /// Call bloc and set
-    final bloc = BlocProvider.of<HomeScreenBloc>(context);
-
-    /// Set bloc value
-    var dataPo = bloc.drugPoTop10;
-
     /// Loading Shimmer Popular
     Widget __loadingPoShimmer() {
       return Container(
@@ -189,7 +185,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     title: AppTextTitle(
                       text: suggestion.product_name +
                           "--" +
-                          suggestion.product_labeller,
+                          suggestion.product_name,
                       color: Colors.black54,
                       size: Dimensions.font14,
                       fontWeight: FontWeight.normal,
@@ -229,17 +225,19 @@ class _HomeScreenState extends State<HomeScreen> {
         padding: EdgeInsets.only(bottom: Dimensions.height10),
         child: Container(
           width: double.maxFinite,
-          height: 120,
-          margin: EdgeInsets.only(
-            left: Dimensions.height10,
-          ),
+          height: 100,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
             itemCount: imagesIcon.keys.length,
             itemBuilder: (_, index) {
-              return Center(
-                child: GestureDetector(
-                  onTap: () {
+              return Padding(
+                padding: const EdgeInsets.only(left: 10),
+                child: NeumorphicButton(
+                  style: NeumorphicStyle(
+                    shape: NeumorphicShape.flat,
+                    color: Colors.white,
+                  ),
+                  onPressed: () {
                     switch (index) {
                       case 0:
                         Navigator.pushNamed(context, "/pill-identifier");
@@ -255,41 +253,12 @@ class _HomeScreenState extends State<HomeScreen> {
                         break;
                     }
                   },
-                  child: Container(
-                    width: 100,
-                    height: 100,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(Dimensions.radius20),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Palette.grey300.withOpacity(0.5),
-                          blurRadius: 5.0,
-                          offset: Offset(0, 5),
-                        ),
-                        BoxShadow(
-                          color: Palette.grey300.withOpacity(0.5),
-                          offset: Offset(5, 5),
-                        ),
-                        BoxShadow(
-                          color: Palette.grey300.withOpacity(0.5),
-                          offset: Offset(-5, 5),
-                        ),
-                      ],
-                    ),
-                    margin: EdgeInsets.only(right: 20, left: 10),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          child: imagesIcon.keys.elementAt(index),
-                        ),
-                        Container(child: imagesIcon.values.elementAt(index))
-                      ],
-                    ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      imagesIcon.keys.elementAt(index),
+                      imagesIcon.values.elementAt(index),
+                    ],
                   ),
                 ),
               );
@@ -315,17 +284,18 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             itemBuilder: (ctx, index, realIdx) {
               return Container(
-                // margin: EdgeInsets.only(right: 20, top: 10),
-                width: 250,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  image: DecorationImage(
-                    image: AssetImage(
-                        "assets/image/images/gallery/300/" + imgList[index]),
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              );
+                    // margin: EdgeInsets.only(right: 20, top: 10),
+                    width: 250,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      image: DecorationImage(
+                        image: AssetImage("assets/image/images/gallery/300/" +
+                            imgList[index]),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ) ??
+                  __loadingPoShimmer();
             },
           ),
         ),
@@ -333,29 +303,59 @@ class _HomeScreenState extends State<HomeScreen> {
     }
 
     /// Build body
-    return Scaffold(
-      drawer: const NavigationDrawerWidget(),
-      appBar: appBarMain(titleText: "Trang chủ"),
-      body: SingleChildScrollView(
-        physics: const AlwaysScrollableScrollPhysics(),
-        child: Column(
-          children: [
-            // Search bar
-            __searchBar(),
-            // List function
-            __listFunIcon(),
+    return WillPopScope(
+      child: Scaffold(
+        drawer: const NavigationDrawerWidget(),
+        appBar: appBarMain(titleText: "Trang chủ"),
+        body: SingleChildScrollView(
+          physics: const AlwaysScrollableScrollPhysics(),
+          child: Column(
+            children: [
+              // Search bar
+              __searchBar(),
+              // List function
+              __listFunIcon(),
 
-            // List popular product
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                __title(),
-                __carouseSlider(),
-              ],
-            ),
-          ],
+              // List popular product
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  __title(),
+                  __carouseSlider(),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
+      onWillPop: () {
+        return showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: AppText(text: "Thoát"),
+                content: AppText(text: "Bạn muốn thoát ứng dụng?"),
+                actions: <Widget>[
+                  FlatButton(
+                    child: AppText(text: "Thoát", color: Palette.warningColor),
+                    onPressed: () {
+                      SystemNavigator.pop();
+                    },
+                  ),
+                  FlatButton(
+                    child: AppText(
+                      text: "Huỷ",
+                      color: Palette.grey,
+                    ),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  )
+                ],
+              );
+            });
+      },
     );
   }
 }
