@@ -1,4 +1,3 @@
-import '../../../../widgets/app_text_title.dart';
 import '/theme/palette.dart';
 import '/widgets/app_text.dart';
 import '/widgets/dimension.dart';
@@ -86,7 +85,7 @@ class _PillIdentifierListResultState extends State<PillIdentifierListResult> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      AppTextTitle(
+                      AppText(
                         text: data.keys.elementAt(index),
                         color: Palette.textNo,
                         size: Dimensions.font20,

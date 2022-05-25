@@ -1,13 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
+import '../../../../services/service_data.dart';
 import '/pages/drawer-items/compare_drugs/pages/compare_result.dart';
 import '/utils/app_text_theme.dart';
 import '../../../../widgets/app_text.dart';
-import '/services/service_data.dart';
 import '/widgets/dimension.dart';
-import '/models/drug_bank_db/product_model.dart';
-import '/widgets/app_text_title.dart';
 import '/theme/palette.dart';
 
 class CompareDrug extends StatefulWidget {
@@ -120,65 +118,65 @@ class MapScreenState extends State<CompareDrug> {
                     child: Column(
                       children: [
                         /// Input
-                        // Form(
-                        //   key: this._formKey,
-                        //   child: TypeAheadFormField(
-                        //     textFieldConfiguration: TextFieldConfiguration(
-                        //       focusNode: focusNode,
-                        //       autocorrect: true,
-                        //       controller: this._typeAheadController,
-                        //       decoration: InputDecoration(
-                        //           suffixIcon: IconButton(
-                        //             icon: Icon(CupertinoIcons.clear),
-                        //             onPressed: () {
-                        //               _typeAheadController.clear();
-                        //             },
-                        //           ),
-                        //           focusedBorder: OutlineInputBorder(
-                        //             borderRadius: BorderRadius.all(
-                        //               Radius.circular(Dimensions.radius20),
-                        //             ),
-                        //             borderSide: BorderSide(
-                        //                 color: Palette.mainBlueTheme),
-                        //           ),
-                        //           border: OutlineInputBorder(
-                        //             borderRadius: BorderRadius.all(
-                        //               Radius.circular(Dimensions.radius20),
-                        //             ),
-                        //             borderSide: BorderSide(
-                        //               width: 3,
-                        //               color: Palette.mainBlueTheme,
-                        //             ),
-                        //           ),
-                        //           labelText: 'Nhập thuốc bạn muốn so sánh'),
-                        //     ),
-                        //     onSuggestionSelected: ( suggestion) {
-                        //       if (addedItemsList.length == 2) {
-                        //         print("cannot add");
-                        //       }
-                        //       _typeAheadController.text =
-                        //           suggestion.productName;
-                        //       print(_typeAheadController.text);
-                        //       __addItemToList(_typeAheadController.text);
-                        //     },
-                        //     itemBuilder: (context,  suggestion) {
-                        //       return ListTile(
-                        //         title: AppTextTitle(
-                        //             text: suggestion.productName,
-                        //             color: Colors.black54,
-                        //             size: Dimensions.font16,
-                        //             fontWeight: FontWeight.normal),
-                        //       );
-                        //     },
-                        //     transitionBuilder:
-                        //         (context, suggestionsBox, controller) {
-                        //       return suggestionsBox;
-                        //     },
-                        //     suggestionsCallback: (String pattern) {
-                        //       return TypeAhead2.searchName(pattern);
-                        //     },
-                        //   ),
-                        // ),
+                        Form(
+                          key: this._formKey,
+                          child: TypeAheadFormField(
+                            textFieldConfiguration: TextFieldConfiguration(
+                              focusNode: focusNode,
+                              autocorrect: true,
+                              controller: this._typeAheadController,
+                              decoration: InputDecoration(
+                                  suffixIcon: IconButton(
+                                    icon: Icon(CupertinoIcons.clear),
+                                    onPressed: () {
+                                      _typeAheadController.clear();
+                                    },
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(Dimensions.radius20),
+                                    ),
+                                    borderSide: BorderSide(
+                                        color: Palette.mainBlueTheme),
+                                  ),
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(Dimensions.radius20),
+                                    ),
+                                    borderSide: BorderSide(
+                                      width: 3,
+                                      color: Palette.mainBlueTheme,
+                                    ),
+                                  ),
+                                  labelText: 'Nhập thuốc bạn muốn so sánh'),
+                            ),
+                            onSuggestionSelected: ( suggestion) {
+                              if (addedItemsList.length == 2) {
+                                print("cannot add");
+                              }
+                              _typeAheadController.text =
+                                  suggestion.productName;
+                              print(_typeAheadController.text);
+                              __addItemToList(_typeAheadController.text);
+                            },
+                            itemBuilder: (context,  suggestion) {
+                              return ListTile(
+                                title: AppText(
+                                    text: suggestion.productName,
+                                    color: Colors.black54,
+                                    size: Dimensions.font16,
+                                    fontWeight: FontWeight.normal),
+                              );
+                            },
+                            transitionBuilder:
+                                (context, suggestionsBox, controller) {
+                              return suggestionsBox;
+                            },
+                            suggestionsCallback: (String pattern) {
+                              return TypeAhead2.searchName(pattern);
+                            },
+                          ),
+                        ),
                         SizedBox(height: Dimensions.height10),
 
                         /// List Box Items
@@ -206,7 +204,7 @@ class MapScreenState extends State<CompareDrug> {
                                       deleteIconColor: Colors.white,
                                       backgroundColor: Palette.mainBlueTheme
                                           .withOpacity(0.7),
-                                      label: AppTextTitle(
+                                      label: AppText(
                                         text: addedItemsList[index],
                                         color: Colors.white,
                                         size: Dimensions.font20,

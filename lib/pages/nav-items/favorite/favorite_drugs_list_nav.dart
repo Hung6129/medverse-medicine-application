@@ -4,7 +4,6 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import '/utils/app_text_theme.dart';
 import '/theme/palette.dart';
 import '/widgets/app_text.dart';
-import '/widgets/app_text_title.dart';
 import '/widgets/dimension.dart';
 
 import '/pages/nav-items/favorite/fav_drug_details.dart';

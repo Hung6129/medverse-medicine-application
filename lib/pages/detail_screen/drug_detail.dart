@@ -1,9 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import '../../models/drug_bank_db/product_model.dart';
 import '../../theme/palette.dart';
-import '../../widgets/app_text_title.dart';
+import '../../widgets/app_text.dart';
 import '../../widgets/dimension.dart';
 import '../../widgets/rich_text_cus.dart';
 
@@ -134,7 +133,7 @@ class _DrugDetailsState extends State<DrugDetails> {
                   right: Dimensions.height10,
                 ),
                 child: Center(
-                  child: AppTextTitle(
+                  child: AppText(
                     text: info.productName,
                     color: Palette.mainBlueTheme,
                     size: Dimensions.font24,

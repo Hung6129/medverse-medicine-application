@@ -8,7 +8,6 @@ import '/pages/nav-items/home/bloc/home_screen_bloc.dart';
 import '/services/service_data.dart';
 import '/widgets/header.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';
-import '/widgets/app_text_title.dart';
 import '/widgets/dimension.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '/widgets/navigation_drawer_widget.dart';
@@ -181,7 +180,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 },
                 itemBuilder: (context, ProductName suggestion) {
                   return ListTile(
-                    title: AppTextTitle(
+                    title: AppText(
                       text: suggestion.product_name +
                           "--" +
                           suggestion.product_name,

@@ -1,4 +1,3 @@
-import '/widgets/app_text_title.dart';
 import '/theme/palette.dart';
 import '/widgets/app_text.dart';
 import '/widgets/dimension.dart';
@@ -201,7 +200,7 @@ class _PillIdentifierState extends State<PillIdentifier> {
                             items: pill_color_1.map((value) {
                               return DropdownMenuItem(
                                 value: value,
-                                child: AppTextTitle(
+                                child: AppText(
                                     text: value,
                                     size: Dimensions.font14,
                                     fontWeight: FontWeight.normal),
@@ -238,7 +237,7 @@ class _PillIdentifierState extends State<PillIdentifier> {
                             items: pill_color_2.map((value) {
                               return DropdownMenuItem(
                                 value: value,
-                                child: AppTextTitle(
+                                child: AppText(
                                     text: value,
                                     size: Dimensions.font14,
                                     fontWeight: FontWeight.normal),
@@ -281,7 +280,7 @@ class _PillIdentifierState extends State<PillIdentifier> {
                               (value) {
                                 return DropdownMenuItem(
                                   value: value,
-                                  child: AppTextTitle(
+                                  child: AppText(
                                       text: value,
                                       size: Dimensions.font14,
                                       fontWeight: FontWeight.normal),
@@ -325,7 +324,7 @@ class _PillIdentifierState extends State<PillIdentifier> {
                               (value) {
                                 return DropdownMenuItem(
                                   value: value,
-                                  child: AppTextTitle(
+                                  child: AppText(
                                       text: value,
                                       size: Dimensions.font14,
                                       fontWeight: FontWeight.normal),
@@ -375,7 +374,7 @@ class _PillIdentifierState extends State<PillIdentifier> {
                           SizedBox(
                             width: Dimensions.width10,
                           ),
-                          AppTextTitle(
+                          AppText(
                             text: "Tìm kiếm",
                             color: Palette.p1,
                             size: Dimensions.font14,

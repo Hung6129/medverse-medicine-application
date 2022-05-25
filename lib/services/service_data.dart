@@ -47,10 +47,6 @@ class TypeAhead2 {
       List<ProductName> listData =
           allRows.map((product) => ProductName.fromJson(product)).toList();
 
-      print(listData.map((e) => e.product_name));
-
-      print("54" + listData.length.toString());
-
       return listData;
     }
   }
