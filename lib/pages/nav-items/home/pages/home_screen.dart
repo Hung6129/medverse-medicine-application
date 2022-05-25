@@ -223,40 +223,44 @@ class _HomeScreenState extends State<HomeScreen> {
         padding: EdgeInsets.only(bottom: Dimensions.height10),
         child: Container(
           width: double.maxFinite,
-          height: 100,
+          height: 110,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
             itemCount: imagesIcon.keys.length,
             itemBuilder: (_, index) {
               return Padding(
-                padding: const EdgeInsets.only(left: 10, top: 10, bottom: 10),
-                child: NeumorphicButton(
-                  style: NeumorphicStyle(
-                    shape: NeumorphicShape.flat,
-                    color: Colors.white,
-                  ),
-                  onPressed: () {
-                    switch (index) {
-                      case 0:
-                        Navigator.pushNamed(context, "/pill-identifier");
-                        break;
-                      case 1:
-                        Navigator.pushNamed(context, "/compare-drug");
-                        break;
-                      case 2:
-                        Navigator.pushNamed(context, "/interaction-checker");
-                        break;
-                      case 3:
-                        Navigator.pushNamed(context, "/health-profile");
-                        break;
-                    }
-                  },
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      imagesIcon.keys.elementAt(index),
-                      imagesIcon.values.elementAt(index),
-                    ],
+                padding: const EdgeInsets.only(
+                    left: 10, right: 20, top: 10, bottom: 10),
+                child: Container(
+                  width: 100,
+                  child: NeumorphicButton(
+                    style: NeumorphicStyle(
+                      shape: NeumorphicShape.flat,
+                      color: Colors.white,
+                    ),
+                    onPressed: () {
+                      switch (index) {
+                        case 0:
+                          Navigator.pushNamed(context, "/pill-identifier");
+                          break;
+                        case 1:
+                          Navigator.pushNamed(context, "/compare-drug");
+                          break;
+                        case 2:
+                          Navigator.pushNamed(context, "/interaction-checker");
+                          break;
+                        case 3:
+                          Navigator.pushNamed(context, "/health-profile");
+                          break;
+                      }
+                    },
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        imagesIcon.keys.elementAt(index),
+                        imagesIcon.values.elementAt(index),
+                      ],
+                    ),
                   ),
                 ),
               );

@@ -118,6 +118,7 @@ flutter:
     - assets/flare/
     - database/Glossary.sqlite
     - database/drugbank.sqlite3
+    
     - assets/images/drugs_pill/Calcet.jpg
     - assets/icons/
     - assets/images/
