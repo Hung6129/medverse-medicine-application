@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:hive_flutter/hive_flutter.dart';
-import '../../models/drug_bank_db/fav_drug_model.dart';
 import '../../models/drug_bank_db/product_model.dart';
 import '../../theme/palette.dart';
 import '../../widgets/app_text_title.dart';
@@ -22,20 +20,19 @@ class DrugDetails extends StatefulWidget {
 }
 
 class _DrugDetailsState extends State<DrugDetails> {
-  // Hive box
-  var _box = Hive.box<FavDrugModel>("fav-list");
+
 
   // Test images
   String imagesFav = "assets/images/drugs_pill/300.jpg";
 
   // Icon checker setup
-  Widget getIcons(String id) {
-    if (_box.containsKey(id)) {
-      return Icon(CupertinoIcons.heart_fill, color: Colors.red);
-    } else {
-      return Icon(CupertinoIcons.heart, color: Colors.red);
-    }
-  }
+  // Widget getIcons(String id) {
+  //   if (_box.containsKey(id)) {
+  //     return Icon(CupertinoIcons.heart_fill, color: Colors.red);
+  //   } else {
+  //     return Icon(CupertinoIcons.heart, color: Colors.red);
+  //   }
+  // }
 
   // Show Dialog
   showAlertDialog(BuildContext context, String id) {
@@ -49,7 +46,7 @@ class _DrugDetailsState extends State<DrugDetails> {
     Widget continueButton = TextButton(
       child: Text("Bỏ lưu"),
       onPressed: () {
-        _box.delete(id);
+        // _box.delete(id);
       },
     );
 
@@ -73,45 +70,45 @@ class _DrugDetailsState extends State<DrugDetails> {
   }
 
   // Heart on tap evnent
-  onFavoriteTap(String id) {
-    if (_box.containsKey(id)) {
-      showAlertDialog(this.context, id);
-    } else {
-      var info = widget.drugData;
-      FavDrugModel data = FavDrugModel(
-        productName: info.productName,
-        approved: info.approved,
-        country: info.country,
-        drugbankID: info.drugbankID,
-        generic: info.generic,
-        otc: info.otc,
-        productCode: info.productCode,
-        productID: info.productID,
-        productLabeller: info.productLabeller,
-        productRoute: info.productRoute,
-        productStrength: info.productStrength,
-        productdosage: info.productdosage,
-        productImage: info.productImage,
-        drugClearance: info.drugClearance,
-        drugDescription: info.drugDescription,
-        drugElimination: info.drugElimination,
-        drugHalflife: info.drugHalflife,
-        drugIndication: info.drugIndication,
-        drugMechan: info.drugMechan,
-        drugMetabolism: info.drugMetabolism,
-        drugName: info.drugName,
-        drugPharmaco: info.drugPharmaco,
-        drugState: info.drugState,
-        drugToxicity: info.drugToxicity,
-        // savedTime: DateTime.now().toString(),
-      );
-      _box.put(info.productID, data);
-      Fluttertoast.showToast(
-        msg: 'Lưu thành công',
-        backgroundColor: Palette.activeButton,
-      );
-    }
-  }
+  // onFavoriteTap(String id) {
+  //   if (_box.containsKey(id)) {
+  //     showAlertDialog(this.context, id);
+  //   } else {
+  //     var info = widget.drugData;
+  //     FavDrugModel data = FavDrugModel(
+  //       productName: info.productName,
+  //       approved: info.approved,
+  //       country: info.country,
+  //       drugbankID: info.drugbankID,
+  //       generic: info.generic,
+  //       otc: info.otc,
+  //       productCode: info.productCode,
+  //       productID: info.productID,
+  //       productLabeller: info.productLabeller,
+  //       productRoute: info.productRoute,
+  //       productStrength: info.productStrength,
+  //       productdosage: info.productdosage,
+  //       productImage: info.productImage,
+  //       drugClearance: info.drugClearance,
+  //       drugDescription: info.drugDescription,
+  //       drugElimination: info.drugElimination,
+  //       drugHalflife: info.drugHalflife,
+  //       drugIndication: info.drugIndication,
+  //       drugMechan: info.drugMechan,
+  //       drugMetabolism: info.drugMetabolism,
+  //       drugName: info.drugName,
+  //       drugPharmaco: info.drugPharmaco,
+  //       drugState: info.drugState,
+  //       drugToxicity: info.drugToxicity,
+  //       // savedTime: DateTime.now().toString(),
+  //     );
+  //     _box.put(info.productID, data);
+  //     Fluttertoast.showToast(
+  //       msg: 'Lưu thành công',
+  //       backgroundColor: Palette.activeButton,
+  //     );
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -215,15 +212,15 @@ class _DrugDetailsState extends State<DrugDetails> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              ValueListenableBuilder(
-                valueListenable: _box.listenable(),
-                builder: (context, Box<FavDrugModel> box, _) {
-                  return IconButton(
-                    onPressed: () => onFavoriteTap(info.productID),
-                    icon: getIcons(info.productID),
-                  );
-                },
-              ),
+              // ValueListenableBuilder(
+              //   valueListenable: _box.listenable(),
+              //   builder: (context, Box<FavDrugModel> box, _) {
+              //     return IconButton(
+              //       onPressed: () => onFavoriteTap(info.productID),
+              //       icon: getIcons(info.productID),
+              //     );
+              //   },
+              // ),
               IconButton(
                 onPressed: () {
                   print("tapped x2");

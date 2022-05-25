@@ -1,11 +1,11 @@
 class PillIdentifierModel {
   String pillDataId;
+  String pillImage;
   String pillInfo;
   String pillShape;
   String pillSize;
   String pillColors;
   String pillImprints;
-  String pillImage;
 
   PillIdentifierModel({
     this.pillDataId,
@@ -19,12 +19,12 @@ class PillIdentifierModel {
 
   PillIdentifierModel.fromJson(Map<String, dynamic> json) {
     pillDataId = json['pill_data_id'];
-    pillInfo = json['pill_info'];
+    pillImage = json['pill_file_name'];
+    pillInfo = json['pill_overview'];
     pillShape = json['pill_shape'];
     pillSize = json['pill_size'];
     pillColors = json['pill_colors'];
     pillImprints = json['pill_imprints'];
-    pillImprints = json['pill_image'];
   }
 
   Map<String, dynamic> toJson() {

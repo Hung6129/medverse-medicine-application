@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
@@ -24,19 +23,19 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  // Set search value
-  String _selectedCity;
+  /// Set search value
+  String _selectedDrugs;
 
-  // Set form
+  /// Set form
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  // Set texteditcontroller
+  /// Set texteditcontroller
   final TextEditingController _typeAheadController = TextEditingController();
 
-  // Example images
+  /// Example images
   String imagesFav = "assets/images/drugs_pill/300.jpg";
 
-  // Get list images
+  /// Get list images
   final List<String> imgList = [
     "00009-0331-02_NLMIMAGE10_070803D0.jpg",
     "00173-0393-40_NLMIMAGE10_8918C4B6.jpg",
@@ -131,7 +130,7 @@ class _HomeScreenState extends State<HomeScreen> {
             text: "Xu hướng tìm kiếm",
             size: Dimensions.font20,
             color: Palette.pastel1,
-            fontWeight: FontWeight.normal,
+            fontWeight: FontWeight.bold,
           ));
     }
 
@@ -211,7 +210,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   }
                   return null;
                 },
-                onSaved: (value) => this._selectedCity = value,
+                onSaved: (value) => this._selectedDrugs = value,
               ),
             ],
           ),
@@ -231,7 +230,7 @@ class _HomeScreenState extends State<HomeScreen> {
             itemCount: imagesIcon.keys.length,
             itemBuilder: (_, index) {
               return Padding(
-                padding: const EdgeInsets.only(left: 10),
+                padding: const EdgeInsets.only(left: 10, top: 10, bottom: 10),
                 child: NeumorphicButton(
                   style: NeumorphicStyle(
                     shape: NeumorphicShape.flat,
@@ -305,6 +304,7 @@ class _HomeScreenState extends State<HomeScreen> {
     /// Build body
     return WillPopScope(
       child: Scaffold(
+        backgroundColor: Colors.white,
         drawer: const NavigationDrawerWidget(),
         appBar: appBarMain(titleText: "Trang chủ"),
         body: SingleChildScrollView(

@@ -1,7 +1,9 @@
+import 'package:medverse_mobile_app/models/drug_bank_db/pill_identifiter_model.dart';
 import 'package:medverse_mobile_app/models/drug_bank_db/product_name.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
+import '../utils/database_sqlite_connection.dart';
 
 /// Get a list of recommended item in api
 // class RecommenedData {
@@ -51,6 +53,35 @@ class TypeAhead2 {
 
       return listData;
     }
+  }
+}
+
+class PillIdentifierResult {
+  Future<List<PillIdentifierModel>> getDrug() async {
+    /// Call database and access to database
+    var db = await DatabaseSqliteConnection.drugBankAccess();
+
+    /// Query all data in databaseOM
+    List<Map<String, dynamic>> maps = await db.rawQuery(
+        "SELECT * FROM pilL_data_detail where pill_colors like '%ORANGE,WHITE%'");
+    String n1 = 'pill_data_id';
+    String n2 = 'pill_file_name';
+    String n3 = 'pill_overview';
+    String n4 = 'pill_shape';
+    String n5 = 'pill_size';
+    String n6 = 'pill_colors';
+    String n7 = 'pill_imprints';
+    return List.generate(maps.length, (i) {
+      return PillIdentifierModel(
+        pillDataId: maps[i][n1].toString(),
+        pillImage: maps[i][n2].toString(),
+        pillInfo: maps[i][n3].toString(),
+        pillShape: maps[i][n4].toString(),
+        pillSize: maps[i][n5].toString(),
+        pillColors: maps[i][n6].toString(),
+        pillImprints: maps[i][n7].toString(),
+      );
+    });
   }
 }
 

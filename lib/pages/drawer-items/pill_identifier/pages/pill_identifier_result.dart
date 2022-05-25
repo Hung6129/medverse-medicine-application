@@ -41,6 +41,88 @@ class _PillIdentifierListResultState extends State<PillIdentifierListResult> {
 
   @override
   Widget build(BuildContext context) {
+    /// Sorted list item
+    Widget __sortedList() {
+      return ListView.builder(
+        physics: NeverScrollableScrollPhysics(),
+        shrinkWrap: true,
+        itemCount: data.length,
+        itemBuilder: (context, index) => Container(
+          margin: EdgeInsets.only(
+            left: Dimensions.width20,
+            right: Dimensions.width20,
+            bottom: Dimensions.height10,
+          ),
+          child: GestureDetector(
+            onTap: () {},
+            child: Column(
+              children: [
+                //images section
+                Container(
+                  width: Dimensions.pillIdentifierW,
+                  height: Dimensions.pillIdentifierH,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(
+                      Dimensions.radius20,
+                    ),
+                    color: Palette.p1,
+                    image: DecorationImage(
+                      fit: BoxFit.cover,
+                      image: AssetImage(data.values.elementAt(index)),
+                    ),
+                  ),
+                ),
+
+                // Text container
+                Container(
+                  width: 300,
+                  decoration: BoxDecoration(
+                    // borderRadius: BorderRadius.only(
+                    //   topRight: Radius.circular(Dimensions.radius20),
+                    //   bottomRight: Radius.circular(Dimensions.radius20),
+                    // ),
+                    color: Palette.grey300,
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      AppTextTitle(
+                        text: data.keys.elementAt(index),
+                        color: Palette.textNo,
+                        size: Dimensions.font20,
+                        fontWeight: FontWeight.normal,
+                      ),
+                      AppText(
+                        text: data.keys.elementAt(index),
+                        color: Palette.textNo,
+                        size: Dimensions.font16,
+                        fontWeight: FontWeight.normal,
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(height: Dimensions.height15)
+              ],
+            ),
+          ),
+        ),
+      );
+    }
+
+    /// Title
+    Widget __title() {
+      return Container(
+        padding: EdgeInsets.all(Dimensions.height15),
+        child: AppText(
+            color: Palette.textNo,
+            size: Dimensions.font20,
+            fontWeight: FontWeight.normal,
+            text:
+                // ${widget.query2} ${widget.query3} ${widget.query4} ${widget.query5}
+                "Kết quả ${widget.query1} "),
+      );
+    }
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Palette.mainBlueTheme,
@@ -53,83 +135,8 @@ class _PillIdentifierListResultState extends State<PillIdentifierListResult> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            /// Intro
-            Container(
-              padding: EdgeInsets.all(Dimensions.height15),
-              child: AppText(
-                  color: Palette.textNo,
-                  size: Dimensions.font20,
-                  fontWeight: FontWeight.normal,
-                  text:
-                      // ${widget.query2} ${widget.query3} ${widget.query4} ${widget.query5}
-                      "Kết quả ${widget.query1} "),
-            ),
-
-            // List of sorted
-            ListView.builder(
-              physics: NeverScrollableScrollPhysics(),
-              shrinkWrap: true,
-              itemCount: data.length,
-              itemBuilder: (context, index) => Container(
-                margin: EdgeInsets.only(
-                  left: Dimensions.width20,
-                  right: Dimensions.width20,
-                  bottom: Dimensions.height10,
-                ),
-                child: GestureDetector(
-                  onTap: () {},
-                  child: Column(
-                    children: [
-                      //images section
-                      Container(
-                        width: Dimensions.pillIdentifierW,
-                        height: Dimensions.pillIdentifierH,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(
-                            Dimensions.radius20,
-                          ),
-                          color: Palette.p1,
-                          image: DecorationImage(
-                            fit: BoxFit.cover,
-                            image: AssetImage(data.values.elementAt(index)),
-                          ),
-                        ),
-                      ),
-
-                      // Text container
-                      Container(
-                        width: 300,
-                        decoration: BoxDecoration(
-                          // borderRadius: BorderRadius.only(
-                          //   topRight: Radius.circular(Dimensions.radius20),
-                          //   bottomRight: Radius.circular(Dimensions.radius20),
-                          // ),
-                          color: Palette.grey300,
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            AppTextTitle(
-                              text: data.keys.elementAt(index),
-                              color: Palette.textNo,
-                              size: Dimensions.font20,
-                              fontWeight: FontWeight.normal,
-                            ),
-                            AppText(
-                              text: data.keys.elementAt(index),
-                              color: Palette.textNo,
-                              size: Dimensions.font16,
-                              fontWeight: FontWeight.normal,
-                            ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(height: Dimensions.height15)
-                    ],
-                  ),
-                ),
-              ),
-            )
+            __title(),
+            __sortedList(),
           ],
         ),
       ),
