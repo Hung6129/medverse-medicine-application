@@ -60,24 +60,22 @@ class PillIdentifierResult {
     /// Query all data in databaseOM
     List<Map<String, dynamic>> maps = await db.rawQuery(
         "SELECT * FROM pilL_data_detail where pill_colors like '%ORANGE,WHITE%'");
-    String n1 = 'pill_data_id';
-    String n2 = 'pill_file_name';
-    String n3 = 'pill_overview';
-    String n4 = 'pill_shape';
-    String n5 = 'pill_size';
-    String n6 = 'pill_colors';
-    String n7 = 'pill_imprints';
-    return List.generate(maps.length, (i) {
-      return PillIdentifierModel(
-        pillDataId: maps[i][n1].toString(),
-        pillImage: maps[i][n2].toString(),
-        pillInfo: maps[i][n3].toString(),
-        pillShape: maps[i][n4].toString(),
-        pillSize: maps[i][n5].toString(),
-        pillColors: maps[i][n6].toString(),
-        pillImprints: maps[i][n7].toString(),
-      );
-    });
+    print("70 " + maps.length.toString());
+    print(maps[0]);
+    return List.generate(
+      maps.length,
+      (i) {
+        return PillIdentifierModel(
+          pill_data_id: maps[i]['pill_data_id'].toString(),
+          pill_file_name: maps[i]['pill_file_name'].toString(),
+          pill_overview: maps[i]['pill_overview'].toString(),
+          pill_shape: maps[i]['pill_shape'].toString(),
+          pill_size: maps[i]['pill_size'].toString(),
+          pill_colors: maps[i]['pill_colors'].toString(),
+          pill_imprints: maps[i]['pill_imprints'].toString(),
+        );
+      },
+    );
   }
 }
 

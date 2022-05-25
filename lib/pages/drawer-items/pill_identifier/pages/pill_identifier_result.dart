@@ -1,3 +1,6 @@
+import 'package:medverse_mobile_app/models/drug_bank_db/pill_identifiter_model.dart';
+
+import '../../../../services/service_data.dart';
 import '/theme/palette.dart';
 import '/widgets/app_text.dart';
 import '/widgets/dimension.dart';
@@ -37,6 +40,12 @@ class _PillIdentifierListResultState extends State<PillIdentifierListResult> {
     "Naprosyn": "assets/images/drugs_pill/646790936_PB.jpg",
     "Naproxen": "assets/images/drugs_pill/646790937_PB.jpg",
   };
+  String assetImage = "assets/image/images/gallery/300_imagenlm/";
+  List<PillIdentifierModel> dataList;
+  Future<List<PillIdentifierModel>> _getAll() async {
+    dataList = await PillIdentifierResult().getDrug();
+    return dataList;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -122,7 +131,97 @@ class _PillIdentifierListResultState extends State<PillIdentifierListResult> {
       );
     }
 
+    Widget __listData() {
+      return FutureBuilder<List<PillIdentifierModel>>(
+          future: _getAll(),
+          builder: (ctx, snapshot) {
+            if (snapshot.hasData) {
+              return ListView.builder(
+                physics: NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: snapshot.data.length,
+                itemBuilder: (context, index) => Container(
+                  margin: EdgeInsets.only(
+                    left: Dimensions.width20,
+                    right: Dimensions.width20,
+                    bottom: Dimensions.height10,
+                  ),
+                  child: GestureDetector(
+                    onTap: () {},
+                    child: Column(
+                      children: [
+                        //images section
+                        Container(
+                          width: Dimensions.pillIdentifierW,
+                          height: Dimensions.pillIdentifierH,
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              // fit: BoxFit.cover,
+                              image: AssetImage(assetImage +
+                                  snapshot.data[index].pill_file_name),
+                            ),
+                          ),
+                        ),
+
+                        // Text container
+                        Container(
+                          width: 300,
+                          decoration: BoxDecoration(
+                              // borderRadius: BorderRadius.only(
+                              //   topRight: Radius.circular(Dimensions.radius20),
+                              //   bottomRight: Radius.circular(Dimensions.radius20),
+                              // ),
+                              ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              AppText(
+                                text: snapshot.data[index].pill_overview,
+                                color: Palette.textNo,
+                                size: Dimensions.font18,
+                                fontWeight: FontWeight.normal,
+                              ),
+                              AppText(
+                                text: snapshot.data[index].pill_imprints,
+                                color: Palette.textNo,
+                                size: Dimensions.font14,
+                                fontWeight: FontWeight.normal,
+                              ),
+                              AppText(
+                                text: snapshot.data[index].pill_colors,
+                                color: Palette.textNo,
+                                size: Dimensions.font14,
+                                fontWeight: FontWeight.normal,
+                              ),
+                              AppText(
+                                text: snapshot.data[index].pill_size,
+                                color: Palette.textNo,
+                                size: Dimensions.font14,
+                                fontWeight: FontWeight.normal,
+                              ),
+                              AppText(
+                                text: snapshot.data[index].pill_shape,
+                                color: Palette.textNo,
+                                size: Dimensions.font16,
+                                fontWeight: FontWeight.normal,
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(height: Dimensions.height15)
+                      ],
+                    ),
+                  ),
+                ),
+              );
+            } else {
+              return CircularProgressIndicator();
+            }
+          });
+    }
+
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Palette.mainBlueTheme,
         title: Text(
@@ -133,10 +232,7 @@ class _PillIdentifierListResultState extends State<PillIdentifierListResult> {
       ),
       body: SingleChildScrollView(
         child: Column(
-          children: [
-            __title(),
-            __sortedList(),
-          ],
+          children: [__title(), __listData()],
         ),
       ),
     );
