@@ -21,11 +21,13 @@ class RefeshingEvent extends HomeScreenEvent {
 
 class OnTapEvent extends HomeScreenEvent {
   final BuildContext context;
-  final ProductModel product;
+  // final ProductModel product;
+  final String navigateData;
   const OnTapEvent({
+    // this.product,
     this.context,
-    this.product,
+    this.navigateData,
   });
   @override
-  List<Object> get props => [product];
+  List<Object> get props => [navigateData];
 }

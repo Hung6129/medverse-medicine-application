@@ -35,4 +35,10 @@ class Palette {
   static const pastel5 = Color(0xFFeac4d5);
   static const warningColor = Color(0xFFFF7878);
 
+  /// List items
+  static const pastelList1 = Color(0xFF9ADCFF);
+  static const pastelList2 = Color(0xFFFFF89A);
+  static const pastelList3 = Color(0xFFFFB2A6);
+  static const pastelList4 = Color(0xFFFF8AAE);
+  static const pastelList5 = Color(0xFFeac4d5);
 }

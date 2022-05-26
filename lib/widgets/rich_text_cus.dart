@@ -27,7 +27,7 @@ class RichTextCus extends StatelessWidget {
           TextSpan(
             text: " " + text2,
             style: GoogleFonts.roboto(
-                fontSize: Dimensions.font20,
+                fontSize: Dimensions.font14,
                 fontWeight: FontWeight.normal,
                 color: Palette.textNo,
                 letterSpacing: 1),

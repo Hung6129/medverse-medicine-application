@@ -53,8 +53,10 @@ class _DrugBState extends State<DrugB> {
 
             /// Show data
             return NotificationListener<ScrollNotification>(
-              onNotification:  (ScrollNotification scrollInfo) {
-                if(!isLoading && scrollInfo.metrics.pixels == scrollInfo.metrics.maxScrollExtent) {
+              onNotification: (ScrollNotification scrollInfo) {
+                if (!isLoading &&
+                    scrollInfo.metrics.pixels ==
+                        scrollInfo.metrics.maxScrollExtent) {
                   _loadData();
 
                   /// Start loading data
@@ -64,7 +66,6 @@ class _DrugBState extends State<DrugB> {
                 }
                 return true;
               },
-
               child: ListView.builder(
                 itemCount: list.length,
                 itemBuilder: (context, i) {

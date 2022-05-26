@@ -1,13 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
+import '../../../../services/service_data.dart';
 import '/pages/drawer-items/compare_drugs/pages/compare_result.dart';
 import '/utils/app_text_theme.dart';
 import '../../../../widgets/app_text.dart';
-import '/services/service_data.dart';
 import '/widgets/dimension.dart';
-import '/models/drug_bank_db/product_model.dart';
-import '/widgets/app_text_title.dart';
 import '/theme/palette.dart';
 
 class CompareDrug extends StatefulWidget {
@@ -152,7 +150,7 @@ class MapScreenState extends State<CompareDrug> {
                                   ),
                                   labelText: 'Nhập thuốc bạn muốn so sánh'),
                             ),
-                            onSuggestionSelected: (ProductModel suggestion) {
+                            onSuggestionSelected: ( suggestion) {
                               if (addedItemsList.length == 2) {
                                 print("cannot add");
                               }
@@ -161,9 +159,9 @@ class MapScreenState extends State<CompareDrug> {
                               print(_typeAheadController.text);
                               __addItemToList(_typeAheadController.text);
                             },
-                            itemBuilder: (context, ProductModel suggestion) {
+                            itemBuilder: (context,  suggestion) {
                               return ListTile(
-                                title: AppTextTitle(
+                                title: AppText(
                                     text: suggestion.productName,
                                     color: Colors.black54,
                                     size: Dimensions.font16,
@@ -175,7 +173,7 @@ class MapScreenState extends State<CompareDrug> {
                               return suggestionsBox;
                             },
                             suggestionsCallback: (String pattern) {
-                              return TypeHead.getTypeAhead(pattern);
+                              return TypeAhead2.searchName(pattern);
                             },
                           ),
                         ),
@@ -206,7 +204,7 @@ class MapScreenState extends State<CompareDrug> {
                                       deleteIconColor: Colors.white,
                                       backgroundColor: Palette.mainBlueTheme
                                           .withOpacity(0.7),
-                                      label: AppTextTitle(
+                                      label: AppText(
                                         text: addedItemsList[index],
                                         color: Colors.white,
                                         size: Dimensions.font20,

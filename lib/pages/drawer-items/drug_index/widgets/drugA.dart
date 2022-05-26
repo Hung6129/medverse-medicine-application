@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../nav-items/home/bloc/home_screen_bloc.dart';
 import '/widgets/indicators.dart';
 import '/utils/data_dao.dart';
 import '/models/drug_model.dart';
@@ -69,14 +71,22 @@ class _DrugBState extends State<DrugA> {
               itemCount: list.length,
               itemBuilder: (context, i) {
                 var word = list[i];
-                return GestureDetector(
-                  onTap: () {
-                    /*Navigator.push(context, MaterialPageRoute(builder: (context) => DetailPage(list[i])));*/
-                  },
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        print("tapped");
+                        print(list[i].product_id.toString());
+                        // BlocProvider.of<HomeScreenBloc>(context)
+                        //   ..add(
+                        //     OnTapEvent(
+                        //       context: context,
+                        //       navigateData: list[i].product_id.toString(),
+                        //     ),
+                        //   );
+                      },
+                      child: Container(
                         //color: Colors.pink[200],
                         child: Padding(
                           padding: EdgeInsets.only(
@@ -86,9 +96,9 @@ class _DrugBState extends State<DrugA> {
                           child: new Text(word.name + ' - ' + word.labeller),
                         ),
                       ),
-                      Divider(),
-                    ],
-                  ),
+                    ),
+                    Divider(),
+                  ],
                 );
               },
             ),

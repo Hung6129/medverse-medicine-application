@@ -14,6 +14,7 @@ class _WellcomeScreenState extends State<WellcomeScreen>
   String images = "assets/images/splash/Medverse.png";
   Animation<double> animation;
   AnimationController controller;
+  bool isClick = false;
   @override
   void initState() {
     super.initState();
@@ -21,6 +22,9 @@ class _WellcomeScreenState extends State<WellcomeScreen>
         new AnimationController(vsync: this, duration: Duration(seconds: 2))
           ..forward();
     animation = new CurvedAnimation(parent: controller, curve: Curves.linear);
+    // if (isClick == true) {
+    //   return print('navigattte to home');
+    // } else {}
     Timer(
       Duration(seconds: 3),
       () {
@@ -31,21 +35,26 @@ class _WellcomeScreenState extends State<WellcomeScreen>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Palette.whiteText,
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          ScaleTransition(
-            scale: animation,
-            child: Center(
-              child: Image.asset(
-                images,
-                width: 300,
+    return GestureDetector(
+      onTap: () {
+        Navigator.pushNamed(context, "/home");
+      },
+      child: Scaffold(
+        backgroundColor: Palette.whiteText,
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ScaleTransition(
+              scale: animation,
+              child: Center(
+                child: Image.asset(
+                  images,
+                  width: 300,
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

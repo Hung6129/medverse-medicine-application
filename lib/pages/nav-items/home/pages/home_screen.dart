@@ -1,13 +1,13 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import '/models/drug_bank_db/product_name.dart';
 import '/pages/nav-items/home/bloc/home_screen_bloc.dart';
 import '/services/service_data.dart';
 import '/widgets/header.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';
-import '/widgets/app_text_title.dart';
 import '/widgets/dimension.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '/widgets/navigation_drawer_widget.dart';
@@ -22,19 +22,19 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  // Set search value
-  String _selectedCity;
+  /// Set search value
+  String _selectedDrugs;
 
-  // Set form
+  /// Set form
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  // Set texteditcontroller
+  /// Set texteditcontroller
   final TextEditingController _typeAheadController = TextEditingController();
 
-  // Example images
-  String imagesFav = "assets/images/drugs_pill/300.jpg";
+  /// Example images
+  String imagesFav = "assets/image/images/gallery/300_imagenlm/";
 
-  // Get list images
+  /// Get list images
   final List<String> imgList = [
     "00009-0331-02_NLMIMAGE10_070803D0.jpg",
     "00173-0393-40_NLMIMAGE10_8918C4B6.jpg",
@@ -56,50 +56,44 @@ class _HomeScreenState extends State<HomeScreen> {
   var imagesIcon = {
     Icon(
       CupertinoIcons.doc_text_search,
-      color: Palette.pastel2,
-      size: Dimensions.icon24,
+      color: Palette.textNo,
+      size: Dimensions.icon28,
     ): AppText(
       text: "Tìm kiếm",
       size: Dimensions.font14,
-      color: Palette.pastel2,
+      color: Palette.textNo,
     ),
     Icon(
       CupertinoIcons.command,
-      size: Dimensions.icon24,
-      color: Palette.pastel3,
+      size: Dimensions.icon28,
+      color: Palette.textNo,
     ): AppText(
       text: "So sánh",
       size: Dimensions.font14,
-      color: Palette.pastel3,
+      color: Palette.textNo,
     ),
     Icon(
       CupertinoIcons.drop_triangle_fill,
-      size: Dimensions.icon24,
-      color: Palette.pastel4,
+      size: Dimensions.icon28,
+      color: Palette.textNo,
     ): AppText(
       text: "Tương kỵ",
       size: Dimensions.font14,
-      color: Palette.pastel4,
+      color: Palette.textNo,
     ),
     Icon(
       CupertinoIcons.profile_circled,
-      size: Dimensions.icon24,
-      color: Palette.pastel5,
+      size: Dimensions.icon28,
+      color: Palette.textNo,
     ): AppText(
       text: "Hồ sơ",
-      color: Palette.pastel5,
+      color: Palette.textNo,
       size: Dimensions.font14,
     ),
   };
 
   @override
   Widget build(BuildContext context) {
-    /// Call bloc and set
-    final bloc = BlocProvider.of<HomeScreenBloc>(context);
-
-    /// Set bloc value
-    var dataPo = bloc.drugPoTop10;
-
     /// Loading Shimmer Popular
     Widget __loadingPoShimmer() {
       return Container(
@@ -135,7 +129,7 @@ class _HomeScreenState extends State<HomeScreen> {
             text: "Xu hướng tìm kiếm",
             size: Dimensions.font20,
             color: Palette.pastel1,
-            fontWeight: FontWeight.normal,
+            fontWeight: FontWeight.bold,
           ));
     }
 
@@ -184,12 +178,12 @@ class _HomeScreenState extends State<HomeScreen> {
                 suggestionsCallback: (String pattern) {
                   return TypeAhead2.searchName(pattern);
                 },
-                itemBuilder: (context,  suggestion) {
+                itemBuilder: (context, ProductName suggestion) {
                   return ListTile(
-                    title: AppTextTitle(
+                    title: AppText(
                       text: suggestion.product_name +
-                          "--" +
-                          suggestion.product_name,
+                          "-" +
+                          suggestion.product_code,
                       color: Colors.black54,
                       size: Dimensions.font14,
                       fontWeight: FontWeight.normal,
@@ -199,13 +193,13 @@ class _HomeScreenState extends State<HomeScreen> {
                 transitionBuilder: (context, suggestionsBox, controller) {
                   return suggestionsBox;
                 },
-                onSuggestionSelected: (suggestion) {
+                onSuggestionSelected: (ProductName suggestion) {
                   print("tapped");
                   BlocProvider.of<HomeScreenBloc>(context)
                     ..add(
                       OnTapEvent(
                         context: context,
-                        product: suggestion,
+                        navigateData: suggestion.product_id,
                       ),
                     );
                 },
@@ -215,7 +209,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   }
                   return null;
                 },
-                onSaved: (value) => this._selectedCity = value,
+                onSaved: (value) => this._selectedDrugs = value,
               ),
             ],
           ),
@@ -229,65 +223,42 @@ class _HomeScreenState extends State<HomeScreen> {
         padding: EdgeInsets.only(bottom: Dimensions.height10),
         child: Container(
           width: double.maxFinite,
-          height: 120,
-          margin: EdgeInsets.only(
-            left: Dimensions.height10,
-          ),
+          height: 110,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
             itemCount: imagesIcon.keys.length,
             itemBuilder: (_, index) {
-              return Center(
-                child: GestureDetector(
-                  onTap: () {
-                    switch (index) {
-                      case 0:
-                        Navigator.pushNamed(context, "/pill-identifier");
-                        break;
-                      case 1:
-                        Navigator.pushNamed(context, "/compare-drug");
-                        break;
-                      case 2:
-                        Navigator.pushNamed(context, "/interaction-checker");
-                        break;
-                      case 3:
-                        Navigator.pushNamed(context, "/health-profile");
-                        break;
-                    }
-                  },
-                  child: Container(
-                    width: 100,
-                    height: 100,
-                    decoration: BoxDecoration(
+              return Padding(
+                padding: const EdgeInsets.only(
+                    left: 10, right: 20, top: 10, bottom: 10),
+                child: Container(
+                  width: 100,
+                  child: NeumorphicButton(
+                    style: NeumorphicStyle(
+                      shape: NeumorphicShape.flat,
                       color: Colors.white,
-                      borderRadius: BorderRadius.circular(Dimensions.radius20),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Palette.grey300.withOpacity(0.5),
-                          blurRadius: 5.0,
-                          offset: Offset(0, 5),
-                        ),
-                        BoxShadow(
-                          color: Palette.grey300.withOpacity(0.5),
-                          offset: Offset(5, 5),
-                        ),
-                        BoxShadow(
-                          color: Palette.grey300.withOpacity(0.5),
-                          offset: Offset(-5, 5),
-                        ),
-                      ],
                     ),
-                    margin: EdgeInsets.only(right: 20, left: 10),
+                    onPressed: () {
+                      switch (index) {
+                        case 0:
+                          Navigator.pushNamed(context, "/pill-identifier");
+                          break;
+                        case 1:
+                          Navigator.pushNamed(context, "/compare-drug");
+                          break;
+                        case 2:
+                          Navigator.pushNamed(context, "/interaction-checker");
+                          break;
+                        case 3:
+                          Navigator.pushNamed(context, "/health-profile");
+                          break;
+                      }
+                    },
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          child: imagesIcon.keys.elementAt(index),
-                        ),
-                        Container(child: imagesIcon.values.elementAt(index))
+                        imagesIcon.keys.elementAt(index),
+                        imagesIcon.values.elementAt(index),
                       ],
                     ),
                   ),
@@ -315,17 +286,17 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             itemBuilder: (ctx, index, realIdx) {
               return Container(
-                // margin: EdgeInsets.only(right: 20, top: 10),
-                width: 250,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  image: DecorationImage(
-                    image: AssetImage(
-                        "assets/image/images/gallery/300/" + imgList[index]),
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              );
+                    // margin: EdgeInsets.only(right: 20, top: 10),
+                    width: 250,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      image: DecorationImage(
+                        image: AssetImage(imagesFav + imgList[index]),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ) ??
+                  __loadingPoShimmer();
             },
           ),
         ),
@@ -333,29 +304,60 @@ class _HomeScreenState extends State<HomeScreen> {
     }
 
     /// Build body
-    return Scaffold(
-      drawer: const NavigationDrawerWidget(),
-      appBar: appBarMain(titleText: "Trang chủ"),
-      body: SingleChildScrollView(
-        physics: const AlwaysScrollableScrollPhysics(),
-        child: Column(
-          children: [
-            // Search bar
-            __searchBar(),
-            // List function
-            __listFunIcon(),
+    return WillPopScope(
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        drawer: const NavigationDrawerWidget(),
+        appBar: appBarMain(titleText: "Trang chủ"),
+        body: SingleChildScrollView(
+          physics: const AlwaysScrollableScrollPhysics(),
+          child: Column(
+            children: [
+              // Search bar
+              __searchBar(),
+              // List function
+              __listFunIcon(),
 
-            // List popular product
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                __title(),
-                __carouseSlider(),
-              ],
-            ),
-          ],
+              // List popular product
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  __title(),
+                  __carouseSlider(),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
+      onWillPop: () {
+        return showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: AppText(text: "Thoát"),
+                content: AppText(text: "Bạn muốn thoát ứng dụng?"),
+                actions: <Widget>[
+                  FlatButton(
+                    child: AppText(text: "Thoát", color: Palette.warningColor),
+                    onPressed: () {
+                      SystemNavigator.pop();
+                    },
+                  ),
+                  FlatButton(
+                    child: AppText(
+                      text: "Huỷ",
+                      color: Palette.grey,
+                    ),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  )
+                ],
+              );
+            });
+      },
     );
   }
 }

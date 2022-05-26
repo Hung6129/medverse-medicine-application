@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:medverse_mobile_app/utils/app_text_theme.dart';
-import 'package:shimmer_animation/shimmer_animation.dart';
-import '/widgets/app_text_title.dart';
+import '../../../../widgets/app_text.dart';
 import '/widgets/dimension.dart';
 import '/theme/palette.dart';
 
@@ -35,12 +34,7 @@ class _DrugRecommendationState extends State<DrugRecommendation> {
                 itemCount: 10,
                 itemBuilder: (context, index) => GestureDetector(
                   onTap: () {
-                    // bloc.add(
-                    //   OnTapEvent(
-                    //     context: context,
-                    //     product: dataRe[index],
-                    //   ),
-                    // );
+
                   },
                   child: Container(
                     margin: EdgeInsets.only(
@@ -87,7 +81,7 @@ class _DrugRecommendationState extends State<DrugRecommendation> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  AppTextTitle(
+                                  AppText(
                                     text: "Thuốc nhức đầu",
                                     color: Palette.textNo,
                                     size: Dimensions.font20,
@@ -96,7 +90,7 @@ class _DrugRecommendationState extends State<DrugRecommendation> {
                                   SizedBox(
                                     height: Dimensions.height10,
                                   ),
-                                  AppTextTitle(
+                                  AppText(
                                     text: "Trị nhức đầu",
                                     color: Palette.textNo,
                                     size: Dimensions.font16,

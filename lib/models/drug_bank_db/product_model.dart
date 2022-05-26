@@ -1,110 +1,97 @@
 class ProductModel {
-  String productID;
-  String drugbankID;
-  String productName;
-  String productLabeller;
-  String productImage;
-  String productCode;
-  String productRoute;
-  String productStrength;
-  String productdosage;
-  String approved;
-  String otc;
-  String generic;
-  String country;
-  String drugName;
-  String drugDescription;
-  String drugState;
-  String drugIndication;
-  String drugPharmaco;
-  String drugMechan;
-  String drugToxicity;
-  String drugMetabolism;
-  String drugHalflife;
-  String drugElimination;
-  String drugClearance;
-
+  String product_id;
+  String product_name;
+  String product_labeller;
+  String product_code;
+  String product_route;
+  String product_dosage;
+  String product_strength;
+  String product_approved;
+  String product_otc;
+  String product_generic;
+  String product_country;
+  String drug_description;
+  String drug_state;
+  String drug_indication;
+  String pharmacodynamics;
+  String mechanism;
+  String toxicity;
+  String metabolism;
+  String half_life;
+  String route_of_elimination;
+  String clearance;
   ProductModel({
-    this.productID,
-    this.drugbankID,
-    this.productName,
-    this.productLabeller,
-    this.productImage,
-    this.productCode,
-    this.productRoute,
-    this.productStrength,
-    this.productdosage,
-    this.approved,
-    this.otc,
-    this.generic,
-    this.country,
-    this.drugName,
-    this.drugDescription,
-    this.drugState,
-    this.drugIndication,
-    this.drugPharmaco,
-    this.drugMechan,
-    this.drugToxicity,
-    this.drugMetabolism,
-    this.drugHalflife,
-    this.drugElimination,
-    this.drugClearance,
+    this.product_id,
+    this.product_name,
+    this.product_labeller,
+    this.product_code,
+    this.product_route,
+    this.product_dosage,
+    this.product_strength,
+    this.product_approved,
+    this.product_otc,
+    this.product_generic,
+    this.product_country,
+    this.drug_description,
+    this.drug_state,
+    this.drug_indication,
+    this.pharmacodynamics,
+    this.mechanism,
+    this.toxicity,
+    this.metabolism,
+    this.half_life,
+    this.route_of_elimination,
+    this.clearance,
   });
 
   ProductModel.fromJson(Map<String, dynamic> json) {
-    productID = json['productID'];
-    drugbankID = json['drugbankID'];
-    productName = json['productName'];
-    productLabeller = json['productLabeller'];
-    productLabeller = json['productImages'];
-    productCode = json['productCode'];
-    productRoute = json['productRoute'];
-    productStrength = json['productStrength'];
-    productdosage = json['productdosage'];
-    approved = json['approved'];
-    otc = json['otc'];
-    generic = json['generic'];
-    country = json['country'];
-    drugName = json['drugName'];
-    drugDescription = json['drugDescription'];
-    drugState = json['drugState'];
-    drugIndication = json['drugIndication'];
-    drugPharmaco = json['drugPharmaco'];
-    drugMechan = json['drugMechan'];
-    drugToxicity = json['drugToxicity'];
-    drugMetabolism = json['drugMetabolism'];
-    drugHalflife = json['drugHalflife'];
-    drugElimination = json['drugElimination'];
-    drugClearance = json['drugClearance'];
+    product_id = json['product_id'];
+    product_name = json['product_name'];
+    product_labeller = json['product_labeller'];
+    product_labeller = json['productImages'];
+    product_code = json['product_code'];
+    product_route = json['product_route'];
+    product_strength = json['product_strength'];
+    product_dosage = json['product_dosage'];
+    product_approved = json['product_approved'];
+    product_otc = json['product_otc'];
+    product_generic = json['product_generic'];
+    product_country = json['product_country'];
+    drug_description = json['drug_description'];
+    drug_state = json['drug_state'];
+    drug_indication = json['drug_indication'];
+    pharmacodynamics = json['pharmacodynamics'];
+    mechanism = json['mechanism'];
+    toxicity = json['toxicity'];
+    mechanism = json['mechanism'];
+    half_life = json['half_life'];
+    route_of_elimination = json['route_of_elimination'];
+    clearance = json['clearance'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['productID'] = this.productID;
-    data['drugbankID'] = this.drugbankID;
-    data['productName'] = this.productName;
-    data['productLabeller'] = this.productLabeller;
-    data['productLabeller'] = this.productImage;
-    data['productCode'] = this.productCode;
-    data['productRoute'] = this.productRoute;
-    data['productStrength'] = this.productStrength;
-    data['productdosage'] = this.productdosage;
-    data['approved'] = this.approved;
-    data['otc'] = this.otc;
-    data['generic'] = this.generic;
-    data['country'] = this.country;
-    data['drugbank_ID'] = this.drugbankID;
-    data['drugName'] = this.drugName;
-    data['drugDescription'] = this.drugDescription;
-    data['drugState'] = this.drugState;
-    data['drugIndication'] = this.drugIndication;
-    data['drugPharmaco'] = this.drugPharmaco;
-    data['drugMechan'] = this.drugMechan;
-    data['drugToxicity'] = this.drugToxicity;
-    data['drugMetabolism'] = this.drugMetabolism;
-    data['drugHalflife'] = this.drugHalflife;
-    data['drugElimination'] = this.drugElimination;
-    data['drugClearance'] = this.drugClearance;
+    data['product_id'] = this.product_id;
+    data['product_name'] = this.product_name;
+    data['product_labeller'] = this.product_labeller;
+    data['product_code'] = this.product_code;
+    data['product_route'] = this.product_route;
+    data['product_strength'] = this.product_strength;
+    data['product_dosage'] = this.product_dosage;
+    data['product_approved'] = this.product_approved;
+    data['product_otc'] = this.product_otc;
+    data['product_generic'] = this.product_generic;
+    data['product_country'] = this.product_country;
+    data['drug_description'] = this.drug_description;
+    data['drug_state'] = this.drug_state;
+    data['drug_indication'] = this.drug_indication;
+    data['pharmacodynamics'] = this.pharmacodynamics;
+    data['mechanism'] = this.mechanism;
+    data['toxicity'] = this.toxicity;
+    data['mechanism'] = this.mechanism;
+    data['half_life'] = this.half_life;
+    data['route_of_elimination'] = this.route_of_elimination;
+    data['clearance'] = this.clearance;
     return data;
   }
 }
