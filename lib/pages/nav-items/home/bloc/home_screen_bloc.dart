@@ -38,6 +38,6 @@ class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
 
   void onTap(OnTapEvent event, Emitter<HomeScreenState> emit) async {
     Navigator.pushNamed(event.context, "/detail-page",
-        arguments: event.product);
+        arguments: event.navigateData);
   }
 }

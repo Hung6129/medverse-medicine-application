@@ -45,7 +45,7 @@ class AppRoutes {
       case "/detail-page":
         return getMaterialRoute(
           DrugDetails(
-            drugData: route.arguments as ProductModel,
+            drugData: route.arguments as String,
           ),
         );
 

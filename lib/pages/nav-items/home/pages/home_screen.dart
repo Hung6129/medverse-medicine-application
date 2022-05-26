@@ -182,8 +182,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   return ListTile(
                     title: AppText(
                       text: suggestion.product_name +
-                          "--" +
-                          suggestion.product_name,
+                          "-" +
+                          suggestion.product_code,
                       color: Colors.black54,
                       size: Dimensions.font14,
                       fontWeight: FontWeight.normal,
@@ -193,13 +193,13 @@ class _HomeScreenState extends State<HomeScreen> {
                 transitionBuilder: (context, suggestionsBox, controller) {
                   return suggestionsBox;
                 },
-                onSuggestionSelected: (suggestion) {
+                onSuggestionSelected: (ProductName suggestion) {
                   print("tapped");
                   BlocProvider.of<HomeScreenBloc>(context)
                     ..add(
                       OnTapEvent(
                         context: context,
-                        product: suggestion,
+                        navigateData: suggestion.product_id,
                       ),
                     );
                 },
@@ -291,8 +291,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
                       image: DecorationImage(
-                        image: AssetImage("assets/image/images/gallery/300/" +
-                            imgList[index]),
+                        image: AssetImage(imagesFav + imgList[index]),
                         fit: BoxFit.cover,
                       ),
                     ),

@@ -57,6 +57,7 @@ class DataDao {
         return DrugModel(
           row["product_name"],
           row["product_labeller"],
+          row["product_id"],
         );
       },
     );
@@ -81,6 +82,7 @@ class DataDao {
         return DrugModel(
           row["product_name"],
           row["product_labeller"],
+          row["product_id"],
         );
       },
     );
@@ -105,6 +107,7 @@ class DataDao {
         return DrugModel(
           row["product_name"],
           row["product_labeller"],
+          row["product_id"],
         );
       },
     );
@@ -129,6 +132,7 @@ class DataDao {
         return DrugModel(
           row["product_name"],
           row["product_labeller"],
+          row["product_id"],
         );
       },
     );
@@ -153,6 +157,7 @@ class DataDao {
         return DrugModel(
           row["product_name"],
           row["product_labeller"],
+          row["product_id"],
         );
       },
     );
@@ -177,6 +182,7 @@ class DataDao {
         return DrugModel(
           row["product_name"],
           row["product_labeller"],
+          row["product_id"],
         );
       },
     );
@@ -201,6 +207,7 @@ class DataDao {
         return DrugModel(
           row["product_name"],
           row["product_labeller"],
+          row["product_id"],
         );
       },
     );
@@ -225,6 +232,7 @@ class DataDao {
         return DrugModel(
           row["product_name"],
           row["product_labeller"],
+          row["product_id"],
         );
       },
     );
@@ -249,6 +257,7 @@ class DataDao {
         return DrugModel(
           row["product_name"],
           row["product_labeller"],
+          row["product_id"],
         );
       },
     );
@@ -273,6 +282,7 @@ class DataDao {
         return DrugModel(
           row["product_name"],
           row["product_labeller"],
+          row["product_id"],
         );
       },
     );
@@ -297,6 +307,7 @@ class DataDao {
         return DrugModel(
           row["product_name"],
           row["product_labeller"],
+          row["product_id"],
         );
       },
     );
@@ -321,6 +332,7 @@ class DataDao {
         return DrugModel(
           row["product_name"],
           row["product_labeller"],
+          row["product_id"],
         );
       },
     );
@@ -345,6 +357,7 @@ class DataDao {
         return DrugModel(
           row["product_name"],
           row["product_labeller"],
+          row["product_id"],
         );
       },
     );
@@ -369,6 +382,7 @@ class DataDao {
         return DrugModel(
           row["product_name"],
           row["product_labeller"],
+          row["product_id"],
         );
       },
     );
@@ -393,6 +407,7 @@ class DataDao {
         return DrugModel(
           row["product_name"],
           row["product_labeller"],
+          row["product_id"],
         );
       },
     );
@@ -417,6 +432,7 @@ class DataDao {
         return DrugModel(
           row["product_name"],
           row["product_labeller"],
+          row["product_id"],
         );
       },
     );
@@ -441,6 +457,7 @@ class DataDao {
         return DrugModel(
           row["product_name"],
           row["product_labeller"],
+          row["product_id"],
         );
       },
     );
@@ -465,6 +482,7 @@ class DataDao {
         return DrugModel(
           row["product_name"],
           row["product_labeller"],
+          row["product_id"],
         );
       },
     );
@@ -489,6 +507,7 @@ class DataDao {
         return DrugModel(
           row["product_name"],
           row["product_labeller"],
+          row["product_id"],
         );
       },
     );
@@ -513,6 +532,7 @@ class DataDao {
         return DrugModel(
           row["product_name"],
           row["product_labeller"],
+          row["product_id"],
         );
       },
     );
@@ -537,6 +557,7 @@ class DataDao {
         return DrugModel(
           row["product_name"],
           row["product_labeller"],
+          row["product_id"],
         );
       },
     );
@@ -561,6 +582,7 @@ class DataDao {
         return DrugModel(
           row["product_name"],
           row["product_labeller"],
+          row["product_id"],
         );
       },
     );
@@ -585,6 +607,7 @@ class DataDao {
         return DrugModel(
           row["product_name"],
           row["product_labeller"],
+          row["product_id"],
         );
       },
     );
@@ -609,6 +632,7 @@ class DataDao {
         return DrugModel(
           row["product_name"],
           row["product_labeller"],
+          row["product_id"],
         );
       },
     );
@@ -633,6 +657,7 @@ class DataDao {
         return DrugModel(
           row["product_name"],
           row["product_labeller"],
+          row["product_id"],
         );
       },
     );
@@ -657,6 +682,7 @@ class DataDao {
         return DrugModel(
           row["product_name"],
           row["product_labeller"],
+          row["product_id"],
         );
       },
     );

@@ -17,9 +17,9 @@ class ProductName {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['productID'] = this.product_id;
-    data['productName'] = this.product_name;
-    data['productCode'] = this.product_code.toString();
+    data['product_id'] = this.product_id;
+    data['product_name'] = this.product_name;
+    data['product_code'] = this.product_code.toString();
 
     return data;
   }
