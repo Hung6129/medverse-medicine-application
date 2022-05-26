@@ -1,29 +1,36 @@
 import 'package:flutter/material.dart';
-import '/models/drug_model.dart';
-import '/utils/data_dao.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../nav-items/home/bloc/home_screen_bloc.dart';
 import '/widgets/indicators.dart';
+import '/utils/data_dao.dart';
+import '/models/drug_model.dart';
 
-class DrugI extends StatefulWidget {
-  const DrugI({Key key}) : super(key: key);
+class PageIndexDrug extends StatefulWidget {
+  final String letterIndex;
+  const PageIndexDrug({Key key, this.letterIndex}) : super(key: key);
 
   @override
-  State<DrugI> createState() => _DrugIState();
+  State<PageIndexDrug> createState() => _DrugBState();
 }
 
-class _DrugIState extends State<DrugI> {
+class _DrugBState extends State<PageIndexDrug> {
+  /// List alphabelt
   bool isLoading = false;
   int count = 0;
-  List _listI;
+  List _listA;
 
   /// Method call all data from SQLite
-  Future<List<DrugModel>> getAllDrugsI(int count) async {
+  Future<List<DrugModel>> getAllDrugsLetter(int count) async {
     if (count < 20) {
-      _listI = await DataDao().getDrugI(count);
+      _listA = await DataDao().getPageIndex(
+        count,
+        widget.letterIndex,
+      );
     } else {
-      var _newListI = await DataDao().getDrugI(count);
-      _listI.addAll(_newListI);
+      var _newListA = await DataDao().getPageIndex(count, widget.letterIndex);
+      _listA.addAll(_newListA);
     }
-    return _listI;
+    return _listA;
   }
 
   /// Loading new data when scrolling down
@@ -35,7 +42,7 @@ class _DrugIState extends State<DrugI> {
 
     setState(() {
       count = count + 20;
-      getAllDrugsI(count);
+      getAllDrugsLetter(count);
       isLoading = false;
     });
   }
@@ -44,7 +51,7 @@ class _DrugIState extends State<DrugI> {
   Widget build(BuildContext context) {
     return FutureBuilder<List<DrugModel>>(
       /// Check status if user input available keyword then show the result. If not, show all data
-      future: getAllDrugsI(count),
+      future: getAllDrugsLetter(count),
       builder: (context, snapshot) {
         /// Check if already have data
         if (snapshot.hasData) {
@@ -69,14 +76,23 @@ class _DrugIState extends State<DrugI> {
               itemCount: list.length,
               itemBuilder: (context, i) {
                 var word = list[i];
-                return GestureDetector(
-                  onTap: () {
-                    /*Navigator.push(context, MaterialPageRoute(builder: (context) => DetailPage(list[i])));*/
-                  },
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        print("tapped");
+                        print(word.product_id);
+                        print(word.name);
+                        BlocProvider.of<HomeScreenBloc>(context)
+                          ..add(
+                            OnTapEvent(
+                              context: context,
+                              navigateData: list[i].product_id.toString(),
+                            ),
+                          );
+                      },
+                      child: Container(
                         //color: Colors.pink[200],
                         child: Padding(
                           padding: EdgeInsets.only(
@@ -86,9 +102,9 @@ class _DrugIState extends State<DrugI> {
                           child: new Text(word.name + ' - ' + word.labeller),
                         ),
                       ),
-                      Divider(),
-                    ],
-                  ),
+                    ),
+                    Divider(),
+                  ],
                 );
               },
             ),

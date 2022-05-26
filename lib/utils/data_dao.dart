@@ -38,6 +38,31 @@ class DataDao {
     );
   }
 
+  /// Page index
+  Future<List<DrugModel>> getPageIndex(int x, String input) async {
+    /// Call database and access to database
+    var db = await DatabaseSqliteConnection.drugBankAccess();
+    int position = x;
+
+    /// Query all data in database
+    List<Map<String, dynamic>> maps = await db.rawQuery(
+      "SELECT DISTINCT product_name, product_labeller,product_id FROM products WHERE lower(product_name) LIKE '$input%' ORDER BY product_name limit ?, 20",
+      [position],
+    );
+
+    return List.generate(
+      maps.length,
+      (index) {
+        var row = maps[index];
+        return DrugModel(
+          row["product_name"],
+          row["product_labeller"],
+          row["product_id"],
+        );
+      },
+    );
+  }
+
   /// Get all drugs that start with the letter A
   Future<List<DrugModel>> getDrugA(int a) async {
     /// Call database and access to database
@@ -46,7 +71,7 @@ class DataDao {
 
     /// Query all data in database
     List<Map<String, dynamic>> maps = await db.rawQuery(
-      "SELECT DISTINCT product_name, product_labeller FROM products WHERE lower(product_name) LIKE 'a%' ORDER BY product_name limit ?, 20",
+      "SELECT DISTINCT product_name, product_labeller,product_id FROM products WHERE lower(product_name) LIKE 'a%' ORDER BY product_name limit ?, 20",
       [position],
     );
 
@@ -71,7 +96,7 @@ class DataDao {
 
     /// Query all data in databaseOM
     List<Map<String, dynamic>> maps = await db.rawQuery(
-      "SELECT DISTINCT product_name, product_labeller FROM products WHERE lower(product_name) LIKE 'b%' ORDER BY product_name limit ?, 20",
+      "SELECT DISTINCT product_name, product_labeller,product_id FROM products WHERE lower(product_name) LIKE 'b%' ORDER BY product_name limit ?, 20",
       [position],
     );
 
@@ -96,7 +121,7 @@ class DataDao {
 
     /// Query all data in databaseOM
     List<Map<String, dynamic>> maps = await db.rawQuery(
-      "SELECT DISTINCT product_name, product_labeller FROM products WHERE lower(product_name) LIKE 'c%' ORDER BY product_name limit ?, 20",
+      "SELECT DISTINCT product_name, product_labeller ,product_id FROM products WHERE lower(product_name) LIKE 'c%' ORDER BY product_name limit ?, 20",
       [position],
     );
 
@@ -121,7 +146,7 @@ class DataDao {
 
     /// Query all data in databaseOM
     List<Map<String, dynamic>> maps = await db.rawQuery(
-      "SELECT DISTINCT product_name, product_labeller FROM products WHERE lower(product_name) LIKE 'd%' ORDER BY product_name limit ?, 20",
+      "SELECT DISTINCT product_name, product_labeller,product_id FROM products WHERE lower(product_name) LIKE 'd%' ORDER BY product_name limit ?, 20",
       [position],
     );
 
@@ -146,7 +171,7 @@ class DataDao {
 
     /// Query all data in databaseOM
     List<Map<String, dynamic>> maps = await db.rawQuery(
-      "SELECT DISTINCT product_name, product_labeller FROM products WHERE lower(product_name) LIKE 'e%' ORDER BY product_name limit ?, 20",
+      "SELECT DISTINCT product_name, product_labeller,product_id FROM products WHERE lower(product_name) LIKE 'e%' ORDER BY product_name limit ?, 20",
       [position],
     );
 
@@ -171,7 +196,7 @@ class DataDao {
 
     /// Query all data in databaseOM
     List<Map<String, dynamic>> maps = await db.rawQuery(
-      "SELECT DISTINCT product_name, product_labeller FROM products WHERE lower(product_name) LIKE 'f%' ORDER BY product_name limit ?, 20",
+      "SELECT DISTINCT product_name, product_labeller,product_id FROM products WHERE lower(product_name) LIKE 'f%' ORDER BY product_name limit ?, 20",
       [position],
     );
 
@@ -196,7 +221,7 @@ class DataDao {
 
     /// Query all data in databaseOM
     List<Map<String, dynamic>> maps = await db.rawQuery(
-      "SELECT DISTINCT product_name, product_labeller FROM products WHERE lower(product_name) LIKE 'g%' ORDER BY product_name limit ?, 20",
+      "SELECT DISTINCT product_name, product_labeller,product_id FROM products WHERE lower(product_name) LIKE 'g%' ORDER BY product_name limit ?, 20",
       [position],
     );
 
@@ -221,7 +246,7 @@ class DataDao {
 
     /// Query all data in databaseOM
     List<Map<String, dynamic>> maps = await db.rawQuery(
-      "SELECT DISTINCT product_name, product_labeller FROM products WHERE lower(product_name) LIKE 'h%' ORDER BY product_name limit ?, 20",
+      "SELECT DISTINCT product_name, product_labeller,product_id FROM products WHERE lower(product_name) LIKE 'h%' ORDER BY product_name limit ?, 20",
       [position],
     );
 
@@ -246,7 +271,7 @@ class DataDao {
 
     /// Query all data in databaseOM
     List<Map<String, dynamic>> maps = await db.rawQuery(
-      "SELECT DISTINCT product_name, product_labeller FROM products WHERE lower(product_name) LIKE 'i%' ORDER BY product_name limit ?, 20",
+      "SELECT DISTINCT product_name, product_labeller,product_id FROM products WHERE lower(product_name) LIKE 'i%' ORDER BY product_name limit ?, 20",
       [position],
     );
 
@@ -271,7 +296,7 @@ class DataDao {
 
     /// Query all data in databaseOM
     List<Map<String, dynamic>> maps = await db.rawQuery(
-      "SELECT DISTINCT product_name, product_labeller FROM products WHERE lower(product_name) LIKE 'j%' ORDER BY product_name limit ?, 20",
+      "SELECT DISTINCT product_name, product_labeller,product_id FROM products WHERE lower(product_name) LIKE 'j%' ORDER BY product_name limit ?, 20",
       [position],
     );
 
@@ -296,7 +321,7 @@ class DataDao {
 
     /// Query all data in databaseOM
     List<Map<String, dynamic>> maps = await db.rawQuery(
-      "SELECT DISTINCT product_name, product_labeller FROM products WHERE lower(product_name) LIKE 'k%' ORDER BY product_name limit ?, 20",
+      "SELECT DISTINCT product_name, product_labeller,product_id FROM products WHERE lower(product_name) LIKE 'k%' ORDER BY product_name limit ?, 20",
       [position],
     );
 
@@ -321,7 +346,7 @@ class DataDao {
 
     /// Query all data in databaseOM
     List<Map<String, dynamic>> maps = await db.rawQuery(
-      "SELECT DISTINCT product_name, product_labeller FROM products WHERE lower(product_name) LIKE 'l%' ORDER BY product_name limit ?, 20",
+      "SELECT DISTINCT product_name, product_labeller,product_id FROM products WHERE lower(product_name) LIKE 'l%' ORDER BY product_name limit ?, 20",
       [position],
     );
 
@@ -346,7 +371,7 @@ class DataDao {
 
     /// Query all data in databaseOM
     List<Map<String, dynamic>> maps = await db.rawQuery(
-      "SELECT DISTINCT product_name, product_labeller FROM products WHERE lower(product_name) LIKE 'm%' ORDER BY product_name limit ?, 20",
+      "SELECT DISTINCT product_name, product_labeller,product_id FROM products WHERE lower(product_name) LIKE 'm%' ORDER BY product_name limit ?, 20",
       [position],
     );
 
@@ -371,7 +396,7 @@ class DataDao {
 
     /// Query all data in databaseOM
     List<Map<String, dynamic>> maps = await db.rawQuery(
-      "SELECT DISTINCT product_name, product_labeller FROM products WHERE lower(product_name) LIKE 'n%' ORDER BY product_name limit ?, 20",
+      "SELECT DISTINCT product_name, product_labeller,product_id FROM products WHERE lower(product_name) LIKE 'n%' ORDER BY product_name limit ?, 20",
       [position],
     );
 
@@ -396,7 +421,7 @@ class DataDao {
 
     /// Query all data in databaseOM
     List<Map<String, dynamic>> maps = await db.rawQuery(
-      "SELECT DISTINCT product_name, product_labeller FROM products WHERE lower(product_name) LIKE 'o%' ORDER BY product_name limit ?, 20",
+      "SELECT DISTINCT product_name, product_labeller,product_id FROM products WHERE lower(product_name) LIKE 'o%' ORDER BY product_name limit ?, 20",
       [position],
     );
 
@@ -421,7 +446,7 @@ class DataDao {
 
     /// Query all data in databaseOM
     List<Map<String, dynamic>> maps = await db.rawQuery(
-      "SELECT DISTINCT product_name, product_labeller FROM products WHERE lower(product_name) LIKE 'p%' ORDER BY product_name limit ?, 20",
+      "SELECT DISTINCT product_name, product_labeller,product_id FROM products WHERE lower(product_name) LIKE 'p%' ORDER BY product_name limit ?, 20",
       [position],
     );
 
@@ -446,7 +471,7 @@ class DataDao {
 
     /// Query all data in databaseOM
     List<Map<String, dynamic>> maps = await db.rawQuery(
-      "SELECT DISTINCT product_name, product_labeller FROM products WHERE lower(product_name) LIKE 'q%' ORDER BY product_name limit ?, 20",
+      "SELECT DISTINCT product_name, product_labeller,product_id FROM products WHERE lower(product_name) LIKE 'q%' ORDER BY product_name limit ?, 20",
       [position],
     );
 
@@ -471,7 +496,7 @@ class DataDao {
 
     /// Query all data in databaseOM
     List<Map<String, dynamic>> maps = await db.rawQuery(
-      "SELECT DISTINCT product_name, product_labeller FROM products WHERE lower(product_name) LIKE 'r%' ORDER BY product_name limit ?, 20",
+      "SELECT DISTINCT product_name, product_labeller,product_id FROM products WHERE lower(product_name) LIKE 'r%' ORDER BY product_name limit ?, 20",
       [position],
     );
 
@@ -496,7 +521,7 @@ class DataDao {
 
     /// Query all data in databaseOM
     List<Map<String, dynamic>> maps = await db.rawQuery(
-      "SELECT DISTINCT product_name, product_labeller FROM products WHERE lower(product_name) LIKE 's%' ORDER BY product_name limit ?, 20",
+      "SELECT DISTINCT product_name, product_labeller,product_id FROM products WHERE lower(product_name) LIKE 's%' ORDER BY product_name limit ?, 20",
       [position],
     );
 
@@ -521,7 +546,7 @@ class DataDao {
 
     /// Query all data in databaseOM
     List<Map<String, dynamic>> maps = await db.rawQuery(
-      "SELECT DISTINCT product_name, product_labeller FROM products WHERE lower(product_name) LIKE 't%' ORDER BY product_name limit ?, 20",
+      "SELECT DISTINCT product_name, product_labeller,product_id FROM products WHERE lower(product_name) LIKE 't%' ORDER BY product_name limit ?, 20",
       [position],
     );
 
@@ -546,7 +571,7 @@ class DataDao {
 
     /// Query all data in databaseOM
     List<Map<String, dynamic>> maps = await db.rawQuery(
-      "SELECT DISTINCT product_name, product_labeller FROM products WHERE lower(product_name) LIKE 'u%' ORDER BY product_name limit ?, 20",
+      "SELECT DISTINCT product_name, product_labeller,product_id FROM products WHERE lower(product_name) LIKE 'u%' ORDER BY product_name limit ?, 20",
       [position],
     );
 
@@ -571,7 +596,7 @@ class DataDao {
 
     /// Query all data in databaseOM
     List<Map<String, dynamic>> maps = await db.rawQuery(
-      "SELECT DISTINCT product_name, product_labeller FROM products WHERE lower(product_name) LIKE 'v%' ORDER BY product_name limit ?, 20",
+      "SELECT DISTINCT product_name, product_labeller,product_id FROM products WHERE lower(product_name) LIKE 'v%' ORDER BY product_name limit ?, 20",
       [position],
     );
 
@@ -596,7 +621,7 @@ class DataDao {
 
     /// Query all data in databaseOM
     List<Map<String, dynamic>> maps = await db.rawQuery(
-      "SELECT DISTINCT product_name, product_labeller FROM products WHERE lower(product_name) LIKE 'w%' ORDER BY product_name limit ?, 20",
+      "SELECT DISTINCT product_name, product_labeller,product_id FROM products WHERE lower(product_name) LIKE 'w%' ORDER BY product_name limit ?, 20",
       [position],
     );
 
@@ -621,7 +646,7 @@ class DataDao {
 
     /// Query all data in databaseOM
     List<Map<String, dynamic>> maps = await db.rawQuery(
-      "SELECT DISTINCT product_name, product_labeller FROM products WHERE lower(product_name) LIKE 'x%' ORDER BY product_name limit ?, 20",
+      "SELECT DISTINCT product_name, product_labeller,product_id FROM products WHERE lower(product_name) LIKE 'x%' ORDER BY product_name limit ?, 20",
       [position],
     );
 
@@ -646,7 +671,7 @@ class DataDao {
 
     /// Query all data in databaseOM
     List<Map<String, dynamic>> maps = await db.rawQuery(
-      "SELECT DISTINCT product_name, product_labeller FROM products WHERE lower(product_name) LIKE 'y%' ORDER BY product_name limit ?, 20",
+      "SELECT DISTINCT product_name, product_labeller,product_id FROM products WHERE lower(product_name) LIKE 'y%' ORDER BY product_name limit ?, 20",
       [position],
     );
 
@@ -671,7 +696,7 @@ class DataDao {
 
     /// Query all data in databaseOM
     List<Map<String, dynamic>> maps = await db.rawQuery(
-      "SELECT DISTINCT product_name, product_labeller FROM products WHERE lower(product_name) LIKE 'z%' ORDER BY product_name limit ?, 20",
+      "SELECT DISTINCT product_name, product_labeller,product_id FROM products WHERE lower(product_name) LIKE 'z%' ORDER BY product_name limit ?, 20",
       [position],
     );
 
