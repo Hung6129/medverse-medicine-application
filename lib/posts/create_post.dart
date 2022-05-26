@@ -20,8 +20,6 @@ class CreatePost extends StatefulWidget {
 }
 
 class _CreatePostState extends State<CreatePost> {
-  GlobalKey<FormState> formKey = GlobalKey<FormState>();
-
   /// Editing Controllers
   TextEditingController description = TextEditingController();
   bool loading = false;
@@ -42,7 +40,6 @@ class _CreatePostState extends State<CreatePost> {
         progressIndicator: circularProgress(context),
         inAsyncCall: viewModel.loading,
         child: Scaffold(
-          key: viewModel.scaffoldKey,
           appBar: AppBar(
             backgroundColor: Palette.mainBlueTheme,
             leading: IconButton(
