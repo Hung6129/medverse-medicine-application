@@ -3,7 +3,6 @@ import '../widgets/page_index_drug.dart';
 import '/theme/palette.dart';
 import '/utils/app_text_theme.dart';
 
-
 class DrugIndex extends StatefulWidget {
   const DrugIndex({Key key}) : super(key: key);
 
@@ -83,34 +82,6 @@ class _MedicineDictionaryState extends State<DrugIndex> {
               letterIndex: alpha[index],
             ),
           ),
-          // <Widget>[
-          //   DrugA(),
-          //   DrugB(),
-          //   DrugC(),
-          //   DrugD(),
-          //   DrugE(),
-          //   DrugF(),
-          //   DrugG(),
-          //   DrugH(),
-          //   DrugI(),
-          //   DrugJ(),
-          //   DrugK(),
-          //   DrugL(),
-          //   DrugM(),
-          //   DrugN(),
-          //   DrugO(),
-          //   DrugP(),
-          //   DrugQ(),
-          //   DrugR(),
-          //   DrugS(),
-          //   DrugT(),
-          //   DrugU(),
-          //   DrugV(),
-          //   DrugW(),
-          //   DrugX(),
-          //   DrugY(),
-          //   DrugZ(),
-          // ],
         ),
       );
     }

@@ -117,6 +117,96 @@ class _DrugDetailsState extends State<DrugDetails> {
 
   @override
   Widget build(BuildContext context) {
+    /// Sliver app bar for product name
+    Widget __sliverAppBarProductName(ProductModel data) {
+      return SliverAppBar(
+        toolbarHeight: Dimensions.height60,
+        // title: Icon(CupertinoIcons.arrow_left_circle_fill),
+        bottom: PreferredSize(
+          preferredSize: Size.fromHeight(20),
+          child: Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(Dimensions.radius20),
+                topRight: Radius.circular(Dimensions.radius20),
+              ),
+            ),
+            padding: EdgeInsets.only(
+              left: Dimensions.height10,
+              right: Dimensions.height10,
+            ),
+            child: Center(
+              child: AppText(
+                text: data.product_name,
+                color: Palette.mainBlueTheme,
+                size: Dimensions.font24,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+            width: double.maxFinite,
+          ),
+        ),
+        pinned: true,
+        backgroundColor: Palette.mainBlueTheme,
+        expandedHeight: Dimensions.imagesViewHeight,
+        flexibleSpace: FlexibleSpaceBar(
+          background: Image.asset(
+            imagesFav,
+            fit: BoxFit.cover,
+            width: double.maxFinite,
+          ),
+        ),
+      );
+    }
+
+    /// Sliver
+    Widget __sliverAppBarDetail(ProductModel data) {
+      return SliverToBoxAdapter(
+        child: Container(
+          padding: EdgeInsets.only(
+            left: Dimensions.width10,
+            right: Dimensions.width10,
+            top: Dimensions.height10,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Product
+              RichTextCus(text1: "Labeller:", text2: data.product_labeller), //d
+              RichTextCus(text1: "Route:", text2: data.product_route), //d
+              RichTextCus(text1: "Dosage:", text2: data.product_dosage), //d
+              RichTextCus(text1: "Strength:", text2: data.product_strength), //d
+              RichTextCus(text1: "Country:", text2: data.product_country),
+              RichTextCus(text1: "Code:", text2: data.product_code), //d
+              RichTextCus(text1: "Generic:", text2: data.product_generic), //d
+              RichTextCus(text1: "Approved:", text2: data.product_approved), //d
+              RichTextCus(text1: "Otc:", text2: data.product_otc), //d
+              Divider(
+                endIndent: Dimensions.width10,
+                indent: Dimensions.width10,
+                thickness: 3,
+              ),
+              // Drug
+              RichTextCus(text1: "Description:", text2: data.drug_description),
+              RichTextCus(text1: "State:", text2: data.drug_state),
+              RichTextCus(text1: "Indication:", text2: data.drug_indication),
+              RichTextCus(
+                  text1: "Pharmacodynamics:", text2: data.pharmacodynamics),
+              RichTextCus(text1: "Mechanism:", text2: data.mechanism),
+              RichTextCus(text1: "Toxicity:", text2: data.toxicity),
+              RichTextCus(text1: "Metabolism:", text2: data.metabolism),
+              RichTextCus(text1: "Half_life:", text2: data.half_life),
+              RichTextCus(
+                  text1: "Route of elimination:",
+                  text2: data.route_of_elimination),
+              RichTextCus(text1: "Clearance:", text2: data.clearance),
+            ],
+          ),
+        ),
+      );
+    }
+
     return Scaffold(
       body: FutureBuilder(
         future: _getAll(),
@@ -125,97 +215,8 @@ class _DrugDetailsState extends State<DrugDetails> {
             var info = snapshot.data[0];
             return CustomScrollView(
               slivers: [
-                SliverAppBar(
-                  toolbarHeight: Dimensions.height60,
-                  // title: Icon(CupertinoIcons.arrow_left_circle_fill),
-                  bottom: PreferredSize(
-                    preferredSize: Size.fromHeight(20),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(Dimensions.radius20),
-                          topRight: Radius.circular(Dimensions.radius20),
-                        ),
-                      ),
-                      padding: EdgeInsets.only(
-                        left: Dimensions.height10,
-                        right: Dimensions.height10,
-                      ),
-                      child: Center(
-                        child: AppText(
-                          text: info.product_name,
-                          color: Palette.mainBlueTheme,
-                          size: Dimensions.font24,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      width: double.maxFinite,
-                    ),
-                  ),
-                  pinned: true,
-                  backgroundColor: Palette.mainBlueTheme,
-                  expandedHeight: Dimensions.imagesViewHeight,
-                  flexibleSpace: FlexibleSpaceBar(
-                    background: Image.asset(
-                      imagesFav,
-                      fit: BoxFit.cover,
-                      width: double.maxFinite,
-                    ),
-                  ),
-                ),
-                SliverToBoxAdapter(
-                    child: Container(
-                  padding: EdgeInsets.only(
-                    left: Dimensions.width10,
-                    right: Dimensions.width10,
-                    top: Dimensions.height10,
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // Product
-                      RichTextCus(
-                          text1: "Labeller:", text2: info.product_labeller), //d
-                      RichTextCus(
-                          text1: "Route:", text2: info.product_route), //d
-                      RichTextCus(
-                          text1: "Dosage:", text2: info.product_dosage), //d
-                      RichTextCus(
-                          text1: "Strength:", text2: info.product_strength), //d
-                      RichTextCus(
-                          text1: "Country:", text2: info.product_country),
-                      RichTextCus(text1: "Code:", text2: info.product_code), //d
-                      RichTextCus(
-                          text1: "Generic:", text2: info.product_generic), //d
-                      RichTextCus(
-                          text1: "Approved:", text2: info.product_approved), //d
-                      RichTextCus(text1: "Otc:", text2: info.product_otc), //d
-                      Divider(
-                        endIndent: Dimensions.width10,
-                        indent: Dimensions.width10,
-                        thickness: 3,
-                      ),
-                      // Drug
-                      RichTextCus(
-                          text1: "Description:", text2: info.drug_description),
-                      RichTextCus(text1: "State:", text2: info.drug_state),
-                      RichTextCus(
-                          text1: "Indication:", text2: info.drug_indication),
-                      RichTextCus(
-                          text1: "Pharmacodynamics:",
-                          text2: info.pharmacodynamics),
-                      RichTextCus(text1: "Mechanism:", text2: info.mechanism),
-                      RichTextCus(text1: "Toxicity:", text2: info.toxicity),
-                      RichTextCus(text1: "Metabolism:", text2: info.metabolism),
-                      RichTextCus(text1: "Half_life:", text2: info.half_life),
-                      RichTextCus(
-                          text1: "Route of elimination:",
-                          text2: info.route_of_elimination),
-                      RichTextCus(text1: "Clearance:", text2: info.clearance),
-                    ],
-                  ),
-                )),
+                __sliverAppBarProductName(info),
+                __sliverAppBarDetail(info),
               ],
             );
           } else {

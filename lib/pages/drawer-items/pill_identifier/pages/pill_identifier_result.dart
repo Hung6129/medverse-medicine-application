@@ -8,18 +8,18 @@ import 'package:flutter/material.dart';
 
 class PillIdentifierListResult extends StatefulWidget {
   final String query1;
-  // final String query2;
-  // final String query3;
-  // final String query4;
-  // final String query5;
+  final String query2;
+  final String query3;
+  final String query4;
+  final String query5;
 
   const PillIdentifierListResult({
     Key key,
     this.query1,
-    // this.query2,
-    // this.query3,
-    // this.query4,
-    // this.query5,
+    this.query2,
+    this.query3,
+    this.query4,
+    this.query5,
   }) : super(key: key);
 
   @override
@@ -28,22 +28,20 @@ class PillIdentifierListResult extends StatefulWidget {
 }
 
 class _PillIdentifierListResultState extends State<PillIdentifierListResult> {
-  String img300 = "assets/images/drugs_pill/300.jpg";
-  String img600 = "assets/images/drugs_pill/600.jpg";
-  var data = {
-    "Nabumetone": "assets/images/drugs_pill/002282029.jpg",
-    "NAC": "assets/images/drugs_pill/005550972.jpg",
-    "Nadolol": "assets/images/drugs_pill/005550973.jpg",
-    "Naloxone": "assets/images/drugs_pill/493480042.jpg",
-    "Naltrexone": "assets/images/drugs_pill/521520215.jpg",
-    "Namenda": "assets/images/drugs_pill/634810629.jpg",
-    "Naprosyn": "assets/images/drugs_pill/646790936_PB.jpg",
-    "Naproxen": "assets/images/drugs_pill/646790937_PB.jpg",
-  };
+  ///
   String assetImage = "assets/image/images/gallery/300_imagenlm/";
+
+  ///
   List<PillIdentifierModel> dataList;
+
+  ///
   Future<List<PillIdentifierModel>> _getAll() async {
-    dataList = await PillIdentifierResult().getDrug();
+    dataList = await PillIdentifierResult().getDrugByIdentifier(
+      widget.query1,
+      widget.query2,
+      widget.query3,
+      widget.query4,
+    );
     return dataList;
   }
 
@@ -58,11 +56,11 @@ class _PillIdentifierListResultState extends State<PillIdentifierListResult> {
             size: Dimensions.font20,
             fontWeight: FontWeight.normal,
             text:
-                // ${widget.query2} ${widget.query3} ${widget.query4} ${widget.query5}
-                "Kết quả ${widget.query1} "),
+                "Kết quả ${widget.query1} ${widget.query2} ${widget.query3} ${widget.query4}"),
       );
     }
 
+    /// Queried list data
     Widget __listData() {
       return FutureBuilder<List<PillIdentifierModel>>(
           future: _getAll(),

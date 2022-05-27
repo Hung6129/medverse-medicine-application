@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:translator/translator.dart';
 import '/theme/palette.dart';
 import '/widgets/dimension.dart';
 
 class RichTextCus extends StatelessWidget {
-  String text1;
-  String text2;
+  final String text1;
+  final String text2;
   RichTextCus({
     Key key,
     this.text1,
