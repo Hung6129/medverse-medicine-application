@@ -3,6 +3,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
+import '../screens/edit_post.dart';
 import '/theme/palette.dart';
 import '/utils/app_text_theme.dart';
 import '/components/custom_card.dart';
@@ -97,7 +99,7 @@ class _UserPostState extends State<UserPost> {
                                   size: 25.0,
                                 ),
                               ),
-                              buildCurrentUserEditPost(context),
+                              buildCurrentUserEditPost(post),
                             ],
                           ),
                         ),
@@ -258,35 +260,26 @@ class _UserPostState extends State<UserPost> {
   }
 
   /// Edit post button
-  buildCurrentUserEditPost(BuildContext context) {
+  buildCurrentUserEditPost(post) {
     /// Check if this post is your current authenticated
     bool isMe = currentUserId() != widget.post.ownerId;
-    return StreamBuilder(
-      stream: usersRef.doc(widget.post.ownerId).snapshots(),
-      builder: (context, snapshot) {
-        return Visibility(
-          visible: !isMe,
-          child: IconButton(
-            onPressed: () {
-              Navigator.of(context).push(
-                CupertinoPageRoute(
-                  builder: (_) => EditPostScreen(
-                    documentId: widget.post.postId,
-                    currentUserID: widget.post.ownerId,
-                    currentImageUrl: widget.post.mediaUrl,
-                    currentDescription: widget.post.description,
-                    currentLocation: widget.post.location,
-                  ),
-                ),
-              );
-            },
-            icon: Icon(
-              Icons.edit_sharp,
-              color: Theme.of(context).iconTheme.color,
+    return Visibility(
+      visible: !isMe,
+      child: IconButton(
+        onPressed: () {
+          Navigator.of(context).push(
+            CupertinoPageRoute(
+              builder: (_) => EditPost(
+                post: post,
+              ),
             ),
-          ),
-        );
-      },
+          );
+        },
+        icon: Icon(
+          Icons.edit_sharp,
+          color: Theme.of(context).iconTheme.color,
+        ),
+      ),
     );
   }
 

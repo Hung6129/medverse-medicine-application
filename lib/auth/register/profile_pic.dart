@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import '/theme/palette.dart';
 import '/utils/app_text_theme.dart';
 import '/components/custom_image.dart';
-import '/view_models/auth/posts_view_model.dart';
+import '../../view_models/post/posts_view_model.dart';
 import '/widgets/indicators.dart';
 
 class ProfilePicture extends StatefulWidget {

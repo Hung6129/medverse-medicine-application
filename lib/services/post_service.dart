@@ -1,9 +1,6 @@
 import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:medverse_mobile_app/models/post.dart';
 import '/models/user.dart';
 import '/screens/view_image.dart';
 import '/services/services.dart';

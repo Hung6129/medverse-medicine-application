@@ -108,7 +108,7 @@ class _CommentsState extends State<Comments> {
                       color: Theme.of(context).textTheme.headline6.color,
                     ),
                     validator: (value) {
-                      if(value.isEmpty || RegExp(r"\s").hasMatch(commentsTEC.text)) {
+                      if(value.trim().isEmpty) {
                         return 'Mời bạn nhập nội dung bình luận';
                       }
                       return null;
