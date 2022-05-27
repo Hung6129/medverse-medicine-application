@@ -14,66 +14,66 @@ class PillIdentifier extends StatefulWidget {
 
 class _PillIdentifierState extends State<PillIdentifier> {
 // Imprint input controller
-  TextEditingController txtCon = TextEditingController();
+  TextEditingController txtImprint = TextEditingController();
 
 // List of Color 1
   List<String> pill_color_1 = [
-    "Màu sắc 1",
-    "CAM",
-    "ĐEN",
-    "ĐỎ",
-    "HỒNG",
-    "NÂU",
-    "NGỌC LAM",
-    "TÌM",
-    "TRẮNG",
-    "VÀNG",
-    "XÁM",
-    "XANH LÁ",
-    "XANH",
+    "Color 1",
+    "ORANGE",
+    "BLACK",
+    "RED",
+    "PINK",
+    "BROWN",
+    "TURQUOISE",
+    "PURPLE",
+    "WHITE",
+    "YELLOW",
+    "GREY",
+    "GREEN",
+    "BLUE",
   ];
 
 // List of Color 2
   List<String> pill_color_2 = [
-    "Màu sắc 2",
-    "CAM",
-    "ĐEN",
-    "ĐỎ",
-    "HỒNG",
-    "NÂU",
-    "NGỌC LAM",
-    "TÌM",
-    "TRẮNG",
-    "VÀNG",
-    "XÁM",
-    "XANH LÁ",
-    "XANH",
+    "Color 2",
+    "ORANGE",
+    "BLACK",
+    "RED",
+    "PINK",
+    "BROWN",
+    "TURQUOISE",
+    "PURPLE",
+    "WHITE",
+    "YELLOW",
+    "GREY",
+    "GREEN",
+    "BLUE",
   ];
 
 // List of Shapes
   List<String> pill_shapes = [
-    'Hình dạng',
-    "BÁN NGUYỆT",
-    "CHỮ NHẬT",
-    "CON NHỘNG",
-    "GIỌT NƯỚC",
-    "HAI VÒNG TRÒN",
-    "HÌNH DẠNG KHÔNG XÁC ĐỊNH",
-    "HÌNH THANG",
-    "HÌNH TRÁI XOAN",
-    "KIM CƯƠNG",
-    "LỤC GIÁC (5 CẠNH)",
-    "LỤC GIÁC (6 CẠNH)",
-    "TAM GIÁC",
-    "TÁM GOC (8 CẠNH)",
-    "TRÒN",
-    "VIÊN ĐẠN",
-    "VUÔNG",
+    'Shape',
+    "CAPSULE",
+    "OVAL",
+    "TEAR",
+    "ROUND",
+    "HEXAGON(6sided)",
+    "SQUARE",
+    "TRIANGLE",
+    "PENTAGON(5sided)",
+    "DIAMOND",
+    "RECTANGLE",
+    "SEMI-CIRCLE",
+    "DOUBLECIRCLE",
+    "TRAPEZOID",
+    "FREEFORM",
+    "NEED ATTENTION",
+    "BULLET",
   ];
 
 // List of Size
   List<String> pill_sizes = [
-    'Kích thước',
+    'Size',
     "4mm",
     "5mm",
     "6mm",
@@ -101,14 +101,317 @@ class _PillIdentifierState extends State<PillIdentifier> {
   ];
 
   // Dropdown menu variable
-  String dropDownColor1 = "Màu sắc 1";
-  String dropDownColor2 = "Màu sắc 2";
-  String dropdownShape = "Hình dạng";
-  String dropdownSize = "Kích thước";
+  String dropDownColor1 = "Color 1";
+  String dropDownColor2 = "Color 2";
+  String dropdownShape = "Shape";
+  String dropdownSize = "Size";
+  String dropdownColor;
 
   @override
   Widget build(BuildContext context) {
+    /// Title
+    Widget __title() {
+      return Padding(
+        padding:
+            const EdgeInsets.only(top: 20, left: 20, right: 20, bottom: 10),
+        child: Container(
+          child: AppText(
+            text:
+                "Sử dụng công cụ tìm viên thuốc để xác định các loại thuốc bằng hình dáng bên ngoài hoặc màu sắc. Tất cả các trường đều là tùy chọn.",
+            size: Dimensions.font18,
+            fontWeight: FontWeight.normal,
+          ),
+        ),
+      );
+    }
+
+    /// Imprint
+    Widget __imprint() {
+      return Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: TextFormField(
+          controller: txtImprint,
+          style: TextStyle(
+            fontSize: Dimensions.font14,
+          ),
+          decoration: InputDecoration(
+            border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(Dimensions.radius15)),
+            hintText: 'Nhập kí tự trên thuốc',
+            hintStyle: TextStyle(
+              fontSize: Dimensions.font14,
+            ),
+          ),
+        ),
+      );
+    }
+
+    /// Color 1
+    Widget __color1() {
+      return Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: FormField<String>(
+          builder: (FormFieldState<String> state) {
+            return InputDecorator(
+              decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                      borderSide:
+                          BorderSide(width: 4, color: Palette.mainBlueTheme),
+                      borderRadius:
+                          BorderRadius.circular(Dimensions.radius15))),
+              child: DropdownButtonHideUnderline(
+                child: DropdownButton<String>(
+                  value: dropDownColor1,
+                  isDense: true,
+                  onChanged: (String newValue) {
+                    setState(() {
+                      dropDownColor1 = newValue;
+                    });
+                  },
+                  items: pill_color_1.map((value) {
+                    return DropdownMenuItem(
+                      value: value,
+                      child: AppText(
+                          text: value,
+                          size: Dimensions.font14,
+                          fontWeight: FontWeight.normal),
+                    );
+                  }).toList(),
+                ),
+              ),
+            );
+          },
+        ),
+      );
+    }
+
+    /// Color 2
+    Widget __color2() {
+      return Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: FormField<String>(
+          builder: (FormFieldState<String> state) {
+            return InputDecorator(
+              decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                      borderSide:
+                          BorderSide(width: 4, color: Palette.mainBlueTheme),
+                      borderRadius:
+                          BorderRadius.circular(Dimensions.radius15))),
+              child: DropdownButtonHideUnderline(
+                child: DropdownButton<String>(
+                  value: dropDownColor2,
+                  isDense: true,
+                  onChanged: (String newValue) {
+                    setState(() {
+                      dropDownColor2 = newValue;
+                    });
+                  },
+                  items: pill_color_2.map((value) {
+                    return DropdownMenuItem(
+                      value: value,
+                      child: AppText(
+                          text: value,
+                          size: Dimensions.font14,
+                          fontWeight: FontWeight.normal),
+                    );
+                  }).toList(),
+                ),
+              ),
+            );
+          },
+        ),
+      );
+    }
+
+    /// Shape
+    Widget __shape() {
+      return Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: FormField<String>(
+          builder: (FormFieldState<String> state) {
+            return InputDecorator(
+              decoration: InputDecoration(
+                border: OutlineInputBorder(
+                  borderSide:
+                      BorderSide(width: 4, color: Palette.mainBlueTheme),
+                  borderRadius: BorderRadius.circular(
+                    Dimensions.radius15,
+                  ),
+                ),
+              ),
+              child: DropdownButtonHideUnderline(
+                child: DropdownButton<String>(
+                  value: dropdownShape,
+                  isDense: true,
+                  onChanged: (String newValue) {
+                    setState(
+                      () {
+                        dropdownShape = newValue;
+                      },
+                    );
+                  },
+                  items: pill_shapes.map(
+                    (value) {
+                      return DropdownMenuItem(
+                        value: value,
+                        child: AppText(
+                            text: value,
+                            size: Dimensions.font14,
+                            fontWeight: FontWeight.normal),
+                      );
+                    },
+                  ).toList(),
+                ),
+              ),
+            );
+          },
+        ),
+      );
+    }
+
+    /// Size
+    Widget __size() {
+      return Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: FormField<String>(
+          builder: (FormFieldState<String> state) {
+            return InputDecorator(
+              decoration: InputDecoration(
+                border: OutlineInputBorder(
+                  borderSide:
+                      BorderSide(width: 4, color: Palette.mainBlueTheme),
+                  borderRadius: BorderRadius.circular(
+                    Dimensions.radius15,
+                  ),
+                ),
+              ),
+              child: DropdownButtonHideUnderline(
+                child: DropdownButton<String>(
+                  value: dropdownSize,
+                  isDense: true,
+                  onChanged: (String newValue) {
+                    setState(
+                      () {
+                        dropdownSize = newValue;
+                      },
+                    );
+                  },
+                  items: pill_sizes.map(
+                    (value) {
+                      return DropdownMenuItem(
+                        value: value,
+                        child: AppText(
+                            text: value,
+                            size: Dimensions.font14,
+                            fontWeight: FontWeight.normal),
+                      );
+                    },
+                  ).toList(),
+                ),
+              ),
+            );
+          },
+        ),
+      );
+    }
+
+    /// Search btn
+    Widget __searchBtn() {
+      return Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Container(
+          width: Dimensions.boxViewWidth,
+          height: Dimensions.height45,
+          decoration: BoxDecoration(
+            color: Palette.mainBlueTheme,
+            borderRadius: BorderRadius.circular(
+              Dimensions.radius20,
+            ),
+          ),
+          child: TextButton(
+            onPressed: () {
+              // String notShape = "Shape";
+              // String notSize = "Size";
+              // String notSelected1 = "Color 1";
+              // String notSelected2 = "Color 2";
+
+              // if (dropDownColor1 == notSelected1 &&
+              //     dropDownColor2 == notSelected2 &&
+              //     dropdownShape == notShape &&
+              //     dropdownSize == notSize &&
+              //     txtImprint.text.isEmpty) {
+              //   print("Chon mot field de xem ket qua");
+              // } else if (dropDownColor1 == notSelected1 &&
+              //     dropDownColor2 != notSelected2) {
+              //   dropdownColor = dropDownColor2;
+              //   print("chua chon mau 1" +
+              //       txtImprint.text +
+              //       dropdownColor +
+              //       dropdownShape +
+              //       dropdownSize);
+              // } else if (dropDownColor2 == notSelected2 &&
+              //     dropDownColor1 != notSelected1) {
+              //   dropdownColor = dropDownColor1;
+              //   print("chua chon mau 2" +
+              //       txtImprint.text +
+              //       dropdownColor +
+              //       dropdownShape +
+              //       dropdownSize);
+              // } else if (dropDownColor1 == notSelected1 &&
+              //     dropDownColor2 == notSelected2) {
+              //   dropdownColor = notSelected1;
+              //   print("chua chon mau nao ca" +
+              //       txtImprint.text +
+              //       dropdownShape +
+              //       dropdownSize +
+              //       dropdownColor);
+              // } else {
+              //   print(txtImprint.text +
+              //       dropdownColor +
+              //       dropdownShape +
+              //       dropdownSize);
+
+              // }
+              dropdownColor = dropDownColor1 + "," + dropDownColor2;
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => PillIdentifierListResult(
+                    query1: txtImprint.text,
+                    query2: dropdownColor,
+                    query3: dropdownShape,
+                    query4: dropdownSize,
+                  ),
+                ),
+              );
+            },
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.search,
+                  size: Dimensions.icon24,
+                  color: Palette.p1,
+                ),
+                SizedBox(
+                  width: Dimensions.width10,
+                ),
+                AppText(
+                  text: "Tìm kiếm",
+                  color: Palette.p1,
+                  size: Dimensions.font14,
+                  fontWeight: FontWeight.normal,
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
+    }
+
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Palette.mainBlueTheme,
         title: Text(
@@ -120,16 +423,7 @@ class _PillIdentifierState extends State<PillIdentifier> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            // Intro
-            Container(
-              padding: EdgeInsets.all(Dimensions.height15),
-              child: AppText(
-                text:
-                    "Sử dụng công cụ tìm viên thuốc để xác định các loại thuốc bằng hình dáng bên ngoài hoặc màu sắc. Tất cả các trường đều là tùy chọn.",
-                size: Dimensions.font18,
-                fontWeight: FontWeight.normal,
-              ),
-            ),
+            __title(),
 
             // Query fill box
             Container(
@@ -153,237 +447,17 @@ class _PillIdentifierState extends State<PillIdentifier> {
                   ),
                 ],
               ),
-              padding: EdgeInsets.all(Dimensions.height25),
+              padding: EdgeInsets.all(Dimensions.height10),
 
               /// All the field
               child: Column(
                 children: [
-                  // Imprint query
-                  TextFormField(
-                    controller: txtCon,
-                    style: TextStyle(
-                      fontSize: Dimensions.font14,
-                    ),
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                          borderRadius:
-                              BorderRadius.circular(Dimensions.radius15)),
-                      hintText: 'Nhập kí tự trên thuốc',
-                      hintStyle: TextStyle(
-                        fontSize: Dimensions.font14,
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: Dimensions.height15,
-                  ),
-
-                  // Colors
-                  FormField<String>(
-                    builder: (FormFieldState<String> state) {
-                      return InputDecorator(
-                        decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                    width: 4, color: Palette.mainBlueTheme),
-                                borderRadius: BorderRadius.circular(
-                                    Dimensions.radius15))),
-                        child: DropdownButtonHideUnderline(
-                          child: DropdownButton<String>(
-                            value: dropDownColor1,
-                            isDense: true,
-                            onChanged: (String newValue) {
-                              setState(() {
-                                dropDownColor1 = newValue;
-                              });
-                            },
-                            items: pill_color_1.map((value) {
-                              return DropdownMenuItem(
-                                value: value,
-                                child: AppText(
-                                    text: value,
-                                    size: Dimensions.font14,
-                                    fontWeight: FontWeight.normal),
-                              );
-                            }).toList(),
-                          ),
-                        ),
-                      );
-                    },
-                  ),
-                  SizedBox(
-                    height: Dimensions.height15,
-                  ),
-
-                  // Color2
-                  FormField<String>(
-                    builder: (FormFieldState<String> state) {
-                      return InputDecorator(
-                        decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                    width: 4, color: Palette.mainBlueTheme),
-                                borderRadius: BorderRadius.circular(
-                                    Dimensions.radius15))),
-                        child: DropdownButtonHideUnderline(
-                          child: DropdownButton<String>(
-                            value: dropDownColor2,
-                            isDense: true,
-                            onChanged: (String newValue) {
-                              setState(() {
-                                dropDownColor2 = newValue;
-                              });
-                            },
-                            items: pill_color_2.map((value) {
-                              return DropdownMenuItem(
-                                value: value,
-                                child: AppText(
-                                    text: value,
-                                    size: Dimensions.font14,
-                                    fontWeight: FontWeight.normal),
-                              );
-                            }).toList(),
-                          ),
-                        ),
-                      );
-                    },
-                  ),
-                  SizedBox(
-                    height: Dimensions.height15,
-                  ),
-
-                  /// Shapes
-                  FormField<String>(
-                    builder: (FormFieldState<String> state) {
-                      return InputDecorator(
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                            borderSide: BorderSide(
-                                width: 4, color: Palette.mainBlueTheme),
-                            borderRadius: BorderRadius.circular(
-                              Dimensions.radius15,
-                            ),
-                          ),
-                        ),
-                        child: DropdownButtonHideUnderline(
-                          child: DropdownButton<String>(
-                            value: dropdownShape,
-                            isDense: true,
-                            onChanged: (String newValue) {
-                              setState(
-                                () {
-                                  dropdownShape = newValue;
-                                },
-                              );
-                            },
-                            items: pill_shapes.map(
-                              (value) {
-                                return DropdownMenuItem(
-                                  value: value,
-                                  child: AppText(
-                                      text: value,
-                                      size: Dimensions.font14,
-                                      fontWeight: FontWeight.normal),
-                                );
-                              },
-                            ).toList(),
-                          ),
-                        ),
-                      );
-                    },
-                  ),
-                  SizedBox(
-                    height: Dimensions.height15,
-                  ),
-
-                  /// Size
-                  FormField<String>(
-                    builder: (FormFieldState<String> state) {
-                      return InputDecorator(
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                            borderSide: BorderSide(
-                                width: 4, color: Palette.mainBlueTheme),
-                            borderRadius: BorderRadius.circular(
-                              Dimensions.radius15,
-                            ),
-                          ),
-                        ),
-                        child: DropdownButtonHideUnderline(
-                          child: DropdownButton<String>(
-                            value: dropdownSize,
-                            isDense: true,
-                            onChanged: (String newValue) {
-                              setState(
-                                () {
-                                  dropdownSize = newValue;
-                                },
-                              );
-                            },
-                            items: pill_sizes.map(
-                              (value) {
-                                return DropdownMenuItem(
-                                  value: value,
-                                  child: AppText(
-                                      text: value,
-                                      size: Dimensions.font14,
-                                      fontWeight: FontWeight.normal),
-                                );
-                              },
-                            ).toList(),
-                          ),
-                        ),
-                      );
-                    },
-                  ),
-
-                  //search btn
-                  Container(
-                    margin: EdgeInsets.only(top: 20),
-                    width: Dimensions.boxViewWidth,
-                    height: Dimensions.height45,
-                    decoration: BoxDecoration(
-                      color: Palette.mainBlueTheme,
-                      borderRadius: BorderRadius.circular(
-                        Dimensions.radius20,
-                      ),
-                    ),
-                    child: TextButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => PillIdentifierListResult(
-                              // query1: txtCon.text,
-                              // query2: dropDownColor1,
-                              // query3: dropDownColor2,
-                              // query4: dropdownShape,
-                              query1: dropdownSize,
-                            ),
-                          ),
-                        );
-                      },
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(
-                            Icons.search,
-                            size: Dimensions.icon24,
-                            color: Palette.p1,
-                          ),
-                          SizedBox(
-                            width: Dimensions.width10,
-                          ),
-                          AppText(
-                            text: "Tìm kiếm",
-                            color: Palette.p1,
-                            size: Dimensions.font14,
-                            fontWeight: FontWeight.normal,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+                  __imprint(),
+                  __color1(),
+                  __color2(),
+                  __shape(),
+                  __size(),
+                  __searchBtn()
                 ],
               ),
             ),

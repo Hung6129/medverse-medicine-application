@@ -42,13 +42,16 @@ class TypeAhead2 {
 }
 
 class PillIdentifierResult {
-  Future<List<PillIdentifierModel>> getDrug() async {
+  Future<List<PillIdentifierModel>> getDrugByIdentifier(
+      String imprint, String color, String shape, String size) async {
     /// Call database and access to database
     var db = await DatabaseSqliteConnection.drugBankAccess();
 
     /// Query all data in databaseOM
     List<Map<String, dynamic>> maps = await db.rawQuery(
-        "SELECT * FROM pilL_data_detail where pill_colors like '%ORANGE,WHITE%'");
+
+        "SELECT * FROM pilL_data_detail where pill_shape like '%$shape%' and pill_size like '%$size%'  and pill_colors like '%$color%' and pill_imprints like '%$imprint%'");
+    print(maps);
     return List.generate(
       maps.length,
       (i) {
