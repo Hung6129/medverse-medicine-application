@@ -4,7 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
-import '../screens/edit_post.dart';
+import '/pages/nav-items/feeds/widgets/edit_post_screen.dart';
 import '/theme/palette.dart';
 import '/utils/app_text_theme.dart';
 import '/components/custom_card.dart';
@@ -269,8 +269,12 @@ class _UserPostState extends State<UserPost> {
         onPressed: () {
           Navigator.of(context).push(
             CupertinoPageRoute(
-              builder: (_) => EditPost(
-                post: post,
+              builder: (_) => EditPostScreen(
+                documentId: widget.post.postId,
+                currentUserID: widget.post.ownerId,
+                currentImageUrl: widget.post.mediaUrl,
+                currentDescription: widget.post.description,
+                currentLocation: widget.post.location,
               ),
             ),
           );
