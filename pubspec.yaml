@@ -114,7 +114,8 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/image/images/gallery/300_imagenlm/
+    - assets/image/300_imagenlm/
+    - assets/image/300_imagesrxnav/
     - assets/flare/
     - database/Glossary.sqlite
     - database/drugbank.sqlite3

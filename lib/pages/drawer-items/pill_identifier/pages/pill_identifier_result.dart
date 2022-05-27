@@ -29,7 +29,7 @@ class PillIdentifierListResult extends StatefulWidget {
 
 class _PillIdentifierListResultState extends State<PillIdentifierListResult> {
   ///
-  String assetImage = "assets/image/images/gallery/300_imagenlm/";
+  String assetImage = "assets/image/300_imagesrxnav/";
 
   ///
   List<PillIdentifierModel> dataList;

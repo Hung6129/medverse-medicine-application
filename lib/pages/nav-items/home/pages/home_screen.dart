@@ -32,7 +32,7 @@ class _HomeScreenState extends State<HomeScreen> {
   final TextEditingController _typeAheadController = TextEditingController();
 
   /// Example images
-  String imagesFav = "assets/image/images/gallery/300_imagenlm/";
+  String imagesFav = "assets/image/300_imagenlm/";
 
   /// Get list images
   final List<String> imgList = [
