@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:medverse_mobile_app/models/user.dart';
 import '/services/file_upload_service.dart';
 import '/utils/firebase.dart';
@@ -14,6 +15,7 @@ class PostModel {
   String mediaUrl;
   Timestamp timestamp;
   String pictureUrl;
+  String status;
 
   PostModel({
     this.id,
@@ -24,6 +26,7 @@ class PostModel {
     this.mediaUrl,
     this.username,
     this.timestamp,
+    this.status,
   });
 
   PostModel.fromJson(Map<String, dynamic> json) {
@@ -35,6 +38,7 @@ class PostModel {
     description = json['description'];
     mediaUrl = json['mediaUrl'];
     timestamp = json['timestamp'];
+    status = json['status'];
   }
 
   String _message = '';
@@ -70,6 +74,7 @@ class PostModel {
   Future<bool> updatePost({
     String postId,
     File postImage,
+    String currentImage,
     String description,
     String location,
   }) async {
@@ -83,10 +88,12 @@ class PostModel {
 
     /// Connect to users collection
     DocumentSnapshot doc = await usersRef.doc(ownerId).get();
+    DocumentSnapshot docPost = await postRef.doc(postId).get();
 
     /// Call user's model
     UserModel user = UserModel.fromJson(doc.data());
-
+    PostModel post = PostModel.fromJson(docPost.data());
+    
     pictureUrl = await _fileUploadService.uploadPostFile(file: postImage);
 
     Map<String, dynamic> data = <String, dynamic>{
@@ -94,8 +101,8 @@ class PostModel {
       "postId": documentReference.id,
       "username": user.username,
       'description': description,
-      'mediaUrl': pictureUrl,
-      "location": location,
+      'mediaUrl': pictureUrl ?? post.mediaUrl,
+      "location": location ?? "Không có vị trí",
       "uid": ownerId
     };
 
@@ -123,13 +130,13 @@ class PostModel {
   }
 
   Future<void> deletePost({
+    BuildContext context,
     String postId,
   }) async {
     DocumentReference documentReference = postRef.doc(postId);
 
     await documentReference
         .delete()
-        .whenComplete(() => print('Note item deleted from the database'))
-        .catchError((e) => print(e));
+        .whenComplete(() => Navigator.pushReplacementNamed(context, "/social"));
   }
 }

@@ -1,10 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
-import 'package:medverse_mobile_app/theme/palette.dart';
-import 'package:medverse_mobile_app/widgets/dimension.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:provider/provider.dart';
+import '/theme/palette.dart';
+import '/utils/app_text_theme.dart';
+import '/widgets/dimension.dart';
 import '/auth/register/register.dart';
 import '/components/password_text_field.dart';
 import '/components/text_form_builder.dart';
@@ -43,21 +44,13 @@ class _LoginState extends State<Login> {
             Center(
               child: Text(
                 'Chào mừng bạn đã trở lại!',
-                style: TextStyle(
-                  fontSize: 23.0,
-                  fontWeight: FontWeight.w900,
-                  color: Palette.textNo,
-                ),
+                style: MobileTextTheme().welcomeBack,
               ),
             ),
             Center(
               child: Text(
                 'Đăng nhập tài khoản để bắt đầu!',
-                style: TextStyle(
-                  fontSize: 12.0,
-                  fontWeight: FontWeight.w300,
-                  color: Palette.textNo,
-                ),
+                style: MobileTextTheme().loginToContinue,
               ),
             ),
             SizedBox(height: 25.0),
@@ -68,21 +61,19 @@ class _LoginState extends State<Login> {
               children: [
                 Text(
                   'Bạn chưa có tài khoản?',
-                  style: TextStyle(
-                    color: Palette.textNo,
-                  ),
+                  style: AppTextTheme.oswaldTextStyle,
                 ),
                 GestureDetector(
                   onTap: () {
-                    Navigator.of(context)
-                        .push(CupertinoPageRoute(builder: (_) => Register()));
+                    Navigator.of(context).push(
+                      CupertinoPageRoute(
+                        builder: (_) => Register(),
+                      ),
+                    );
                   },
                   child: Text(
                     'Đăng ký',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Palette.mainBlueTheme,
-                    ),
+                    style: MobileTextTheme().registerText,
                   ),
                 ),
               ],
@@ -94,14 +85,11 @@ class _LoginState extends State<Login> {
             Center(
               child: GestureDetector(
                 onTap: () {
-                  Navigator.pushNamed(context, "/home");
+                  Navigator.pushReplacementNamed(context, "/home");
                 },
                 child: Text(
                   'Quay lại',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Palette.mainBlueTheme,
-                  ),
+                  style: MobileTextTheme().registerText,
                 ),
               ),
             ),
@@ -157,10 +145,7 @@ class _LoginState extends State<Login> {
                     alignment: Alignment.centerRight,
                     child: Text(
                       'Quên mật khẩu?',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Palette.textNo,
-                      ),
+                      style: MobileTextTheme().forgotPassword,
                     ),
                   ),
                 ),
@@ -185,11 +170,7 @@ class _LoginState extends State<Login> {
               // highlightElevation: 4.0,
               child: Text(
                 'Đăng nhập',
-                style: TextStyle(
-                  color: Palette.whiteText,
-                  fontSize: 12.0,
-                  fontWeight: FontWeight.w600,
-                ),
+                style: MobileTextTheme().loginButton,
               ),
               onPressed: () => viewModel.login(context),
             ),

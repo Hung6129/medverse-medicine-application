@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import '/utils/validation.dart';
+import '/widgets/awesome_dialog.dart';
 import '/theme/palette.dart';
 import '/utils/app_text_theme.dart';
 import '/components/stream_comments_wrapper.dart';
@@ -24,8 +26,15 @@ class _CommentsState extends State<Comments> {
   UserModel user;
 
   PostService services = PostService();
+
+  /// Get the current datetime
   final DateTime timestamp = DateTime.now();
+
+  /// Editting Controller
   TextEditingController commentsTEC = TextEditingController();
+
+  /// Check validation
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   currentUserId() {
     return firebaseAuth.currentUser.uid;
@@ -53,92 +62,142 @@ class _CommentsState extends State<Comments> {
       body: Container(
         height: MediaQuery.of(context).size.height,
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Flexible(
               child: ListView(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                    padding: EdgeInsets.only(top: 20),
                     child: buildFullPost(),
                   ),
                   Divider(thickness: 1.5),
-                  Flexible(
-                    child: buildComments(),
-                  )
+                  buildComments(),
+                  commentWrapper(),
                 ],
-              ),
-            ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Container(
-                decoration: BoxDecoration(),
-                constraints: BoxConstraints(
-                  maxHeight: 190.0,
-                ),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    Flexible(
-                      child: ListTile(
-                        contentPadding: EdgeInsets.all(0),
-                        title: TextField(
-                          textCapitalization: TextCapitalization.sentences,
-                          controller: commentsTEC,
-                          style: TextStyle(
-                            fontSize: 15.0,
-                            color: Theme.of(context).textTheme.headline6.color,
-                          ),
-                          decoration: InputDecoration(
-                            contentPadding: EdgeInsets.all(10.0),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(5.0),
-                              borderSide: BorderSide(
-                                color: Theme.of(context).primaryColor,
-                              ),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Theme.of(context).primaryColor,
-                              ),
-                              borderRadius: BorderRadius.circular(5.0),
-                            ),
-                            hintText: "Viết bình luận của bạn...",
-                            hintStyle: TextStyle(
-                              fontSize: 15.0,
-                              color:
-                                  Theme.of(context).textTheme.headline6.color,
-                            ),
-                          ),
-                          maxLines: null,
-                        ),
-                        trailing: GestureDetector(
-                          onTap: () async {
-                            await services.uploadComment(
-                              currentUserId(),
-                              commentsTEC.text,
-                              widget.post.postId,
-                              widget.post.ownerId,
-                              widget.post.mediaUrl,
-                            );
-                            commentsTEC.clear();
-                          },
-                          child: Padding(
-                            padding: const EdgeInsets.only(right: 10.0),
-                            child: Icon(
-                              Icons.send,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
               ),
             ),
           ],
         ),
       ),
     );
+  }
+
+  /// Check validation then upload comment
+  commentWrapper() {
+    return Form(
+      key: formKey,
+      child: Align(
+        alignment: Alignment.bottomCenter,
+        child: Container(
+          decoration: BoxDecoration(),
+          constraints: BoxConstraints(
+            maxHeight: 190.0,
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Flexible(
+                child: ListTile(
+                  contentPadding: EdgeInsets.all(0),
+                  title: TextFormField(
+                    textCapitalization: TextCapitalization.sentences,
+                    controller: commentsTEC,
+                    style: TextStyle(
+                      fontSize: 15.0,
+                      color: Theme.of(context).textTheme.headline6.color,
+                    ),
+                    validator: (value) {
+                      if(value.trim().isEmpty) {
+                        return 'Mời bạn nhập nội dung bình luận';
+                      }
+                      return null;
+                    },
+                    decoration: InputDecoration(
+                      contentPadding: EdgeInsets.all(10.0),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(5.0),
+                        borderSide: BorderSide(
+                          color: Theme.of(context).primaryColor,
+                        ),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Theme.of(context).primaryColor,
+                        ),
+                        borderRadius: BorderRadius.circular(5.0),
+                      ),
+                      hintText: "Viết bình luận của bạn...",
+                      hintStyle: TextStyle(
+                        fontSize: 15.0,
+                        color: Theme.of(context).textTheme.headline6.color,
+                      ),
+                    ),
+                    maxLines: null,
+                  ),
+                  trailing: GestureDetector(
+                    onTap: () async {
+                      String input = commentsTEC.text;
+
+                      if (cleanComment(input)) {
+                        if(formKey.currentState.validate()) {
+                          await services.uploadComment(
+                            currentUserId(),
+                            commentsTEC.text,
+                            widget.post.postId,
+                            widget.post.ownerId,
+                            widget.post.mediaUrl,
+                          );
+                        }
+                      } else {
+                        AwesomeDialog(
+                          context: context,
+                          dialogType: DialogType.WARNING,
+                          headerAnimationLoop: false,
+                          animType: AnimType.TOPSLIDE,
+                          showCloseIcon: true,
+                          closeIcon:
+                              const Icon(Icons.close_fullscreen_outlined),
+                          title: 'Cảnh báo!',
+                          desc:
+                              'Bình luận bạn nhập có chứa nội dung vi phạm tiêu chuẩn cộng đồng của chúng tôi',
+                          descTextStyle: AppTextTheme.oswaldTextStyle,
+                          btnOkOnPress: () {},
+                        ).show();
+                      }
+                      commentsTEC.clear();
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.only(right: 10.0),
+                      child: Icon(
+                        Icons.send,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  /// Check bad word comment
+  bool cleanComment(String commentInput) {
+    List<String> inputArray = commentInput.split(" ");
+    bool result = true;
+    for (final item in inputArray) {
+      for (final badWord in Validations.badWord) {
+        if (item.toLowerCase() == badWord) {
+          print(item.toLowerCase());
+          print(badWord);
+          print('Test');
+          result = false;
+        }
+      }
+    }
+    return result;
   }
 
   buildFullPost() {
@@ -148,8 +207,8 @@ class _CommentsState extends State<Comments> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
-          height: 250.0,
-          width: MediaQuery.of(context).size.width - 20.0,
+          height: MediaQuery.of(context).size.width,
+          width: MediaQuery.of(context).size.width,
           child: cachedNetworkImage(widget.post.mediaUrl),
         ),
         Padding(
@@ -160,9 +219,7 @@ class _CommentsState extends State<Comments> {
             children: [
               Text(
                 widget.post.description,
-                style: TextStyle(
-                  fontWeight: FontWeight.w800,
-                ),
+                style: MobileTextTheme().postDescription,
               ),
               SizedBox(height: 4.0),
               Row(
@@ -234,7 +291,7 @@ class _CommentsState extends State<Comments> {
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
               child: Text(
                 comments.comment,
-                style: TextStyle(fontWeight: FontWeight.w400),
+                style: MobileTextTheme().postDescription,
               ),
             ),
             Divider()
@@ -306,15 +363,17 @@ class _CommentsState extends State<Comments> {
           .doc(widget.post.ownerId)
           .collection('notifications')
           .doc(widget.post.postId)
-          .set({
-        "type": "like",
-        "username": user.username,
-        "userId": currentUserId(),
-        "userDp": user.photoUrl,
-        "postId": widget.post.postId,
-        "mediaUrl": widget.post.mediaUrl,
-        "timestamp": timestamp,
-      });
+          .set(
+        {
+          "type": "like",
+          "username": user.username,
+          "userId": currentUserId(),
+          "userDp": user.photoUrl,
+          "postId": widget.post.postId,
+          "mediaUrl": widget.post.mediaUrl,
+          "timestamp": timestamp,
+        },
+      );
     }
   }
 
@@ -329,9 +388,14 @@ class _CommentsState extends State<Comments> {
           .collection('notifications')
           .doc(widget.post.postId)
           .get()
-          .then((doc) => {
-                if (doc.exists) {doc.reference.delete()}
-              });
+          .then(
+            (doc) => {
+              if (doc.exists)
+                {
+                  doc.reference.delete(),
+                }
+            },
+          );
     }
   }
 }

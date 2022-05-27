@@ -63,7 +63,7 @@ class _HelpScreenState extends State<HelpScreen> {
                 ],
               ),
             ),
-            SizedBox(height: 20),
+            SizedBox(height: 10),
 
             /// Favourite description content
             Container(
@@ -100,7 +100,7 @@ class _HelpScreenState extends State<HelpScreen> {
                 ],
               ),
             ),
-            SizedBox(height: 20),
+            SizedBox(height: 10),
 
             /// Drug search description content
             Container(
@@ -137,7 +137,7 @@ class _HelpScreenState extends State<HelpScreen> {
                 ],
               ),
             ),
-            SizedBox(height: 20),
+            SizedBox(height: 10),
 
             /// Pill identifier description content
             Container(
@@ -174,7 +174,7 @@ class _HelpScreenState extends State<HelpScreen> {
                 ],
               ),
             ),
-            SizedBox(height: 20),
+            SizedBox(height: 10),
 
             /// BMI calculator description content
             Container(
@@ -211,7 +211,7 @@ class _HelpScreenState extends State<HelpScreen> {
                 ],
               ),
             ),
-            SizedBox(height: 20),
+            SizedBox(height: 10),
 
             /// Drug report description content
             Container(
@@ -248,7 +248,7 @@ class _HelpScreenState extends State<HelpScreen> {
                 ],
               ),
             ),
-            SizedBox(height: 20),
+            SizedBox(height: 10),
 
             /// Drug interaction description content
             Container(
@@ -298,7 +298,7 @@ class _HelpScreenState extends State<HelpScreen> {
                 ],
               ),
             ),
-            SizedBox(height: 20),
+            SizedBox(height: 10),
 
             /// Drug comparison description content
             Container(
@@ -335,7 +335,7 @@ class _HelpScreenState extends State<HelpScreen> {
                 ],
               ),
             ),
-            SizedBox(height: 20),
+            SizedBox(height: 10),
 
             /// Drug dictionary description content
             Container(
@@ -372,7 +372,7 @@ class _HelpScreenState extends State<HelpScreen> {
                 ],
               ),
             ),
-            SizedBox(height: 20),
+            SizedBox(height: 10),
 
             /// Health profile description content
             Container(
@@ -409,7 +409,7 @@ class _HelpScreenState extends State<HelpScreen> {
                 ],
               ),
             ),
-            SizedBox(height: 20),
+            SizedBox(height: 10),
 
             /// Social drug post description content
             Container(

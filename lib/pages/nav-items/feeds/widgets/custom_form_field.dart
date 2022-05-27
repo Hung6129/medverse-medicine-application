@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:medverse_mobile_app/utils/app_text_theme.dart';
 
 class CustomFormField extends StatelessWidget {
   const CustomFormField({
@@ -37,6 +38,7 @@ class CustomFormField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      style: MobileTextTheme().inputDescriptionAndLocation,
       initialValue: _initialValue,
       maxLines: maxLines,
       keyboardType: _keyboardtype,

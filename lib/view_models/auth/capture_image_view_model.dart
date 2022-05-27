@@ -1,19 +1,15 @@
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:medverse_mobile_app/models/capture_image.dart';
-import 'package:medverse_mobile_app/services/capture_image_service.dart';
-import 'package:medverse_mobile_app/theme/palette.dart';
-import '/models/post.dart';
-import '/screens/mainscreen.dart';
-import '/services/post_service.dart';
+import '/models/capture_image.dart';
+import '/services/capture_image_service.dart';
+import '/theme/palette.dart';
 import '/services/user_service.dart';
 import '/utils/constants.dart';
-import '/utils/firebase.dart';
 
 class CaptureImageViewModel extends ChangeNotifier {
   /// Connect to user's service
@@ -110,24 +106,39 @@ class CaptureImageViewModel extends ChangeNotifier {
     } catch (e) {
       loading = false;
       notifyListeners();
-      showInSnackBar('Hủy bỏ', context);
+      showErrorInSnackBar('Hủy bỏ', context);
     }
   }
 
   uploadCapture(BuildContext context) async {
-    try {
-      loading = true;
-      notifyListeners();
-      await captureImageService.uploadCapture(captureUrl, description);
-      loading = false;
-      resetPost();
-      notifyListeners();
-    } catch (e) {
-      print(e);
-      loading = false;
-      resetPost();
-      showInSnackBar('Gửi bài báo cáo thành công!', context);
-      notifyListeners();
+    if (captureUrl == null) {
+      showErrorInSnackBar('Vui lòng chọn hình ảnh', context);
+    } else {
+      if (formKey.currentState.validate()) {
+        try {
+          loading = true;
+          notifyListeners();
+          await captureImageService.uploadCapture(captureUrl, description);
+          showActiveInSnackBar('Gửi bài báo cáo thành công!', context);
+          Navigator.pushReplacementNamed(context, "/home");
+          loading = false;
+          resetPost();
+          notifyListeners();
+        } catch (e) {
+          print(e);
+          loading = false;
+          resetPost();
+          notifyListeners();
+        }
+      } else {
+        loading = false;
+        resetPost();
+        notifyListeners();
+        showErrorInSnackBar(
+          'Vui lòng hoàn thành điền thông tin trước khi gửi báo cáo. ',
+          context,
+        );
+      }
     }
   }
 
@@ -138,8 +149,31 @@ class CaptureImageViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void showInSnackBar(String value, context) {
+  /// This message will show when validation is failed
+  void showErrorInSnackBar(String value, context) {
     ScaffoldMessenger.of(context).removeCurrentSnackBar();
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(value)));
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(
+          value,
+          style: GoogleFonts.oswald(),
+        ),
+        backgroundColor: Palette.red,
+      ),
+    );
+  }
+
+  /// This message will show when validation is successful
+  void showActiveInSnackBar(String value, context) {
+    ScaffoldMessenger.of(context).removeCurrentSnackBar();
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(
+          value,
+          style: GoogleFonts.oswald(),
+        ),
+        backgroundColor: Palette.activeButton,
+      ),
+    );
   }
 }

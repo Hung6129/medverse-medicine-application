@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:translator/translator.dart';
 import '/theme/palette.dart';
 import '/widgets/dimension.dart';
 
 class RichTextCus extends StatelessWidget {
-  String text1;
-  String text2;
+  final String text1;
+  final String text2;
   RichTextCus({
     Key key,
     this.text1,
@@ -27,7 +26,7 @@ class RichTextCus extends StatelessWidget {
           TextSpan(
             text: " " + text2,
             style: GoogleFonts.roboto(
-                fontSize: Dimensions.font20,
+                fontSize: Dimensions.font14,
                 fontWeight: FontWeight.normal,
                 color: Palette.textNo,
                 letterSpacing: 1),

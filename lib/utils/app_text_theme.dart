@@ -21,6 +21,19 @@ abstract class AppTextTheme {
 
   TextStyle get drawerHeaderTextStyle;
 
+  /// Using for login UI
+  TextStyle get welcomeBack;
+
+  TextStyle get loginToContinue;
+
+  TextStyle get registerText;
+
+  TextStyle get registerIntroText;
+
+  TextStyle get forgotPassword;
+
+  TextStyle get loginButton;
+
   /// Using for all current user name title
   TextStyle get currentUsernameTitle;
 
@@ -99,26 +112,34 @@ abstract class AppTextTheme {
 
   TextStyle get fabContainerContent;
 
-  static final oswaldTextStyle = GoogleFonts.oswald();
+  /// Using for profile
+  TextStyle get profileUserName;
+  TextStyle get profileLocation;
+  TextStyle get profileMail;
+
+
+  static final oswaldTextStyle = GoogleFonts.roboto(
+    color: Palette.textNo,
+  );
 }
 
 class MobileTextTheme implements AppTextTheme {
   /// Using for app bar in only home UI
   @override
-  final homeAppBarStyle = GoogleFonts.oswald(
+  final homeAppBarStyle = GoogleFonts.roboto(
     fontWeight: FontWeight.w900,
-    color: Palette.mainBlueTheme,
+    color: Palette.pastel1
   );
 
   /// Using for all app bar in UI
   @override
-  final appBarStyle = GoogleFonts.oswald(
+  final appBarStyle = GoogleFonts.roboto(
     fontWeight: FontWeight.normal,
   );
 
   /// Using for all app bar action button
   @override
-  final appBarActionButton = GoogleFonts.oswald(
+  final appBarActionButton = GoogleFonts.roboto(
     fontWeight: FontWeight.bold,
     fontSize: 10.0,
     color: Palette.whiteText,
@@ -126,61 +147,101 @@ class MobileTextTheme implements AppTextTheme {
 
   /// Using for all tab bar in UI
   @override
-  final tabBarStyle = GoogleFonts.oswald();
+  final tabBarStyle = GoogleFonts.roboto();
 
   /// Using for all choose picture box
   @override
-  final choosePictureRequired = GoogleFonts.oswald(
+  final choosePictureRequired = GoogleFonts.roboto(
     color: Palette.mainBlueTheme,
   );
 
   @override
-  final navigationDrawerStyle = GoogleFonts.oswald(
+  final navigationDrawerStyle = GoogleFonts.roboto(
     color: Palette.whiteText,
   );
 
   @override
-  final drawerHeader = GoogleFonts.oswald(
+  final drawerHeader = GoogleFonts.roboto(
     fontSize: 20,
     color: Palette.whiteText,
   );
 
   @override
-  final drawerHeaderTextStyle = GoogleFonts.oswald(
+  final drawerHeaderTextStyle = GoogleFonts.roboto(
     color: Palette.p1,
     fontWeight: FontWeight.w500,
   );
 
+  /// Using for login UI
+  @override
+  final welcomeBack = GoogleFonts.roboto(
+    fontSize: 23.0,
+    fontWeight: FontWeight.w900,
+    color: Palette.textNo,
+  );
+
+  @override
+  final loginToContinue = GoogleFonts.roboto(
+    fontSize: 12.0,
+    fontWeight: FontWeight.w300,
+    color: Palette.textNo,
+  );
+
+  @override
+  final registerText = GoogleFonts.roboto(
+    fontWeight: FontWeight.bold,
+    color: Palette.mainBlueTheme,
+  );
+
+  @override
+  final registerIntroText = GoogleFonts.roboto(
+    fontWeight: FontWeight.bold,
+    fontSize: 18.0,
+  );
+
+  @override
+  final forgotPassword = GoogleFonts.roboto(
+    fontWeight: FontWeight.bold,
+    color: Palette.textNo,
+  );
+
+  @override
+  final loginButton = GoogleFonts.roboto(
+    fontSize: 12.0,
+    fontWeight: FontWeight.w600,
+    color: Palette.whiteText,
+  );
+
   /// Using for all current user name title
   @override
-  final currentUsernameTitle = GoogleFonts.oswald(
+  final currentUsernameTitle = GoogleFonts.roboto(
     fontWeight: FontWeight.bold,
   );
 
   /// Using for all current email title
   @override
-  final currentEmailTitle = GoogleFonts.oswald();
+  final currentEmailTitle = GoogleFonts.roboto();
 
   @override
-  final inputDescriptionAndLocationTitle = GoogleFonts.oswald(
+  final inputDescriptionAndLocationTitle = GoogleFonts.roboto(
     fontSize: 15.0,
     fontWeight: FontWeight.w600,
   );
 
   @override
-  final inputDescriptionAndLocation = GoogleFonts.oswald();
+  final inputDescriptionAndLocation = GoogleFonts.roboto();
 
   /// Using for choose image choice UI
   @override
-  final chooseImageTitle = GoogleFonts.oswald(
+  final chooseImageTitle = GoogleFonts.roboto(
     fontWeight: FontWeight.bold,
   );
 
   @override
-  final selectCamera = GoogleFonts.oswald();
+  final selectCamera = GoogleFonts.roboto();
 
   @override
-  final selectGallery = GoogleFonts.oswald();
+  final selectGallery = GoogleFonts.roboto();
 
   /// Using for BMI calculator UI
   final kBottomContainerHeight = 50.0;
@@ -192,153 +253,179 @@ class MobileTextTheme implements AppTextTheme {
   final kBottomContainerColour = Palette.mainBlueTheme;
 
   @override
-  final blackKLabelStyle = GoogleFonts.oswald(
+  final blackKLabelStyle = GoogleFonts.roboto(
     fontWeight: FontWeight.w700,
     fontSize: 15,
     color: Palette.textNo,
   );
 
   @override
-  final kLabelTextStyle = GoogleFonts.oswald(
+  final kLabelTextStyle = GoogleFonts.roboto(
     fontSize: 18.0,
     color: Palette.p1,
   );
 
   @override
-  final kNumberTextStyle = GoogleFonts.oswald(
+  final kNumberTextStyle = GoogleFonts.roboto(
     fontSize: 50.0,
     fontWeight: FontWeight.w900,
     color: Palette.p1,
   );
 
   @override
-  final paragraph18 = GoogleFonts.lato(
+  final paragraph18 = GoogleFonts.roboto(
     fontSize: 18,
     fontWeight: FontWeight.normal,
   );
 
   @override
-  final subheadAllCaps = GoogleFonts.lato(
-      fontSize: 14, fontWeight: FontWeight.normal, letterSpacing: 2.5);
+  final subheadAllCaps = GoogleFonts.roboto(
+    fontSize: 14,
+    fontWeight: FontWeight.normal,
+    letterSpacing: 2.5,
+  );
 
   @override
-  final kLargeButtonTextStyle = GoogleFonts.oswald(
+  final kLargeButtonTextStyle = GoogleFonts.roboto(
     fontSize: 25.0,
     fontWeight: FontWeight.bold,
     color: Palette.p1,
   );
 
   @override
-  final kTitleTextStyle = GoogleFonts.oswald(
+  final kTitleTextStyle = GoogleFonts.roboto(
     fontSize: 35.0,
     fontWeight: FontWeight.bold,
   );
 
   @override
-  final kResultTextStyle = GoogleFonts.oswald(
+  final kResultTextStyle = GoogleFonts.roboto(
     color: Color(0xFF24D876),
     fontSize: 25.0,
     fontWeight: FontWeight.bold,
   );
 
   @override
-  final kBMITextStyle = GoogleFonts.oswald(
-      fontSize: 100.0, fontWeight: FontWeight.bold, color: Palette.p1);
+  final kBMITextStyle = GoogleFonts.roboto(
+    fontSize: 100.0,
+    fontWeight: FontWeight.bold,
+    color: Palette.p1,
+  );
 
   @override
-  final kBodyTextStyle = GoogleFonts.oswald(fontSize: 22.0, color: Palette.p1);
+  final kBodyTextStyle = GoogleFonts.roboto(
+    fontSize: 22.0,
+    color: Palette.p1,
+  );
 
   @override
-  final introContentFont = GoogleFonts.oswald(
+  final introContentFont = GoogleFonts.roboto(
     fontSize: 15,
     color: Palette.textNo,
   );
 
   @override
-  final introTitleFont = GoogleFonts.oswald(
+  final introTitleFont = GoogleFonts.roboto(
     fontSize: 20,
     color: Palette.textNo,
-    fontWeight: FontWeight.bold
+    fontWeight: FontWeight.bold,
   );
 
   /// Using for health profile UI
   @override
-  final healthProfileDataTextFont = GoogleFonts.oswald(
+  final healthProfileDataTextFont = GoogleFonts.roboto(
     fontWeight: FontWeight.bold,
     color: Palette.textNo,
     fontSize: 20,
   );
 
   @override
-  final healthProfileUnitTextStyle = GoogleFonts.oswald(
+  final healthProfileUnitTextStyle = GoogleFonts.roboto(
     fontSize: 15,
     color: Palette.textNo,
   );
 
   @override
-  final healthProfileNoDataTextStyle = GoogleFonts.oswald(
+  final healthProfileNoDataTextStyle = GoogleFonts.roboto(
     fontWeight: FontWeight.bold,
     color: Palette.textNo,
   );
 
   /// Using for account information UI
   @override
-  final accountInformationDataTextStyle = GoogleFonts.oswald(
+  final accountInformationDataTextStyle = GoogleFonts.roboto(
     color: Palette.textNo,
     fontSize: 15,
   );
 
   /// Using for post card in social UI
   @override
-  final postDescription = GoogleFonts.oswald(
+  final postDescription = GoogleFonts.roboto(
     color: Palette.textNo,
     fontSize: 15,
   );
 
   @override
-  final timePost = GoogleFonts.oswald(
+  final timePost = GoogleFonts.roboto(
     fontSize: 10,
   );
 
   @override
-  final likesCount = GoogleFonts.oswald(
+  final likesCount = GoogleFonts.roboto(
     fontWeight: FontWeight.bold,
     fontSize: 10.0,
   );
 
   @override
-  final commentCount = GoogleFonts.oswald(
+  final commentCount = GoogleFonts.roboto(
     fontSize: 8.5,
     fontWeight: FontWeight.bold,
   );
 
   @override
-  final postUserNameTitle = GoogleFonts.oswald(
+  final postUserNameTitle = GoogleFonts.roboto(
     fontWeight: FontWeight.bold,
     color: Palette.greyBlack,
   );
 
   @override
-  final postLocationTitle = GoogleFonts.oswald(
+  final postLocationTitle = GoogleFonts.roboto(
     fontSize: 10.0,
     color: Palette.greyBlack,
   );
 
   /// Using for post details UI
   @override
-  final postDetailsUsernameTitle = GoogleFonts.oswald(
+  final postDetailsUsernameTitle = GoogleFonts.roboto(
     fontWeight: FontWeight.w800,
   );
 
   @override
-  final postDetailsTimePostTitle = GoogleFonts.oswald();
+  final postDetailsTimePostTitle = GoogleFonts.roboto();
 
   /// Using for fab container UI
-  final fabContainerTitle = GoogleFonts.oswald(
+  final fabContainerTitle = GoogleFonts.roboto(
     fontWeight: FontWeight.bold,
     color: Palette.mainBlueTheme,
   );
 
   @override
-  final fabContainerContent = GoogleFonts.oswald();
+  final fabContainerContent = GoogleFonts.roboto();
+
+  @override
+  final profileUserName = GoogleFonts.roboto(
+    fontSize: 15,
+    fontWeight: FontWeight.w900,
+  );
+
+  @override
+  final profileLocation = GoogleFonts.roboto(
+    fontSize: 12,
+    fontWeight: FontWeight.w600,
+  );
+
+  @override
+  final profileMail = GoogleFonts.roboto(
+    fontSize: 10,
+  );
 }

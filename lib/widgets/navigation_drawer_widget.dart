@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '/pages/drawer-items/drug_index/pages/drug_index.dart';
 import 'package:medverse_mobile_app/utils/app_text_theme.dart';
 import '/utils/firebase.dart';
 import '/models/user.dart';
@@ -57,7 +58,7 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
         width: 300,
         child: Drawer(
           child: Material(
-            color: Palette.mainBlueTheme,
+            color: Palette.pastel2,
             child: ListView(
               children: <Widget>[
                 SizedBox(height: 20),
@@ -124,6 +125,11 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
                   child: Column(
                     children: [
                       buildMenuItem(
+                        text: 'Chỉ mục danh sách thuốc',
+                        icon: Icons.info_outlined,
+                        onClicked: () => selectedItem(context, 12),
+                      ),
+                      buildMenuItem(
                         text: 'Tìm kiếm nâng cao',
                         icon: Icons.zoom_in,
                         onClicked: () => selectedItem(context, 1),
@@ -163,7 +169,7 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
                         icon: Icons.health_and_safety_outlined,
                         onClicked: () => selectedItem(context, 8),
                       ),
-                      Divider(color: Palette.grey),
+                      Divider(color: Palette.whiteText),
                       buildMenuItem(
                         text: 'Hướng dẫn sử dụng',
                         icon: Icons.help_outline_sharp,
@@ -202,6 +208,11 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
                   child: Column(
                     children: [
                       buildMenuItem(
+                        text: 'Chỉ mục danh sách thuốc',
+                        icon: Icons.info_outlined,
+                        onClicked: () => selectedItem(context, 12),
+                      ),
+                      buildMenuItem(
                         text: 'Tìm kiếm nâng cao',
                         icon: Icons.zoom_in,
                         onClicked: () => selectedItem(context, 1),
@@ -241,7 +252,7 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
                         icon: Icons.health_and_safety_outlined,
                         onClicked: () => selectedItem(context, 8),
                       ),
-                      Divider(color: Palette.grey),
+                      Divider(color: Palette.whiteText),
                       buildMenuItem(
                         text: 'Hướng dẫn sử dụng',
                         icon: Icons.help_outline_sharp,
@@ -417,6 +428,13 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
         Navigator.of(context).push(
           MaterialPageRoute(
             builder: (context) => Disclaimer(),
+          ),
+        );
+        break;
+      case 12:
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => DrugIndex(),
           ),
         );
         break;

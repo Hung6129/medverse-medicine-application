@@ -22,9 +22,20 @@ class Validations {
   }
 
   static String validateField({String value}) {
-    if(value.isEmpty) {
+    if(value.isEmpty || RegExp(r"\s").hasMatch(value)) {
+      return 'Mời bạn nhập mô tả thuốc';
+    }
+    return null;
+  }
+
+  static String validateDescription({String value}) {
+    if (value.isEmpty) {
       return 'TextField cannot be empty';
     }
     return null;
   }
+
+  static List badWord = [
+    'cc', 'fuck', 'dm', 'đệt', 'cặc', 'đụ', 'địt', 'chó', 'đẻ', 'ngu', 'mẹ', 'má', 'fa', 'kè', 'tiệt', 'cờ hó', 'dcm', 'dmm'
+  ];
 }

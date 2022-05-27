@@ -1,11 +1,11 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
-import 'package:medverse_mobile_app/theme/palette.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:provider/provider.dart';
 import '/components/text_form_builder.dart';
 import '/models/user.dart';
+import '/utils/app_text_theme.dart';
+import '/theme/palette.dart';
 import '/utils/firebase.dart';
 import '/utils/validation.dart';
 import '/view_models/profile/edit_profile_view_model.dart';
@@ -38,8 +38,12 @@ class _EditProfileState extends State<EditProfile> {
       child: Scaffold(
         key: viewModel.scaffoldKey,
         appBar: AppBar(
+          backgroundColor: Palette.mainBlueTheme,
           centerTitle: true,
-          title: Text("Cập nhật thông tìn tài khoản"),
+          title: Text(
+            "Cập nhật tài khoản",
+            style: MobileTextTheme().appBarStyle,
+          ),
           actions: [
             Center(
               child: Padding(
@@ -48,11 +52,7 @@ class _EditProfileState extends State<EditProfile> {
                   onTap: () => viewModel.editProfile(context),
                   child: Text(
                     'Lưu',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w900,
-                      fontSize: 15.0,
-                      color: Theme.of(context).accentColor,
-                    ),
+                    style: MobileTextTheme().appBarActionButton,
                   ),
                 ),
               ),

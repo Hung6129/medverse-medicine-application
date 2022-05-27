@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '/utils/app_text_theme.dart';
 import '/theme/palette.dart';
 import '/models/dictionary_model.dart';
-import '/pages/drawer-items/medicine_dictionary/widgets/WordsDao.dart';
+import '/utils/data_dao.dart';
 
 class MedicineDictionary extends StatefulWidget {
   const MedicineDictionary({Key key}) : super(key: key);
@@ -17,13 +17,13 @@ class _MedicineDictionaryState extends State<MedicineDictionary> {
 
   /// Method call all data from SQLite
   Future<List<Dictionary>> getAllWord() async {
-    var list = await WordsDao().allWords();
+    var list = await DataDao().allWords();
     return list;
   }
 
   /// Method search keyword in SQLite
   Future<List<Dictionary>> search(String search) async {
-    var list = await WordsDao().searchWord(search);
+    var list = await DataDao().searchWord(search);
     return list;
   }
 

@@ -32,6 +32,11 @@ dependencies:
   flutter_svg: any
   page_transition: any
   intro_views_flutter: any
+  carousel_slider: ^4.1.1
+
+  #Dialog
+  simple_animations: any
+  flare_flutter: any
 
   #Gird View card
   flutter_layout_grid: any
@@ -58,15 +63,15 @@ dependencies:
   path: any
   bloc: any
   equatable: any
-  hive: any
-  hive_flutter: any
   http: any
   sqflite: any
+  sqlite3: any
 
   #Animation
   shimmer_animation: any
   animations: any
   expandable: any
+  flutter_neumorphic: ^3.2.0
 
   get: any
   google_sign_in: any
@@ -86,14 +91,12 @@ dependencies:
   data_connection_checker: any
   flutter_slidable: any
   flutter_typeahead: any
-  analyzer: 0.41.2
+  analyzer: 
   translator: any
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  hive_generator: any
-  build_runner: any
   flutter_launcher_name: any
 
 flutter_launcher_name:
@@ -111,7 +114,11 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
+    - assets/image/300_imagenlm/
+    - assets/image/300_imagesrxnav/
+    - assets/flare/
     - database/Glossary.sqlite
+    - database/drugbank.sqlite3
     - assets/images/drugs_pill/Calcet.jpg
     - assets/icons/
     - assets/images/

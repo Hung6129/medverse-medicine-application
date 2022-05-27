@@ -15,14 +15,14 @@ class PillIdentifierBloc
     on<PillIdentifierEvent>((event, emit) {});
 
     //
-    on<OnTapEvent>((event, emit) async {
-      emit(PillIdentifierLoading());
-      listData = await PillIdentifierData.getPillIdentifierData(event.query);
-      if (listData.isEmpty) {
-        emit(PillIdentifierLoading());
-      }
-      emit(PillIdentifierLoaded());
+    // on<OnTapEvent>((event, emit) async {
+    //   emit(PillIdentifierLoading());
+    //   listData = await PillIdentifierData.getPillIdentifierData(event.query);
+    //   if (listData.isEmpty) {
+    //     emit(PillIdentifierLoading());
+    //   }
+    //   emit(PillIdentifierLoaded());
       
-    });
+    // });
   }
 }

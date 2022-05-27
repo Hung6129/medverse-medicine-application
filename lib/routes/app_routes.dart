@@ -1,3 +1,4 @@
+import 'package:medverse_mobile_app/posts/create_post.dart';
 import '/models/drug_bank_db/product_model.dart';
 import '/pages/detail_screen/drug_detail.dart';
 import '/pages/drawer-items/pill_identifier/pages/pill_identifier_result.dart';
@@ -44,7 +45,7 @@ class AppRoutes {
       case "/detail-page":
         return getMaterialRoute(
           DrugDetails(
-            drugData: route.arguments as ProductModel,
+            drugData: route.arguments as String,
           ),
         );
 
@@ -52,8 +53,12 @@ class AppRoutes {
       case "/social":
         return getMaterialRoute(Timeline());
 
+      case "/create-post":
+        return getMaterialRoute(CreatePost());
+
       case "/pill-identifier":
         return getMaterialRoute(PillIdentifier());
+
       case "/pill-identifier-result":
         return getMaterialRoute(PillIdentifierListResult());
 

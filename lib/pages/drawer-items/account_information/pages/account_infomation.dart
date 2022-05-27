@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:medverse_mobile_app/models/user.dart';
-import '../../../../utils/app_text_theme.dart';
+import '/models/user.dart';
+import '/utils/app_text_theme.dart';
 import '/widgets/dimension.dart';
 import '/theme/palette.dart';
 import '/auth/login/login.dart';
