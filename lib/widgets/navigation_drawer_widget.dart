@@ -20,6 +20,7 @@ import '/pages/drawer-items/health_profile/pages/health_profile.dart';
 import '/pages/drawer-items/drug_recommendation/pages/drug_recommedation.dart';
 import '/pages/drawer-items/introduction_side/pages/intro_slider_screen.dart';
 import '/pages/drawer-items/disclaimer/pages/disclaimer.dart';
+import 'awesome_dialog.dart';
 
 class NavigationDrawerWidget extends StatefulWidget {
   const NavigationDrawerWidget({Key key}) : super(key: key);
@@ -34,6 +35,8 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
 
   /// Calling user's model
   UserModel loggedInUser = UserModel();
+
+  bool isLoading = false;
 
   @override
   void initState() {
@@ -184,7 +187,35 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
                         text: 'Đăng xuất',
                         icon: Icons.logout_outlined,
                         onClicked: () {
-                          logout(context);
+                          AwesomeDialog(
+                            context: context,
+                            dialogType: DialogType.ERROR,
+                            headerAnimationLoop: false,
+                            animType: AnimType.TOPSLIDE,
+                            showCloseIcon: true,
+                            closeIcon:
+                            const Icon(Icons.close_fullscreen_outlined),
+                            title: 'Thông báo',
+                            desc: 'Bạn có chắc muốn thoát tài khoản này?',
+                            descTextStyle: AppTextTheme.oswaldTextStyle,
+                            btnCancelOnPress: () {},
+                            btnOkOnPress: () async {
+                              setState(
+                                    () {
+                                  isLoading = true;
+                                },
+                              );
+
+                              /// Calling delete post method in Post Manager model
+                              firebaseAuth.signOut();
+                              setState(
+                                    () {
+                                  isLoading = false;
+                                },
+                              );
+                              logout(context);
+                            },
+                          ).show();
                         },
                       ),
                     ],

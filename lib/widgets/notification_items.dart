@@ -109,7 +109,7 @@ class _ActivityItemsState extends State<ActivityItems> {
     } else if (widget.activity.type == "follow") {
       return "đang theo dõi bạn";
     } else if (widget.activity.type == "comment") {
-      return "commented '${widget.activity.commentData}'";
+      return "đã bình luận '${widget.activity.commentData}'";
     } else {
       return "Lỗi: Loại không xác định'${widget.activity.type}'";
     }
