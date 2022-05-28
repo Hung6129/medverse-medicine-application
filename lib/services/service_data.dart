@@ -3,8 +3,15 @@ import 'package:medverse_mobile_app/models/drug_bank_db/product_model.dart';
 import 'package:medverse_mobile_app/models/drug_bank_db/product_name.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:medverse_mobile_app/utils/config.dart';
+import '/utils/database_sqlite_connection.dart';
 
-import '../utils/database_sqlite_connection.dart';
+final FirebaseAnalytics firebaseAnalytics = Config.firebaseAnalytics;
+
+void _logSerchTerm(String keyword) async {
+  await firebaseAnalytics.logMedicineSearch(productName: keyword);
+}
 
 class DatabaseProvider {
   /// Get database's name
@@ -23,6 +30,7 @@ class TypeAhead2 {
       return <ProductName>[];
     } else {
       var db = await DatabaseSqliteConnection.drugBankAccess();
+      _logSerchTerm(keyword);
 
       List<Map<String, dynamic>> allRows = await db.query('products',
           where: 'product_name LIKE ?', whereArgs: ['%$keyword%']);
@@ -49,7 +57,6 @@ class PillIdentifierResult {
 
     /// Query all data in databaseOM
     List<Map<String, dynamic>> maps = await db.rawQuery(
-
         "SELECT * FROM pilL_data_detail where pill_shape like '%$shape%' and pill_size like '%$size%'  and pill_colors like '%$color%' and pill_imprints like '%$imprint%'");
     print(maps);
     return List.generate(
@@ -106,32 +113,29 @@ class GetDetailData {
     );
   }
 }
- 
- 
- 
- 
-  //  product_name,product_labeller,product_code,product_route,product_dosage,product_strength,product_approved,product_otc,product_generic,product_country,drug_description,drug_state,drug_indication,pharmacodynamics,mechanism,toxicity,metabolism,half_life,route_of_elimination,clearance
-  // maps.map() ProductModel(
-  //        product_id:maps['pill_data_id'].toString(),
-  //  drugbank_id:
-  //  product_name:
-  //  product_labeller:
-  //  product_code:
-  //  product_route:
-  //  product_dosage:
-  //  product_strength:
-  //  product_approved:
-  //  product_otc:
-  //  product_generic:
-  //  product_country:
-  //  drug_description:
-  //  drug_state:
-  //  drug_indication:
-  //  pharmacodynamics:
-  //  mechanism:
-  //  toxicity:
-  //  metabolism:
-  //  half_life:
-  //  route_of_elimination:
-  //  clearance:
-  //   );
+
+//  product_name,product_labeller,product_code,product_route,product_dosage,product_strength,product_approved,product_otc,product_generic,product_country,drug_description,drug_state,drug_indication,pharmacodynamics,mechanism,toxicity,metabolism,half_life,route_of_elimination,clearance
+// maps.map() ProductModel(
+//        product_id:maps['pill_data_id'].toString(),
+//  drugbank_id:
+//  product_name:
+//  product_labeller:
+//  product_code:
+//  product_route:
+//  product_dosage:
+//  product_strength:
+//  product_approved:
+//  product_otc:
+//  product_generic:
+//  product_country:
+//  drug_description:
+//  drug_state:
+//  drug_indication:
+//  pharmacodynamics:
+//  mechanism:
+//  toxicity:
+//  metabolism:
+//  half_life:
+//  route_of_elimination:
+//  clearance:
+//   );
