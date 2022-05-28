@@ -33,6 +33,8 @@ dependencies:
   page_transition: any
   intro_views_flutter: any
   carousel_slider: ^4.1.1
+  code_builder: any
+  mockito: any
 
   #Dialog
   simple_animations: any
@@ -97,7 +99,8 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_launcher_name: any
+  build_runner: any
+  #flutter_launcher_name: any
 
 flutter_launcher_name:
   name: "medverse_mobile_app"
