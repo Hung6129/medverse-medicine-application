@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:medverse_mobile_app/widgets/indicators.dart';
 import '../../models/drug_bank_db/product_model.dart';
 import '../../services/service_data.dart';
 import '../../theme/palette.dart';
@@ -23,7 +24,7 @@ class _DrugDetailsState extends State<DrugDetails> {
   // Test images
   String imagesFav = "assets/images/drugs_pill/300.jpg";
 
-  // Icon checker setup
+  // // Icon checker setup
   // Widget getIcons(String id) {
   //   if (_box.containsKey(id)) {
   //     return Icon(CupertinoIcons.heart_fill, color: Colors.red);
@@ -73,34 +74,7 @@ class _DrugDetailsState extends State<DrugDetails> {
   //     showAlertDialog(this.context, id);
   //   } else {
   //     var info = widget.drugData;
-  //     FavDrugModel data = FavDrugModel(
-  //       productName: info.productName,
-  //       approved: info.approved,
-  //       country: info.country,
-  //       drugbankID: info.drugbankID,
-  //       generic: info.generic,
-  //       otc: info.otc,
-  //       productCode: info.productCode,
-  //       productID: info.productID,
-  //       productLabeller: info.productLabeller,
-  //       productRoute: info.productRoute,
-  //       productStrength: info.productStrength,
-  //       productdosage: info.productdosage,
-  //       productImage: info.productImage,
-  //       drugClearance: info.drugClearance,
-  //       drugDescription: info.drugDescription,
-  //       drugElimination: info.drugElimination,
-  //       drugHalflife: info.drugHalflife,
-  //       drugIndication: info.drugIndication,
-  //       drugMechan: info.drugMechan,
-  //       drugMetabolism: info.drugMetabolism,
-  //       drugName: info.drugName,
-  //       drugPharmaco: info.drugPharmaco,
-  //       drugState: info.drugState,
-  //       drugToxicity: info.drugToxicity,
-  //       // savedTime: DateTime.now().toString(),
-  //     );
-  //     _box.put(info.productID, data);
+
   //     Fluttertoast.showToast(
   //       msg: 'Lưu thành công',
   //       backgroundColor: Palette.activeButton,
@@ -207,24 +181,9 @@ class _DrugDetailsState extends State<DrugDetails> {
       );
     }
 
-    return Scaffold(
-      body: FutureBuilder(
-        future: _getAll(),
-        builder: (context, AsyncSnapshot<List<ProductModel>> snapshot) {
-          if (snapshot.hasData) {
-            var info = snapshot.data[0];
-            return CustomScrollView(
-              slivers: [
-                __sliverAppBarProductName(info),
-                __sliverAppBarDetail(info),
-              ],
-            );
-          } else {
-            return Container();
-          }
-        },
-      ),
-      bottomNavigationBar: BottomAppBar(
+    /// Bottom app bar
+    Widget __bottomApp() {
+      return BottomAppBar(
         child: Container(
           decoration: BoxDecoration(
             border: Border(
@@ -269,7 +228,26 @@ class _DrugDetailsState extends State<DrugDetails> {
             ],
           ),
         ),
-      ),
-    );
+      );
+    }
+
+    return Scaffold(
+        body: FutureBuilder(
+          future: _getAll(),
+          builder: (context, AsyncSnapshot<List<ProductModel>> snapshot) {
+            if (snapshot.hasData) {
+              var info = snapshot.data[0];
+              return CustomScrollView(
+                slivers: [
+                  __sliverAppBarProductName(info),
+                  __sliverAppBarDetail(info),
+                ],
+              );
+            } else {
+              return circularProgress(context);
+            }
+          },
+        ),
+        bottomNavigationBar: __bottomApp());
   }
 }

@@ -104,8 +104,30 @@ class GetDetailData {
     );
   }
 }
- 
- 
+
+class SetToFavoriteList {
+    static Future<List<ProductName>> searchName(String keyword) async {
+    if (keyword.isEmpty) {
+      return <ProductName>[];
+    } else {
+      var db = await DatabaseSqliteConnection.drugBankAccess();
+
+      List<Map<String, dynamic>> allRows = await db.query('products',
+          where: 'product_name LIKE ?', whereArgs: ['%$keyword%']);
+
+      return List.generate(
+        allRows.length,
+        (i) {
+          return ProductName(
+            product_id: allRows[i]['product_id'].toString(),
+            product_name: allRows[i]['product_name'].toString(),
+            product_code: allRows[i]['product_code'].toString(),
+          );
+        },
+      );
+    }
+  }
+}
  
  
   //  product_name,product_labeller,product_code,product_route,product_dosage,product_strength,product_approved,product_otc,product_generic,product_country,drug_description,drug_state,drug_indication,pharmacodynamics,mechanism,toxicity,metabolism,half_life,route_of_elimination,clearance
