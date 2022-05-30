@@ -33,11 +33,12 @@ dependencies:
   page_transition: any
   intro_views_flutter: any
   carousel_slider: ^4.1.1
+  # test: any
 
   #Dialog
   simple_animations: any
   flare_flutter: any
-
+  top_snackbar_flutter: ^1.1.1
   #Gird View card
   flutter_layout_grid: any
   flutter_staggered_grid_view: any
@@ -95,9 +96,15 @@ dependencies:
   translator: any
 
 dev_dependencies:
+  integration_test:
+    sdk: flutter
+  test: any
+
   flutter_test:
     sdk: flutter
-  flutter_launcher_name: any
+  mockito: any
+  build_runner: any
+
 
 flutter_launcher_name:
   name: "medverse_mobile_app"
