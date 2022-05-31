@@ -95,6 +95,7 @@ dependencies:
   flutter_typeahead: any
   analyzer: 
   translator: any
+  google_translator: any
 
 dev_dependencies:
   flutter_test:
