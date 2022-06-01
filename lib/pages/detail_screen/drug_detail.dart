@@ -24,68 +24,27 @@ class DrugDetails extends StatefulWidget {
 DateTime now = DateTime.now();
 
 class _DrugDetailsState extends State<DrugDetails> {
+  bool _isAdded = false;
+  @override
+  void initState() {
+    super.initState();
+    if (mounted) {
+      CheckDrugById.checkDrugInFav(widget.drugData).then((value) {
+        if (value == 1) {
+          _isAdded = true;
+        } else {
+          _isAdded = false;
+        }
+      });
+    }
+  }
+
   /// Get current time day
   String formatTime = DateFormat.yMd().add_Hm().format(now);
   // Test images
   String imagesFav = "assets/images/drugs_pill/300.jpg";
 
-  // // Icon checker setup
-  // Widget getIcons(String id) {
-  //   if (_box.containsKey(id)) {
-  //     return Icon(CupertinoIcons.heart_fill, color: Colors.red);
-  //   } else {
-  //     return Icon(CupertinoIcons.heart, color: Colors.red);
-  //   }
-  // }
-
   // Show Dialog
-  showAlertDialog(BuildContext context, String id) {
-    // set up the buttons
-    Widget cancelButton = TextButton(
-      child: Text("Huỷ"),
-      onPressed: () {
-        Navigator.of(context).pop();
-      },
-    );
-    Widget continueButton = TextButton(
-      child: Text("Bỏ lưu"),
-      onPressed: () {
-        // _box.delete(id);
-      },
-    );
-
-    // set up the AlertDialog
-    AlertDialog alert = AlertDialog(
-      title: Text(""),
-      content: Text("Bạn có chắc muốn bỏ lưu thuốc này ?"),
-      actions: [
-        cancelButton,
-        continueButton,
-      ],
-    );
-
-    // show the dialog
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return alert;
-      },
-    );
-  }
-
-  // Heart on tap evnent
-  // onFavoriteTap(String id) {
-  //   if (_box.containsKey(id)) {
-  //     showAlertDialog(this.context, id);
-  //   } else {
-  //     var info = widget.drugData;
-
-  //     Fluttertoast.showToast(
-  //       msg: 'Lưu thành công',
-  //       backgroundColor: Palette.activeButton,
-  //     );
-  //   }
-  // }
 
   List<ProductModel> dataList;
   Future<List<ProductModel>> _getAll() async {
@@ -201,27 +160,62 @@ class _DrugDetailsState extends State<DrugDetails> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              // ValueListenableBuilder(
-              //   valueListenable: _box.listenable(),
-              //   builder: (context, Box<FavDrugModel> box, _) {
-              //     return IconButton(
-              //       onPressed: () => onFavoriteTap(info.productID),
-              //       icon: getIcons(info.productID),
-              //     );
-              //   },
-              // ),
               IconButton(
-                onPressed: () async {
-                  print("tapped");
-                  await SetToFavoriteList.setToFavoriteList(
-                      productModel.product_id, savedTime);
-                },
-                icon: Icon(
-                  CupertinoIcons.heart_solid,
-                  size: Dimensions.icon28,
-                  color: Palette.mainBlueTheme,
-                ),
-              ),
+                  onPressed: () async {
+                    if (_isAdded == false) {
+                      await SetToFavoriteList.setToFavoriteList(
+                          productModel.product_id, savedTime);
+                      setState(() {
+                        _isAdded = true;
+                      });
+                    } else {
+                      showDialog(
+                          context: context,
+                          barrierDismissible: false,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: AppText(text: "Bỏ lưu"),
+                              content: AppText(
+                                  text:
+                                      "Gỡ thuốc này ra khỏi danh sách yêu thích ?"),
+                              actions: <Widget>[
+                                FlatButton(
+                                  child: AppText(
+                                      text: "Huỷ", color: Palette.warningColor),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
+                                FlatButton(
+                                  child: AppText(
+                                    text: "Gỡ lưu",
+                                    color: Palette.grey,
+                                  ),
+                                  onPressed: () async {
+                                    await DeleteItemInFavList.deleteItems(
+                                        productModel.product_id);
+                                    setState(() {
+                                      _isAdded = false;
+                                    });
+                                    Navigator.of(context).pop();
+                                  },
+                                )
+                              ],
+                            );
+                          });
+                    }
+                  },
+                  icon: _isAdded == true
+                      ? Icon(
+                          CupertinoIcons.heart_solid,
+                          size: Dimensions.icon28,
+                          color: Palette.warningColor,
+                        )
+                      : Icon(
+                          CupertinoIcons.heart,
+                          size: Dimensions.icon28,
+                          color: Palette.warningColor,
+                        )),
             ],
           ),
         ),

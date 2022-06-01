@@ -263,6 +263,11 @@ class _PillIdentifierState extends State<PillIdentifier> {
             return InputDecorator(
               decoration: InputDecoration(
                   prefixIcon: Icon(CupertinoIcons.color_filter),
+                  suffixIcon: IconButton(
+                      onPressed: () {
+                        ;
+                      },
+                      icon: Icon(CupertinoIcons.multiply)),
                   border: OutlineInputBorder(
                       borderSide:
                           BorderSide(width: 4, color: Palette.mainBlueTheme),

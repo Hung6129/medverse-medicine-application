@@ -150,8 +150,20 @@ class DeleteItemInFavList {
         .rawQuery("delete from favorite_drug where productID ='$id'");
   }
 }
- 
- 
+
+class CheckDrugById {
+  static Future<int> checkDrugInFav(String id) async {
+    var db = await DatabaseSqliteConnection.drugBankAccess();
+    var x = await db.rawQuery(
+        "SELECT productID FROM favorite_drug where productID like '%$id%'");
+    if (x.isEmpty) {
+      return 0;
+    } else {
+      return 1;
+    }
+  }
+}
+
   //  product_name,product_labeller,product_code,product_route,product_dosage,product_strength,product_approved,product_otc,product_generic,product_country,drug_description,drug_state,drug_indication,pharmacodynamics,mechanism,toxicity,metabolism,half_life,route_of_elimination,clearance
   // maps.map() ProductModel(
   //        product_id:maps['pill_data_id'].toString(),

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:medverse_mobile_app/models/drug_bank_db/favorite_list_model_w_name.dart';
-import '/models/drug_bank_db/favorite_list_model.dart';
 import '../../../services/service_data.dart';
 import '../home/bloc/home_screen_bloc.dart';
 import '/utils/app_text_theme.dart';
