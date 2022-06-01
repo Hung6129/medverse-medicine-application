@@ -1,16 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:intl/intl.dart';
 import 'package:medverse_mobile_app/widgets/indicators.dart';
-import '../../models/drug_bank_db/favorite_list_model.dart';
 import '../../models/drug_bank_db/product_model.dart';
 import '../../services/service_data.dart';
 import '../../theme/palette.dart';
 import '../../widgets/app_text.dart';
 import '../../widgets/dimension.dart';
 import '../../widgets/rich_text_cus.dart';
-import 'package:translator/translator.dart';
 
 class DrugDetails extends StatefulWidget {
   final String drugData;
@@ -24,13 +20,11 @@ class DrugDetails extends StatefulWidget {
   _DrugDetailsState createState() => _DrugDetailsState();
 }
 
-DateTime now = DateTime.now();
-
 class _DrugDetailsState extends State<DrugDetails> {
   // Test images
   String imagesFav = "assets/images/drugs_pill/300.jpg";
 
-  // Icon checker setup
+  // // Icon checker setup
   // Widget getIcons(String id) {
   //   if (_box.containsKey(id)) {
   //     return Icon(CupertinoIcons.heart_fill, color: Colors.red);
@@ -38,26 +32,6 @@ class _DrugDetailsState extends State<DrugDetails> {
   //     return Icon(CupertinoIcons.heart, color: Colors.red);
   //   }
   // }
-
-  GoogleTranslator translator = new GoogleTranslator();
-
-  String trans(String inputText)
-  {
-    var endResult = ['sample'];
-    translator.translate(inputText, to: 'vi')   //translating to hi = hindi
-        .then((output)
-    {
-      // setState(() {
-      //   out=output;                          //placing the translated text to the String to be used
-      // });
-      print(output.text);
-      endResult.add(output.text);
-      print("49 " + endResult.length.toString());
-      return output;
-    });
-    print("51 " + endResult[endResult.length-1]);
-    //return endResult[endResult.length];
-  }
 
   // Show Dialog
   showAlertDialog(BuildContext context, String id) {
@@ -94,34 +68,17 @@ class _DrugDetailsState extends State<DrugDetails> {
     );
   }
 
-  // // Icon checker setup
-  // Widget getIcons(String id) {
-  //   if (dataListChecker.contains(id)) {
-  //     return Icon(CupertinoIcons.heart_fill, color: Colors.red);
-  //   } else {
-  //     return Icon(CupertinoIcons.heart, color: Colors.red);
-  //   }
-  // }
-
-  // // Heart on tap evnent
-  // onFavoriteTap(String id, String time) async {
-  //   if (dataListChecker.contains(id)) {
+  // Heart on tap evnent
+  // onFavoriteTap(String id) {
+  //   if (_box.containsKey(id)) {
   //     showAlertDialog(this.context, id);
   //   } else {
-  //     await SetToFavoriteList.setToFavoriteList(id, time);
+  //     var info = widget.drugData;
+
   //     Fluttertoast.showToast(
   //       msg: 'Lưu thành công',
   //       backgroundColor: Palette.activeButton,
   //     );
-  //   }
-  // }
-
-  // Future<int> checkMovie(String productID) async {
-  //   var result = await movieDb.getMovieById(movieId);
-  //   if (result.isEmpty) {
-  //     return 1;
-  //   } else {
-  //     return 0;
   //   }
   // }
 
@@ -132,7 +89,6 @@ class _DrugDetailsState extends State<DrugDetails> {
     return dataList;
   }
 
-  String formatTime = DateFormat.yMd().add_Hm().format(now);
   @override
   Widget build(BuildContext context) {
     /// Sliver app bar for product name
@@ -191,34 +147,34 @@ class _DrugDetailsState extends State<DrugDetails> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // Product
-              RichTextCus(text1: "Labeller:", text2: trans(data.product_labeller)), //d
-              RichTextCus(text1: "Route:", text2: trans(data.product_route)), //d
-              RichTextCus(text1: "Dosage:", text2: trans(data.product_dosage)), //d
-              RichTextCus(text1: "Strength:", text2: trans(data.product_strength)), //d
-              RichTextCus(text1: "Country:", text2: trans(data.product_country)),
-              RichTextCus(text1: "Code:", text2: trans(data.product_code)), //d
-              RichTextCus(text1: "Generic:", text2: trans(data.product_generic)), //d
-              RichTextCus(text1: "Approved:", text2: trans(data.product_approved)), //d
-              RichTextCus(text1: "Otc:", text2: trans(data.product_otc)), //d
+              RichTextCus(text1: "Labeller:", text2: data.product_labeller), //d
+              RichTextCus(text1: "Route:", text2: data.product_route), //d
+              RichTextCus(text1: "Dosage:", text2: data.product_dosage), //d
+              RichTextCus(text1: "Strength:", text2: data.product_strength), //d
+              RichTextCus(text1: "Country:", text2: data.product_country),
+              RichTextCus(text1: "Code:", text2: data.product_code), //d
+              RichTextCus(text1: "Generic:", text2: data.product_generic), //d
+              RichTextCus(text1: "Approved:", text2: data.product_approved), //d
+              RichTextCus(text1: "Otc:", text2: data.product_otc), //d
               Divider(
                 endIndent: Dimensions.width10,
                 indent: Dimensions.width10,
                 thickness: 3,
               ),
               // Drug
-              RichTextCus(text1: "Description:", text2: trans(data.drug_description)),
-              RichTextCus(text1: "State:", text2: trans(data.drug_state)),
-              RichTextCus(text1: "Indication:", text2: trans(data.drug_indication)),
+              RichTextCus(text1: "Description:", text2: data.drug_description),
+              RichTextCus(text1: "State:", text2: data.drug_state),
+              RichTextCus(text1: "Indication:", text2: data.drug_indication),
               RichTextCus(
-                  text1: "Pharmacodynamics:", text2: trans(data.pharmacodynamics)),
-              RichTextCus(text1: "Mechanism:", text2: trans(data.mechanism)),
-              RichTextCus(text1: "Toxicity:", text2: trans(data.toxicity)),
-              RichTextCus(text1: "Metabolism:", text2: trans(data.metabolism)),
-              RichTextCus(text1: "Half_life:", text2: trans(data.half_life)),
+                  text1: "Pharmacodynamics:", text2: data.pharmacodynamics),
+              RichTextCus(text1: "Mechanism:", text2: data.mechanism),
+              RichTextCus(text1: "Toxicity:", text2: data.toxicity),
+              RichTextCus(text1: "Metabolism:", text2: data.metabolism),
+              RichTextCus(text1: "Half_life:", text2: data.half_life),
               RichTextCus(
                   text1: "Route of elimination:",
                   text2: data.route_of_elimination),
-              RichTextCus(text1: "Clearance:", text2: trans(data.clearance)),
+              RichTextCus(text1: "Clearance:", text2: data.clearance),
             ],
           ),
         ),
@@ -226,7 +182,7 @@ class _DrugDetailsState extends State<DrugDetails> {
     }
 
     /// Bottom app bar
-    Widget __bottomApp(ProductModel productID, String savedTime) {
+    Widget __bottomApp() {
       return BottomAppBar(
         child: Container(
           decoration: BoxDecoration(
@@ -238,77 +194,60 @@ class _DrugDetailsState extends State<DrugDetails> {
             ),
           ),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              // IconButton(
-              //   onPressed: () {
-              //     onFavoriteTap(productID.product_id, savedTime);
-              //     setState(() {});
+              // ValueListenableBuilder(
+              //   valueListenable: _box.listenable(),
+              //   builder: (context, Box<FavDrugModel> box, _) {
+              //     return IconButton(
+              //       onPressed: () => onFavoriteTap(info.productID),
+              //       icon: getIcons(info.productID),
+              //     );
               //   },
-              //   icon: getIcons(productID.product_id),
               // ),
-
               IconButton(
-                onPressed: () async {
-                  print("tapped");
-                  print(productID.product_id);
-                  await SetToFavoriteList.setToFavoriteList(
-                      productID.product_id, savedTime);
+                onPressed: () {
+                  print("tapped x2");
                 },
                 icon: Icon(
-                  CupertinoIcons.heart,
+                  CupertinoIcons.share,
                   size: Dimensions.icon28,
-                  color: Palette.warningColor,
+                  color: Palette.mainBlueTheme,
                 ),
               ),
-              // IconButton(
-              //   onPressed: () async {
-              //     print("tapped x2");
-              //     print(productID.product_id);
-              //   },
-              //   icon: Icon(
-              //     CupertinoIcons.share,
-              //     size: Dimensions.icon28,
-              //     color: Palette.mainBlueTheme,
-              //   ),
-              // ),
-              // IconButton(
-              //   onPressed: () {
-              //     print("tapped x3");
-              //   },
-              //   icon: Icon(
-              //     CupertinoIcons.exclamationmark_bubble_fill,
-              //     size: Dimensions.icon28,
-              //     color: Palette.starRating,
-              //   ),
-              // ),
+              IconButton(
+                onPressed: () {
+                  print("tapped x3");
+                },
+                icon: Icon(
+                  CupertinoIcons.exclamationmark_bubble_fill,
+                  size: Dimensions.icon28,
+                  color: Palette.starRating,
+                ),
+              ),
             ],
           ),
         ),
       );
     }
 
-    return FutureBuilder(
-      future: _getAll(),
-      builder: (context, AsyncSnapshot<List<ProductModel>> snapshot) {
-        if (snapshot.hasData) {
-          var info = snapshot.data[0];
-          return Scaffold(
-            body: CustomScrollView(
-              slivers: [
-                __sliverAppBarProductName(info),
-                __sliverAppBarDetail(info),
-              ],
-            ),
-            bottomNavigationBar: __bottomApp(
-              info,
-              formatTime,
-            ),
-          );
-        } else {
-          return circularProgress(context);
-        }
-      },
-    );
+    return Scaffold(
+        body: FutureBuilder(
+          future: _getAll(),
+          builder: (context, AsyncSnapshot<List<ProductModel>> snapshot) {
+            if (snapshot.hasData) {
+              var info = snapshot.data[0];
+              return CustomScrollView(
+                slivers: [
+                  __sliverAppBarProductName(info),
+                  __sliverAppBarDetail(info),
+                ],
+              );
+            } else {
+              return circularProgress(context);
+            }
+          },
+        ),
+        bottomNavigationBar: __bottomApp());
   }
 }
