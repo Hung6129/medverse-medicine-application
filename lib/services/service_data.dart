@@ -4,8 +4,15 @@ import 'package:medverse_mobile_app/models/drug_bank_db/product_model.dart';
 import 'package:medverse_mobile_app/models/drug_bank_db/product_name.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:medverse_mobile_app/utils/config.dart';
+import '/utils/database_sqlite_connection.dart';
 
-import '../utils/database_sqlite_connection.dart';
+final FirebaseAnalytics firebaseAnalytics = Config.firebaseAnalytics;
+
+// void _logSerchTerm(String keyword) async {
+//   await firebaseAnalytics.logMedicineSearch(productName: keyword);
+// }
 
 class DatabaseProvider {
   /// Get database's name
@@ -24,6 +31,7 @@ class TypeAhead2 {
       return <ProductName>[];
     } else {
       var db = await DatabaseSqliteConnection.drugBankAccess();
+      // _logSerchTerm(keyword);
 
       List<Map<String, dynamic>> allRows = await db.query('products',
           where: 'product_name LIKE ?', whereArgs: ['%$keyword%']);

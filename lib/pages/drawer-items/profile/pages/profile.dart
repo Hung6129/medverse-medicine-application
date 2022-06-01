@@ -68,11 +68,9 @@ class _ProfileState extends State<Profile> {
       appBar: AppBar(
         backgroundColor: Palette.mainBlueTheme,
         centerTitle: true,
-        title: Expanded(
-          child: Text(
-            'Thông tin tài khoản',
-            style: MobileTextTheme().appBarStyle,
-          ),
+        title: Text(
+          'Thông tin tài khoản',
+          style: MobileTextTheme().appBarStyle,
         ),
         actions: [
           widget.profileId == firebaseAuth.currentUser.uid
@@ -80,35 +78,38 @@ class _ProfileState extends State<Profile> {
                   child: Padding(
                     padding: const EdgeInsets.only(right: 25.0),
                     child: GestureDetector(
-                      onTap: () {AwesomeDialog(
-                        context: context,
-                        dialogType: DialogType.ERROR,
-                        headerAnimationLoop: false,
-                        animType: AnimType.TOPSLIDE,
-                        showCloseIcon: true,
-                        closeIcon: const Icon(Icons.close_fullscreen_outlined),
-                        title: 'Thông báo',
-                        desc: 'Bạn có chắc muốn thoát tài khoản này?',
-                        descTextStyle: AppTextTheme.oswaldTextStyle,
-                        btnCancelOnPress: () {},
-                        btnOkOnPress: () async {
-                          setState(
-                                () {
-                              isLoading = true;
-                            },
-                          );
+                      onTap: () {
+                        AwesomeDialog(
+                          context: context,
+                          dialogType: DialogType.ERROR,
+                          headerAnimationLoop: false,
+                          animType: AnimType.TOPSLIDE,
+                          showCloseIcon: true,
+                          closeIcon:
+                              const Icon(Icons.close_fullscreen_outlined),
+                          title: 'Thông báo',
+                          desc: 'Bạn có chắc muốn thoát tài khoản này?',
+                          descTextStyle: AppTextTheme.oswaldTextStyle,
+                          btnCancelOnPress: () {},
+                          btnOkOnPress: () async {
+                            setState(
+                              () {
+                                isLoading = true;
+                              },
+                            );
 
-                          /// Calling delete post method in Post Manager model
-                          firebaseAuth.signOut();
-                          setState(
-                                () {
-                              isLoading = false;
-                            },
-                          );
-                          showInSnackBar('Đã thoát tài khoản thành công', context);
-                          Navigator.pushReplacementNamed(context, "/home");
-                        },
-                      ).show();
+                            /// Calling delete post method in Post Manager model
+                            firebaseAuth.signOut();
+                            setState(
+                              () {
+                                isLoading = false;
+                              },
+                            );
+                            showInSnackBar(
+                                'Đã thoát tài khoản thành công', context);
+                            Navigator.pushReplacementNamed(context, "/home");
+                          },
+                        ).show();
                       },
                       child: Icon(
                         Icons.logout_outlined,
@@ -119,18 +120,13 @@ class _ProfileState extends State<Profile> {
               : circularProgress(context),
         ],
       ),
-      body: CustomScrollView(
-        slivers: <Widget>[
-          SliverAppBar(
-            automaticallyImplyLeading: false,
-            pinned: true,
-            floating: false,
-            toolbarHeight: 5.0,
-            collapsedHeight: 6.0,
-            backgroundColor: Palette.pastel3,
-            expandedHeight: 220.0,
-            flexibleSpace: FlexibleSpaceBar(
-              background: StreamBuilder(
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              color: Palette.pastel3,
+              child: StreamBuilder(
                 stream: usersRef.doc(widget.profileId).snapshots(),
                 builder: (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
                   if (snapshot.hasData) {
@@ -174,14 +170,16 @@ class _ProfileState extends State<Profile> {
                                                   width: 130.0,
                                                   child: Text(
                                                     user?.username,
-                                                    style: MobileTextTheme().profileUserName,
+                                                    style: MobileTextTheme()
+                                                        .profileUserName,
                                                   ),
                                                 ),
                                                 Container(
                                                   width: 130.0,
                                                   child: Text(
                                                     user?.country,
-                                                    style: MobileTextTheme().profileLocation,
+                                                    style: MobileTextTheme()
+                                                        .profileLocation,
                                                     maxLines: 1,
                                                     overflow:
                                                         TextOverflow.ellipsis,
@@ -202,7 +200,8 @@ class _ProfileState extends State<Profile> {
                                           children: [
                                             Text(
                                               user?.email,
-                                              style: MobileTextTheme().profileMail,
+                                              style:
+                                                  MobileTextTheme().profileMail,
                                             ),
                                           ],
                                         ),
@@ -300,6 +299,7 @@ class _ProfileState extends State<Profile> {
                           ),
                         ),
                         buildProfileButton(user),
+                        SizedBox(height: 20),
                       ],
                     );
                   }
@@ -307,35 +307,26 @@ class _ProfileState extends State<Profile> {
                 },
               ),
             ),
-          ),
-          SliverList(
-            delegate: SliverChildBuilderDelegate(
-              (BuildContext context, int index) {
-                if (index > 0) {
-                  return null;
-                }
-                return Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                      child: Row(
-                        children: [
-                          Text(
-                            'Tất cả bài viết',
-                            style: TextStyle(fontWeight: FontWeight.w900),
-                          ),
-                          Spacer(),
-                          buildIcons(),
-                        ],
+            Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                  child: Row(
+                    children: [
+                      Text(
+                        'Tất cả bài viết',
+                        style: TextStyle(fontWeight: FontWeight.w900),
                       ),
-                    ),
-                    buildPostView()
-                  ],
-                );
-              },
+                      Spacer(),
+                      buildIcons(),
+                    ],
+                  ),
+                ),
+                buildPostView()
+              ],
             ),
-          )
-        ],
+          ],
+        ),
       ),
     );
   }

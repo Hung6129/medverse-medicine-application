@@ -192,7 +192,7 @@ class _CaptureimagePageState extends State<CaptureimagePage> {
               focusedBorder: UnderlineInputBorder(),
             ),
             validator: (value) {
-              if (value.isEmpty) {
+              if (value.trim().isEmpty) {
                 return ("Mời bạn nhập mô tả báo cáo");
               }
               return null;

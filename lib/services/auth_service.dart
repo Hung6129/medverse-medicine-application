@@ -9,12 +9,13 @@ class AuthService {
   }
 
 //create a firebase user
-  Future<bool> createUser(
-      {String name,
-      User user,
-      String email,
-      String country,
-      String password}) async {
+  Future<bool> createUser({
+    String name,
+    User user,
+    String email,
+    String country,
+    String password,
+  }) async {
     var res = await firebaseAuth.createUserWithEmailAndPassword(
       email: '$email',
       password: '$password',

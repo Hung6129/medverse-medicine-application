@@ -135,7 +135,7 @@ class CaptureImageViewModel extends ChangeNotifier {
         resetPost();
         notifyListeners();
         showErrorInSnackBar(
-          'Vui lòng hoàn thành điền thông tin trước khi đăng nhập. ',
+          'Vui lòng hoàn thành điền thông tin trước khi gửi báo cáo. ',
           context,
         );
       }

@@ -123,7 +123,8 @@ class _TimelineState extends State<Timeline> {
                       post: posts,
                     ),
                   );
-                }, separatorBuilder:  (context, index) => const Divider(),
+                },
+                separatorBuilder: (context, index) => const Divider(),
               ),
         floatingActionButton: buildFab(),
       );

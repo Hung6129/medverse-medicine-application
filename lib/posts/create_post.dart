@@ -10,7 +10,7 @@ import '/models/user.dart';
 import '/utils/firebase.dart';
 import '/utils/validation.dart';
 import '/utils/app_text_theme.dart';
-import '/view_models/auth/posts_view_model.dart';
+import '../view_models/post/posts_view_model.dart';
 import '/widgets/indicators.dart';
 import '/theme/palette.dart';
 
@@ -20,8 +20,6 @@ class CreatePost extends StatefulWidget {
 }
 
 class _CreatePostState extends State<CreatePost> {
-  GlobalKey<FormState> formKey = GlobalKey<FormState>();
-
   /// Editing Controllers
   TextEditingController description = TextEditingController();
   bool loading = false;
@@ -64,7 +62,6 @@ class _CreatePostState extends State<CreatePost> {
 
                   if (cleanDescription(input)) {
                     await viewModel.uploadPosts(context);
-                    loading = true;
                     viewModel.resetPost();
                   } else {
                     AwesomeDialog(
@@ -195,7 +192,7 @@ class _CreatePostState extends State<CreatePost> {
               focusedBorder: UnderlineInputBorder(),
             ),
             validator: (value) {
-              if (value.isEmpty || RegExp(r"\s").hasMatch(description.text)) {
+              if (value.trim().isEmpty) {
                 return ("Mời bạn nhập mô tả bài viết");
               }
               return null;

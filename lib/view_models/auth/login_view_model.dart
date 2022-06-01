@@ -44,21 +44,31 @@ class LoginViewModel extends ChangeNotifier {
       loading = true;
       notifyListeners();
       try {
-        bool success = await auth.loginUser(
-          email: email,
-          password: password,
-        );
+        bool success = await auth
+            .loginUser(
+              email: email,
+              password: password,
+            );
         print(success);
         if (success) {
-          Navigator.of(context).pushReplacement(
-            CupertinoPageRoute(
-              builder: (context) => TabScreen(),
-            ),
-          );
-          showActiveInSnackBar(
-            'Đăng nhập thành công',
-            context,
-          );
+          AwesomeDialog(
+            btnCancelColor: Palette.warningColor,
+            context: context,
+            dialogType: DialogType.SUCCES,
+            headerAnimationLoop: false,
+            animType: AnimType.TOPSLIDE,
+            showCloseIcon: true,
+            closeIcon: const Icon(Icons.close_fullscreen_outlined),
+            desc: 'Đăng nhập thành công. ',
+            descTextStyle: AppTextTheme.oswaldTextStyle,
+            btnOkOnPress: () {
+              Navigator.of(context).pushReplacement(
+                CupertinoPageRoute(
+                  builder: (context) => TabScreen(),
+                ),
+              );
+            },
+          ).show();
         }
       } catch (e) {
         loading = false;
