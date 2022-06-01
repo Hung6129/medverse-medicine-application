@@ -54,6 +54,7 @@ dependencies:
   fluttertoast: any
   unicons: any
   timeago: any
+  intl: ^0.17.0
 
   #State Management
   flutter_bloc: any

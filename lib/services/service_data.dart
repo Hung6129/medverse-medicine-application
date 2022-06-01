@@ -1,11 +1,12 @@
-import 'package:medverse_mobile_app/models/drug_bank_db/favorite_list_model.dart';
-import 'package:medverse_mobile_app/models/drug_bank_db/pill_identifiter_model.dart';
-import 'package:medverse_mobile_app/models/drug_bank_db/product_model.dart';
-import 'package:medverse_mobile_app/models/drug_bank_db/product_name.dart';
+import '../models/drug_bank_db/favorite_list_model_w_name.dart';
+import '/models/drug_bank_db/favorite_list_model.dart';
+import '/models/drug_bank_db/pill_identifiter_model.dart';
+import '/models/drug_bank_db/product_model.dart';
+import '/models/drug_bank_db/product_name.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
-import 'package:medverse_mobile_app/utils/config.dart';
+import '/utils/config.dart';
 import '/utils/database_sqlite_connection.dart';
 
 final FirebaseAnalytics firebaseAnalytics = Config.firebaseAnalytics;
@@ -123,17 +124,18 @@ class SetToFavoriteList {
 }
 
 class GetFavoriteList {
-  static Future<List<FavoriteList>> getFavoriteList() async {
+  static Future<List<FavoriteListWName>> getFavoriteList() async {
     var db = await DatabaseSqliteConnection.drugBankAccess();
 
-    List<Map<String, dynamic>> allRows =
-        await db.rawQuery('Select * from favorite_drug');
+    List<Map<String, dynamic>> allRows = await db.rawQuery(
+        'SELECT productID,product_name,savedTime FROM favorite_drug inner join products on products.product_id = favorite_drug.productID');
 
     return List.generate(
       allRows.length,
       (i) {
-        return FavoriteList(
+        return FavoriteListWName(
           productID: allRows[i]['productID'].toString(),
+          product_name: allRows[i]['product_name'].toString(),
           savedTime: allRows[i]['savedTime'].toString(),
         );
       },
@@ -148,6 +150,7 @@ class DeleteItemInFavList {
         .rawQuery("delete from favorite_drug where productID ='$id'");
   }
 }
+ 
  
   //  product_name,product_labeller,product_code,product_route,product_dosage,product_strength,product_approved,product_otc,product_generic,product_country,drug_description,drug_state,drug_indication,pharmacodynamics,mechanism,toxicity,metabolism,half_life,route_of_elimination,clearance
   // maps.map() ProductModel(

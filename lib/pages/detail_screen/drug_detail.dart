@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:medverse_mobile_app/widgets/indicators.dart';
 import '../../models/drug_bank_db/product_model.dart';
 import '../../services/service_data.dart';
@@ -20,7 +21,11 @@ class DrugDetails extends StatefulWidget {
   _DrugDetailsState createState() => _DrugDetailsState();
 }
 
+DateTime now = DateTime.now();
+
 class _DrugDetailsState extends State<DrugDetails> {
+  /// Get current time day
+  String formatTime = DateFormat.yMd().add_Hm().format(now);
   // Test images
   String imagesFav = "assets/images/drugs_pill/300.jpg";
 
@@ -182,7 +187,7 @@ class _DrugDetailsState extends State<DrugDetails> {
     }
 
     /// Bottom app bar
-    Widget __bottomApp() {
+    Widget __bottomApp(ProductModel productModel, String savedTime) {
       return BottomAppBar(
         child: Container(
           decoration: BoxDecoration(
@@ -206,23 +211,15 @@ class _DrugDetailsState extends State<DrugDetails> {
               //   },
               // ),
               IconButton(
-                onPressed: () {
-                  print("tapped x2");
+                onPressed: () async {
+                  print("tapped");
+                  await SetToFavoriteList.setToFavoriteList(
+                      productModel.product_id, savedTime);
                 },
                 icon: Icon(
-                  CupertinoIcons.share,
+                  CupertinoIcons.heart_solid,
                   size: Dimensions.icon28,
                   color: Palette.mainBlueTheme,
-                ),
-              ),
-              IconButton(
-                onPressed: () {
-                  print("tapped x3");
-                },
-                icon: Icon(
-                  CupertinoIcons.exclamationmark_bubble_fill,
-                  size: Dimensions.icon28,
-                  color: Palette.starRating,
                 ),
               ),
             ],
@@ -231,23 +228,24 @@ class _DrugDetailsState extends State<DrugDetails> {
       );
     }
 
-    return Scaffold(
-        body: FutureBuilder(
-          future: _getAll(),
-          builder: (context, AsyncSnapshot<List<ProductModel>> snapshot) {
-            if (snapshot.hasData) {
-              var info = snapshot.data[0];
-              return CustomScrollView(
-                slivers: [
-                  __sliverAppBarProductName(info),
-                  __sliverAppBarDetail(info),
-                ],
-              );
-            } else {
-              return circularProgress(context);
-            }
-          },
-        ),
-        bottomNavigationBar: __bottomApp());
+    return FutureBuilder(
+      future: _getAll(),
+      builder: (context, AsyncSnapshot<List<ProductModel>> snapshot) {
+        if (snapshot.hasData) {
+          var info = snapshot.data[0];
+          return Scaffold(
+            body: CustomScrollView(
+              slivers: [
+                __sliverAppBarProductName(info),
+                __sliverAppBarDetail(info),
+              ],
+            ),
+            bottomNavigationBar: __bottomApp(info, formatTime),
+          );
+        } else {
+          return circularProgress(context);
+        }
+      },
+    );
   }
 }

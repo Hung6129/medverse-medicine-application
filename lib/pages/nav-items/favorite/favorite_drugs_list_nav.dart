@@ -2,7 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:medverse_mobile_app/models/drug_bank_db/favorite_list_model.dart';
+import 'package:medverse_mobile_app/models/drug_bank_db/favorite_list_model_w_name.dart';
+import '/models/drug_bank_db/favorite_list_model.dart';
 import '../../../services/service_data.dart';
 import '../home/bloc/home_screen_bloc.dart';
 import '/utils/app_text_theme.dart';
@@ -27,8 +28,8 @@ class _FavoriteDrugsListScreenNavState
   String imagesFav =
       "assets/images/drugs_pill/16571-0402-50_NLMIMAGE10_903AC856.jpg";
 
-  List<FavoriteList> dataList;
-  Future<List<FavoriteList>> _getAll() async {
+  List<FavoriteListWName> dataList;
+  Future<List<FavoriteListWName>> _getAll() async {
     dataList = await GetFavoriteList.getFavoriteList();
     if (dataList.isEmpty) {
       return null;
@@ -58,7 +59,7 @@ class _FavoriteDrugsListScreenNavState
             SizedBox(
               height: Dimensions.height20,
             ),
-            FutureBuilder<List<FavoriteList>>(
+            FutureBuilder<List<FavoriteListWName>>(
                 future: _getAll(),
                 builder: (ctx, snapshot) {
                   if (snapshot.hasData) {
@@ -151,7 +152,7 @@ class _FavoriteDrugsListScreenNavState
                                           children: [
                                             AppText(
                                               text: snapshot
-                                                  .data[index].productID,
+                                                  .data[index].product_name,
                                               color: Palette.whiteText,
                                               size: Dimensions.font16,
                                               fontWeight: FontWeight.normal,
