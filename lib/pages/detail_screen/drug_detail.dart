@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:intl/intl.dart';
 import 'package:medverse_mobile_app/widgets/indicators.dart';
+import '../../models/drug_bank_db/favorite_list_model.dart';
 import '../../models/drug_bank_db/product_model.dart';
 import '../../services/service_data.dart';
 import '../../theme/palette.dart';
@@ -20,18 +23,11 @@ class DrugDetails extends StatefulWidget {
   _DrugDetailsState createState() => _DrugDetailsState();
 }
 
+DateTime now = DateTime.now();
+
 class _DrugDetailsState extends State<DrugDetails> {
   // Test images
   String imagesFav = "assets/images/drugs_pill/300.jpg";
-
-  // // Icon checker setup
-  // Widget getIcons(String id) {
-  //   if (_box.containsKey(id)) {
-  //     return Icon(CupertinoIcons.heart_fill, color: Colors.red);
-  //   } else {
-  //     return Icon(CupertinoIcons.heart, color: Colors.red);
-  //   }
-  // }
 
   // Show Dialog
   showAlertDialog(BuildContext context, String id) {
@@ -68,17 +64,34 @@ class _DrugDetailsState extends State<DrugDetails> {
     );
   }
 
-  // Heart on tap evnent
-  // onFavoriteTap(String id) {
-  //   if (_box.containsKey(id)) {
+  // // Icon checker setup
+  // Widget getIcons(String id) {
+  //   if (dataListChecker.contains(id)) {
+  //     return Icon(CupertinoIcons.heart_fill, color: Colors.red);
+  //   } else {
+  //     return Icon(CupertinoIcons.heart, color: Colors.red);
+  //   }
+  // }
+
+  // // Heart on tap evnent
+  // onFavoriteTap(String id, String time) async {
+  //   if (dataListChecker.contains(id)) {
   //     showAlertDialog(this.context, id);
   //   } else {
-  //     var info = widget.drugData;
-
+  //     await SetToFavoriteList.setToFavoriteList(id, time);
   //     Fluttertoast.showToast(
   //       msg: 'Lưu thành công',
   //       backgroundColor: Palette.activeButton,
   //     );
+  //   }
+  // }
+
+  // Future<int> checkMovie(String productID) async {
+  //   var result = await movieDb.getMovieById(movieId);
+  //   if (result.isEmpty) {
+  //     return 1;
+  //   } else {
+  //     return 0;
   //   }
   // }
 
@@ -89,6 +102,7 @@ class _DrugDetailsState extends State<DrugDetails> {
     return dataList;
   }
 
+  String formatTime = DateFormat.yMd().add_Hm().format(now);
   @override
   Widget build(BuildContext context) {
     /// Sliver app bar for product name
@@ -182,7 +196,7 @@ class _DrugDetailsState extends State<DrugDetails> {
     }
 
     /// Bottom app bar
-    Widget __bottomApp() {
+    Widget __bottomApp(ProductModel productID, String savedTime) {
       return BottomAppBar(
         child: Container(
           decoration: BoxDecoration(
@@ -194,60 +208,77 @@ class _DrugDetailsState extends State<DrugDetails> {
             ),
           ),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              // ValueListenableBuilder(
-              //   valueListenable: _box.listenable(),
-              //   builder: (context, Box<FavDrugModel> box, _) {
-              //     return IconButton(
-              //       onPressed: () => onFavoriteTap(info.productID),
-              //       icon: getIcons(info.productID),
-              //     );
+              // IconButton(
+              //   onPressed: () {
+              //     onFavoriteTap(productID.product_id, savedTime);
+              //     setState(() {});
               //   },
+              //   icon: getIcons(productID.product_id),
               // ),
+
               IconButton(
-                onPressed: () {
-                  print("tapped x2");
+                onPressed: () async {
+                  print("tapped");
+                  print(productID.product_id);
+                  await SetToFavoriteList.setToFavoriteList(
+                      productID.product_id, savedTime);
                 },
                 icon: Icon(
-                  CupertinoIcons.share,
+                  CupertinoIcons.heart,
                   size: Dimensions.icon28,
-                  color: Palette.mainBlueTheme,
+                  color: Palette.warningColor,
                 ),
               ),
-              IconButton(
-                onPressed: () {
-                  print("tapped x3");
-                },
-                icon: Icon(
-                  CupertinoIcons.exclamationmark_bubble_fill,
-                  size: Dimensions.icon28,
-                  color: Palette.starRating,
-                ),
-              ),
+              // IconButton(
+              //   onPressed: () async {
+              //     print("tapped x2");
+              //     print(productID.product_id);
+              //   },
+              //   icon: Icon(
+              //     CupertinoIcons.share,
+              //     size: Dimensions.icon28,
+              //     color: Palette.mainBlueTheme,
+              //   ),
+              // ),
+              // IconButton(
+              //   onPressed: () {
+              //     print("tapped x3");
+              //   },
+              //   icon: Icon(
+              //     CupertinoIcons.exclamationmark_bubble_fill,
+              //     size: Dimensions.icon28,
+              //     color: Palette.starRating,
+              //   ),
+              // ),
             ],
           ),
         ),
       );
     }
 
-    return Scaffold(
-        body: FutureBuilder(
-          future: _getAll(),
-          builder: (context, AsyncSnapshot<List<ProductModel>> snapshot) {
-            if (snapshot.hasData) {
-              var info = snapshot.data[0];
-              return CustomScrollView(
-                slivers: [
-                  __sliverAppBarProductName(info),
-                  __sliverAppBarDetail(info),
-                ],
-              );
-            } else {
-              return circularProgress(context);
-            }
-          },
-        ),
-        bottomNavigationBar: __bottomApp());
+    return FutureBuilder(
+      future: _getAll(),
+      builder: (context, AsyncSnapshot<List<ProductModel>> snapshot) {
+        if (snapshot.hasData) {
+          var info = snapshot.data[0];
+          return Scaffold(
+            body: CustomScrollView(
+              slivers: [
+                __sliverAppBarProductName(info),
+                __sliverAppBarDetail(info),
+              ],
+            ),
+            bottomNavigationBar: __bottomApp(
+              info,
+              formatTime,
+            ),
+          );
+        } else {
+          return circularProgress(context);
+        }
+      },
+    );
   }
 }

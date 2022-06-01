@@ -33,7 +33,6 @@ dependencies:
   page_transition: any
   intro_views_flutter: any
   carousel_slider: ^4.1.1
-  # test: any
 
   #Dialog
   simple_animations: any
@@ -94,6 +93,7 @@ dependencies:
   flutter_typeahead: any
   analyzer: 
   translator: any
+  intl: ^0.17.0
 
 dev_dependencies:
   integration_test:

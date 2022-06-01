@@ -1,3 +1,4 @@
+import 'package:medverse_mobile_app/models/drug_bank_db/favorite_list_model.dart';
 import 'package:medverse_mobile_app/models/drug_bank_db/pill_identifiter_model.dart';
 import 'package:medverse_mobile_app/models/drug_bank_db/product_model.dart';
 import 'package:medverse_mobile_app/models/drug_bank_db/product_name.dart';
@@ -72,7 +73,7 @@ class GetDetailData {
     var db = await DatabaseSqliteConnection.drugBankAccess();
 
     List<Map<String, dynamic>> maps = await db.rawQuery(
-        "SELECT  product_name,product_labeller,product_code,product_route,product_dosage,product_strength,product_approved,product_otc,product_generic,product_country,drug_description,drug_state,drug_indication,pharmacodynamics,mechanism,toxicity,metabolism,half_life,route_of_elimination,clearance FROM products inner join drugs on drugs.drugbank_id = products.drugbank_id WHERE product_id = '$productID'");
+        "SELECT product_id,  product_name,product_labeller,product_code,product_route,product_dosage,product_strength,product_approved,product_otc,product_generic,product_country,drug_description,drug_state,drug_indication,pharmacodynamics,mechanism,toxicity,metabolism,half_life,route_of_elimination,clearance FROM products inner join drugs on drugs.drugbank_id = products.drugbank_id WHERE product_id = '$productID'");
     print(maps.length);
     return List.generate(
       maps.length,
@@ -106,29 +107,39 @@ class GetDetailData {
 }
 
 class SetToFavoriteList {
-    static Future<List<ProductName>> searchName(String keyword) async {
-    if (keyword.isEmpty) {
-      return <ProductName>[];
-    } else {
-      var db = await DatabaseSqliteConnection.drugBankAccess();
-
-      List<Map<String, dynamic>> allRows = await db.query('products',
-          where: 'product_name LIKE ?', whereArgs: ['%$keyword%']);
-
-      return List.generate(
-        allRows.length,
-        (i) {
-          return ProductName(
-            product_id: allRows[i]['product_id'].toString(),
-            product_name: allRows[i]['product_name'].toString(),
-            product_code: allRows[i]['product_code'].toString(),
-          );
-        },
-      );
-    }
+  static Future setToFavoriteList(String productID, String savedTime) async {
+    var db = await DatabaseSqliteConnection.drugBankAccess();
+    return await db.rawQuery(
+        'insert into favorite_drug values ("$productID","$savedTime")');
   }
 }
- 
+
+class GetFavoriteList {
+  static Future<List<FavoriteList>> getFavoriteList() async {
+    var db = await DatabaseSqliteConnection.drugBankAccess();
+
+    List<Map<String, dynamic>> allRows =
+        await db.rawQuery('Select * from favorite_drug');
+
+    return List.generate(
+      allRows.length,
+      (i) {
+        return FavoriteList(
+          productID: allRows[i]['productID'].toString(),
+          savedTime: allRows[i]['savedTime'].toString(),
+        );
+      },
+    );
+  }
+}
+
+class DeleteItemInFavList {
+  static Future deleteItems(String id) async {
+    var db = await DatabaseSqliteConnection.drugBankAccess();
+    return await db
+        .rawQuery("delete from favorite_drug where productID ='$id'");
+  }
+}
  
   //  product_name,product_labeller,product_code,product_route,product_dosage,product_strength,product_approved,product_otc,product_generic,product_country,drug_description,drug_state,drug_indication,pharmacodynamics,mechanism,toxicity,metabolism,half_life,route_of_elimination,clearance
   // maps.map() ProductModel(
