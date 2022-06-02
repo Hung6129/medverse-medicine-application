@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:medverse_mobile_app/widgets/indicators.dart';
+import 'package:top_snackbar_flutter/custom_snack_bar.dart';
+import 'package:top_snackbar_flutter/top_snack_bar.dart';
 import '../../models/drug_bank_db/product_model.dart';
 import '../../services/service_data.dart';
 import '../../theme/palette.dart';
@@ -163,6 +165,12 @@ class _DrugDetailsState extends State<DrugDetails> {
               IconButton(
                   onPressed: () async {
                     if (_isAdded == false) {
+                      showTopSnackBar(
+                        context,
+                        CustomSnackBar.success(
+                          message: "Đã thêm vào danh sách yêu thích thành công",
+                        ),
+                      );
                       await SetToFavoriteList.setToFavoriteList(
                           productModel.product_id, savedTime);
                       setState(() {

@@ -24,6 +24,11 @@ class FavoriteDrugsListScreenNav extends StatefulWidget {
 
 class _FavoriteDrugsListScreenNavState
     extends State<FavoriteDrugsListScreenNav> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
   String imagesFav =
       "assets/images/drugs_pill/16571-0402-50_NLMIMAGE10_903AC856.jpg";
 
@@ -81,7 +86,9 @@ class _FavoriteDrugsListScreenNavState
                                   onPressed: (context) async {
                                     await DeleteItemInFavList.deleteItems(
                                         snapshot.data[index].productID);
-                                    setState(() {});
+                                    setState(
+                                      () {},
+                                    );
                                   },
                                   backgroundColor: Palette.warningColor,
                                   foregroundColor: Colors.white,
