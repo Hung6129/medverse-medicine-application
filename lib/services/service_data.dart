@@ -1,5 +1,4 @@
 import '../models/drug_bank_db/favorite_list_model_w_name.dart';
-import '/models/drug_bank_db/favorite_list_model.dart';
 import '/models/drug_bank_db/pill_identifiter_model.dart';
 import '/models/drug_bank_db/product_model.dart';
 import '/models/drug_bank_db/product_name.dart';
@@ -30,12 +29,15 @@ class TypeAhead2 {
   static Future<List<ProductName>> searchName(String keyword) async {
     if (keyword.isEmpty) {
       return <ProductName>[];
+    }
+    if (keyword == " ") {
+      throw ("Tên thuốc không thể bắt đầu bằng khoảng trắng");
     } else {
       var db = await DatabaseSqliteConnection.drugBankAccess();
       // _logSerchTerm(keyword);
 
       List<Map<String, dynamic>> allRows = await db.query('products',
-          where: 'product_name LIKE ?', whereArgs: ['%$keyword%']);
+          where: 'product_name LIKE ?', whereArgs: ['%$keyword%'], limit: 10);
 
       return List.generate(
         allRows.length,
@@ -164,28 +166,12 @@ class CheckDrugById {
   }
 }
 
-  //  product_name,product_labeller,product_code,product_route,product_dosage,product_strength,product_approved,product_otc,product_generic,product_country,drug_description,drug_state,drug_indication,pharmacodynamics,mechanism,toxicity,metabolism,half_life,route_of_elimination,clearance
-  // maps.map() ProductModel(
-  //        product_id:maps['pill_data_id'].toString(),
-  //  drugbank_id:
-  //  product_name:
-  //  product_labeller:
-  //  product_code:
-  //  product_route:
-  //  product_dosage:
-  //  product_strength:
-  //  product_approved:
-  //  product_otc:
-  //  product_generic:
-  //  product_country:
-  //  drug_description:
-  //  drug_state:
-  //  drug_indication:
-  //  pharmacodynamics:
-  //  mechanism:
-  //  toxicity:
-  //  metabolism:
-  //  half_life:
-  //  route_of_elimination:
-  //  clearance:
-  //   );
+class GetIdFromImages {
+  static Future getImagesId(String name) async {
+    var db = await DatabaseSqliteConnection.drugBankAccess();
+    var productID = await db.rawQuery(
+        "SELECT product_id FROM products where product_name like '%$name%' limit 1;");
+    print(productID);
+    return productID;
+  }
+}

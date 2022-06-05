@@ -1,7 +1,5 @@
-import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:medverse_mobile_app/models/drug_bank_db/pill_identifiter_model.dart';
-import 'package:medverse_mobile_app/widgets/indicators.dart';
-
+import '/models/drug_bank_db/pill_identifiter_model.dart';
+import '/widgets/indicators.dart';
 import '../../../../services/service_data.dart';
 import '/theme/palette.dart';
 import '/widgets/app_text.dart';
@@ -38,7 +36,6 @@ class _PillIdentifierListResultState extends State<PillIdentifierListResult> {
 
   /// get list
   Future<List<PillIdentifierModel>> _getAll() async {
-    Duration(seconds: 3);
     dataList = await PillIdentifierResult().getDrugByIdentifier(
       widget.query1,
       widget.query2,
@@ -47,6 +44,8 @@ class _PillIdentifierListResultState extends State<PillIdentifierListResult> {
     );
     return dataList;
   }
+
+  String idMaping;
 
   @override
   Widget build(BuildContext context) {
@@ -73,40 +72,35 @@ class _PillIdentifierListResultState extends State<PillIdentifierListResult> {
                 physics: NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
                 itemCount: snapshot.data.length,
-                itemBuilder: (context, index) => GestureDetector(
-                  onTap: () {
-                    print("tapped");
-                  },
-                  child: Container(
-                    margin: EdgeInsets.only(bottom: 30),
-                    height: 280,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                          image: AssetImage(
-                            assetImage + snapshot.data[index].pill_file_name,
+                itemBuilder: (context, index) => Container(
+                  width: 200,
+                  color: Palette.grey300,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        height: 280,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage(
+                              assetImage + snapshot.data[index].pill_file_name,
+                            ),
                           ),
-                          fit: BoxFit.contain),
-                    ),
-                    child: Container(
-                    height: 280,
-
-                      child: Column(
-                        children: [
-                          AppText(
-                            text: snapshot.data[index].pill_colors,
-                            color: Palette.whiteText,
-                            size: Dimensions.font16,
-                            fontWeight: FontWeight.normal,
-                          ),
-                          AppText(
-                            text: snapshot.data[index].pill_overview,
-                            color: Palette.whiteText,
-                            size: Dimensions.font14,
-                            fontWeight: FontWeight.normal,
-                          ),
-                        ],
+                        ),
                       ),
-                    ),
+                      AppText(
+                        text: snapshot.data[index].pill_colors,
+                        color: Palette.textNo,
+                        size: Dimensions.font16,
+                        fontWeight: FontWeight.normal,
+                      ),
+                      AppText(
+                        text: snapshot.data[index].pill_overview,
+                        color: Palette.textNo,
+                        size: Dimensions.font14,
+                        fontWeight: FontWeight.normal,
+                      ),
+                    ],
                   ),
                 ),
               );

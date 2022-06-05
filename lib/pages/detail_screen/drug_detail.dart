@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:medverse_mobile_app/widgets/indicators.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
+import 'package:translator/translator.dart';
 import '../../models/drug_bank_db/product_model.dart';
 import '../../services/service_data.dart';
 import '../../theme/palette.dart';
@@ -55,8 +56,15 @@ class _DrugDetailsState extends State<DrugDetails> {
     return dataList;
   }
 
+  __trans(String text) async {
+    final translator = GoogleTranslator();
+    await translator.translate(text, from: 'en', to: 'vi');
+  }
+
   @override
   Widget build(BuildContext context) {
+    __trans("hello");
+
     /// Sliver app bar for product name
     Widget __sliverAppBarProductName(ProductModel data) {
       return SliverAppBar(

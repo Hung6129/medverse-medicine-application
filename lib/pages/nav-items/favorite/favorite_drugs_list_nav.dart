@@ -24,11 +24,6 @@ class FavoriteDrugsListScreenNav extends StatefulWidget {
 
 class _FavoriteDrugsListScreenNavState
     extends State<FavoriteDrugsListScreenNav> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
   String imagesFav =
       "assets/images/drugs_pill/16571-0402-50_NLMIMAGE10_903AC856.jpg";
 
@@ -139,12 +134,6 @@ class _FavoriteDrugsListScreenNavState
                                     child: Container(
                                       height: Dimensions.itemsSizeImgHeight,
                                       decoration: BoxDecoration(
-                                          // borderRadius: BorderRadius.only(
-                                          //   topRight: Radius.circular(
-                                          //       Dimensions.radius20),
-                                          //   bottomRight: Radius.circular(
-                                          //       Dimensions.radius20),
-                                          // ),
                                           color: Palette.mainBlueTheme),
                                       child: Padding(
                                         padding: EdgeInsets.only(
@@ -167,8 +156,9 @@ class _FavoriteDrugsListScreenNavState
                                               height: Dimensions.height10,
                                             ),
                                             AppText(
-                                              text: snapshot
-                                                  .data[index].savedTime,
+                                              text: "Đã lưu vào " +
+                                                  snapshot
+                                                      .data[index].savedTime,
                                               color: Palette.whiteText,
                                               size: Dimensions.font14,
                                               fontWeight: FontWeight.normal,

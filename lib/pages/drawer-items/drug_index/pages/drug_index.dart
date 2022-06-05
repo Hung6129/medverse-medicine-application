@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../widgets/page_index_drug.dart';
 import '/theme/palette.dart';
 import '/utils/app_text_theme.dart';
@@ -12,8 +13,6 @@ class DrugIndex extends StatefulWidget {
 
 class _MedicineDictionaryState extends State<DrugIndex> {
   bool isSearching = false;
-
-  /// Set search word
   String searchWord = "";
 
   /// List alphabelt
@@ -76,25 +75,74 @@ class _MedicineDictionaryState extends State<DrugIndex> {
           ),
         ),
         child: TabBarView(
-          children: List.generate(
-            alpha.length,
-            (index) => PageIndexDrug(
+          children: List.generate(alpha.length, (index) {
+            // if (isSearching == true) {
+            //   return PageIndexDrug(
+            //     isSearch: true,
+            //     inputSearch: searchWord,
+            //     letterIndex: alpha[index],
+            //   );
+            // } else {
+            return PageIndexDrug(
+              // isSearch: false,
               letterIndex: alpha[index],
-            ),
-          ),
+            );
+            // }
+          }),
         ),
       );
     }
 
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Palette.mainBlueTheme,
-        title: Text(
-          'Danh sách chỉ mục thuốc',
-          style: MobileTextTheme().appBarStyle,
-        ),
+    /// App bar
+    Widget __appBar() {
+      return AppBar(
         centerTitle: true,
-      ),
+        backgroundColor: Palette.mainBlueTheme,
+        title: isSearching
+            ? TextField(
+                decoration: InputDecoration(
+                  hintText: "Mời bạn nhập từ khóa",
+                  hintStyle: MobileTextTheme().introContentFont,
+                ),
+                onChanged: (searchResult) {
+                  setState(
+                    () {
+                      searchWord = searchResult;
+                    },
+                  );
+                },
+                style: MobileTextTheme().kBodyTextStyle,
+              )
+            : Text(
+                'Danh sách mục thuốc',
+                style: MobileTextTheme().appBarStyle,
+              ),
+        actions: [
+          isSearching
+              ? IconButton(
+                  onPressed: () {
+                    setState(() {
+                      isSearching = false;
+                    });
+                  },
+                  icon: Icon(Icons.cancel),
+                )
+              : IconButton(
+                  onPressed: () {
+                    setState(
+                      () {
+                        isSearching = true;
+                      },
+                    );
+                  },
+                  icon: Icon(Icons.search),
+                ),
+        ],
+      );
+    }
+
+    return Scaffold(
+      appBar: __appBar(),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,

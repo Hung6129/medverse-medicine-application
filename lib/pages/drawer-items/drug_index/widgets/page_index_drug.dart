@@ -1,13 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import '../../../nav-items/home/bloc/home_screen_bloc.dart';
-import '/widgets/indicators.dart';
-import '/utils/data_dao.dart';
 import '/models/drug_model.dart';
+import '/utils/data_dao.dart';
+import '/widgets/indicators.dart';
 
 class PageIndexDrug extends StatefulWidget {
   final String letterIndex;
-  const PageIndexDrug({Key key, this.letterIndex}) : super(key: key);
+  final String inputSearch;
+  // bool isSearch;
+  PageIndexDrug({
+    Key key,
+    this.letterIndex,
+    // this.isSearch,
+    this.inputSearch,
+  }) : super(key: key);
 
   @override
   State<PageIndexDrug> createState() => _DrugBState();
@@ -17,7 +25,7 @@ class _DrugBState extends State<PageIndexDrug> {
   /// List alphabelt
   bool isLoading = false;
   int count = 0;
-  List _listA;
+  List<DrugModel> _listA;
 
   /// Method call all data from SQLite
   Future<List<DrugModel>> getAllDrugsLetter(int count) async {
@@ -31,6 +39,21 @@ class _DrugBState extends State<PageIndexDrug> {
       _listA.addAll(_newListA);
     }
     return _listA;
+  }
+
+  /// Method call all data from SQLite
+  Future<List<DrugModel>> getAllDrugsLetterBySearch(
+      int count, String input) async {
+    _listA = await DataDao().getPageIndex(
+      count,
+      widget.letterIndex,
+    );
+    List<DrugModel> result;
+    result = _listA
+        .where((element) =>
+            element.name.contains(input) || element.labeller.contains(input))
+        .toList();
+    return result;
   }
 
   /// Loading new data when scrolling down
@@ -51,7 +74,11 @@ class _DrugBState extends State<PageIndexDrug> {
   Widget build(BuildContext context) {
     return FutureBuilder<List<DrugModel>>(
       /// Check status if user input available keyword then show the result. If not, show all data
-      future: getAllDrugsLetter(count),
+      future:
+          //  widget.isSearch == false
+          // ?
+          getAllDrugsLetter(count),
+      // : getAllDrugsLetterBySearch(count, widget.inputSearch),
       builder: (context, snapshot) {
         /// Check if already have data
         if (snapshot.hasData) {
@@ -81,9 +108,6 @@ class _DrugBState extends State<PageIndexDrug> {
                   children: [
                     GestureDetector(
                       onTap: () {
-                        print("tapped");
-                        print(word.product_id);
-                        print(word.name);
                         BlocProvider.of<HomeScreenBloc>(context)
                           ..add(
                             OnTapEvent(
@@ -93,7 +117,6 @@ class _DrugBState extends State<PageIndexDrug> {
                           );
                       },
                       child: Container(
-                        //color: Colors.pink[200],
                         child: Padding(
                           padding: EdgeInsets.only(
                             left: 5,
