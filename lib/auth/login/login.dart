@@ -14,6 +14,11 @@ import '/view_models/auth/login_view_model.dart';
 import '/widgets/indicators.dart';
 
 class Login extends StatefulWidget {
+
+  final VoidCallback onSignedIn;
+
+  const Login({Key key, this.onSignedIn}) : super(key: key);
+
   @override
   _LoginState createState() => _LoginState();
 }
@@ -106,6 +111,7 @@ class _LoginState extends State<Login> {
       child: Column(
         children: [
           TextFormBuilder(
+            key: Key('email'),
             enabled: !viewModel.loading,
             prefix: Feather.mail,
             hintText: "Email tài khoản",
@@ -119,6 +125,7 @@ class _LoginState extends State<Login> {
           ),
           SizedBox(height: 15.0),
           PasswordFormBuilder(
+            key: Key('password'),
             enabled: !viewModel.loading,
             prefix: Feather.lock,
             suffix: Feather.eye,
@@ -157,6 +164,7 @@ class _LoginState extends State<Login> {
             height: 45.0,
             width: 180.0,
             child: ElevatedButton(
+              key: Key('SignIn'),
               style: ButtonStyle(
                 shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                   RoundedRectangleBorder(
