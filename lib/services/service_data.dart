@@ -1,3 +1,5 @@
+import 'package:medverse_mobile_app/models/drug_bank_db/compare_drug_model.dart';
+
 import '../models/drug_bank_db/favorite_list_model_w_name.dart';
 import '/models/drug_bank_db/pill_identifiter_model.dart';
 import '/models/drug_bank_db/product_model.dart';
@@ -50,32 +52,6 @@ class TypeAhead2 {
         },
       );
     }
-  }
-}
-
-class PillIdentifierResult {
-  Future<List<PillIdentifierModel>> getDrugByIdentifier(
-      String imprint, String color, String shape, String size) async {
-    var db = await DatabaseSqliteConnection.drugBankAccess();
-    List<Map<String, dynamic>> maps = await db.rawQuery(
-        // "SELECT * FROM pilL_data_detail where pill_shape like ${shape == null ? '%%' : '%$shape%'} and pill_size like ${size == null ? '%%' : '%$size%'}  and pill_colors like ${color == null ? '%$color%' : '%$color%'} and pill_imprints like '%$imprint%'");
-
-        "SELECT * FROM pilL_data_detail where pill_shape like '%$shape%' and pill_size like '%$size%'  and pill_colors like '%$color%' and pill_imprints like '%$imprint%'");
-    print(maps);
-    return List.generate(
-      maps.length,
-      (i) {
-        return PillIdentifierModel(
-          pill_data_id: maps[i]['pill_data_id'].toString(),
-          pill_file_name: maps[i]['pill_file_name'].toString(),
-          pill_overview: maps[i]['pill_overview'].toString(),
-          pill_shape: maps[i]['pill_shape'].toString(),
-          pill_size: maps[i]['pill_size'].toString(),
-          pill_colors: maps[i]['pill_colors'].toString(),
-          pill_imprints: maps[i]['pill_imprints'].toString(),
-        );
-      },
-    );
   }
 }
 
@@ -173,5 +149,58 @@ class GetIdFromImages {
         "SELECT product_id FROM products where product_name like '%$name%' limit 1;");
     print(productID);
     return productID;
+  }
+}
+
+/// Medicine Functions
+class PillIdentifierResult {
+  Future<List<PillIdentifierModel>> getDrugByIdentifier(
+      String imprint, String color, String shape, String size) async {
+    var db = await DatabaseSqliteConnection.drugBankAccess();
+    List<Map<String, dynamic>> maps = await db.rawQuery(
+        "SELECT * FROM pilL_data_detail where pill_shape like '%$shape%' and pill_size like '%$size%'  and pill_colors like '%$color%' and pill_imprints like '%$imprint%'");
+    print(maps);
+    return List.generate(
+      maps.length,
+      (i) {
+        return PillIdentifierModel(
+          pill_data_id: maps[i]['pill_data_id'].toString(),
+          pill_file_name: maps[i]['pill_file_name'].toString(),
+          pill_overview: maps[i]['pill_overview'].toString(),
+          pill_shape: maps[i]['pill_shape'].toString(),
+          pill_size: maps[i]['pill_size'].toString(),
+          pill_colors: maps[i]['pill_colors'].toString(),
+          pill_imprints: maps[i]['pill_imprints'].toString(),
+        );
+      },
+    );
+  }
+}
+
+class DrugCompareResult {
+  Future<List<CompareDrugModel>> getDrugByCompare(
+      String id1, String id2) async {
+    var db = await DatabaseSqliteConnection.drugBankAccess();
+    List<Map<String, dynamic>> maps = await db.rawQuery(
+        "SELECT product_name,drug_description, drug_state, drug_indication, pharmacodynamics, mechanism, toxicity, metabolism, half_life, route_of_elimination,clearance FROM drugs inner join products on products.drugbank_id = drugs.drugbank_id where product_id in ('$id1','$id2')");
+    print(maps);
+    return List.generate(
+      maps.length,
+      (i) {
+        return CompareDrugModel(
+          product_name: maps[i]['product_name'].toString(),
+          drug_description: maps[i]['drug_description'].toString(),
+          drug_state: maps[i]['drug_state'].toString(),
+          drug_indication: maps[i]['drug_indication'].toString(),
+          pharmacodynamics: maps[i]['pharmacodynamics'].toString(),
+          mechanism: maps[i]['mechanism'].toString(),
+          toxicity: maps[i]['toxicity'].toString(),
+          metabolism: maps[i]['metabolism'].toString(),
+          half_life: maps[i]['half_life'].toString(),
+          route_of_elimination: maps[i]['route_of_elimination'].toString(),
+          clearance: maps[i]['clearance'].toString(),
+        );
+      },
+    );
   }
 }

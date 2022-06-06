@@ -1,31 +1,35 @@
+import 'dart:ui';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import '../../../../models/drug_bank_db/product_name.dart';
 import '../../../../services/service_data.dart';
-import '/pages/drawer-items/compare_drugs/pages/compare_result.dart';
-import '/utils/app_text_theme.dart';
+import '../../../../theme/palette.dart';
+import '../../../../utils/app_text_theme.dart';
+import '../../../../widgets/animated_button.dart';
 import '../../../../widgets/app_text.dart';
-import '/widgets/dimension.dart';
-import '/theme/palette.dart';
+import '../../../../widgets/awesome_dialog.dart';
+import '../../../../widgets/dimension.dart';
+import 'compare_result.dart';
 
 class CompareDrug extends StatefulWidget {
   const CompareDrug({Key key}) : super(key: key);
 
   @override
-  MapScreenState createState() => MapScreenState();
+  State<CompareDrug> createState() => _CompareDrugState();
 }
 
-class MapScreenState extends State<CompareDrug> {
+class _CompareDrugState extends State<CompareDrug> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   /// Editing controller
   final TextEditingController _typeAheadController = TextEditingController();
-
   FocusNode focusNode;
 
   // String _selectedDrug;
   List<String> addedItemsList = [];
+  List<String> addedItemsIdList = [];
 
   // Add to list function
   void __addItemToList(String value) {
@@ -37,6 +41,19 @@ class MapScreenState extends State<CompareDrug> {
     } else {
       setState(() {
         addedItemsList.insert(0, value);
+      });
+    }
+  }
+
+  void __addItemIdToList(String value) {
+    if (addedItemsIdList.length == 2) {
+      addedItemsIdList.removeLast();
+      setState(() {
+        addedItemsIdList.insert(0, value);
+      });
+    } else {
+      setState(() {
+        addedItemsIdList.insert(0, value);
       });
     }
   }
@@ -89,12 +106,19 @@ class MapScreenState extends State<CompareDrug> {
               TypeAheadFormField(
                 textFieldConfiguration: TextFieldConfiguration(
                   autocorrect: true,
+                  focusNode: focusNode,
                   controller: this._typeAheadController,
                   decoration: InputDecoration(
                       suffixIcon: IconButton(
                         icon: Icon(CupertinoIcons.clear),
                         onPressed: () {
                           _typeAheadController.clear();
+                          // print(addedItemsIdList.length);
+                          // print(addedItemsList.length);
+                          // print(addedItemsIdList[0]);
+                          // print(addedItemsIdList[1]);
+                          // print(addedItemsList[0]);
+                          // print(addedItemsList[1]);
                         },
                       ),
                       focusedBorder: OutlineInputBorder(
@@ -131,12 +155,16 @@ class MapScreenState extends State<CompareDrug> {
                   return suggestionsBox;
                 },
                 onSuggestionSelected: (ProductName suggestion) {
-                  if (addedItemsList.length == 2) {
-                    print("cannot add");
-                  }
+                  // if (addedItemsList.length == 2 &&
+                  //     addedItemsIdList.length == 2) {
+                  //   print("cannot add");
+                  // } else {
                   _typeAheadController.text = suggestion.product_name;
                   print(_typeAheadController.text);
+                  print(suggestion.product_id);
                   __addItemToList(_typeAheadController.text);
+                  __addItemIdToList(suggestion.product_id);
+                  // }
                 },
                 validator: (value) {
                   if (value.isEmpty) {
@@ -172,6 +200,7 @@ class MapScreenState extends State<CompareDrug> {
                   ),
                 )
               : ListView.builder(
+                  physics: NeverScrollableScrollPhysics(),
                   itemCount: addedItemsList.length,
                   itemBuilder: (context, index) {
                     return Chip(
@@ -188,6 +217,7 @@ class MapScreenState extends State<CompareDrug> {
                       onDeleted: () {
                         setState(() {
                           addedItemsList.removeAt(index);
+                          addedItemsIdList.removeAt(index);
                         });
                       },
                     );
@@ -210,34 +240,33 @@ class MapScreenState extends State<CompareDrug> {
           ),
           child: TextButton(
             onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => CompareResult()),
-              );
-              // if (addedItemsList.isEmpty) {
-              //   ScaffoldMessenger.of(context).showSnackBar(
-              //     SnackBar(
-              //       content: AppText(
-              //         text: "Chọn 2 thuốc để kiểm tra tương kỵ",
-              //       ),
-              //       duration: Duration(seconds: 4),
-              //       action: SnackBarAction(
-              //         label: "Thêm",
-              //         onPressed: () => focusNode.requestFocus(),
-              //       ),
-              //     ),
-              //   );
-              // } else {
-              //   Navigator.push(
-              //     context,
-              //     MaterialPageRoute(
-              //       builder: (context) =>
-              //           InteractionCheckerResult(
-              //               name1: addedItemsList[0],
-              //               name2: addedItemsList[1]),
-              //     ),
-              //   );
-              // }
+              if (addedItemsList.length == 0 && addedItemsIdList.length == 0) {
+                AwesomeDialog(
+                  dialogBackgroundColor: Palette.mainBlueTheme,
+                  context: context,
+                  headerAnimationLoop: false,
+                  titleTextStyle: TextStyle(
+                      color: Colors.white, fontSize: Dimensions.font20),
+                  descTextStyle: TextStyle(color: Colors.white),
+                  dialogType: DialogType.NO_HEADER,
+                  btnOkColor: Palette.pastel3,
+                  title: 'Lỗi',
+                  desc: 'Hãy nhập vào đủ 2 tên thuốc để xem so sánh',
+                  btnOkOnPress: () {
+                    focusNode.requestFocus();
+                  },
+                  btnOkIcon: Icons.check_circle,
+                ).show();
+              } else {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => CompareResult(
+                            id1: addedItemsIdList[0],
+                            id2: addedItemsIdList[1],
+                          )),
+                );
+              }
             },
             child: AppText(
               text: "So sánh",
