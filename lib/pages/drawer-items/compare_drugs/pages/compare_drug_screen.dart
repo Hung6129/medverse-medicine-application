@@ -261,10 +261,11 @@ class _CompareDrugState extends State<CompareDrug> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => CompareResult(
-                            id1: addedItemsIdList[0],
-                            id2: addedItemsIdList[1],
-                          )),
+                    builder: (context) => CompareResult(
+                      query1: addedItemsIdList[0],
+                      query2: addedItemsIdList[1],
+                    ),
+                  ),
                 );
               }
             },
