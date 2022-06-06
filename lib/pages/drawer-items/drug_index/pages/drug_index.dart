@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-
+import 'package:medverse_mobile_app/models/drug_model.dart';
+import '../../../../utils/data_dao.dart';
 import '../widgets/page_index_drug.dart';
 import '/theme/palette.dart';
 import '/utils/app_text_theme.dart';
@@ -44,6 +45,13 @@ class _MedicineDictionaryState extends State<DrugIndex> {
     'Y',
     'Z'
   ];
+
+  /// Method search keyword in SQLite
+  Future<List<DrugModel>> search(String search) async {
+    var list = await DataDao().searchDrugs(search);
+    return list;
+  }
+
   @override
   Widget build(BuildContext context) {
     /// Tab bar
@@ -154,9 +162,19 @@ class _MedicineDictionaryState extends State<DrugIndex> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
-                  __tabBar(),
-                  SizedBox(height: 20),
-                  __tabBarView(),
+                  SizedBox(height: 1.0),
+                  DefaultTabController(
+                    length: 26, // length of tabs
+                    initialIndex: 0,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: <Widget>[
+                        __tabBar(),
+                        SizedBox(height: 20),
+                        __tabBarView(),
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ),
