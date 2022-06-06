@@ -310,7 +310,7 @@ class _HomeScreenState extends State<HomeScreen> {
         drawer: const NavigationDrawerWidget(),
         appBar: appBarMain(titleText: "Trang chủ"),
         body: SingleChildScrollView(
-          physics: const AlwaysScrollableScrollPhysics(),
+          // physics: const AlwaysScrollableScrollPhysics(),
           child: Column(
             children: [
               // Search bar
