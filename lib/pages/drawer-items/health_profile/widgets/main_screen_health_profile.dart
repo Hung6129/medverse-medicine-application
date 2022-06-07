@@ -67,7 +67,7 @@ class MapScreenState extends State<HealthProfile>
       _checkAuthentication = new Scaffold(
         body: new Container(
           child: new SingleChildScrollView(
-            scrollDirection: Axis.vertical,
+            // scrollDirection: Axis.vertical,
             child: Column(
               children: <Widget>[
                 /// Height card
@@ -78,7 +78,7 @@ class MapScreenState extends State<HealthProfile>
                     ),
                   ),
                   child: Container(
-                    margin: EdgeInsets.all(25.0),
+                    margin: EdgeInsets.only(top: 25.0, left: 25.0, right: 25),
                     width: Dimensions.boxViewWidth,
                     decoration: BoxDecoration(
                       color: Palette.whiteText,
@@ -168,6 +168,7 @@ class MapScreenState extends State<HealthProfile>
                     ),
                   ),
                   child: Container(
+                    margin: EdgeInsets.only(top: 25.0, left: 25.0, right: 25),
                     width: Dimensions.boxViewWidth,
                     decoration: BoxDecoration(
                       color: Palette.whiteText,
@@ -247,7 +248,6 @@ class MapScreenState extends State<HealthProfile>
                     ),
                   ),
                 ),
-                SizedBox(height: 25),
 
                 /// BMI card
                 GestureDetector(
@@ -258,6 +258,7 @@ class MapScreenState extends State<HealthProfile>
                   ),
                   child: Container(
                     width: Dimensions.boxViewWidth,
+                    margin: EdgeInsets.only(top: 25.0, left: 25.0, right: 25),
                     decoration: BoxDecoration(
                       color: Palette.whiteText,
                       borderRadius: BorderRadius.circular(Dimensions.radius15),
@@ -336,7 +337,6 @@ class MapScreenState extends State<HealthProfile>
                     ),
                   ),
                 ),
-                SizedBox(height: 25),
 
                 /// Blood pressure card
                 GestureDetector(
@@ -346,6 +346,7 @@ class MapScreenState extends State<HealthProfile>
                     ),
                   ),
                   child: Container(
+                    margin: EdgeInsets.only(top: 25.0, left: 25.0, right: 25),
                     width: Dimensions.boxViewWidth,
                     decoration: BoxDecoration(
                       color: Palette.whiteText,
@@ -427,7 +428,6 @@ class MapScreenState extends State<HealthProfile>
                     ),
                   ),
                 ),
-                SizedBox(height: 25),
 
                 /// SP02 card
                 GestureDetector(
@@ -438,6 +438,7 @@ class MapScreenState extends State<HealthProfile>
                   ),
                   child: Container(
                     width: Dimensions.boxViewWidth,
+                    margin: EdgeInsets.only(top: 25.0, left: 25.0, right: 25),
                     decoration: BoxDecoration(
                       color: Palette.whiteText,
                       borderRadius: BorderRadius.circular(Dimensions.radius15),
@@ -516,7 +517,6 @@ class MapScreenState extends State<HealthProfile>
                     ),
                   ),
                 ),
-                SizedBox(height: 25),
 
                 /// Blood group card
                 GestureDetector(
@@ -526,6 +526,7 @@ class MapScreenState extends State<HealthProfile>
                     ),
                   ),
                   child: Container(
+                    margin: EdgeInsets.only(top: 25.0, left: 25.0, right: 25),
                     width: Dimensions.boxViewWidth,
                     decoration: BoxDecoration(
                       color: Palette.whiteText,
@@ -600,7 +601,9 @@ class MapScreenState extends State<HealthProfile>
                     ),
                   ),
                 ),
-                SizedBox(height: 25),
+                SizedBox(
+                  height: 30,
+                ),
               ],
             ),
           ),
