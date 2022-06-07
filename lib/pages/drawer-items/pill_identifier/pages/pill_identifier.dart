@@ -1,3 +1,8 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:top_snackbar_flutter/custom_snack_bar.dart';
+import 'package:top_snackbar_flutter/top_snack_bar.dart';
+
 import '/theme/palette.dart';
 import '/widgets/app_text.dart';
 import '/widgets/dimension.dart';
@@ -17,42 +22,39 @@ class _PillIdentifierState extends State<PillIdentifier> {
   TextEditingController txtImprint = TextEditingController();
 
 // List of Color 1
-  List<String> pill_color_1 = [
-    "Color 1",
-    "ORANGE",
-    "BLACK",
-    "RED",
-    "PINK",
-    "BROWN",
-    "TURQUOISE",
-    "PURPLE",
-    "WHITE",
-    "YELLOW",
-    "GREY",
-    "GREEN",
-    "BLUE",
-  ];
+  // List<String> pill_color_1 = [
+  //   "ORANGE",
+  //   "BLACK",
+  //   "RED",
+  //   "PINK",
+  //   "BROWN",
+  //   "TURQUOISE",
+  //   "PURPLE",
+  //   "WHITE",
+  //   "YELLOW",
+  //   "GREY",
+  //   "GREEN",
+  //   "BLUE",
+  // ];
 
 // List of Color 2
-  List<String> pill_color_2 = [
-    "Color 2",
-    "ORANGE",
-    "BLACK",
-    "RED",
-    "PINK",
-    "BROWN",
-    "TURQUOISE",
-    "PURPLE",
-    "WHITE",
-    "YELLOW",
-    "GREY",
-    "GREEN",
-    "BLUE",
-  ];
+  // List<String> pill_color_2 = [
+  //   "ORANGE",
+  //   "BLACK",
+  //   "RED",
+  //   "PINK",
+  //   "BROWN",
+  //   "TURQUOISE",
+  //   "PURPLE",
+  //   "WHITE",
+  //   "YELLOW",
+  //   "GREY",
+  //   "GREEN",
+  //   "BLUE",
+  // ];
 
 // List of Shapes
   List<String> pill_shapes = [
-    'Shape',
     "CAPSULE",
     "OVAL",
     "TEAR",
@@ -73,7 +75,6 @@ class _PillIdentifierState extends State<PillIdentifier> {
 
 // List of Size
   List<String> pill_sizes = [
-    'Size',
     "4mm",
     "5mm",
     "6mm",
@@ -100,25 +101,132 @@ class _PillIdentifierState extends State<PillIdentifier> {
     "27mm",
   ];
 
-  // Dropdown menu variable
-  String dropDownColor1 = "Color 1";
-  String dropDownColor2 = "Color 2";
-  String dropdownShape = "Shape";
-  String dropdownSize = "Size";
+  String dropdownShape;
+  String dropdownSize;
   String dropdownColor;
 
+  List<String> pillColor = [
+    "BLACK",
+    "BLACK,GREEN",
+    "BLACK,PINK",
+    "BLACK,PURPLE",
+    "BLACK,TURQUOISE",
+    "BLACK,WHITE",
+    "BLACK,YELLOW",
+    "BLUE",
+    "BLUE,BLUE",
+    "BLUE,BROWN",
+    "BLUE,GRAY",
+    "BLUE,GREEN",
+    "BLUE,ORANGE",
+    "BLUE,PINK",
+    "BLUE,RED",
+    "BLUE,TURQUOISE",
+    "BLUE,WHITE",
+    "BLUE,YELLOW",
+    "BROWN",
+    "BROWN,ORANGE",
+    "BROWN,PINK",
+    "BROWN,WHITE",
+    "BROWN,YELLOW",
+    "GRAY",
+    "GRAY,BLUE",
+    "GRAY,BROWN",
+    "GRAY,GREEN",
+    "GRAY,ORANGE",
+    "GRAY,PINK",
+    "GRAY,PURPLE",
+    "GRAY,RED",
+    "GRAY,WHITE",
+    "GRAY,YELLOW",
+    "GREEN",
+    "GREEN,BLACK",
+    "GREEN,BLUE",
+    "GREEN,BROWN",
+    "GREEN,GRAY",
+    "GREEN,GREEN",
+    "GREEN,ORANGE",
+    "GREEN,PINK",
+    "GREEN,PURPLE",
+    "GREEN,TURQUOISE",
+    "GREEN,WHITE",
+    "GREEN,YELLOW",
+    "ORANGE",
+    "ORANGE,BLUE",
+    "ORANGE,BROWN",
+    "ORANGE,GRAY",
+    "ORANGE,ORANGE",
+    "ORANGE,TURQUOISE",
+    "ORANGE,WHITE",
+    "ORANGE,YELLOW",
+    "PINK",
+    "PINK,BLACK",
+    "PINK,BLUE",
+    "PINK,BROWN",
+    "PINK,GREEN",
+    "PINK,ORANGE",
+    "PINK,PINK",
+    "PINK,RED",
+    "PINK,WHITE",
+    "PINK,YELLOW",
+    "PURPLE",
+    "PURPLE,GRAY",
+    "PURPLE,ORANGE",
+    "PURPLE,PINK",
+    "PURPLE,PURPLE",
+    "PURPLE,TURQUOISE",
+    "PURPLE,WHITE",
+    "PURPLE,YELLOW",
+    "RED",
+    "RED,BLUE",
+    "RED,ORANGE",
+    "RED,PINK",
+    "RED,RED",
+    "RED,WHITE",
+    "RED,YELLOW",
+    "TURQUOISE",
+    "TURQUOISE,GRAY",
+    "TURQUOISE,GREEN",
+    "TURQUOISE,PURPLE",
+    "TURQUOISE,WHITE",
+    "WHITE",
+    "WHITE,BLACK",
+    "WHITE,BLUE",
+    "WHITE,BROWN",
+    "WHITE,GRAY",
+    "WHITE,GREEN",
+    "WHITE,ORANGE",
+    "WHITE,PINK",
+    "WHITE,PURPLE",
+    "WHITE,RED",
+    "WHITE,TURQUOISE",
+    "WHITE,WHITE",
+    "WHITE,YELLOW",
+    "YELLOW",
+    "YELLOW,BLACK",
+    "YELLOW,BLUE",
+    "YELLOW,GRAY",
+    "YELLOW,GREEN",
+    "YELLOW,ORANGE",
+    "YELLOW,PINK",
+    "YELLOW,PURPLE",
+    "YELLOW,RED",
+    "YELLOW,WHITE",
+    "YELLOW,YELLOW",
+  ];
   @override
   Widget build(BuildContext context) {
     /// Title
     Widget __title() {
       return Padding(
         padding:
-            const EdgeInsets.only(top: 20, left: 20, right: 20, bottom: 10),
+            const EdgeInsets.only(top: 20, left: 20, right: 20, bottom: 25),
         child: Container(
           child: AppText(
             text:
                 "Sử dụng công cụ tìm viên thuốc để xác định các loại thuốc bằng hình dáng bên ngoài hoặc màu sắc. Tất cả các trường đều là tùy chọn.",
             size: Dimensions.font18,
+            color: Palette.mainBlueTheme,
             fontWeight: FontWeight.normal,
           ),
         ),
@@ -137,7 +245,7 @@ class _PillIdentifierState extends State<PillIdentifier> {
           decoration: InputDecoration(
             border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(Dimensions.radius15)),
-            hintText: 'Nhập kí tự trên thuốc',
+            hintText: 'Input a imprint',
             hintStyle: TextStyle(
               fontSize: Dimensions.font14,
             ),
@@ -147,13 +255,19 @@ class _PillIdentifierState extends State<PillIdentifier> {
     }
 
     /// Color 1
-    Widget __color1() {
+    Widget __color() {
       return Padding(
         padding: const EdgeInsets.all(8.0),
         child: FormField<String>(
           builder: (FormFieldState<String> state) {
             return InputDecorator(
               decoration: InputDecoration(
+                  prefixIcon: Icon(CupertinoIcons.color_filter),
+                  suffixIcon: IconButton(
+                      onPressed: () {
+                        ;
+                      },
+                      icon: Icon(CupertinoIcons.multiply)),
                   border: OutlineInputBorder(
                       borderSide:
                           BorderSide(width: 4, color: Palette.mainBlueTheme),
@@ -161,53 +275,18 @@ class _PillIdentifierState extends State<PillIdentifier> {
                           BorderRadius.circular(Dimensions.radius15))),
               child: DropdownButtonHideUnderline(
                 child: DropdownButton<String>(
-                  value: dropDownColor1,
+                  value: dropdownColor,
+                  hint: AppText(
+                    text: "Pick a color",
+                    size: Dimensions.font14,
+                  ),
                   isDense: true,
                   onChanged: (String newValue) {
                     setState(() {
-                      dropDownColor1 = newValue;
+                      dropdownColor = newValue;
                     });
                   },
-                  items: pill_color_1.map((value) {
-                    return DropdownMenuItem(
-                      value: value,
-                      child: AppText(
-                          text: value,
-                          size: Dimensions.font14,
-                          fontWeight: FontWeight.normal),
-                    );
-                  }).toList(),
-                ),
-              ),
-            );
-          },
-        ),
-      );
-    }
-
-    /// Color 2
-    Widget __color2() {
-      return Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: FormField<String>(
-          builder: (FormFieldState<String> state) {
-            return InputDecorator(
-              decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                      borderSide:
-                          BorderSide(width: 4, color: Palette.mainBlueTheme),
-                      borderRadius:
-                          BorderRadius.circular(Dimensions.radius15))),
-              child: DropdownButtonHideUnderline(
-                child: DropdownButton<String>(
-                  value: dropDownColor2,
-                  isDense: true,
-                  onChanged: (String newValue) {
-                    setState(() {
-                      dropDownColor2 = newValue;
-                    });
-                  },
-                  items: pill_color_2.map((value) {
+                  items: pillColor.map((value) {
                     return DropdownMenuItem(
                       value: value,
                       child: AppText(
@@ -232,6 +311,7 @@ class _PillIdentifierState extends State<PillIdentifier> {
           builder: (FormFieldState<String> state) {
             return InputDecorator(
               decoration: InputDecoration(
+                prefixIcon: Icon(CupertinoIcons.rectangle_3_offgrid),
                 border: OutlineInputBorder(
                   borderSide:
                       BorderSide(width: 4, color: Palette.mainBlueTheme),
@@ -243,6 +323,10 @@ class _PillIdentifierState extends State<PillIdentifier> {
               child: DropdownButtonHideUnderline(
                 child: DropdownButton<String>(
                   value: dropdownShape,
+                  hint: AppText(
+                    text: "Pick a shape",
+                    size: Dimensions.font14,
+                  ),
                   isDense: true,
                   onChanged: (String newValue) {
                     setState(
@@ -278,6 +362,7 @@ class _PillIdentifierState extends State<PillIdentifier> {
           builder: (FormFieldState<String> state) {
             return InputDecorator(
               decoration: InputDecoration(
+                prefixIcon: Icon(CupertinoIcons.arrow_left_right_circle),
                 border: OutlineInputBorder(
                   borderSide:
                       BorderSide(width: 4, color: Palette.mainBlueTheme),
@@ -289,6 +374,10 @@ class _PillIdentifierState extends State<PillIdentifier> {
               child: DropdownButtonHideUnderline(
                 child: DropdownButton<String>(
                   value: dropdownSize,
+                  hint: AppText(
+                    text: "Pick a size",
+                    size: Dimensions.font14,
+                  ),
                   isDense: true,
                   onChanged: (String newValue) {
                     setState(
@@ -331,60 +420,41 @@ class _PillIdentifierState extends State<PillIdentifier> {
           ),
           child: TextButton(
             onPressed: () {
-              // String notShape = "Shape";
-              // String notSize = "Size";
-              // String notSelected1 = "Color 1";
-              // String notSelected2 = "Color 2";
-
-              // if (dropDownColor1 == notSelected1 &&
-              //     dropDownColor2 == notSelected2 &&
-              //     dropdownShape == notShape &&
-              //     dropdownSize == notSize &&
-              //     txtImprint.text.isEmpty) {
-              //   print("Chon mot field de xem ket qua");
-              // } else if (dropDownColor1 == notSelected1 &&
-              //     dropDownColor2 != notSelected2) {
-              //   dropdownColor = dropDownColor2;
-              //   print("chua chon mau 1" +
-              //       txtImprint.text +
-              //       dropdownColor +
-              //       dropdownShape +
-              //       dropdownSize);
-              // } else if (dropDownColor2 == notSelected2 &&
-              //     dropDownColor1 != notSelected1) {
-              //   dropdownColor = dropDownColor1;
-              //   print("chua chon mau 2" +
-              //       txtImprint.text +
-              //       dropdownColor +
-              //       dropdownShape +
-              //       dropdownSize);
-              // } else if (dropDownColor1 == notSelected1 &&
-              //     dropDownColor2 == notSelected2) {
-              //   dropdownColor = notSelected1;
-              //   print("chua chon mau nao ca" +
-              //       txtImprint.text +
-              //       dropdownShape +
-              //       dropdownSize +
-              //       dropdownColor);
-              // } else {
-              //   print(txtImprint.text +
-              //       dropdownColor +
-              //       dropdownShape +
-              //       dropdownSize);
-
-              // }
-              dropdownColor = dropDownColor1 + "," + dropDownColor2;
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => PillIdentifierListResult(
-                    query1: txtImprint.text,
-                    query2: dropdownColor,
-                    query3: dropdownShape,
-                    query4: dropdownSize,
+              if (dropdownColor == null &&
+                  dropdownShape == null &&
+                  dropdownSize == null &&
+                  txtImprint.text.isEmpty) {
+                print("Chon mot field de xem ket qua");
+                showTopSnackBar(
+                  context,
+                  CustomSnackBar.error(
+                    backgroundColor: Palette.warningColor,
+                    message:
+                        "Please check did you pick any field yet and try again",
                   ),
-                ),
-              );
+                );
+              } else {
+                String blank = "".trim();
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => PillIdentifierListResult(
+                      query1: txtImprint.text,
+                      query2: dropdownColor == null ? blank : dropdownColor,
+                      query3: dropdownShape == null ? blank : dropdownShape,
+                      query4: dropdownSize == null ? blank : dropdownSize,
+                    ),
+                  ),
+                );
+                // print(dropdownColor == null
+                //     ? blank
+                //     : dropdownColor + dropdownShape == null
+                //         ? blank
+                //         : dropdownShape + dropdownSize == null
+                //             ? blank
+                //             : dropdownSize);
+
+              }
             },
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -411,7 +481,7 @@ class _PillIdentifierState extends State<PillIdentifier> {
     }
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      // backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Palette.mainBlueTheme,
         title: Text(
@@ -426,39 +496,31 @@ class _PillIdentifierState extends State<PillIdentifier> {
             __title(),
 
             // Query fill box
-            Container(
-              width: Dimensions.boxSearchViewWidth,
-              decoration: BoxDecoration(
+            Neumorphic(
+              style: NeumorphicStyle(
+                shape: NeumorphicShape.flat,
+                boxShape:
+                    NeumorphicBoxShape.roundRect(BorderRadius.circular(12)),
+                depth: 15,
+                lightSource: LightSource.top,
                 color: Colors.white,
-                borderRadius: BorderRadius.circular(Dimensions.radius15),
-                boxShadow: [
-                  BoxShadow(
-                    color: Palette.grey300.withOpacity(0.5),
-                    blurRadius: 5.0,
-                    offset: Offset(0, 5),
-                  ),
-                  BoxShadow(
-                    color: Palette.grey300.withOpacity(0.5),
-                    offset: Offset(5, 5),
-                  ),
-                  BoxShadow(
-                    color: Palette.grey300.withOpacity(0.5),
-                    offset: Offset(-5, 5),
-                  ),
-                ],
               ),
-              padding: EdgeInsets.all(Dimensions.height10),
+              child: Container(
+                width: Dimensions.boxSearchViewWidth,
 
-              /// All the field
-              child: Column(
-                children: [
-                  __imprint(),
-                  __color1(),
-                  __color2(),
-                  __shape(),
-                  __size(),
-                  __searchBtn()
-                ],
+                /// All the field
+                child: Column(
+                  children: [
+                    __imprint(),
+                    __color(),
+                    __shape(),
+                    __size(),
+                    __searchBtn(),
+                    SizedBox(
+                      height: 10,
+                    )
+                  ],
+                ),
               ),
             ),
           ],

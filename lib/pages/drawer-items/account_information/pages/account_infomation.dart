@@ -39,11 +39,9 @@ class _AccountInfomationState extends State<AccountInformation> {
         body: new SingleChildScrollView(
             child: Column(
           children: <Widget>[
-            SizedBox(height: 20),
-
             /// Username card
             Container(
-              margin: EdgeInsets.all(25.0),
+              margin: EdgeInsets.only(top: 25.0, left: 25.0, right: 25),
               width: Dimensions.boxViewWidth,
               decoration: BoxDecoration(
                 color: Palette.whiteText,
@@ -104,6 +102,7 @@ class _AccountInfomationState extends State<AccountInformation> {
             /// Email card
             Container(
               width: Dimensions.boxViewWidth,
+                         margin: EdgeInsets.only(top:25.0,left: 25.0,right: 25),
               decoration: BoxDecoration(
                 color: Palette.whiteText,
                 borderRadius: BorderRadius.circular(Dimensions.radius15),
@@ -158,10 +157,11 @@ class _AccountInfomationState extends State<AccountInformation> {
                 ),
               ),
             ),
-            SizedBox(height: 25),
+            
 
             /// Country card
             Container(
+                         margin: EdgeInsets.only(top:25.0,left: 25.0,right: 25),
               width: Dimensions.boxViewWidth,
               decoration: BoxDecoration(
                 color: Palette.whiteText,
@@ -217,10 +217,11 @@ class _AccountInfomationState extends State<AccountInformation> {
                 ),
               ),
             ),
-            SizedBox(height: 25),
+            
 
             /// Giới thiệu
             Container(
+                         margin: EdgeInsets.only(top:25.0,left: 25.0,right: 25),
               width: Dimensions.boxViewWidth,
               decoration: BoxDecoration(
                 color: Palette.whiteText,
@@ -276,7 +277,7 @@ class _AccountInfomationState extends State<AccountInformation> {
                 ),
               ),
             ),
-            SizedBox(height: 20.0),
+            SizedBox(height: 30.0),
           ],
         )),
       );

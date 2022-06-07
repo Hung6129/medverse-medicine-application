@@ -10,7 +10,6 @@ import '/utils/config.dart';
 import '/utils/providers.dart';
 
 void main() async {
-  // await Hive.openBox("search-cache");
   WidgetsFlutterBinding.ensureInitialized();
   await Config.initFirebase();
   runApp(MyApp());

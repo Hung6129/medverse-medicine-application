@@ -30,7 +30,7 @@ class Validations {
 
   static String validateDescription({String value}) {
     if (value.isEmpty) {
-      return 'TextField cannot be empty';
+      return 'Trường thông tin này không được bỏ trống';
     }
     return null;
   }

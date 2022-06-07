@@ -39,21 +39,23 @@ class _WellcomeScreenState extends State<WellcomeScreen>
       onTap: () {
         Navigator.pushNamed(context, "/home");
       },
-      child: Scaffold(
-        backgroundColor: Palette.whiteText,
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ScaleTransition(
-              scale: animation,
-              child: Center(
-                child: Image.asset(
-                  images,
-                  width: 300,
+      child: SafeArea(
+        child: Scaffold(
+          backgroundColor: Palette.whiteText,
+          body: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ScaleTransition(
+                scale: animation,
+                child: Center(
+                  child: Image.asset(
+                    images,
+                    width: 300,
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

@@ -1,13 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
-
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:medverse_mobile_app/utils/app_text_theme.dart';
+import '../../../../models/drug_bank_db/product_name.dart';
 import '/services/service_data.dart';
-
 import '/theme/palette.dart';
 import '/widgets/app_text.dart';
 import '/widgets/dimension.dart';
-import 'package:flutter/material.dart';
 import 'interaction_checker_result.dart';
 
 class InteractionChecker extends StatefulWidget {
@@ -58,6 +57,7 @@ class _InteractionCheckerState extends State<InteractionChecker> {
       return Container(
         padding: EdgeInsets.all(Dimensions.height20),
         child: AppText(
+          color: Palette.mainBlueTheme,
           text:
               "Bắt đầu nhập tên loại thuốc và chọn loại thuốc phù hợp nhất từ danh sách gợi ý. Lặp lại quy trình để thêm nhiều loại thuốc. Sau khi danh sách của bạn hoàn tất, bạn có thể kiểm tra các tương tác ngay lập tức.",
           size: Dimensions.font18,
@@ -104,23 +104,26 @@ class _InteractionCheckerState extends State<InteractionChecker> {
                 suggestionsCallback: (String pattern) {
                   return TypeAhead2.searchName(pattern);
                 },
-                itemBuilder: (context, suggestion) {
+                itemBuilder: (context, ProductName suggestion) {
                   return ListTile(
                     title: AppText(
-                        text: suggestion["productName"],
-                        color: Colors.black54,
-                        size: Dimensions.font16,
-                        fontWeight: FontWeight.normal),
+                      text: suggestion.product_name +
+                          "-" +
+                          suggestion.product_code,
+                      color: Colors.black54,
+                      size: Dimensions.font14,
+                      fontWeight: FontWeight.normal,
+                    ),
                   );
                 },
                 transitionBuilder: (context, suggestionsBox, controller) {
                   return suggestionsBox;
                 },
-                onSuggestionSelected: (suggestion) {
+                onSuggestionSelected: (ProductName suggestion) {
                   if (addedItemsList.length == 2) {
                     print("cannot add");
                   }
-                  _typeAheadController.text = suggestion.productName;
+                  _typeAheadController.text = suggestion.product_name;
                   print(_typeAheadController.text);
                   __addItemToList(_typeAheadController.text);
                 },
@@ -259,38 +262,22 @@ class _InteractionCheckerState extends State<InteractionChecker> {
             __title(),
 
             /// Input Box
-            Container(
-              padding: EdgeInsets.all(Dimensions.height20),
-              width: 340,
-              decoration: BoxDecoration(
+            Neumorphic(
+              style: NeumorphicStyle(
+                shape: NeumorphicShape.flat,
+                boxShape:
+                    NeumorphicBoxShape.roundRect(BorderRadius.circular(12)),
+                depth: 15,
+                lightSource: LightSource.top,
                 color: Colors.white,
-                borderRadius: BorderRadius.circular(Dimensions.radius15),
-                boxShadow: [
-                  BoxShadow(
-                    color: Palette.grey300.withOpacity(0.5),
-                    blurRadius: 5.0,
-                    offset: Offset(0, 5),
-                  ),
-                  BoxShadow(
-                    color: Palette.grey300.withOpacity(0.5),
-                    offset: Offset(5, 5),
-                  ),
-                  BoxShadow(
-                    color: Palette.grey300.withOpacity(0.5),
-                    offset: Offset(-5, 5),
-                  ),
-                ],
               ),
-              // padding: EdgeInsets.all(Dimensions.height25),
-              child: Column(
-                children: [
-                  __textInput(),
-                  __listItems(),
-                  __addBtn(),
-                  __checkBtn(),
-                ],
+              child: Container(
+                width: Dimensions.boxSearchViewWidth,
+                child: Column(
+                  children: [__textInput(), __listItems(), __checkBtn()],
+                ),
               ),
-            )
+            ),
           ],
         ),
       ),

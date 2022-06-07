@@ -92,6 +92,7 @@ class _HomeScreenState extends State<HomeScreen> {
     ),
   };
 
+  List<String> list;
   @override
   Widget build(BuildContext context) {
     /// Loading Shimmer Popular
@@ -193,7 +194,15 @@ class _HomeScreenState extends State<HomeScreen> {
                 transitionBuilder: (context, suggestionsBox, controller) {
                   return suggestionsBox;
                 },
-                onSuggestionSelected: (ProductName suggestion) {
+                onSuggestionSelected: (ProductName suggestion) async {
+                  // if (list.isEmpty) {
+                  //   print("history is emty");
+                  // } else {
+                  //   list.add(suggestion.product_name);
+                  //   await SaveHistorySearch.setToHistory(list);
+                  // }
+                  // list.add(suggestion.product_name);
+                  // await SaveHistorySearch.setToHistory(list);
                   print("tapped");
                   BlocProvider.of<HomeScreenBloc>(context)
                     ..add(
@@ -305,28 +314,30 @@ class _HomeScreenState extends State<HomeScreen> {
 
     /// Build body
     return WillPopScope(
-      child: Scaffold(
-        backgroundColor: Colors.white,
-        drawer: const NavigationDrawerWidget(),
-        appBar: appBarMain(titleText: "Trang chủ"),
-        body: SingleChildScrollView(
-          physics: const AlwaysScrollableScrollPhysics(),
-          child: Column(
-            children: [
-              // Search bar
-              __searchBar(),
-              // List function
-              __listFunIcon(),
+      child: SafeArea(
+        child: Scaffold(
+          backgroundColor: Colors.white,
+          drawer: const NavigationDrawerWidget(),
+          appBar: appBarMain(titleText: "Trang chủ"),
+          body: SingleChildScrollView(
+            // physics: const AlwaysScrollableScrollPhysics(),
+            child: Column(
+              children: [
+                // Search bar
+                __searchBar(),
+                // List function
+                __listFunIcon(),
 
-              // List popular product
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  __title(),
-                  __carouseSlider(),
-                ],
-              ),
-            ],
+                // List popular product
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    __title(),
+                    __carouseSlider(),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),

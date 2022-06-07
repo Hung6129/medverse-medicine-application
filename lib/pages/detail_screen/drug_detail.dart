@@ -1,5 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:medverse_mobile_app/widgets/indicators.dart';
+import 'package:top_snackbar_flutter/custom_snack_bar.dart';
+import 'package:top_snackbar_flutter/top_snack_bar.dart';
+import 'package:translator/translator.dart';
 import '../../models/drug_bank_db/product_model.dart';
 import '../../services/service_data.dart';
 import '../../theme/palette.dart';
@@ -19,94 +24,30 @@ class DrugDetails extends StatefulWidget {
   _DrugDetailsState createState() => _DrugDetailsState();
 }
 
+DateTime now = DateTime.now();
+
 class _DrugDetailsState extends State<DrugDetails> {
+  bool _isAdded = false;
+  @override
+  void initState() {
+    super.initState();
+    if (mounted) {
+      CheckDrugById.checkDrugInFav(widget.drugData).then((value) {
+        if (value == 1) {
+          _isAdded = true;
+        } else {
+          _isAdded = false;
+        }
+      });
+    }
+  }
+
+  /// Get current time day
+  String formatTime = DateFormat.yMd().add_Hm().format(now);
   // Test images
   String imagesFav = "assets/images/drugs_pill/300.jpg";
 
-  // Icon checker setup
-  // Widget getIcons(String id) {
-  //   if (_box.containsKey(id)) {
-  //     return Icon(CupertinoIcons.heart_fill, color: Colors.red);
-  //   } else {
-  //     return Icon(CupertinoIcons.heart, color: Colors.red);
-  //   }
-  // }
-
   // Show Dialog
-  showAlertDialog(BuildContext context, String id) {
-    // set up the buttons
-    Widget cancelButton = TextButton(
-      child: Text("Huỷ"),
-      onPressed: () {
-        Navigator.of(context).pop();
-      },
-    );
-    Widget continueButton = TextButton(
-      child: Text("Bỏ lưu"),
-      onPressed: () {
-        // _box.delete(id);
-      },
-    );
-
-    // set up the AlertDialog
-    AlertDialog alert = AlertDialog(
-      title: Text(""),
-      content: Text("Bạn có chắc muốn bỏ lưu thuốc này ?"),
-      actions: [
-        cancelButton,
-        continueButton,
-      ],
-    );
-
-    // show the dialog
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return alert;
-      },
-    );
-  }
-
-  // Heart on tap evnent
-  // onFavoriteTap(String id) {
-  //   if (_box.containsKey(id)) {
-  //     showAlertDialog(this.context, id);
-  //   } else {
-  //     var info = widget.drugData;
-  //     FavDrugModel data = FavDrugModel(
-  //       productName: info.productName,
-  //       approved: info.approved,
-  //       country: info.country,
-  //       drugbankID: info.drugbankID,
-  //       generic: info.generic,
-  //       otc: info.otc,
-  //       productCode: info.productCode,
-  //       productID: info.productID,
-  //       productLabeller: info.productLabeller,
-  //       productRoute: info.productRoute,
-  //       productStrength: info.productStrength,
-  //       productdosage: info.productdosage,
-  //       productImage: info.productImage,
-  //       drugClearance: info.drugClearance,
-  //       drugDescription: info.drugDescription,
-  //       drugElimination: info.drugElimination,
-  //       drugHalflife: info.drugHalflife,
-  //       drugIndication: info.drugIndication,
-  //       drugMechan: info.drugMechan,
-  //       drugMetabolism: info.drugMetabolism,
-  //       drugName: info.drugName,
-  //       drugPharmaco: info.drugPharmaco,
-  //       drugState: info.drugState,
-  //       drugToxicity: info.drugToxicity,
-  //       // savedTime: DateTime.now().toString(),
-  //     );
-  //     _box.put(info.productID, data);
-  //     Fluttertoast.showToast(
-  //       msg: 'Lưu thành công',
-  //       backgroundColor: Palette.activeButton,
-  //     );
-  //   }
-  // }
 
   List<ProductModel> dataList;
   Future<List<ProductModel>> _getAll() async {
@@ -115,8 +56,15 @@ class _DrugDetailsState extends State<DrugDetails> {
     return dataList;
   }
 
+  __trans(String text) async {
+    final translator = GoogleTranslator();
+    await translator.translate(text, from: 'en', to: 'vi');
+  }
+
   @override
   Widget build(BuildContext context) {
+    __trans("hello");
+
     /// Sliver app bar for product name
     Widget __sliverAppBarProductName(ProductModel data) {
       return SliverAppBar(
@@ -207,24 +155,9 @@ class _DrugDetailsState extends State<DrugDetails> {
       );
     }
 
-    return Scaffold(
-      body: FutureBuilder(
-        future: _getAll(),
-        builder: (context, AsyncSnapshot<List<ProductModel>> snapshot) {
-          if (snapshot.hasData) {
-            var info = snapshot.data[0];
-            return CustomScrollView(
-              slivers: [
-                __sliverAppBarProductName(info),
-                __sliverAppBarDetail(info),
-              ],
-            );
-          } else {
-            return Container();
-          }
-        },
-      ),
-      bottomNavigationBar: BottomAppBar(
+    /// Bottom app bar
+    Widget __bottomApp(ProductModel productModel, String savedTime) {
+      return BottomAppBar(
         child: Container(
           decoration: BoxDecoration(
             border: Border(
@@ -237,39 +170,92 @@ class _DrugDetailsState extends State<DrugDetails> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              // ValueListenableBuilder(
-              //   valueListenable: _box.listenable(),
-              //   builder: (context, Box<FavDrugModel> box, _) {
-              //     return IconButton(
-              //       onPressed: () => onFavoriteTap(info.productID),
-              //       icon: getIcons(info.productID),
-              //     );
-              //   },
-              // ),
               IconButton(
-                onPressed: () {
-                  print("tapped x2");
-                },
-                icon: Icon(
-                  CupertinoIcons.share,
-                  size: Dimensions.icon28,
-                  color: Palette.mainBlueTheme,
-                ),
-              ),
-              IconButton(
-                onPressed: () {
-                  print("tapped x3");
-                },
-                icon: Icon(
-                  CupertinoIcons.exclamationmark_bubble_fill,
-                  size: Dimensions.icon28,
-                  color: Palette.starRating,
-                ),
-              ),
+                  onPressed: () async {
+                    if (_isAdded == false) {
+                      showTopSnackBar(
+                        context,
+                        CustomSnackBar.success(
+                          message: "Đã thêm vào danh sách yêu thích thành công",
+                        ),
+                      );
+                      await SetToFavoriteList.setToFavoriteList(
+                          productModel.product_id, savedTime);
+                      setState(() {
+                        _isAdded = true;
+                      });
+                    } else {
+                      showDialog(
+                          context: context,
+                          barrierDismissible: false,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: AppText(text: "Bỏ lưu"),
+                              content: AppText(
+                                  text:
+                                      "Gỡ thuốc này ra khỏi danh sách yêu thích ?"),
+                              actions: <Widget>[
+                                FlatButton(
+                                  child: AppText(
+                                      text: "Huỷ", color: Palette.warningColor),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
+                                FlatButton(
+                                  child: AppText(
+                                    text: "Gỡ lưu",
+                                    color: Palette.grey,
+                                  ),
+                                  onPressed: () async {
+                                    await DeleteItemInFavList.deleteItems(
+                                        productModel.product_id);
+                                    setState(() {
+                                      _isAdded = false;
+                                    });
+                                    Navigator.of(context).pop();
+                                  },
+                                )
+                              ],
+                            );
+                          });
+                    }
+                  },
+                  icon: _isAdded == true
+                      ? Icon(
+                          CupertinoIcons.heart_solid,
+                          size: Dimensions.icon28,
+                          color: Palette.warningColor,
+                        )
+                      : Icon(
+                          CupertinoIcons.heart,
+                          size: Dimensions.icon28,
+                          color: Palette.warningColor,
+                        )),
             ],
           ),
         ),
-      ),
+      );
+    }
+
+    return FutureBuilder(
+      future: _getAll(),
+      builder: (context, AsyncSnapshot<List<ProductModel>> snapshot) {
+        if (snapshot.hasData) {
+          var info = snapshot.data[0];
+          return Scaffold(
+            body: CustomScrollView(
+              slivers: [
+                __sliverAppBarProductName(info),
+                __sliverAppBarDetail(info),
+              ],
+            ),
+            bottomNavigationBar: __bottomApp(info, formatTime),
+          );
+        } else {
+          return circularProgress(context);
+        }
+      },
     );
   }
 }

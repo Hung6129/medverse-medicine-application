@@ -1,5 +1,5 @@
-import 'package:medverse_mobile_app/models/drug_bank_db/pill_identifiter_model.dart';
-
+import '/models/drug_bank_db/pill_identifiter_model.dart';
+import '/widgets/indicators.dart';
 import '../../../../services/service_data.dart';
 import '/theme/palette.dart';
 import '/widgets/app_text.dart';
@@ -28,13 +28,13 @@ class PillIdentifierListResult extends StatefulWidget {
 }
 
 class _PillIdentifierListResultState extends State<PillIdentifierListResult> {
-  ///
+  /// link to asset
   String assetImage = "assets/image/300_imagesrxnav/";
 
-  ///
+  /// set list
   List<PillIdentifierModel> dataList;
 
-  ///
+  /// get list
   Future<List<PillIdentifierModel>> _getAll() async {
     dataList = await PillIdentifierResult().getDrugByIdentifier(
       widget.query1,
@@ -45,15 +45,17 @@ class _PillIdentifierListResultState extends State<PillIdentifierListResult> {
     return dataList;
   }
 
+  String idMaping;
+
   @override
   Widget build(BuildContext context) {
     /// Title
     Widget __title() {
       return Container(
-        padding: EdgeInsets.all(Dimensions.height15),
+        padding: EdgeInsets.all(Dimensions.height10),
         child: AppText(
             color: Palette.textNo,
-            size: Dimensions.font20,
+            size: Dimensions.font18,
             fontWeight: FontWeight.normal,
             text:
                 "Kết quả ${widget.query1} ${widget.query2} ${widget.query3} ${widget.query4}"),
@@ -71,81 +73,44 @@ class _PillIdentifierListResultState extends State<PillIdentifierListResult> {
                 shrinkWrap: true,
                 itemCount: snapshot.data.length,
                 itemBuilder: (context, index) => Container(
-                  margin: EdgeInsets.only(
-                    left: Dimensions.width20,
-                    right: Dimensions.width20,
-                    bottom: Dimensions.height10,
-                  ),
-                  child: GestureDetector(
-                    onTap: () {},
-                    child: Column(
-                      children: [
-                        //images section
-                        Container(
-                          width: Dimensions.pillIdentifierW,
-                          height: Dimensions.pillIdentifierH,
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                              // fit: BoxFit.cover,
-                              image: AssetImage(assetImage +
-                                  snapshot.data[index].pill_file_name),
+                  width: 200,
+                  color: Palette.grey300,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        height: 280,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage(
+                              assetImage + snapshot.data[index].pill_file_name,
                             ),
                           ),
                         ),
-
-                        // Text container
-                        Container(
-                          width: 300,
-                          decoration: BoxDecoration(
-                              // borderRadius: BorderRadius.only(
-                              //   topRight: Radius.circular(Dimensions.radius20),
-                              //   bottomRight: Radius.circular(Dimensions.radius20),
-                              // ),
-                              ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              AppText(
-                                text: snapshot.data[index].pill_overview,
-                                color: Palette.textNo,
-                                size: Dimensions.font18,
-                                fontWeight: FontWeight.normal,
-                              ),
-                              AppText(
-                                text: snapshot.data[index].pill_imprints,
-                                color: Palette.textNo,
-                                size: Dimensions.font14,
-                                fontWeight: FontWeight.normal,
-                              ),
-                              AppText(
-                                text: snapshot.data[index].pill_colors,
-                                color: Palette.textNo,
-                                size: Dimensions.font14,
-                                fontWeight: FontWeight.normal,
-                              ),
-                              AppText(
-                                text: snapshot.data[index].pill_size,
-                                color: Palette.textNo,
-                                size: Dimensions.font14,
-                                fontWeight: FontWeight.normal,
-                              ),
-                              AppText(
-                                text: snapshot.data[index].pill_shape,
-                                color: Palette.textNo,
-                                size: Dimensions.font16,
-                                fontWeight: FontWeight.normal,
-                              ),
-                            ],
-                          ),
-                        ),
-                        SizedBox(height: Dimensions.height15)
-                      ],
-                    ),
+                      ),
+                      AppText(
+                        text: snapshot.data[index].pill_colors,
+                        color: Palette.textNo,
+                        size: Dimensions.font16,
+                        fontWeight: FontWeight.normal,
+                      ),
+                      AppText(
+                        text: snapshot.data[index].pill_overview,
+                        color: Palette.textNo,
+                        size: Dimensions.font14,
+                        fontWeight: FontWeight.normal,
+                      ),
+                    ],
                   ),
                 ),
               );
+            }
+            if (snapshot.hasError) {
+              return AppText(
+                text: "Có lỗi gì đó đã xảy ra",
+              );
             } else {
-              return CircularProgressIndicator();
+              return circularProgress(context);
             }
           });
     }

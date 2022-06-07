@@ -102,7 +102,8 @@ class _MedicineDictionaryState extends State<MedicineDictionary> {
                             Flexible(
                               child: Text(
                                 word.eng,
-                                style: MobileTextTheme().healthProfileNoDataTextStyle,
+                                style: MobileTextTheme()
+                                    .healthProfileNoDataTextStyle,
                               ),
                             ),
                             SizedBox(

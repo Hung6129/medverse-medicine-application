@@ -19,7 +19,7 @@ class Dimensions {
 
   // dynamic pill identifier
   static double pillIdentifierW = screenWidth / (screenWidth / 350);
-  static double pillIdentifierH = screenHeight / (screenHeight / 300);
+  static double pillIdentifierH = screenHeight / (screenHeight / 250);
   static double boxSearchViewWidth = screenHeight / (screenHeight / 300);
 
 //dynamic height padding and margin
@@ -71,8 +71,8 @@ class Dimensions {
   static double bottomHeight = screenHeight / (screenHeight / 100);
 
 // favorite list items
-  static double itemsSizeImgHeight = screenHeight / (screenHeight / 150);
-  static double itemsSizeTextIconHeight = screenHeight / (screenHeight / 130);
+  static double itemsSizeImgHeight = screenHeight / (screenHeight / 110);
+  static double itemsSizeTextIconHeight = screenHeight / (screenHeight / 80);
 
 // home screen
   static double pageView = screenHeight / (screenHeight / 240);
