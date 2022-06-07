@@ -12,7 +12,6 @@ import '/components/custom_image.dart';
 import '/models/post.dart';
 import '/models/user.dart';
 import '/pages/drawer-items/profile/pages/profile.dart';
-import '/pages/nav-items/feeds/widgets/edit_post_screen.dart';
 import '/screens/comment.dart';
 import '/screens/view_image.dart';
 import '/services/post_service.dart';
@@ -280,7 +279,7 @@ class _UserPostState extends State<UserPost> {
           );
         },
         icon: Icon(
-          Icons.edit_sharp,
+          Icons.edit_note,
           color: Theme.of(context).iconTheme.color,
         ),
       ),

@@ -81,7 +81,9 @@ class _FavoriteDrugsListScreenNavState
                                   onPressed: (context) async {
                                     await DeleteItemInFavList.deleteItems(
                                         snapshot.data[index].productID);
-                                    setState(() {});
+                                    setState(
+                                      () {},
+                                    );
                                   },
                                   backgroundColor: Palette.warningColor,
                                   foregroundColor: Colors.white,
@@ -132,12 +134,6 @@ class _FavoriteDrugsListScreenNavState
                                     child: Container(
                                       height: Dimensions.itemsSizeImgHeight,
                                       decoration: BoxDecoration(
-                                          // borderRadius: BorderRadius.only(
-                                          //   topRight: Radius.circular(
-                                          //       Dimensions.radius20),
-                                          //   bottomRight: Radius.circular(
-                                          //       Dimensions.radius20),
-                                          // ),
                                           color: Palette.mainBlueTheme),
                                       child: Padding(
                                         padding: EdgeInsets.only(
@@ -160,8 +156,9 @@ class _FavoriteDrugsListScreenNavState
                                               height: Dimensions.height10,
                                             ),
                                             AppText(
-                                              text: snapshot
-                                                  .data[index].savedTime,
+                                              text: "Đã lưu vào " +
+                                                  snapshot
+                                                      .data[index].savedTime,
                                               color: Palette.whiteText,
                                               size: Dimensions.font14,
                                               fontWeight: FontWeight.normal,

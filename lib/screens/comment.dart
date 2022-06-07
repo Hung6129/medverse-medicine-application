@@ -98,79 +98,82 @@ class _CommentsState extends State<Comments> {
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               Flexible(
-                child: ListTile(
-                  contentPadding: EdgeInsets.all(0),
-                  title: TextFormField(
-                    textCapitalization: TextCapitalization.sentences,
-                    controller: commentsTEC,
-                    style: TextStyle(
-                      fontSize: 15.0,
-                      color: Theme.of(context).textTheme.headline6.color,
-                    ),
-                    validator: (value) {
-                      if(value.trim().isEmpty) {
-                        return 'Mời bạn nhập nội dung bình luận';
-                      }
-                      return null;
-                    },
-                    decoration: InputDecoration(
-                      contentPadding: EdgeInsets.all(10.0),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(5.0),
-                        borderSide: BorderSide(
-                          color: Theme.of(context).primaryColor,
-                        ),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Theme.of(context).primaryColor,
-                        ),
-                        borderRadius: BorderRadius.circular(5.0),
-                      ),
-                      hintText: "Viết bình luận của bạn...",
-                      hintStyle: TextStyle(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ListTile(
+                    contentPadding: EdgeInsets.all(0),
+                    title: TextFormField(
+                      textCapitalization: TextCapitalization.sentences,
+                      controller: commentsTEC,
+                      style: TextStyle(
                         fontSize: 15.0,
                         color: Theme.of(context).textTheme.headline6.color,
                       ),
-                    ),
-                    maxLines: null,
-                  ),
-                  trailing: GestureDetector(
-                    onTap: () async {
-                      String input = commentsTEC.text;
-
-                      if (cleanComment(input)) {
-                        if(formKey.currentState.validate()) {
-                          await services.uploadComment(
-                            currentUserId(),
-                            commentsTEC.text,
-                            widget.post.postId,
-                            widget.post.ownerId,
-                            widget.post.mediaUrl,
-                          );
+                      validator: (value) {
+                        if (value.trim().isEmpty) {
+                          return 'Mời bạn nhập nội dung bình luận';
                         }
-                      } else {
-                        AwesomeDialog(
-                          context: context,
-                          dialogType: DialogType.WARNING,
-                          headerAnimationLoop: false,
-                          animType: AnimType.TOPSLIDE,
-                          showCloseIcon: true,
-                          closeIcon:
-                              const Icon(Icons.close_fullscreen_outlined),
-                          title: 'Cảnh báo!',
-                          desc:
-                              'Bình luận bạn nhập có chứa nội dung vi phạm tiêu chuẩn cộng đồng của chúng tôi',
-                          descTextStyle: AppTextTheme.oswaldTextStyle,
-                          btnOkOnPress: () {},
-                        ).show();
-                      }
-                      commentsTEC.clear();
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.only(right: 10.0),
-                      child: Icon(
-                        Icons.send,
+                        return null;
+                      },
+                      decoration: InputDecoration(
+                        contentPadding: EdgeInsets.all(10.0),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(5.0),
+                          borderSide: BorderSide(
+                            color: Theme.of(context).primaryColor,
+                          ),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Theme.of(context).primaryColor,
+                          ),
+                          borderRadius: BorderRadius.circular(5.0),
+                        ),
+                        hintText: "Viết bình luận của bạn...",
+                        hintStyle: TextStyle(
+                          fontSize: 15.0,
+                          color: Theme.of(context).textTheme.headline6.color,
+                        ),
+                      ),
+                      maxLines: null,
+                    ),
+                    trailing: GestureDetector(
+                      onTap: () async {
+                        String input = commentsTEC.text;
+
+                        if (cleanComment(input)) {
+                          if (formKey.currentState.validate()) {
+                            await services.uploadComment(
+                              currentUserId(),
+                              commentsTEC.text,
+                              widget.post.postId,
+                              widget.post.ownerId,
+                              widget.post.mediaUrl,
+                            );
+                          }
+                        } else {
+                          AwesomeDialog(
+                            context: context,
+                            dialogType: DialogType.WARNING,
+                            headerAnimationLoop: false,
+                            animType: AnimType.TOPSLIDE,
+                            showCloseIcon: true,
+                            closeIcon:
+                                const Icon(Icons.close_fullscreen_outlined),
+                            title: 'Cảnh báo!',
+                            desc:
+                                'Bình luận bạn nhập có chứa nội dung vi phạm tiêu chuẩn cộng đồng của chúng tôi',
+                            descTextStyle: AppTextTheme.oswaldTextStyle,
+                            btnOkOnPress: () {},
+                          ).show();
+                        }
+                        commentsTEC.clear();
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.only(right: 10.0),
+                        child: Icon(
+                          Icons.send,
+                        ),
                       ),
                     ),
                   ),
