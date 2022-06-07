@@ -152,19 +152,24 @@ class _CompareResultState extends State<CompareResult> {
 
   @override
   Widget build(BuildContext context) {
-    /// Title
-    Widget __title() {
-      return Container(
-        padding: EdgeInsets.all(Dimensions.height10),
-        child: AppText(
-            color: Palette.textNo,
-            size: Dimensions.font18,
-            fontWeight: FontWeight.normal,
-            text: "Kết quả ${widget.query1} ${widget.query2} "),
-      );
+    Widget __table() {
+      return FutureBuilder<List<CompareDrugModel>>(
+          future: _getAll(),
+          builder: (ctx, snapshot) {
+            if (snapshot.hasData) {
+              // show table
+            }
+            if (snapshot.hasError || snapshot.data == null) {
+              return AppText(
+                text: "Có lỗi gì đó đã xảy ra",
+              );
+            } else {
+              return circularProgress(context);
+            }
+          });
     }
 
-    /// Queried list data
+// test
     Widget __listData() {
       return FutureBuilder<List<CompareDrugModel>>(
           future: _getAll(),
@@ -181,7 +186,7 @@ class _CompareResultState extends State<CompareResult> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       AppText(
-                        text: snapshot.data[index].clearance,
+                        text: snapshot.data[index].product_name,
                         color: Palette.textNo,
                         size: Dimensions.font16,
                         fontWeight: FontWeight.normal,
@@ -207,105 +212,19 @@ class _CompareResultState extends State<CompareResult> {
           });
     }
 
-    Widget _buildBoxTitle(String title, double height) {
-      return Container(
-        decoration: BoxDecoration(
-          color: Colors.white,
-          border: Border(
-              top: BorderSide(color: Colors.black),
-              left: BorderSide(color: Colors.black)),
-        ),
-        height: height,
-        child: Center(
-          child: Text(
-            title,
-            style: TextStyle(fontSize: 20, color: Colors.black),
-          ),
-        ),
-      );
-    }
-
-    Widget _buildBoxData(String title, double height) {
-      return Container(
-        decoration: BoxDecoration(
-          color: Colors.white,
-          border: Border(
-              top: BorderSide(color: Colors.black),
-              left: BorderSide(color: Colors.black)),
-        ),
-        height: height,
-        child: Center(
-          child: Text(
-            title,
-            style: TextStyle(fontSize: 15, color: Colors.black),
-          ),
-        ),
-      );
-    }
-
-    Widget __table() {
-      return SingleChildScrollView(
-        scrollDirection: Axis.vertical,
-        child: Column(children: [
-          SizedBox(
-            height: Dimensions.height10,
-          ),
-          Table(
-            columnWidths: {
-              0: FlexColumnWidth(),
-              1: FlexColumnWidth(0.01),
-              2: FlexColumnWidth(),
-            },
-            children: [
-              TableRow(
-                children: [
-                  _buildBoxTitle("Heyy", 50),
-                  _buildBoxTitle("Hello", 50),
-                ],
-              ),
-              TableRow(
-                children: [
-                  _buildBoxTitle("Data1", 50),
-                  _buildBoxTitle("Data2", 50)
-                ],
-              ),
-              TableRow(
-                children: [
-                  _buildBoxData("Data1", 200),
-                  _buildBoxData("Data2", 200)
-                ],
-              ),
-              TableRow(
-                children: [
-                  _buildBoxData("Data1", 200),
-                  _buildBoxData("Data2", 200)
-                ],
-              ),
-              TableRow(
-                children: [
-                  _buildBoxData("Data1", 200),
-                  _buildBoxData("Data2", 200)
-                ],
-              ),
-            ],
-          )
-        ]),
-      );
-    }
-
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Palette.mainBlueTheme,
         title: Text(
-          'Tìm kiếm nâng cao',
+          'So sánh',
           style: TextStyle(fontWeight: FontWeight.w900),
         ),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
         child: Column(
-          children: [__title(), __listData(), __table()],
+          children: [__table(), __listData()],
         ),
       ),
     );

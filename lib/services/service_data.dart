@@ -1,4 +1,5 @@
 import 'package:medverse_mobile_app/models/drug_bank_db/compare_drug_model.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../models/drug_bank_db/favorite_list_model_w_name.dart';
 import '/models/drug_bank_db/pill_identifiter_model.dart';
@@ -27,13 +28,28 @@ class DatabaseProvider {
   }
 }
 
+class SaveHistorySearch {
+  static SharedPreferences _preferences;
+  static const _keyProductName = 'productName';
+  static Future init() async {
+    _preferences = await SharedPreferences.getInstance();
+  }
+
+  static Future setToHistory(List<String> productName) async {
+    await _preferences.setStringList(_keyProductName, productName);
+  }
+
+  static List<String> getProductName() =>
+      _preferences.getStringList(_keyProductName);
+}
+
 class TypeAhead2 {
   static Future<List<ProductName>> searchName(String keyword) async {
     if (keyword.isEmpty) {
       return <ProductName>[];
     }
     if (keyword == " ") {
-      throw ("Tên thuốc không thể bắt đầu bằng khoảng trắng");
+      return <ProductName>[];
     } else {
       var db = await DatabaseSqliteConnection.drugBankAccess();
       // _logSerchTerm(keyword);
