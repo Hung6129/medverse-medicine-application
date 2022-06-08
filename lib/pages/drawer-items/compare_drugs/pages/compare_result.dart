@@ -158,7 +158,7 @@ class _CompareResultState extends State<CompareResult> {
           builder: (ctx, snapshot) {
             if (snapshot.hasData) {
               // show table
-              
+
             }
             if (snapshot.hasError || snapshot.data == null) {
               return AppText(
