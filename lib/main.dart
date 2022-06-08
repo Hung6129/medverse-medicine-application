@@ -38,7 +38,6 @@ class _MyAppState extends State<MyApp> {
       providers: providers,
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        // theme: notifier.dark ? Constants.darkTheme : Constants.lightTheme,
         home: MultiBlocProvider(
           providers: [
             BlocProvider(
