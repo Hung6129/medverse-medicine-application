@@ -28,20 +28,7 @@ class DatabaseProvider {
   }
 }
 
-class SaveHistorySearch {
-  static SharedPreferences _preferences;
-  static const _keyProductName = 'productName';
-  static Future init() async {
-    _preferences = await SharedPreferences.getInstance();
-  }
 
-  static Future setToHistory(List<String> productName) async {
-    await _preferences.setStringList(_keyProductName, productName);
-  }
-
-  static List<String> getProductName() =>
-      _preferences.getStringList(_keyProductName);
-}
 
 class TypeAhead2 {
   static Future<List<ProductName>> searchName(String keyword) async {

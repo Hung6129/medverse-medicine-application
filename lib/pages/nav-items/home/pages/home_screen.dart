@@ -3,6 +3,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '/models/drug_bank_db/product_name.dart';
 import '/pages/nav-items/home/bloc/home_screen_bloc.dart';
 import '/services/service_data.dart';
@@ -92,6 +93,22 @@ class _HomeScreenState extends State<HomeScreen> {
     ),
   };
 
+// void saveHistorySearch(List<ProductName> saveList) {
+//   List<String> historySearch = [];
+//   final SharedPreferences _preferences;
+//   static const _keyHistorySearch = 'historySearch';
+//   // static Future init() async {
+//   //   _preferences = await SharedPreferences.getInstance();
+//   // }
+
+//   static setToHistory(List<ProductName> saveItems) {
+//     historySearch = [];
+//     _preferences.setStringList(_keyHistorySearch, historySearch);
+//   }
+
+//   static List<String> getProductName() =>
+//       _preferences.getStringList(_keyHistorySearch);
+// }
   List<String> list;
   @override
   Widget build(BuildContext context) {
@@ -195,14 +212,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   return suggestionsBox;
                 },
                 onSuggestionSelected: (ProductName suggestion) async {
-                  // if (list.isEmpty) {
-                  //   print("history is emty");
-                  // } else {
-                  //   list.add(suggestion.product_name);
-                  //   await SaveHistorySearch.setToHistory(list);
-                  // }
-                  // list.add(suggestion.product_name);
-                  // await SaveHistorySearch.setToHistory(list);
                   print("tapped");
                   BlocProvider.of<HomeScreenBloc>(context)
                     ..add(

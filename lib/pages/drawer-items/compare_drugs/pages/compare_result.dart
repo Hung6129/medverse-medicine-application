@@ -156,54 +156,11 @@ class _CompareResultState extends State<CompareResult> {
       return FutureBuilder<List<CompareDrugModel>>(
           future: _getAll(),
           builder: (ctx, snapshot) {
+            var data = snapshot.data;
             if (snapshot.hasData) {
               // show table
-
             }
             if (snapshot.hasError || snapshot.data == null) {
-              return AppText(
-                text: "Có lỗi gì đó đã xảy ra",
-              );
-            } else {
-              return circularProgress(context);
-            }
-          });
-    }
-
-// test
-    Widget __listData() {
-      return FutureBuilder<List<CompareDrugModel>>(
-          future: _getAll(),
-          builder: (ctx, snapshot) {
-            if (snapshot.hasData) {
-              return ListView.builder(
-                physics: NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                itemCount: snapshot.data.length,
-                itemBuilder: (context, index) => Container(
-                  width: 200,
-                  color: Palette.grey300,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      AppText(
-                        text: snapshot.data[index].product_name,
-                        color: Palette.textNo,
-                        size: Dimensions.font16,
-                        fontWeight: FontWeight.normal,
-                      ),
-                      AppText(
-                        text: snapshot.data[index].drug_state,
-                        color: Palette.textNo,
-                        size: Dimensions.font14,
-                        fontWeight: FontWeight.normal,
-                      ),
-                    ],
-                  ),
-                ),
-              );
-            }
-            if (snapshot.hasError) {
               return AppText(
                 text: "Có lỗi gì đó đã xảy ra",
               );
@@ -224,9 +181,7 @@ class _CompareResultState extends State<CompareResult> {
         centerTitle: true,
       ),
       body: SingleChildScrollView(
-        child: Column(
-          children: [__table(), __listData()],
-        ),
+        child: __table(),
       ),
     );
   }
