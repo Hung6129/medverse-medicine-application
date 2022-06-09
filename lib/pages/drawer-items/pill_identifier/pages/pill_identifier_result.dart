@@ -119,7 +119,7 @@ class _PillIdentifierListResultState extends State<PillIdentifierListResult> {
                   child: Container(
                     padding: EdgeInsets.only(left: Dimensions.width10),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Container(
                           width: 150,
@@ -134,30 +134,39 @@ class _PillIdentifierListResultState extends State<PillIdentifierListResult> {
                             ),
                           ),
                         ),
-                        Container(
-                          width: 150,
-                          height: 150,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              AppText(
-                                text: data.pill_colors,
-                                size: Dimensions.font14,
-                              ),
-                              AppText(
-                                text: data.pill_imprints,
-                                size: Dimensions.font14,
-                              ),
-                              AppText(
-                                text: data.pill_shape,
-                                size: Dimensions.font14,
-                              ),
-                              AppText(
-                                text: data.pill_size,
-                                size: Dimensions.font14,
-                              ),
-                            ],
+                        SizedBox(width: 10.0),
+                        Expanded(
+                          child: Container(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  data.pill_overview,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
+                                    fontSize: Dimensions.font14,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                                AppText(
+                                  text: 'Màu sắc: ' + data.pill_colors,
+                                  size: 12,
+                                ),
+                                AppText(
+                                  text: 'Imprint: ' + data.pill_imprints,
+                                  size: 12,
+                                ),
+                                AppText(
+                                  text: 'Hình dạng: ' + data.pill_shape,
+                                  size: 12,
+                                ),
+                                AppText(
+                                  text: 'Kích thước: ' + data.pill_size,
+                                  size: 12,
+                                ),
+                              ],
+                            ),
                           ),
                         )
                       ],
