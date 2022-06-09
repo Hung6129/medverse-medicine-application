@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
 import '/models/drug_bank_db/pill_identifiter_model.dart';
 import '/widgets/indicators.dart';
@@ -47,12 +47,10 @@ class _PillIdentifierListResultState extends State<PillIdentifierListResult> {
     return dataList;
   }
 
-  String idMaping;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      // backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Palette.mainBlueTheme,
         title: Text(
@@ -76,14 +74,16 @@ class _PillIdentifierListResultState extends State<PillIdentifierListResult> {
 
   /// Title
   Widget __title() {
-    return Container(
-      padding: EdgeInsets.all(Dimensions.height10),
-      child: AppText(
-          color: Palette.textNo,
-          size: Dimensions.font18,
-          fontWeight: FontWeight.normal,
-          text:
-              "Kết quả ${widget.query1} ${widget.query2} ${widget.query3} ${widget.query4}"),
+    return Center(
+      child: Container(
+        padding: EdgeInsets.all(Dimensions.height10),
+        child: AppText(
+            color: Palette.textNo,
+            size: Dimensions.font18,
+            fontWeight: FontWeight.normal,
+            text:
+                "Kết quả ${widget.query1} ${widget.query2} ${widget.query3} ${widget.query4}"),
+      ),
     );
   }
 
@@ -97,100 +97,75 @@ class _PillIdentifierListResultState extends State<PillIdentifierListResult> {
             physics: NeverScrollableScrollPhysics(),
             shrinkWrap: true,
             itemCount: snapshot.data.length,
-            itemBuilder: (context, index) => Padding(
-              padding: const EdgeInsets.all(5.0),
-              child: Container(
-                margin: EdgeInsets.all(10.0),
-                child: GestureDetector(
-                  onTap: () {
-                    /*Navigator.push(context,
-                          MaterialPageRoute(builder: (_) =>
-                              DetailsScreen(hotel: hotelscreen,),));*/
-                  },
+            itemBuilder: (context, index) {
+              var data = snapshot.data[index];
+              return Container(
+                height: Dimensions.height30 * 6,
+                margin: EdgeInsets.only(
+                  // top: Dimensions.height10,
+                  left: Dimensions.width10,
+                  right: Dimensions.width10,
+                  bottom: Dimensions.height10,
+                ),
+                child: Neumorphic(
+                  style: NeumorphicStyle(
+                    shape: NeumorphicShape.flat,
+                    boxShape:
+                        NeumorphicBoxShape.roundRect(BorderRadius.circular(12)),
+                    depth: 15,
+                    lightSource: LightSource.top,
+                    color: Colors.white,
+                  ),
                   child: Container(
-                    height: 150,
-                    width: MediaQuery.of(context).size.width,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(
-                            color: Colors.black12,
-                            offset: Offset(0.0, 4.0),
-                            blurRadius: 8.0)
+                    padding: EdgeInsets.only(left: Dimensions.width10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                          width: 150,
+                          height: 150,
+                          decoration: BoxDecoration(
+                            borderRadius:
+                                BorderRadius.circular(Dimensions.radius15),
+                            image: DecorationImage(
+                              fit: BoxFit.cover,
+                              image:
+                                  AssetImage(assetImage + data.pill_file_name),
+                            ),
+                          ),
+                        ),
+                        Container(
+                          width: 150,
+                          height: 150,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              AppText(
+                                text: data.pill_colors,
+                                size: Dimensions.font14,
+                              ),
+                              AppText(
+                                text: data.pill_imprints,
+                                size: Dimensions.font14,
+                              ),
+                              AppText(
+                                text: data.pill_shape,
+                                size: Dimensions.font14,
+                              ),
+                              AppText(
+                                text: data.pill_size,
+                                size: Dimensions.font14,
+                              ),
+                            ],
+                          ),
+                        )
                       ],
-                    ),
-                    child: Flexible(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            height: 200,
-                            width: 120,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(10),
-                                  bottomLeft: Radius.circular(10)),
-                              image: DecorationImage(
-                                  image: AssetImage(
-                                    assetImage +
-                                        snapshot.data[index].pill_file_name,
-                                  ),
-                                  fit: BoxFit.cover),
-                            ),
-                          ),
-                          SizedBox(width: 20),
-                          Flexible(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  snapshot.data[index].pill_overview,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
-                                      fontSize: 18, fontWeight: FontWeight.w500),
-                                ),
-                                SizedBox(height: 3),
-                                Text(
-                                  'Imprint: ' + snapshot.data[index].pill_imprints,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
-                                      fontSize: 12, fontWeight: FontWeight.w400),
-                                ),
-                                SizedBox(height: 3),
-                                Text(
-                                  'Màu sắc: ' + snapshot.data[index].pill_colors,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
-                                      fontSize: 12, fontWeight: FontWeight.w400),
-                                ),
-                                SizedBox(height: 3),
-                                Text(
-                                  'Hình dạng: ' + snapshot.data[index].pill_shape,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
-                                      fontSize: 12, fontWeight: FontWeight.w400),
-                                ),
-                                SizedBox(height: 3),
-                                Text(
-                                  'Kích cỡ: ' + snapshot.data[index].pill_size,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
-                                      fontSize: 12, fontWeight: FontWeight.w400),
-                                ),
-                                SizedBox(height: 3),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
                     ),
                   ),
                 ),
-              ),
-            ),
+              );
+            },
           );
         }
         if (snapshot.hasError) {
