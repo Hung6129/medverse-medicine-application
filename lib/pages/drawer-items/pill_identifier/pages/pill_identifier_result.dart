@@ -1,3 +1,5 @@
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+
 import '/models/drug_bank_db/pill_identifiter_model.dart';
 import '/widgets/indicators.dart';
 import '../../../../services/service_data.dart';
@@ -45,78 +47,10 @@ class _PillIdentifierListResultState extends State<PillIdentifierListResult> {
     return dataList;
   }
 
-  String idMaping;
-
   @override
   Widget build(BuildContext context) {
-    /// Title
-    Widget __title() {
-      return Container(
-        padding: EdgeInsets.all(Dimensions.height10),
-        child: AppText(
-            color: Palette.textNo,
-            size: Dimensions.font18,
-            fontWeight: FontWeight.normal,
-            text:
-                "Kết quả ${widget.query1} ${widget.query2} ${widget.query3} ${widget.query4}"),
-      );
-    }
-
-    /// Queried list data
-    Widget __listData() {
-      return FutureBuilder<List<PillIdentifierModel>>(
-          future: _getAll(),
-          builder: (ctx, snapshot) {
-            if (snapshot.hasData) {
-              return ListView.builder(
-                physics: NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                itemCount: snapshot.data.length,
-                itemBuilder: (context, index) => Container(
-                  width: 200,
-                  color: Palette.grey300,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        height: 280,
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                            image: AssetImage(
-                              assetImage + snapshot.data[index].pill_file_name,
-                            ),
-                          ),
-                        ),
-                      ),
-                      AppText(
-                        text: snapshot.data[index].pill_colors,
-                        color: Palette.textNo,
-                        size: Dimensions.font16,
-                        fontWeight: FontWeight.normal,
-                      ),
-                      AppText(
-                        text: snapshot.data[index].pill_overview,
-                        color: Palette.textNo,
-                        size: Dimensions.font14,
-                        fontWeight: FontWeight.normal,
-                      ),
-                    ],
-                  ),
-                ),
-              );
-            }
-            if (snapshot.hasError) {
-              return AppText(
-                text: "Có lỗi gì đó đã xảy ra",
-              );
-            } else {
-              return circularProgress(context);
-            }
-          });
-    }
-
     return Scaffold(
-      backgroundColor: Colors.white,
+      // backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Palette.mainBlueTheme,
         title: Text(
@@ -127,9 +61,130 @@ class _PillIdentifierListResultState extends State<PillIdentifierListResult> {
       ),
       body: SingleChildScrollView(
         child: Column(
-          children: [__title(), __listData()],
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            __title(),
+            __listData(),
+          ],
         ),
       ),
+    );
+  }
+
+  /// Title
+  Widget __title() {
+    return Center(
+      child: Container(
+        padding: EdgeInsets.all(Dimensions.height10),
+        child: AppText(
+            color: Palette.textNo,
+            size: Dimensions.font18,
+            fontWeight: FontWeight.normal,
+            text:
+                "Kết quả ${widget.query1} ${widget.query2} ${widget.query3} ${widget.query4}"),
+      ),
+    );
+  }
+
+  /// Queried list data
+  Widget __listData() {
+    return FutureBuilder<List<PillIdentifierModel>>(
+      future: _getAll(),
+      builder: (ctx, snapshot) {
+        if (snapshot.hasData) {
+          return ListView.builder(
+            physics: NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            itemCount: snapshot.data.length,
+            itemBuilder: (context, index) {
+              var data = snapshot.data[index];
+              return Container(
+                height: Dimensions.height30 * 6,
+                margin: EdgeInsets.only(
+                  // top: Dimensions.height10,
+                  left: Dimensions.width10,
+                  right: Dimensions.width10,
+                  bottom: Dimensions.height10,
+                ),
+                child: Neumorphic(
+                  style: NeumorphicStyle(
+                    shape: NeumorphicShape.flat,
+                    boxShape:
+                        NeumorphicBoxShape.roundRect(BorderRadius.circular(12)),
+                    depth: 15,
+                    lightSource: LightSource.top,
+                    color: Colors.white,
+                  ),
+                  child: Container(
+                    padding: EdgeInsets.only(left: Dimensions.width10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Container(
+                          width: 150,
+                          height: 150,
+                          decoration: BoxDecoration(
+                            borderRadius:
+                                BorderRadius.circular(Dimensions.radius15),
+                            image: DecorationImage(
+                              fit: BoxFit.cover,
+                              image:
+                                  AssetImage(assetImage + data.pill_file_name),
+                            ),
+                          ),
+                        ),
+                        SizedBox(width: 10.0),
+                        Expanded(
+                          child: Container(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  data.pill_overview,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
+                                    fontSize: Dimensions.font14,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                                AppText(
+                                  text: 'Màu sắc: ' + data.pill_colors,
+                                  size: 12,
+                                ),
+                                AppText(
+                                  text: 'Imprint: ' + data.pill_imprints,
+                                  size: 12,
+                                ),
+                                AppText(
+                                  text: 'Hình dạng: ' + data.pill_shape,
+                                  size: 12,
+                                ),
+                                AppText(
+                                  text: 'Kích thước: ' + data.pill_size,
+                                  size: 12,
+                                ),
+                              ],
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+              );
+            },
+          );
+        }
+        if (snapshot.hasError) {
+          return AppText(
+            text: "Có lỗi gì đó đã xảy ra",
+          );
+        } else {
+          return circularProgress(context);
+        }
+      },
     );
   }
 }

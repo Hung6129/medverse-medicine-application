@@ -6,7 +6,6 @@ import '/view_models/post/posts_view_model.dart';
 import '/view_models/auth/register_view_model.dart';
 import '/view_models/profile/edit_profile_view_model.dart';
 import '/view_models/user/user_view_model.dart';
-import '/utils/constants.dart';
 
 List<SingleChildWidget> providers = [
   ChangeNotifierProvider(create: (_) => RegisterViewModel()),
@@ -15,5 +14,4 @@ List<SingleChildWidget> providers = [
   ChangeNotifierProvider(create: (_) => CaptureImageViewModel()),
   ChangeNotifierProvider(create: (_) => EditProfileViewModel()),
   ChangeNotifierProvider(create: (_) => UserViewModel()),
-  ChangeNotifierProvider(create: (_) => ThemeNotifier()),
 ];
