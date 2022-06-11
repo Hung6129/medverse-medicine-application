@@ -211,14 +211,15 @@ class _HomeScreenState extends State<HomeScreen> {
                   return suggestionsBox;
                 },
                 onSuggestionSelected: (suggestion) async {
-                  print("tapped" + suggestion['tenThuoc']);
-                  // BlocProvider.of<HomeScreenBloc>(context)
-                  //   ..add(
-                  //     OnTapEvent(
-                  //       context: context,
-                  //       navigateData: suggestion.product_id,
-                  //     ),
-                  //   );
+                  print("tapped " + suggestion['tenThuoc']);
+                  print("tappedx2 " + suggestion['id']);
+                  BlocProvider.of<HomeScreenBloc>(context)
+                    ..add(
+                      OnTapEvent(
+                        context: context,
+                        navigateData: suggestion['id'],
+                      ),
+                    );
                 },
                 validator: (value) {
                   if (value.isEmpty) {

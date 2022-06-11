@@ -128,15 +128,10 @@ flutter:
     - assets/flare/
     - database/Glossary.sqlite
     - database/drugbank.sqlite3
-    - assets/images/drugs_pill/Calcet.jpg
-    - assets/icons/
     - assets/images/
     - assets/images/splash/Medverse.png
-    - assets/images/drugs_pill/
     - assets/health_profile_icon/
-    - assets/images/drugs_pill/002282029.jpg
-    - assets/images/drugs_pill/
-    - assets/grid_view_images/
+
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

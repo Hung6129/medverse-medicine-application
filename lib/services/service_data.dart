@@ -6,7 +6,6 @@ import 'package:medverse_mobile_app/utils/constants.dart';
 import '../models/drug_bank_db/favorite_list_model_w_name.dart';
 import '../models/drug_bank_db_api/product_name_api.dart';
 import '/models/drug_bank_db/pill_identifiter_model.dart';
-import '/models/drug_bank_db/product_model.dart';
 import '/models/drug_bank_db/product_name.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
@@ -16,7 +15,7 @@ class TypeAheadByName {
   static Future<List<Map<String, String>>> getTypeAheadByName(
       String input) async {
     if (input.isEmpty) {
-      return Future.error("input bi trong");
+      return <Map<String, String>>[];
     } else {
       http.Response resData = await http
           .get(Uri.parse(Constants.BASE_URL + Constants.NAME_SEARCH + input));
@@ -28,8 +27,9 @@ class TypeAheadByName {
       } else {
         throw ('Request failed with status: ${resData.statusCode}.');
       }
-      return Future.value(
-          suggest.map((e) => {'tenThuoc': e.productName}).toList());
+      return Future.value(suggest
+          .map((e) => {'tenThuoc': e.productName, 'id': e.productID})
+          .toList());
     }
   }
 }
@@ -90,44 +90,6 @@ class TypeAhead2 {
   }
 }
 
-class GetDetailData {
-  Future<List<ProductModel>> getDrugDetail(String productID) async {
-    var db = await DatabaseSqliteConnection.drugBankAccess();
-
-    List<Map<String, dynamic>> maps = await db.rawQuery(
-        "SELECT product_id,  product_name,product_labeller,product_code,product_route,product_dosage,product_strength,product_approved,product_otc,product_generic,product_country,drug_description,drug_state,drug_indication,pharmacodynamics,mechanism,toxicity,metabolism,half_life,route_of_elimination,clearance FROM products inner join drugs on drugs.drugbank_id = products.drugbank_id WHERE product_id = '$productID'");
-    print(maps.length);
-    return List.generate(
-      maps.length,
-      (i) {
-        return ProductModel(
-          product_id: maps[i]['product_id'].toString(),
-          product_name: maps[i]['product_name'].toString(),
-          product_labeller: maps[i]['product_labeller'].toString(),
-          product_code: maps[i]['product_code'].toString(),
-          product_route: maps[i]['product_route'].toString(),
-          product_dosage: maps[i]['product_dosage'].toString(),
-          product_strength: maps[i]['product_strength'].toString(),
-          product_approved: maps[i]['product_approved'].toString(),
-          product_otc: maps[i]['product_otc'].toString(),
-          product_generic: maps[i]['product_generic'].toString(),
-          product_country: maps[i]['product_country'].toString(),
-          drug_description: maps[i]['drug_description'].toString(),
-          drug_state: maps[i]['drug_state'].toString(),
-          drug_indication: maps[i]['drug_indication'].toString(),
-          pharmacodynamics: maps[i]['pharmacodynamics'].toString(),
-          mechanism: maps[i]['mechanism'].toString(),
-          toxicity: maps[i]['toxicity'].toString(),
-          metabolism: maps[i]['metabolism'].toString(),
-          half_life: maps[i]['half_life'].toString(),
-          route_of_elimination: maps[i]['route_of_elimination'].toString(),
-          clearance: maps[i]['clearance'].toString(),
-        );
-      },
-    );
-  }
-}
-
 class SetToFavoriteList {
   static Future setToFavoriteList(String productID, String savedTime) async {
     var db = await DatabaseSqliteConnection.drugBankAccess();
@@ -174,16 +136,6 @@ class CheckDrugById {
     } else {
       return 1;
     }
-  }
-}
-
-class GetIdFromImages {
-  static Future getImagesId(String name) async {
-    var db = await DatabaseSqliteConnection.drugBankAccess();
-    var productID = await db.rawQuery(
-        "SELECT product_id FROM products where product_name like '%$name%' limit 1;");
-    print(productID);
-    return productID;
   }
 }
 
