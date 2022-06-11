@@ -1,16 +1,22 @@
+import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'dart:async';
+import 'dart:convert';
 import 'package:medverse_mobile_app/widgets/indicators.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
 import 'package:translator/translator.dart';
+import 'package:http/http.dart' as http;
 import '../../models/drug_bank_db/product_model.dart';
 import '../../services/service_data.dart';
 import '../../theme/palette.dart';
+import '../../utils/validation.dart';
 import '../../widgets/app_text.dart';
 import '../../widgets/dimension.dart';
 import '../../widgets/rich_text_cus.dart';
+import 'drug_detail.dart';
 
 class DrugDetails extends StatefulWidget {
   final String drugData;
@@ -23,14 +29,20 @@ class DrugDetails extends StatefulWidget {
   @override
   _DrugDetailsState createState() => _DrugDetailsState();
 }
+Future<ProductModel> postApi;
 
 DateTime now = DateTime.now();
+
+int secondsSinceEpoch = now.millisecondsSinceEpoch ~/ Duration.millisecondsPerSecond;
+var date = DateTime.fromMillisecondsSinceEpoch(secondsSinceEpoch * 1000);
 
 class _DrugDetailsState extends State<DrugDetails> {
   bool _isAdded = false;
   @override
   void initState() {
     super.initState();
+    print(date);
+
     if (mounted) {
       CheckDrugById.checkDrugInFav(widget.drugData).then((value) {
         if (value == 1) {
@@ -110,6 +122,16 @@ class _DrugDetailsState extends State<DrugDetails> {
 
     /// Sliver
     Widget __sliverAppBarDetail(ProductModel data) {
+      print('Product Id: ' + data.product_id);
+      print('Product name: ' + data.product_name);
+      var rnd = new Random();
+      var next = rnd.nextDouble() * 1000000;
+      while (next < 100000) {
+      next *= 10;
+      }
+      var requestId = next.toInt().toString() + data.product_id;
+      print(requestId);
+
       return SliverToBoxAdapter(
         child: Container(
           padding: EdgeInsets.only(
@@ -121,7 +143,7 @@ class _DrugDetailsState extends State<DrugDetails> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // Product
-              RichTextCus(text1: "Labeller:", text2: data.product_labeller), //d
+              RichTextCus(text1: "Labeller:", text2: data.product_labeller),
               RichTextCus(text1: "Route:", text2: data.product_route), //d
               RichTextCus(text1: "Dosage:", text2: data.product_dosage), //d
               RichTextCus(text1: "Strength:", text2: data.product_strength), //d
@@ -257,5 +279,31 @@ class _DrugDetailsState extends State<DrugDetails> {
         }
       },
     );
+  }
+
+  /// Post information to API
+  Future<ProductModel> postDrug(String timestamp, String requestId, String productId, String productName) async {
+    final response = await http.post(
+      Uri.parse('https://jsonplaceholder.typicode.com/albums'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(<String, String>{
+        'timestamp': timestamp,
+        'requestId': requestId,
+        'productId': productId,
+        'productName': productName,
+      }),
+    );
+
+    if (response.statusCode == 201) {
+      // If the server did return a 201 CREATED response,
+      // then parse the JSON.
+      return ProductModel.fromJson(jsonDecode(response.body));
+    } else {
+      // If the server did not return a 201 CREATED response,
+      // then throw an exception.
+      throw Exception('Failed to create album.');
+    }
   }
 }
