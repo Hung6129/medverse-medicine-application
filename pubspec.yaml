@@ -65,7 +65,7 @@ dependencies:
   path: any
   bloc: any
   equatable: any
-  http: any
+  http: ^0.13.4 
   sqflite: any
   sqlite3: any
 

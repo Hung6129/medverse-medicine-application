@@ -1,20 +1,54 @@
-import 'package:medverse_mobile_app/models/drug_bank_db/compare_drug_model.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:convert';
 
+import 'package:http/http.dart' as http;
+import 'package:medverse_mobile_app/models/drug_bank_db/compare_drug_model.dart';
+import 'package:medverse_mobile_app/utils/constants.dart';
 import '../models/drug_bank_db/favorite_list_model_w_name.dart';
+import '../models/drug_bank_db_api/product_name_api.dart';
 import '/models/drug_bank_db/pill_identifiter_model.dart';
 import '/models/drug_bank_db/product_model.dart';
 import '/models/drug_bank_db/product_name.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
-import '/utils/config.dart';
 import '/utils/database_sqlite_connection.dart';
 
-final FirebaseAnalytics firebaseAnalytics = Config.firebaseAnalytics;
+class TypeAheadByName {
+  static Future<List<Map<String, String>>> getTypeAheadByName(
+      String input) async {
+    if (input.isEmpty) {
+      return Future.error("input bi trong");
+    } else {
+      http.Response resData = await http
+          .get(Uri.parse(Constants.BASE_URL + Constants.NAME_SEARCH + input));
+      List<ProductNameApi> suggest = [];
+      if (resData.statusCode == 200) {
+        Iterable listData = json.decode(resData.body);
+        suggest = List<ProductNameApi>.from(
+            listData.map((e) => ProductNameApi.fromJson(e)));
+      } else {
+        throw ('Request failed with status: ${resData.statusCode}.');
+      }
+      return Future.value(
+          suggest.map((e) => {'tenThuoc': e.productName}).toList());
+    }
+  }
+}
 
-// void _logSerchTerm(String keyword) async {
-//   await firebaseAnalytics.logMedicineSearch(productName: keyword);
+/// Get a list of data item in api
+// class InteractionFetch {
+//   static Future<List<drugProductTest>> getRecommened() async {
+//     try {
+//       var response = await http.get(Uri.parse(AppConstants.BASE_URL));
+//       if (response.statusCode == 200) {
+//         List listTrend = json.decode(response.body) as List;
+//         return listTrend.map((e) => drugProductTest.fromJson(e)).toList();
+//       } else {
+//         throw Exception("Failed to fetch data");
+//       }
+//     } catch (e) {
+//       throw Exception("No Internet Connection");
+//     }
+//   }
 // }
 
 class DatabaseProvider {
@@ -27,8 +61,6 @@ class DatabaseProvider {
     return openDatabase(databasePath);
   }
 }
-
-
 
 class TypeAhead2 {
   static Future<List<ProductName>> searchName(String keyword) async {

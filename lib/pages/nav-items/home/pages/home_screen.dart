@@ -3,6 +3,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
+import 'package:medverse_mobile_app/models/drug_bank_db_api/product_name_api.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '/models/drug_bank_db/product_name.dart';
 import '/pages/nav-items/home/bloc/home_screen_bloc.dart';
@@ -194,14 +195,12 @@ class _HomeScreenState extends State<HomeScreen> {
                       labelText: 'Hôm nay bạn muốn tìm thuốc gì?'),
                 ),
                 suggestionsCallback: (String pattern) {
-                  return TypeAhead2.searchName(pattern);
+                  return TypeAheadByName.getTypeAheadByName(pattern);
                 },
-                itemBuilder: (context, ProductName suggestion) {
+                itemBuilder: (context, suggestion) {
                   return ListTile(
                     title: AppText(
-                      text: suggestion.product_name +
-                          "-" +
-                          suggestion.product_code,
+                      text: suggestion['tenThuoc'],
                       color: Colors.black54,
                       size: Dimensions.font14,
                       fontWeight: FontWeight.normal,
@@ -211,15 +210,15 @@ class _HomeScreenState extends State<HomeScreen> {
                 transitionBuilder: (context, suggestionsBox, controller) {
                   return suggestionsBox;
                 },
-                onSuggestionSelected: (ProductName suggestion) async {
-                  print("tapped");
-                  BlocProvider.of<HomeScreenBloc>(context)
-                    ..add(
-                      OnTapEvent(
-                        context: context,
-                        navigateData: suggestion.product_id,
-                      ),
-                    );
+                onSuggestionSelected: (suggestion) async {
+                  print("tapped" + suggestion['tenThuoc']);
+                  // BlocProvider.of<HomeScreenBloc>(context)
+                  //   ..add(
+                  //     OnTapEvent(
+                  //       context: context,
+                  //       navigateData: suggestion.product_id,
+                  //     ),
+                  //   );
                 },
                 validator: (value) {
                   if (value.isEmpty) {
@@ -234,6 +233,8 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       );
     }
+
+    /// test typeahead
 
     /// Build list function icon
     Widget __listFunIcon() {
