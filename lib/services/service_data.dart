@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:medverse_mobile_app/models/drug_bank_db/compare_drug_model.dart';
 import 'package:medverse_mobile_app/utils/constants.dart';
 import '../models/drug_bank_db/favorite_list_model_w_name.dart';
-import '../models/drug_bank_db_api/product_name_api.dart';
+import '../models/drug_bank_db/product_name_api.dart';
 import '/models/drug_bank_db/pill_identifiter_model.dart';
 import '/models/drug_bank_db/product_name.dart';
 import 'package:path/path.dart';
@@ -28,7 +28,7 @@ class TypeAheadByName {
         throw ('Request failed with status: ${resData.statusCode}.');
       }
       return Future.value(suggest
-          .map((e) => {'tenThuoc': e.productName, 'id': e.productID})
+          .map((e) => {'productName': e.productName, 'productId': e.productID,'drugId':e.drugbankID})
           .toList());
     }
   }

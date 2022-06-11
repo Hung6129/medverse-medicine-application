@@ -3,7 +3,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
-import 'package:medverse_mobile_app/models/drug_bank_db_api/product_name_api.dart';
+import 'package:medverse_mobile_app/models/drug_bank_db/product_name_api.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '/models/drug_bank_db/product_name.dart';
 import '/pages/nav-items/home/bloc/home_screen_bloc.dart';
@@ -200,7 +200,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 itemBuilder: (context, suggestion) {
                   return ListTile(
                     title: AppText(
-                      text: suggestion['tenThuoc'],
+                      text: suggestion['productName'],
                       color: Colors.black54,
                       size: Dimensions.font14,
                       fontWeight: FontWeight.normal,
@@ -217,7 +217,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ..add(
                       OnTapEvent(
                         context: context,
-                        navigateData: suggestion['id'],
+                        navigateData: suggestion['productId'],
                       ),
                     );
                 },

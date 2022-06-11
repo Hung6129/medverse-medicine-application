@@ -3,6 +3,7 @@ import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:medverse_mobile_app/utils/app_text_theme.dart';
 import '../../../../models/drug_bank_db/product_name.dart';
+import '../../../../widgets/awesome_dialog.dart';
 import '/services/service_data.dart';
 import '/theme/palette.dart';
 import '/widgets/app_text.dart';
@@ -22,6 +23,7 @@ class _InteractionCheckerState extends State<InteractionChecker> {
 
   // String _selectedDrug;
   List<String> addedItemsList = [];
+  List<String> addedItemsIdList = [];
 
   // Add to list function
   void __addItemToList(String value) {
@@ -33,6 +35,19 @@ class _InteractionCheckerState extends State<InteractionChecker> {
     } else {
       setState(() {
         addedItemsList.insert(0, value);
+      });
+    }
+  }
+
+  void __addItemIdToList(String value) {
+    if (addedItemsIdList.length == 2) {
+      addedItemsIdList.removeLast();
+      setState(() {
+        addedItemsIdList.insert(0, value);
+      });
+    } else {
+      setState(() {
+        addedItemsIdList.insert(0, value);
       });
     }
   }
@@ -102,14 +117,12 @@ class _InteractionCheckerState extends State<InteractionChecker> {
                       labelText: 'Nhập thuốc bạn muốn kiểm tra'),
                 ),
                 suggestionsCallback: (String pattern) {
-                  return TypeAhead2.searchName(pattern);
+                  return TypeAheadByName.getTypeAheadByName(pattern);
                 },
-                itemBuilder: (context, ProductName suggestion) {
+                itemBuilder: (context, suggestion) {
                   return ListTile(
                     title: AppText(
-                      text: suggestion.product_name +
-                          "-" +
-                          suggestion.product_code,
+                      text: suggestion['productName'],
                       color: Colors.black54,
                       size: Dimensions.font14,
                       fontWeight: FontWeight.normal,
@@ -119,43 +132,15 @@ class _InteractionCheckerState extends State<InteractionChecker> {
                 transitionBuilder: (context, suggestionsBox, controller) {
                   return suggestionsBox;
                 },
-                onSuggestionSelected: (ProductName suggestion) {
-                  if (addedItemsList.length == 2) {
-                    print("cannot add");
-                  }
-                  _typeAheadController.text = suggestion.product_name;
+                onSuggestionSelected: (suggestion) {
+                  _typeAheadController.text = suggestion['productName'];
                   print(_typeAheadController.text);
+                  print(suggestion['productId']);
                   __addItemToList(_typeAheadController.text);
+                  __addItemIdToList(suggestion['productId']);
                 },
               ),
             ],
-          ),
-        ),
-      );
-    }
-
-    // add btn
-    Widget __addBtn() {
-      return Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Container(
-          width: 350,
-          height: 50,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20), color: Palette.grey300),
-          child: TextButton(
-            onPressed: () {
-              String addValue = this._typeAheadController.text;
-              setState(() {
-                addedItemsList.add(addValue);
-              });
-            },
-            child: AppText(
-              text: "Thêm",
-              color: Palette.mainBlueTheme,
-              size: Dimensions.font20,
-              fontWeight: FontWeight.normal,
-            ),
           ),
         ),
       );
@@ -174,25 +159,31 @@ class _InteractionCheckerState extends State<InteractionChecker> {
           ),
           child: TextButton(
             onPressed: () {
-              if (addedItemsList.isEmpty) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: AppText(
-                      text: "Chọn 2 thuốc để kiểm tra tương kỵ",
-                    ),
-                    duration: Duration(seconds: 4),
-                    action: SnackBarAction(
-                      label: "Thêm",
-                      onPressed: () => focusNode.requestFocus(),
-                    ),
-                  ),
-                );
+              if (addedItemsList.length == 0 && addedItemsIdList.length == 0) {
+                AwesomeDialog(
+                  dialogBackgroundColor: Colors.white,
+                  context: context,
+                  headerAnimationLoop: false,
+                  titleTextStyle: TextStyle(
+                      color: Colors.black, fontSize: Dimensions.font20),
+                  descTextStyle: TextStyle(color: Colors.black),
+                  dialogType: DialogType.NO_HEADER,
+                  btnOkColor: Palette.pastelList1,
+                  title: 'Lỗi',
+                  desc: 'Hãy nhập vào đủ 2 tên thuốc để xem tương kị',
+                  btnOkOnPress: () {
+                    focusNode.requestFocus();
+                  },
+                  btnOkIcon: Icons.check_circle,
+                ).show();
               } else {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (context) => InteractionCheckerResult(
-                        name1: addedItemsList[0], name2: addedItemsList[1]),
+                      name1: addedItemsIdList[0],
+                      name2: addedItemsIdList[1],
+                    ),
                   ),
                 );
               }
