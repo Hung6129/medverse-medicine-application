@@ -11,9 +11,10 @@ class Constants {
   /// Find drug by name
   static const String NAME_SEARCH = "/api/products/name?name=";
 
-  /// Interaction check by drugs id
-  // static const String INTERACTION_CHECKER =
-  //     "/api/interactions/checkByTwoIDs?firstID=DB00001&secondID=DB00006";
+
+  // Interaction check by drugs id
+  static const String INTERACTION_CHECKER =
+      "/api/interactions/checkByTwoIDs?";
 
   // /// DrugDB URL
   // static const String PRODUCTNAME_TYPE_AHEAD =

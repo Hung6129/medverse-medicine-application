@@ -211,8 +211,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   return suggestionsBox;
                 },
                 onSuggestionSelected: (suggestion) async {
-                  print("tapped " + suggestion['tenThuoc']);
-                  print("tappedx2 " + suggestion['id']);
+                  print("tapped " + suggestion['productName']);
+                  print("tappedx2 " + suggestion['productId']);
                   BlocProvider.of<HomeScreenBloc>(context)
                     ..add(
                       OnTapEvent(

@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:medverse_mobile_app/utils/app_text_theme.dart';
-import '../../../../models/drug_bank_db/product_name.dart';
 import '../../../../widgets/awesome_dialog.dart';
 import '/services/service_data.dart';
 import '/theme/palette.dart';
@@ -135,9 +134,9 @@ class _InteractionCheckerState extends State<InteractionChecker> {
                 onSuggestionSelected: (suggestion) {
                   _typeAheadController.text = suggestion['productName'];
                   print(_typeAheadController.text);
-                  print(suggestion['productId']);
+                  print(suggestion['drugId']);
                   __addItemToList(_typeAheadController.text);
-                  __addItemIdToList(suggestion['productId']);
+                  __addItemIdToList(suggestion['drugId']);
                 },
               ),
             ],
@@ -181,8 +180,10 @@ class _InteractionCheckerState extends State<InteractionChecker> {
                   context,
                   MaterialPageRoute(
                     builder: (context) => InteractionCheckerResult(
-                      name1: addedItemsIdList[0],
-                      name2: addedItemsIdList[1],
+                      name1: addedItemsList[0],
+                      name2: addedItemsList[1],
+                      id1: addedItemsIdList[0],
+                      id2: addedItemsIdList[1],
                     ),
                   ),
                 );

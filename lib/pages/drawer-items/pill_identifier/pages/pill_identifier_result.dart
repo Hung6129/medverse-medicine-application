@@ -6,7 +6,6 @@ import '../../../../services/service_data.dart';
 import '/theme/palette.dart';
 import '/widgets/app_text.dart';
 import '/widgets/dimension.dart';
-import 'package:flutter/material.dart';
 
 class PillIdentifierListResult extends StatefulWidget {
   final String query1;
