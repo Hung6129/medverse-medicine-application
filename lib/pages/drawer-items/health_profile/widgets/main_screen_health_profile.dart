@@ -69,6 +69,8 @@ class MapScreenState extends State<HealthProfile>
           child: new SingleChildScrollView(
             // scrollDirection: Axis.vertical,
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 /// Height card
                 GestureDetector(

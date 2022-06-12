@@ -5,7 +5,6 @@ import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:medverse_mobile_app/models/drug_bank_db/product_name_api.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '/models/drug_bank_db/product_name.dart';
 import '/pages/nav-items/home/bloc/home_screen_bloc.dart';
 import '/services/service_data.dart';
 import '/widgets/header.dart';
