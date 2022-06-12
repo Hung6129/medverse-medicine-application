@@ -19,7 +19,7 @@ class RichTextCus extends StatelessWidget {
         text: text1,
         style: GoogleFonts.roboto(
             fontWeight: FontWeight.bold,
-            fontSize: Dimensions.font18,
+            fontSize: Dimensions.font16,
             letterSpacing: 1,
             color: Palette.mainBlueTheme),
         children: [

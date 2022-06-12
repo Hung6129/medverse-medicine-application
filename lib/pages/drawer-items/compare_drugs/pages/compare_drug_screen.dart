@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
@@ -7,7 +5,6 @@ import '../../../../models/drug_bank_db/product_name.dart';
 import '../../../../services/service_data.dart';
 import '../../../../theme/palette.dart';
 import '../../../../utils/app_text_theme.dart';
-import '../../../../widgets/animated_button.dart';
 import '../../../../widgets/app_text.dart';
 import '../../../../widgets/awesome_dialog.dart';
 import '../../../../widgets/dimension.dart';
@@ -113,12 +110,6 @@ class _CompareDrugState extends State<CompareDrug> {
                         icon: Icon(CupertinoIcons.clear),
                         onPressed: () {
                           _typeAheadController.clear();
-                          // print(addedItemsIdList.length);
-                          // print(addedItemsList.length);
-                          // print(addedItemsIdList[0]);
-                          // print(addedItemsIdList[1]);
-                          // print(addedItemsList[0]);
-                          // print(addedItemsList[1]);
                         },
                       ),
                       focusedBorder: OutlineInputBorder(
@@ -155,16 +146,11 @@ class _CompareDrugState extends State<CompareDrug> {
                   return suggestionsBox;
                 },
                 onSuggestionSelected: (ProductName suggestion) {
-                  // if (addedItemsList.length == 2 &&
-                  //     addedItemsIdList.length == 2) {
-                  //   print("cannot add");
-                  // } else {
                   _typeAheadController.text = suggestion.product_name;
                   print(_typeAheadController.text);
                   print(suggestion.product_id);
                   __addItemToList(_typeAheadController.text);
                   __addItemIdToList(suggestion.product_id);
-                  // }
                 },
                 validator: (value) {
                   if (value.isEmpty) {
@@ -242,14 +228,14 @@ class _CompareDrugState extends State<CompareDrug> {
             onPressed: () {
               if (addedItemsList.length == 0 && addedItemsIdList.length == 0) {
                 AwesomeDialog(
-                  dialogBackgroundColor: Palette.mainBlueTheme,
+                  dialogBackgroundColor: Colors.white,
                   context: context,
                   headerAnimationLoop: false,
                   titleTextStyle: TextStyle(
-                      color: Colors.white, fontSize: Dimensions.font20),
-                  descTextStyle: TextStyle(color: Colors.white),
+                      color: Colors.black, fontSize: Dimensions.font20),
+                  descTextStyle: TextStyle(color: Colors.black),
                   dialogType: DialogType.NO_HEADER,
-                  btnOkColor: Palette.pastel3,
+                  btnOkColor: Palette.pastel5,
                   title: 'Lỗi',
                   desc: 'Hãy nhập vào đủ 2 tên thuốc để xem so sánh',
                   btnOkOnPress: () {

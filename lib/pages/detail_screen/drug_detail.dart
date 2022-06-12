@@ -2,21 +2,21 @@ import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:medverse_mobile_app/utils/constants.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'package:medverse_mobile_app/widgets/indicators.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
-import 'package:translator/translator.dart';
+
 import 'package:http/http.dart' as http;
 import '../../models/drug_bank_db/product_model.dart';
 import '../../services/service_data.dart';
 import '../../theme/palette.dart';
-import '../../utils/validation.dart';
+
 import '../../widgets/app_text.dart';
 import '../../widgets/dimension.dart';
 import '../../widgets/rich_text_cus.dart';
-import 'drug_detail.dart';
 
 class DrugDetails extends StatefulWidget {
   final String drugData;
@@ -29,20 +29,31 @@ class DrugDetails extends StatefulWidget {
   @override
   _DrugDetailsState createState() => _DrugDetailsState();
 }
+
 Future<ProductModel> postApi;
 
 DateTime now = DateTime.now();
 
-int secondsSinceEpoch = now.millisecondsSinceEpoch ~/ Duration.millisecondsPerSecond;
-var date = DateTime.fromMillisecondsSinceEpoch(secondsSinceEpoch * 1000);
-
 class _DrugDetailsState extends State<DrugDetails> {
+  /// Get current time day
+  String formatTime = DateFormat.yMd().add_Hm().format(now);
+  // Test images
+  String imagesFav = "assets/images/drugs_pill/300.jpg";
+
+  Future<ProductModel> fetchDetailData() async {
+    final response = await http.get(
+        Uri.parse(Constants.BASE_URL + Constants.ID_SEARCH + widget.drugData));
+    if (response.statusCode == 200) {
+      return ProductModel.fromJson(jsonDecode(response.body));
+    } else {
+      throw Exception('Failed to load data');
+    }
+  }
+
   bool _isAdded = false;
   @override
   void initState() {
     super.initState();
-    print(date);
-
     if (mounted) {
       CheckDrugById.checkDrugInFav(widget.drugData).then((value) {
         if (value == 1) {
@@ -52,31 +63,11 @@ class _DrugDetailsState extends State<DrugDetails> {
         }
       });
     }
-  }
-
-  /// Get current time day
-  String formatTime = DateFormat.yMd().add_Hm().format(now);
-  // Test images
-  String imagesFav = "assets/images/drugs_pill/300.jpg";
-
-  // Show Dialog
-
-  List<ProductModel> dataList;
-  Future<List<ProductModel>> _getAll() async {
-    dataList = await GetDetailData().getDrugDetail(widget.drugData);
-    print(dataList.length);
-    return dataList;
-  }
-
-  __trans(String text) async {
-    final translator = GoogleTranslator();
-    await translator.translate(text, from: 'en', to: 'vi');
+    postApi = fetchDetailData();
   }
 
   @override
   Widget build(BuildContext context) {
-    __trans("hello");
-
     /// Sliver app bar for product name
     Widget __sliverAppBarProductName(ProductModel data) {
       return SliverAppBar(
@@ -96,12 +87,13 @@ class _DrugDetailsState extends State<DrugDetails> {
               left: Dimensions.height10,
               right: Dimensions.height10,
             ),
-            child: Center(
-              child: AppText(
-                text: data.product_name,
+            child: Text(
+              data.productName,
+              textAlign: TextAlign.center,
+              style: TextStyle(
                 color: Palette.mainBlueTheme,
-                size: Dimensions.font24,
-                fontWeight: FontWeight.w500,
+                fontSize: Dimensions.font20,
+                fontWeight: FontWeight.bold,
               ),
             ),
             width: double.maxFinite,
@@ -122,16 +114,6 @@ class _DrugDetailsState extends State<DrugDetails> {
 
     /// Sliver
     Widget __sliverAppBarDetail(ProductModel data) {
-      print('Product Id: ' + data.product_id);
-      print('Product name: ' + data.product_name);
-      var rnd = new Random();
-      var next = rnd.nextDouble() * 1000000;
-      while (next < 100000) {
-      next *= 10;
-      }
-      var requestId = next.toInt().toString() + data.product_id;
-      print(requestId);
-
       return SliverToBoxAdapter(
         child: Container(
           padding: EdgeInsets.only(
@@ -143,34 +125,32 @@ class _DrugDetailsState extends State<DrugDetails> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // Product
-              RichTextCus(text1: "Labeller:", text2: data.product_labeller),
-              RichTextCus(text1: "Route:", text2: data.product_route), //d
-              RichTextCus(text1: "Dosage:", text2: data.product_dosage), //d
-              RichTextCus(text1: "Strength:", text2: data.product_strength), //d
-              RichTextCus(text1: "Country:", text2: data.product_country),
-              RichTextCus(text1: "Code:", text2: data.product_code), //d
-              RichTextCus(text1: "Generic:", text2: data.product_generic), //d
-              RichTextCus(text1: "Approved:", text2: data.product_approved), //d
-              RichTextCus(text1: "Otc:", text2: data.product_otc), //d
+              RichTextCus(text1: "Labeller:", text2: data.productLabeller),
+              RichTextCus(text1: "Route:", text2: data.productRoute), //d
+              RichTextCus(text1: "Dosage:", text2: data.productdosage), //d
+              RichTextCus(text1: "Strength:", text2: data.productStrength), //d
+              RichTextCus(text1: "Country:", text2: data.country),
+              RichTextCus(text1: "Code:", text2: data.productCode), //d
+              RichTextCus(text1: "Generic:", text2: data.generic), //d
+              RichTextCus(text1: "Approved:", text2: data.approved), //d
+              RichTextCus(text1: "Otc:", text2: data.otc), //d
               Divider(
                 endIndent: Dimensions.width10,
                 indent: Dimensions.width10,
                 thickness: 3,
               ),
               // Drug
-              RichTextCus(text1: "Description:", text2: data.drug_description),
-              RichTextCus(text1: "State:", text2: data.drug_state),
-              RichTextCus(text1: "Indication:", text2: data.drug_indication),
+              RichTextCus(text1: "Description:", text2: data.drugDescription),
+              RichTextCus(text1: "State:", text2: data.drugState),
+              RichTextCus(text1: "Indication:", text2: data.drugIndication),
+              RichTextCus(text1: "Pharmacodynamics:", text2: data.drugPharmaco),
+              RichTextCus(text1: "Mechanism:", text2: data.drugMechan),
+              RichTextCus(text1: "Toxicity:", text2: data.drugToxicity),
+              RichTextCus(text1: "Metabolism:", text2: data.drugMetabolism),
+              RichTextCus(text1: "Half_life:", text2: data.drugHalflife),
               RichTextCus(
-                  text1: "Pharmacodynamics:", text2: data.pharmacodynamics),
-              RichTextCus(text1: "Mechanism:", text2: data.mechanism),
-              RichTextCus(text1: "Toxicity:", text2: data.toxicity),
-              RichTextCus(text1: "Metabolism:", text2: data.metabolism),
-              RichTextCus(text1: "Half_life:", text2: data.half_life),
-              RichTextCus(
-                  text1: "Route of elimination:",
-                  text2: data.route_of_elimination),
-              RichTextCus(text1: "Clearance:", text2: data.clearance),
+                  text1: "Route of elimination:", text2: data.drugElimination),
+              RichTextCus(text1: "Clearance:", text2: data.drugClearance),
             ],
           ),
         ),
@@ -202,7 +182,7 @@ class _DrugDetailsState extends State<DrugDetails> {
                         ),
                       );
                       await SetToFavoriteList.setToFavoriteList(
-                          productModel.product_id, savedTime);
+                          productModel.productID, savedTime);
                       setState(() {
                         _isAdded = true;
                       });
@@ -231,7 +211,7 @@ class _DrugDetailsState extends State<DrugDetails> {
                                   ),
                                   onPressed: () async {
                                     await DeleteItemInFavList.deleteItems(
-                                        productModel.product_id);
+                                        productModel.productID);
                                     setState(() {
                                       _isAdded = false;
                                     });
@@ -261,10 +241,10 @@ class _DrugDetailsState extends State<DrugDetails> {
     }
 
     return FutureBuilder(
-      future: _getAll(),
-      builder: (context, AsyncSnapshot<List<ProductModel>> snapshot) {
+      future: postApi,
+      builder: (context, snapshot) {
         if (snapshot.hasData) {
-          var info = snapshot.data[0];
+          var info = snapshot.data;
           return Scaffold(
             body: CustomScrollView(
               slivers: [
@@ -279,31 +259,5 @@ class _DrugDetailsState extends State<DrugDetails> {
         }
       },
     );
-  }
-
-  /// Post information to API
-  Future<ProductModel> postDrug(String timestamp, String requestId, String productId, String productName) async {
-    final response = await http.post(
-      Uri.parse('https://jsonplaceholder.typicode.com/albums'),
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      body: jsonEncode(<String, String>{
-        'timestamp': timestamp,
-        'requestId': requestId,
-        'productId': productId,
-        'productName': productName,
-      }),
-    );
-
-    if (response.statusCode == 201) {
-      // If the server did return a 201 CREATED response,
-      // then parse the JSON.
-      return ProductModel.fromJson(jsonDecode(response.body));
-    } else {
-      // If the server did not return a 201 CREATED response,
-      // then throw an exception.
-      throw Exception('Failed to create album.');
-    }
   }
 }
