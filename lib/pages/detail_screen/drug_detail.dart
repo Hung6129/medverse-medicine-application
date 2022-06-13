@@ -36,8 +36,6 @@ DateTime now = DateTime.now();
 class _DrugDetailsState extends State<DrugDetails> {
   /// Get current time day
   String formatTime = DateFormat.yMd().add_Hm().format(now);
-  // Test images
-  String imagesFav = "assets/images/drugs_pill/300.jpg";
 
   Future<ProductModel> fetchDetailData() async {
     final response = await http.get(
@@ -70,7 +68,7 @@ class _DrugDetailsState extends State<DrugDetails> {
     /// Sliver app bar for product name
     Widget __sliverAppBarProductName(ProductModel data) {
       return SliverAppBar(
-        toolbarHeight: Dimensions.height60,
+        toolbarHeight: 100,
         // title: Icon(CupertinoIcons.arrow_left_circle_fill),
         bottom: PreferredSize(
           preferredSize: Size.fromHeight(20),
@@ -78,8 +76,8 @@ class _DrugDetailsState extends State<DrugDetails> {
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(Dimensions.radius20),
-                topRight: Radius.circular(Dimensions.radius20),
+                topLeft: Radius.circular(Dimensions.radius15),
+                topRight: Radius.circular(Dimensions.radius15),
               ),
             ),
             padding: EdgeInsets.only(
@@ -91,7 +89,7 @@ class _DrugDetailsState extends State<DrugDetails> {
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: Palette.mainBlueTheme,
-                fontSize: Dimensions.font20,
+                fontSize: Dimensions.font24,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -100,14 +98,14 @@ class _DrugDetailsState extends State<DrugDetails> {
         ),
         pinned: true,
         backgroundColor: Palette.mainBlueTheme,
-        expandedHeight: Dimensions.imagesViewHeight,
-        flexibleSpace: FlexibleSpaceBar(
-          background: Image.asset(
-            imagesFav,
-            fit: BoxFit.cover,
-            width: double.maxFinite,
-          ),
-        ),
+        expandedHeight: 50,
+        // flexibleSpace: FlexibleSpaceBar(
+        //   background: Image.asset(
+        //     imagesFav,
+        //     fit: BoxFit.cover,
+        //     width: double.maxFinite,
+        //   ),
+        // ),
       );
     }
 
@@ -239,24 +237,66 @@ class _DrugDetailsState extends State<DrugDetails> {
       );
     }
 
-    return FutureBuilder(
-      future: postApi,
-      builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          var info = snapshot.data;
-          return Scaffold(
-            body: CustomScrollView(
-              slivers: [
-                __sliverAppBarProductName(info),
-                __sliverAppBarDetail(info),
+    return Scaffold(
+      body: FutureBuilder(
+        future: postApi,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(
+                child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                // Image.asset("assets/images/loading.png"),
+                circularProgress(context),
+                AppText(
+                  text: "Đang tải dữ liệu",
+                  color: Palette.mainBlueTheme,
+                )
               ],
-            ),
-            bottomNavigationBar: __bottomApp(info, formatTime),
-          );
-        } else {
-          return circularProgress(context);
-        }
-      },
+            ));
+          }
+          if (snapshot.data == null) {
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Image.asset("assets/images/Nodata-cuate.png"),
+                AppText(
+                  text: "Không tìm thấy kết quả",
+                  color: Palette.warningColor,
+                  fontWeight: FontWeight.bold,
+                )
+              ],
+            );
+          }
+          if (snapshot.hasData) {
+            var info = snapshot.data;
+            return Scaffold(
+              body: CustomScrollView(
+                slivers: [
+                  __sliverAppBarProductName(info),
+                  __sliverAppBarDetail(info),
+                ],
+              ),
+              bottomNavigationBar: __bottomApp(info, formatTime),
+            );
+          } else {
+            return Center(
+                child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Image.asset("assets/images/error_image.jpg"),
+                AppText(
+                  text: "Đã có lỗi gì đó xảy ra",
+                  color: Palette.warningColor,
+                )
+              ],
+            ));
+          }
+        },
+      ),
     );
   }
 }

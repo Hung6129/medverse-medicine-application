@@ -55,8 +55,7 @@ class _InteractionCheckerResultState extends State<InteractionCheckerResult> {
           right: Dimensions.height20),
       child: AppText(
         text: "Tương kỵ của thuốc $data1 và $data2 ",
-        size: Dimensions.font24,
-        color: Palette.mainBlueTheme,
+        size: Dimensions.font18,
       ),
     );
   }
@@ -67,42 +66,78 @@ class _InteractionCheckerResultState extends State<InteractionCheckerResult> {
       return FutureBuilder(
         future: data,
         builder: (context, AsyncSnapshot<CheckInteractionModel> snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(
+                child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                // Image.asset("assets/images/loading.png"),
+                circularProgress(context),
+                AppText(
+                  text: "Đang tải dữ liệu",
+                  color: Palette.mainBlueTheme,
+                )
+              ],
+            ));
+          }
           if (snapshot.hasData) {
             var infor = snapshot.data;
-            return Container(
-              padding: EdgeInsets.only(
-                  top: Dimensions.height10,
-                  left: Dimensions.height20,
-                  right: Dimensions.height20),
-              child: AppText(text: infor.interactionDescription),
+            return Column(
+              children: [
+                __get2ProductName(widget.name1, widget.name2),
+                Container(
+                  padding: EdgeInsets.only(
+                      top: Dimensions.height10,
+                      left: Dimensions.height20,
+                      right: Dimensions.height20),
+                  child: AppText(text: infor.interactionDescription),
+                )
+              ],
+            );
+          }
+          if (snapshot.data == null) {
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Image.asset("assets/images/Nodata-cuate.png"),
+                AppText(
+                  text: "Không tìm thấy kết quả",
+                  color: Palette.warningColor,
+                  fontWeight: FontWeight.bold,
+                )
+              ],
             );
           } else {
-            return circularProgress(context);
+            return Center(
+                child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Image.asset("assets/images/error_image.jpg"),
+                AppText(
+                  text: "Đã có lỗi gì đó xảy ra",
+                  color: Palette.warningColor,
+                )
+              ],
+            ));
           }
         },
       );
     }
 
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Palette.mainBlueTheme,
         title: Text(
-          'Kết quả',
+          'Kết quả tương kỵ',
           style: TextStyle(fontWeight: FontWeight.w900),
         ),
         centerTitle: true,
       ),
-      body: Column(
-        children: [
-          __get2ProductName(widget.name1, widget.name2),
-          Divider(
-            endIndent: Dimensions.height10,
-            indent: Dimensions.height10,
-            thickness: 3,
-          ),
-          __getInteractionDetail()
-        ],
-      ),
+      body: __getInteractionDetail(),
     );
   }
 }
