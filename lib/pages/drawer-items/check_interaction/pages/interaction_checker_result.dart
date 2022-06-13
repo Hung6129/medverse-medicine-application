@@ -81,48 +81,48 @@ class _InteractionCheckerResultState extends State<InteractionCheckerResult> {
               ],
             ));
           }
-          if (snapshot.hasData) {
-            var infor = snapshot.data;
-            return Column(
-              children: [
-                __get2ProductName(widget.name1, widget.name2),
-                Container(
-                  padding: EdgeInsets.only(
-                      top: Dimensions.height10,
-                      left: Dimensions.height20,
-                      right: Dimensions.height20),
-                  child: AppText(text: infor.interactionDescription),
-                )
-              ],
-            );
+          if (snapshot.connectionState == ConnectionState.done) {
+            if (snapshot.data == null) {
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Image.asset("assets/images/Nodata-cuate.png"),
+                  AppText(
+                    text: "Không tìm thấy kết quả",
+                    color: Palette.warningColor,
+                    fontWeight: FontWeight.bold,
+                  )
+                ],
+              );
+            } else if (snapshot.hasData) {
+              var infor = snapshot.data;
+              return Column(
+                children: [
+                  __get2ProductName(widget.name1, widget.name2),
+                  Container(
+                    padding: EdgeInsets.only(
+                        top: Dimensions.height10,
+                        left: Dimensions.height20,
+                        right: Dimensions.height20),
+                    child: AppText(text: infor.interactionDescription),
+                  )
+                ],
+              );
+            }
           }
-          if (snapshot.data == null) {
-            return Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Image.asset("assets/images/Nodata-cuate.png"),
-                AppText(
-                  text: "Không tìm thấy kết quả",
-                  color: Palette.warningColor,
-                  fontWeight: FontWeight.bold,
-                )
-              ],
-            );
-          } else {
-            return Center(
-                child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Image.asset("assets/images/error_image.jpg"),
-                AppText(
-                  text: "Đã có lỗi gì đó xảy ra",
-                  color: Palette.warningColor,
-                )
-              ],
-            ));
-          }
+          return Center(
+              child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Image.asset("assets/images/error_image.png"),
+              AppText(
+                text: "Đã có lỗi gì đó xảy ra",
+                color: Palette.warningColor,
+              )
+            ],
+          ));
         },
       );
     }

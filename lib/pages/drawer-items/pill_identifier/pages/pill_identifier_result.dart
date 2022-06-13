@@ -183,6 +183,9 @@ class _PillIdentifierListResultState extends State<PillIdentifierListResult> {
                       ),
                     );
                   },
+                ),
+                SizedBox(
+                  height: 30,
                 )
               ],
             );
@@ -192,7 +195,7 @@ class _PillIdentifierListResultState extends State<PillIdentifierListResult> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Image.asset("assets/images/error_image.jpg"),
+                Image.asset("assets/images/error_image.png"),
                 AppText(
                   text: "Đã có lỗi gì đó xảy ra",
                   color: Palette.warningColor,

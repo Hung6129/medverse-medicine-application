@@ -175,6 +175,24 @@ class _InteractionCheckerState extends State<InteractionChecker> {
                   },
                   btnOkIcon: Icons.check_circle,
                 ).show();
+              } else if (addedItemsList.length == 1 &&
+                  addedItemsIdList.length == 1) {
+                AwesomeDialog(
+                  dialogBackgroundColor: Colors.white,
+                  context: context,
+                  headerAnimationLoop: false,
+                  titleTextStyle: TextStyle(
+                      color: Colors.black, fontSize: Dimensions.font20),
+                  descTextStyle: TextStyle(color: Colors.black),
+                  dialogType: DialogType.NO_HEADER,
+                  btnOkColor: Palette.pastelList1,
+                  title: 'Lỗi',
+                  desc: 'Hãy nhập vào đủ 2 tên thuốc để xem tương kị',
+                  btnOkOnPress: () {
+                    focusNode.requestFocus();
+                  },
+                  btnOkIcon: Icons.check_circle,
+                ).show();
               } else {
                 Navigator.push(
                   context,
@@ -229,6 +247,7 @@ class _InteractionCheckerState extends State<InteractionChecker> {
                 onDeleted: () {
                   setState(() {
                     addedItemsList.removeAt(index);
+                    addedItemsIdList.removeAt(index);
                   });
                 },
               );
@@ -248,6 +267,7 @@ class _InteractionCheckerState extends State<InteractionChecker> {
         centerTitle: true,
       ),
       body: SingleChildScrollView(
+        physics: NeverScrollableScrollPhysics(),
         child: Column(
           // mainAxisAlignment: MainAxisAlignment.center,
           children: [

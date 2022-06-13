@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:medverse_mobile_app/models/drug_bank_db/favorite_list_model_w_name.dart';
 import '../../../services/service_data.dart';
+import '../../../widgets/indicators.dart';
 import '../home/bloc/home_screen_bloc.dart';
 import '/utils/app_text_theme.dart';
 import '/theme/palette.dart';
@@ -61,6 +62,21 @@ class _FavoriteDrugsListScreenNavState
             FutureBuilder<List<FavoriteListWName>>(
                 future: _getAll(),
                 builder: (ctx, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Center(
+                        child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        // Image.asset("assets/images/loading.png"),
+                        circularProgress(context),
+                        AppText(
+                          text: "Đang tải dữ liệu",
+                          color: Palette.mainBlueTheme,
+                        )
+                      ],
+                    ));
+                  }
                   if (snapshot.hasData) {
                     return ListView.builder(
                       physics: NeverScrollableScrollPhysics(),
@@ -175,8 +191,33 @@ class _FavoriteDrugsListScreenNavState
                         );
                       },
                     );
+                  }
+                  if (snapshot.data == null) {
+                    return Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Image.asset("assets/images/Nodata-cuate.png"),
+                        AppText(
+                          text: "Không tìm thấy kết quả",
+                          color: Palette.warningColor,
+                          fontWeight: FontWeight.bold,
+                        )
+                      ],
+                    );
                   } else {
-                    return __emtyList();
+                    return Center(
+                        child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Image.asset("assets/images/error_image.png"),
+                        AppText(
+                          text: "Đã có lỗi gì đó xảy ra",
+                          color: Palette.warningColor,
+                        )
+                      ],
+                    ));
                   }
                 })
           ],
