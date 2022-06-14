@@ -80,7 +80,6 @@ class MapScreenState extends State<HealthProfile>
                 ),
                 child: Container(
                   margin: EdgeInsets.only(top: 25.0, left: 25.0, right: 25),
-                  width: Dimensions.boxViewWidth,
                   decoration: BoxDecoration(
                     color: Palette.whiteText,
                     borderRadius: BorderRadius.circular(Dimensions.radius15),
@@ -169,7 +168,6 @@ class MapScreenState extends State<HealthProfile>
                 ),
                 child: Container(
                   margin: EdgeInsets.only(top: 25.0, left: 25.0, right: 25),
-                  width: Dimensions.boxViewWidth,
                   decoration: BoxDecoration(
                     color: Palette.whiteText,
                     borderRadius: BorderRadius.circular(Dimensions.radius15),
@@ -256,7 +254,6 @@ class MapScreenState extends State<HealthProfile>
                   ),
                 ),
                 child: Container(
-                  width: Dimensions.boxViewWidth,
                   margin: EdgeInsets.only(top: 25.0, left: 25.0, right: 25),
                   decoration: BoxDecoration(
                     color: Palette.whiteText,
@@ -345,7 +342,6 @@ class MapScreenState extends State<HealthProfile>
                 ),
                 child: Container(
                   margin: EdgeInsets.only(top: 25.0, left: 25.0, right: 25),
-                  width: Dimensions.boxViewWidth,
                   decoration: BoxDecoration(
                     color: Palette.whiteText,
                     borderRadius: BorderRadius.circular(Dimensions.radius15),
@@ -434,7 +430,6 @@ class MapScreenState extends State<HealthProfile>
                   ),
                 ),
                 child: Container(
-                  width: Dimensions.boxViewWidth,
                   margin: EdgeInsets.only(top: 25.0, left: 25.0, right: 25),
                   decoration: BoxDecoration(
                     color: Palette.whiteText,
@@ -523,7 +518,6 @@ class MapScreenState extends State<HealthProfile>
                 ),
                 child: Container(
                   margin: EdgeInsets.only(top: 25.0, left: 25.0, right: 25),
-                  width: Dimensions.boxViewWidth,
                   decoration: BoxDecoration(
                     color: Palette.whiteText,
                     borderRadius: BorderRadius.circular(Dimensions.radius15),

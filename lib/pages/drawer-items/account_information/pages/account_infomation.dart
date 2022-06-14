@@ -42,7 +42,6 @@ class _AccountInfomationState extends State<AccountInformation> {
             /// Username card
             Container(
               margin: EdgeInsets.only(top: 25.0, left: 25.0, right: 25),
-              width: Dimensions.boxViewWidth,
               decoration: BoxDecoration(
                 color: Palette.whiteText,
                 borderRadius: BorderRadius.circular(Dimensions.radius15),
@@ -101,8 +100,7 @@ class _AccountInfomationState extends State<AccountInformation> {
 
             /// Email card
             Container(
-              width: Dimensions.boxViewWidth,
-                         margin: EdgeInsets.only(top:25.0,left: 25.0,right: 25),
+              margin: EdgeInsets.only(top: 25.0, left: 25.0, right: 25),
               decoration: BoxDecoration(
                 color: Palette.whiteText,
                 borderRadius: BorderRadius.circular(Dimensions.radius15),
@@ -157,12 +155,10 @@ class _AccountInfomationState extends State<AccountInformation> {
                 ),
               ),
             ),
-            
 
             /// Country card
             Container(
-                         margin: EdgeInsets.only(top:25.0,left: 25.0,right: 25),
-              width: Dimensions.boxViewWidth,
+              margin: EdgeInsets.only(top: 25.0, left: 25.0, right: 25),
               decoration: BoxDecoration(
                 color: Palette.whiteText,
                 borderRadius: BorderRadius.circular(Dimensions.radius15),
@@ -217,12 +213,10 @@ class _AccountInfomationState extends State<AccountInformation> {
                 ),
               ),
             ),
-            
 
             /// Giới thiệu
             Container(
-                         margin: EdgeInsets.only(top:25.0,left: 25.0,right: 25),
-              width: Dimensions.boxViewWidth,
+              margin: EdgeInsets.only(top: 25.0, left: 25.0, right: 25),
               decoration: BoxDecoration(
                 color: Palette.whiteText,
                 borderRadius: BorderRadius.circular(Dimensions.radius15),

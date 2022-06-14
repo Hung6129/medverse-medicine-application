@@ -1,9 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-import 'package:top_snackbar_flutter/custom_snack_bar.dart';
-import 'package:top_snackbar_flutter/top_snack_bar.dart';
-
-import '../../../../widgets/awesome_dialog.dart';
+import '/widgets/awesome_dialog.dart';
 import '/theme/palette.dart';
 import '/widgets/app_text.dart';
 import '/widgets/dimension.dart';
@@ -22,6 +19,7 @@ class _PillIdentifierState extends State<PillIdentifier> {
 // Imprint input controller
   TextEditingController txtImprint = TextEditingController();
   FocusNode focusNode;
+
   @override
   void initState() {
     super.initState();
@@ -227,6 +225,7 @@ class _PillIdentifierState extends State<PillIdentifier> {
     "YELLOW,WHITE",
     "YELLOW,YELLOW",
   ];
+
   @override
   Widget build(BuildContext context) {
     /// Title
@@ -276,12 +275,15 @@ class _PillIdentifierState extends State<PillIdentifier> {
           builder: (FormFieldState<String> state) {
             return InputDecorator(
               decoration: InputDecoration(
-                  prefixIcon: Icon(CupertinoIcons.color_filter),
-                  border: OutlineInputBorder(
-                      borderSide:
-                          BorderSide(width: 4, color: Palette.mainBlueTheme),
-                      borderRadius:
-                          BorderRadius.circular(Dimensions.radius15))),
+                prefixIcon: Icon(CupertinoIcons.color_filter),
+                border: OutlineInputBorder(
+                  borderSide: BorderSide(
+                    width: 4,
+                    color: Palette.mainBlueTheme,
+                  ),
+                  borderRadius: BorderRadius.circular(Dimensions.radius15),
+                ),
+              ),
               child: DropdownButtonHideUnderline(
                 child: DropdownButton<String>(
                   value: dropdownColor,
