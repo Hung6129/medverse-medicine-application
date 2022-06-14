@@ -7,12 +7,11 @@ import 'dart:convert';
 import 'package:medverse_mobile_app/widgets/indicators.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
-
 import 'package:http/http.dart' as http;
+import 'package:translator/translator.dart';
 import '../../models/drug_bank_db/product_model.dart';
 import '../../services/service_data.dart';
 import '../../theme/palette.dart';
-
 import '../../widgets/app_text.dart';
 import '../../widgets/dimension.dart';
 import '../../widgets/rich_text_cus.dart';
@@ -63,6 +62,27 @@ class _DrugDetailsState extends State<DrugDetails> {
     postApi = fetchDetailData();
   }
 
+  GoogleTranslator translator = GoogleTranslator();
+  var output;
+
+  void translate1(ProductModel data) {
+    translator.translate(data.productLabeller, to: 'vi').then((value) {
+      print(value.toString());
+      setState(() {
+        output = value;
+      });
+    });
+  }
+
+  void translate2(ProductModel data) {
+    translator.translate(data.productRoute, to: 'vi').then((value) {
+      print(value.toString());
+      setState(() {
+        output = value;
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     /// Sliver app bar for product name
@@ -111,6 +131,8 @@ class _DrugDetailsState extends State<DrugDetails> {
 
     /// Sliver
     Widget __sliverAppBarDetail(ProductModel data) {
+      translate1(data);
+      // translate2(data);
       return SliverToBoxAdapter(
         child: Container(
           padding: EdgeInsets.only(
@@ -121,6 +143,8 @@ class _DrugDetailsState extends State<DrugDetails> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              Text(output.toString() ?? "data bi null"),
+              // Text(output.toString() ?? "data bi null"),
               // Product
               RichTextCus(text1: "Labeller:", text2: data.productLabeller),
               RichTextCus(text1: "Route:", text2: data.productRoute), //d

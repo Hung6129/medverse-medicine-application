@@ -62,19 +62,7 @@ class _FavoriteDrugsListScreenNavState
                 future: _getAll(),
                 builder: (ctx, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Center(
-                        child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        // Image.asset("assets/images/loading.png"),
-                        circularProgress(context),
-                        AppText(
-                          text: "Đang tải dữ liệu",
-                          color: Palette.mainBlueTheme,
-                        )
-                      ],
-                    ));
+                    return circularProgress(context);
                   }
                   if (snapshot.hasData) {
                     return ListView.builder(
