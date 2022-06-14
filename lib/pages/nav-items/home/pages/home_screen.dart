@@ -5,7 +5,7 @@ import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:medverse_mobile_app/models/drug_bank_db/product_name_api.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '/models/drug_bank_db/product_name.dart';
+import '../../../../widgets/awesome_dialog.dart';
 import '/pages/nav-items/home/bloc/home_screen_bloc.dart';
 import '/services/service_data.dart';
 import '/widgets/header.dart';
@@ -34,19 +34,29 @@ class _HomeScreenState extends State<HomeScreen> {
   final TextEditingController _typeAheadController = TextEditingController();
 
   /// Example images
-  String imagesFav = "assets/image/300_imagenlm/";
+  // String imagesFav = "assets/image/300_imagesrxnav/";
 
   /// Get list images
-  final List<String> imgList = [
-    "00009-0331-02_NLMIMAGE10_070803D0.jpg",
-    "00173-0393-40_NLMIMAGE10_8918C4B6.jpg",
-    "68462-0147-01_NLMIMAGE10_6D3536D9.jpg",
-    "69097-0857-05_NLMIMAGE10_BC4FDE0E.jpg",
-    "69097-0123-03_NLMIMAGE10_8D4EC6D6.jpg",
-    "69238-1251-06_NLMIMAGE10_FE50FF27.jpg",
-    "99207-0467-30_NLMIMAGE10_C11D60AB.jpg",
-    "76439-0102-50_NLMIMAGE10_3A3D9D0C.jpg",
-  ];
+  // final List<String> imgList = [
+  //   "00093-7286-89_RXNAVIMAGE10_D62FEB6F.jpg",
+  //   "00093-7290-56_RXNAVIMAGE10_A73953CA.jpg",
+  //   "00093-7306-06_RXNAVIMAGE10_BC42DE66.jpg",
+  //   "00093-7393-98_RXNAVIMAGE10_32391918.jpg",
+  //   "69097-0123-03_NLMIMAGE10_8D4EC6D6.jpg",
+  //   "69238-1251-06_NLMIMAGE10_FE50FF27.jpg",
+  //   "99207-0467-30_NLMIMAGE10_C11D60AB.jpg",
+  //   "76439-0102-50_NLMIMAGE10_3A3D9D0C.jpg",
+  // ];
+  // final List<String> imgName = [
+  //   'Levetiracetam 500 MG Oral Tablet',
+  //   'Raloxifene Hydrochloride 60 MG Oral Tablet',
+  //   'celecoxib 50 MG Oral Capsule',
+  //   'Fosinopril Sodium 20 MG Oral Tablet',
+  //   'topiramate 50 MG Oral Tablet',
+  //   'Estradiol 1 MG / norethindrone ',
+  //   '24 HR Minocycline 105 MG Extended ',
+  //   'Cephalexin 500 MG Oral Capsule',
+  // ];
 
   /// init
   @override
@@ -94,22 +104,6 @@ class _HomeScreenState extends State<HomeScreen> {
     ),
   };
 
-// void saveHistorySearch(List<ProductName> saveList) {
-//   List<String> historySearch = [];
-//   final SharedPreferences _preferences;
-//   static const _keyHistorySearch = 'historySearch';
-//   // static Future init() async {
-//   //   _preferences = await SharedPreferences.getInstance();
-//   // }
-
-//   static setToHistory(List<ProductName> saveItems) {
-//     historySearch = [];
-//     _preferences.setStringList(_keyHistorySearch, historySearch);
-//   }
-
-//   static List<String> getProductName() =>
-//       _preferences.getStringList(_keyHistorySearch);
-// }
   List<String> list;
   @override
   Widget build(BuildContext context) {
@@ -211,8 +205,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   return suggestionsBox;
                 },
                 onSuggestionSelected: (suggestion) async {
-                  print("tapped " + suggestion['tenThuoc']);
-                  print("tappedx2 " + suggestion['id']);
+                  print("tapped " + suggestion['productName']);
+                  print("tappedx2 " + suggestion['productId']);
                   BlocProvider.of<HomeScreenBloc>(context)
                     ..add(
                       OnTapEvent(
@@ -234,8 +228,6 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       );
     }
-
-    /// test typeahead
 
     /// Build list function icon
     Widget __listFunIcon() {
@@ -291,37 +283,78 @@ class _HomeScreenState extends State<HomeScreen> {
     }
 
     /// Build carouse slider
-    Widget __carouseSlider() {
-      return Padding(
-        padding: const EdgeInsets.only(top: 10.0),
-        child: Container(
-          child: CarouselSlider.builder(
-            itemCount: imgList.length,
-            options: CarouselOptions(
-              autoPlayAnimationDuration: Duration(seconds: 3),
-              autoPlayCurve: Curves.linearToEaseOut,
-              aspectRatio: 16 / 9,
-              enlargeCenterPage: true,
-              autoPlay: true,
-            ),
-            itemBuilder: (ctx, index, realIdx) {
-              return Container(
-                    // margin: EdgeInsets.only(right: 20, top: 10),
-                    width: 250,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      image: DecorationImage(
-                        image: AssetImage(imagesFav + imgList[index]),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ) ??
-                  __loadingPoShimmer();
-            },
-          ),
-        ),
-      );
-    }
+    // Widget __carouseSlider() {
+    //   return CarouselSlider.builder(
+    //     itemCount: imgList.length,
+    //     options: CarouselOptions(
+    //       autoPlayAnimationDuration: Duration(seconds: 3),
+    //       autoPlayCurve: Curves.linearToEaseOut,
+    //       aspectRatio: 16 / 10,
+    //       enlargeCenterPage: true,
+    //       autoPlay: true,
+    //     ),
+    //     itemBuilder: (ctx, index, realIdx) {
+    //       return Stack(
+    //             children: [
+    //               Container(
+    //                 height: Dimensions.pageViewContainer,
+    //                 margin: EdgeInsets.only(
+    //                   left: Dimensions.width10,
+    //                   right: Dimensions.width10,
+    //                 ),
+    //                 decoration: BoxDecoration(
+    //                   borderRadius: BorderRadius.circular(Dimensions.radius30),
+    //                   color: index.isEven
+    //                       ? Palette.mainBlueTheme
+    //                       : Palette.pastel2,
+    //                   image: DecorationImage(
+    //                     image: AssetImage(imagesFav + imgList[index]),
+    //                     fit: BoxFit.cover,
+    //                   ),
+    //                 ),
+    //               ),
+    //               Align(
+    //                 alignment: Alignment.bottomCenter,
+    //                 child: Container(
+    //                   margin: EdgeInsets.only(
+    //                     left: Dimensions.width30,
+    //                     right: Dimensions.width30,
+    //                   ),
+    //                   decoration: BoxDecoration(
+    //                     borderRadius:
+    //                         BorderRadius.circular(Dimensions.radius20),
+    //                     color: Colors.white,
+    //                     boxShadow: [
+    //                       BoxShadow(
+    //                         color: Color(0xFFe8e8e8),
+    //                         blurRadius: 5.0,
+    //                         offset: Offset(0, 5),
+    //                       ),
+    //                       BoxShadow(
+    //                         color: Colors.white,
+    //                         offset: Offset(-5, 0),
+    //                       ),
+    //                       BoxShadow(
+    //                         color: Colors.white,
+    //                         offset: Offset(5, 0),
+    //                       ),
+    //                     ],
+    //                   ),
+    //                   child: Padding(
+    //                     padding: const EdgeInsets.only(
+    //                         top: 3, bottom: 8, left: 8, right: 8),
+    //                     child: AppText(
+    //                       text: imgName[index],
+    //                     ),
+    //                   ),
+    //                 ),
+    //               ),
+    //             ],
+    //           ) ??
+    //           __loadingPoShimmer();
+    //     },
+    //   );
+    // }
 
     /// Build body
     return WillPopScope(
@@ -343,8 +376,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    __title(),
-                    __carouseSlider(),
+                    // __title(),
+                    SizedBox(
+                      height: Dimensions.height15,
+                    ),
+                    // __carouseSlider(),
                   ],
                 ),
               ],
@@ -353,32 +389,20 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
       onWillPop: () {
-        return showDialog(
-            context: context,
-            barrierDismissible: false,
-            builder: (BuildContext context) {
-              return AlertDialog(
-                title: AppText(text: "Thoát"),
-                content: AppText(text: "Bạn muốn thoát ứng dụng?"),
-                actions: <Widget>[
-                  FlatButton(
-                    child: AppText(text: "Thoát", color: Palette.warningColor),
-                    onPressed: () {
-                      SystemNavigator.pop();
-                    },
-                  ),
-                  FlatButton(
-                    child: AppText(
-                      text: "Huỷ",
-                      color: Palette.grey,
-                    ),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                  )
-                ],
-              );
-            });
+        return AwesomeDialog(
+          context: context,
+          dialogType: DialogType.WARNING,
+          headerAnimationLoop: false,
+          animType: AnimType.TOPSLIDE,
+          showCloseIcon: true,
+          closeIcon: const Icon(Icons.close_fullscreen_outlined),
+          title: 'Thoát',
+          desc: 'Bạn có chắc muốn thoát ứng dụng?',
+          btnCancelOnPress: () {},
+          btnOkOnPress: () {
+            SystemNavigator.pop();
+          },
+        ).show();
       },
     );
   }

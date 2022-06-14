@@ -1,12 +1,9 @@
 import 'dart:convert';
-
 import 'package:http/http.dart' as http;
-import 'package:medverse_mobile_app/models/drug_bank_db/compare_drug_model.dart';
 import 'package:medverse_mobile_app/utils/constants.dart';
 import '../models/drug_bank_db/favorite_list_model_w_name.dart';
 import '../models/drug_bank_db/product_name_api.dart';
 import '/models/drug_bank_db/pill_identifiter_model.dart';
-import '/models/drug_bank_db/product_name.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import '/utils/database_sqlite_connection.dart';
@@ -28,28 +25,15 @@ class TypeAheadByName {
         throw ('Request failed with status: ${resData.statusCode}.');
       }
       return Future.value(suggest
-          .map((e) => {'productName': e.productName, 'productId': e.productID,'drugId':e.drugbankID})
+          .map((e) => {
+                'productName': e.productName,
+                'productId': e.productID,
+                'drugId': e.drugbankID
+              })
           .toList());
     }
   }
 }
-
-/// Get a list of data item in api
-// class InteractionFetch {
-//   static Future<List<drugProductTest>> getRecommened() async {
-//     try {
-//       var response = await http.get(Uri.parse(AppConstants.BASE_URL));
-//       if (response.statusCode == 200) {
-//         List listTrend = json.decode(response.body) as List;
-//         return listTrend.map((e) => drugProductTest.fromJson(e)).toList();
-//       } else {
-//         throw Exception("Failed to fetch data");
-//       }
-//     } catch (e) {
-//       throw Exception("No Internet Connection");
-//     }
-//   }
-// }
 
 class DatabaseProvider {
   /// Get database's name
@@ -62,34 +46,7 @@ class DatabaseProvider {
   }
 }
 
-class TypeAhead2 {
-  static Future<List<ProductName>> searchName(String keyword) async {
-    if (keyword.isEmpty) {
-      return <ProductName>[];
-    }
-    if (keyword == " ") {
-      return <ProductName>[];
-    } else {
-      var db = await DatabaseSqliteConnection.drugBankAccess();
-      // _logSerchTerm(keyword);
-
-      List<Map<String, dynamic>> allRows = await db.query('products',
-          where: 'product_name LIKE ?', whereArgs: ['%$keyword%'], limit: 10);
-
-      return List.generate(
-        allRows.length,
-        (i) {
-          return ProductName(
-            product_id: allRows[i]['product_id'].toString(),
-            product_name: allRows[i]['product_name'].toString(),
-            product_code: allRows[i]['product_code'].toString(),
-          );
-        },
-      );
-    }
-  }
-}
-
+/// Favorite function
 class SetToFavoriteList {
   static Future setToFavoriteList(String productID, String savedTime) async {
     var db = await DatabaseSqliteConnection.drugBankAccess();
@@ -158,34 +115,6 @@ class PillIdentifierResult {
           pill_size: maps[i]['pill_size'].toString(),
           pill_colors: maps[i]['pill_colors'].toString(),
           pill_imprints: maps[i]['pill_imprints'].toString(),
-        );
-      },
-    );
-  }
-}
-
-class DrugCompareResult {
-  Future<List<CompareDrugModel>> getDrugByCompare(
-      String id1, String id2) async {
-    var db = await DatabaseSqliteConnection.drugBankAccess();
-    List<Map<String, dynamic>> maps = await db.rawQuery(
-        "SELECT product_name,drug_description, drug_state, drug_indication, pharmacodynamics, mechanism, toxicity, metabolism, half_life, route_of_elimination,clearance FROM drugs inner join products on products.drugbank_id = drugs.drugbank_id where product_id in ('$id1','$id2')");
-    print(maps);
-    return List.generate(
-      maps.length,
-      (i) {
-        return CompareDrugModel(
-          product_name: maps[i]['product_name'].toString(),
-          drug_description: maps[i]['drug_description'].toString(),
-          drug_state: maps[i]['drug_state'].toString(),
-          drug_indication: maps[i]['drug_indication'].toString(),
-          pharmacodynamics: maps[i]['pharmacodynamics'].toString(),
-          mechanism: maps[i]['mechanism'].toString(),
-          toxicity: maps[i]['toxicity'].toString(),
-          metabolism: maps[i]['metabolism'].toString(),
-          half_life: maps[i]['half_life'].toString(),
-          route_of_elimination: maps[i]['route_of_elimination'].toString(),
-          clearance: maps[i]['clearance'].toString(),
         );
       },
     );

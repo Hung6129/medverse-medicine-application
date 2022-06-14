@@ -3,6 +3,7 @@ import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
+import '../../../../widgets/awesome_dialog.dart';
 import '/theme/palette.dart';
 import '/widgets/app_text.dart';
 import '/widgets/dimension.dart';
@@ -20,6 +21,18 @@ class PillIdentifier extends StatefulWidget {
 class _PillIdentifierState extends State<PillIdentifier> {
 // Imprint input controller
   TextEditingController txtImprint = TextEditingController();
+  FocusNode focusNode;
+  @override
+  void initState() {
+    super.initState();
+    focusNode = FocusNode();
+  }
+
+  @override
+  void dispose() {
+    focusNode.dispose();
+    super.dispose();
+  }
 
 // List of Color 1
   // List<String> pill_color_1 = [
@@ -238,6 +251,7 @@ class _PillIdentifierState extends State<PillIdentifier> {
       return Padding(
         padding: const EdgeInsets.all(8.0),
         child: TextFormField(
+          focusNode: focusNode,
           controller: txtImprint,
           style: TextStyle(
             fontSize: Dimensions.font14,
@@ -419,15 +433,23 @@ class _PillIdentifierState extends State<PillIdentifier> {
                   dropdownShape == null &&
                   dropdownSize == null &&
                   txtImprint.text.isEmpty) {
-                print("Chon mot field de xem ket qua");
-                showTopSnackBar(
-                  context,
-                  CustomSnackBar.error(
-                    backgroundColor: Palette.warningColor,
-                    message:
-                        "Please check did you pick any field yet and try again",
-                  ),
-                );
+                AwesomeDialog(
+                  dialogBackgroundColor: Colors.white,
+                  context: context,
+                  headerAnimationLoop: false,
+                  titleTextStyle: TextStyle(
+                      color: Colors.black, fontSize: Dimensions.font20),
+                  descTextStyle: TextStyle(color: Colors.black),
+                  dialogType: DialogType.NO_HEADER,
+                  btnOkColor: Palette.mainBlueTheme,
+                  title: 'Lỗi',
+                  desc:
+                      'Hãy điền vào it nhất 1 trường thông tin để xem kết quả',
+                  btnOkOnPress: () {
+                    focusNode.requestFocus();
+                  },
+                  btnOkIcon: Icons.check_circle,
+                ).show();
               } else {
                 String blank = "".trim();
                 Navigator.push(

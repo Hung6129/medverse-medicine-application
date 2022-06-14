@@ -1,14 +1,18 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
-import '../../../../models/drug_bank_db/product_name.dart';
+import '/models/drug_bank_db/compare_drug_model.dart';
+import '/utils/constants.dart';
+import '/widgets/indicators.dart';
 import '../../../../services/service_data.dart';
 import '../../../../theme/palette.dart';
 import '../../../../utils/app_text_theme.dart';
 import '../../../../widgets/app_text.dart';
 import '../../../../widgets/awesome_dialog.dart';
 import '../../../../widgets/dimension.dart';
-import 'compare_result.dart';
+import 'package:http/http.dart' as http;
 
 class CompareDrug extends StatefulWidget {
   const CompareDrug({Key key}) : super(key: key);
@@ -30,30 +34,18 @@ class _CompareDrugState extends State<CompareDrug> {
 
   // Add to list function
   void __addItemToList(String value) {
-    if (addedItemsList.length == 2) {
-      addedItemsList.removeLast();
-      setState(() {
-        addedItemsList.insert(0, value);
-      });
-    } else {
-      setState(() {
-        addedItemsList.insert(0, value);
-      });
-    }
+    setState(() {
+      addedItemsList.insert(0, value);
+    });
   }
 
   void __addItemIdToList(String value) {
-    if (addedItemsIdList.length == 2) {
-      addedItemsIdList.removeLast();
-      setState(() {
-        addedItemsIdList.insert(0, value);
-      });
-    } else {
-      setState(() {
-        addedItemsIdList.insert(0, value);
-      });
-    }
+    setState(() {
+      addedItemsIdList.insert(0, value);
+    });
   }
+
+  Future<List<CompareDrugModel>> listData;
 
   /// Intro text
   String introText =
@@ -62,10 +54,25 @@ class _CompareDrugState extends State<CompareDrug> {
   /// Select text
   String selectText =
       "Bắt đầu gõ tên một loại thuốc. Một danh sách các gợi ý sẽ xuất hiện sau đó vui lòng chọn từ danh sách.";
+
+  Future<List<CompareDrugModel>> fetchCompareData(String id) async {
+    var response = await http
+        .get(Uri.parse(Constants.BASE_URL + Constants.DRUG_ID_SEARCH + id));
+    if (response.statusCode == 200) {
+      List listTrend = json.decode(response.body) as List;
+      return listTrend.map((e) => CompareDrugModel.fromJson(e)).toList();
+    } else {
+      throw Exception("Failed to fetch data");
+    }
+  }
+
   @override
   void initState() {
     super.initState();
     focusNode = FocusNode();
+    for (var i = 0; i < addedItemsIdList.length; i++) {
+      listData = fetchCompareData(addedItemsIdList[i]);
+    }
   }
 
   @override
@@ -128,14 +135,12 @@ class _CompareDrugState extends State<CompareDrug> {
                       labelText: 'Hôm nay bạn muốn tìm thuốc gì?'),
                 ),
                 suggestionsCallback: (String pattern) {
-                  return TypeAhead2.searchName(pattern);
+                  return TypeAheadByName.getTypeAheadByName(pattern);
                 },
-                itemBuilder: (context, ProductName suggestion) {
+                itemBuilder: (context, suggestion) {
                   return ListTile(
                     title: AppText(
-                      text: suggestion.product_name +
-                          "-" +
-                          suggestion.product_code,
+                      text: suggestion['productName'],
                       color: Colors.black54,
                       size: Dimensions.font14,
                       fontWeight: FontWeight.normal,
@@ -145,12 +150,12 @@ class _CompareDrugState extends State<CompareDrug> {
                 transitionBuilder: (context, suggestionsBox, controller) {
                   return suggestionsBox;
                 },
-                onSuggestionSelected: (ProductName suggestion) {
-                  _typeAheadController.text = suggestion.product_name;
+                onSuggestionSelected: (suggestion) {
+                  _typeAheadController.text = suggestion['productName'];
                   print(_typeAheadController.text);
-                  print(suggestion.product_id);
+                  print(suggestion['drugId']);
                   __addItemToList(_typeAheadController.text);
-                  __addItemIdToList(suggestion.product_id);
+                  __addItemIdToList(suggestion['drugId']);
                 },
                 validator: (value) {
                   if (value.isEmpty) {
@@ -243,17 +248,23 @@ class _CompareDrugState extends State<CompareDrug> {
                   },
                   btnOkIcon: Icons.check_circle,
                 ).show();
-              } else {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => CompareResult(
-                      query1: addedItemsIdList[0],
-                      query2: addedItemsIdList[1],
-                    ),
-                  ),
-                );
               }
+              setState(() {
+                for (var i = 0; i < addedItemsIdList.length; i++) {
+                  listData = fetchCompareData(addedItemsIdList[i]);
+                }
+              });
+              // else {
+              //   Navigator.push(
+              //     context,
+              //     MaterialPageRoute(
+              //       builder: (context) => CompareResult(
+              //         query1: addedItemsIdList[0],
+              //         query2: addedItemsIdList[1],
+              //       ),
+              //     ),
+              //   );
+              // }
             },
             child: AppText(
               text: "So sánh",
@@ -263,6 +274,34 @@ class _CompareDrugState extends State<CompareDrug> {
             ),
           ),
         ),
+      );
+    }
+
+    Widget __getDataByDrug() {
+      return FutureBuilder(
+        future: listData,
+        builder: (context, AsyncSnapshot<List<CompareDrugModel>> snapshot) {
+          if (snapshot.data == null) {
+            return Container(
+              child: AppText(text: "data bi null"),
+            );
+          }
+          if (snapshot.hasData) {
+            var data = snapshot.data;
+            return ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: data.length,
+              itemBuilder: (context, index) {
+                return Container(
+                  color: Palette.activeButton,
+                  child: Text(data[index].drugName),
+                );
+              },
+            );
+          } else {
+            return circularProgress(context);
+          }
+        },
       );
     }
 
@@ -294,10 +333,23 @@ class _CompareDrugState extends State<CompareDrug> {
               child: Container(
                 width: Dimensions.boxSearchViewWidth,
                 child: Column(
-                  children: [__searchInput(), __listBox(), __compare()],
+                  children: [
+                    __searchInput(),
+                    __listBox(),
+                    __compare(),
+                  ],
                 ),
               ),
             ),
+            SizedBox(
+              height: Dimensions.height10,
+            ),
+            Divider(
+              endIndent: Dimensions.height10,
+              indent: Dimensions.height10,
+              thickness: 3,
+            ),
+            __getDataByDrug()
           ],
         ),
       ),
