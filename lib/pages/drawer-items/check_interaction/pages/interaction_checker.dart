@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-import 'package:medverse_mobile_app/utils/app_text_theme.dart';
-import '../../../../widgets/awesome_dialog.dart';
+import '/utils/app_text_theme.dart';
+import '/widgets/awesome_dialog.dart';
 import '/services/service_data.dart';
 import '/theme/palette.dart';
 import '/widgets/app_text.dart';
@@ -52,6 +52,7 @@ class _InteractionCheckerState extends State<InteractionChecker> {
   }
 
   FocusNode focusNode;
+
   @override
   void initState() {
     super.initState();
@@ -286,7 +287,11 @@ class _InteractionCheckerState extends State<InteractionChecker> {
               child: Container(
                 width: Dimensions.boxSearchViewWidth,
                 child: Column(
-                  children: [__textInput(), __listItems(), __checkBtn()],
+                  children: [
+                    __textInput(),
+                    __listItems(),
+                    __checkBtn(),
+                  ],
                 ),
               ),
             ),

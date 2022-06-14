@@ -83,20 +83,22 @@ class _MedicineDictionaryState extends State<DrugIndex> {
           ),
         ),
         child: TabBarView(
-          children: List.generate(alpha.length, (index) {
-            // if (isSearching == true) {
-            //   return PageIndexDrug(
-            //     isSearch: true,
-            //     inputSearch: searchWord,
-            //     letterIndex: alpha[index],
-            //   );
-            // } else {
-            return PageIndexDrug(
-              // isSearch: false,
-              letterIndex: alpha[index],
-            );
-            // }
-          }),
+          children: List.generate(
+            alpha.length,
+            (index) {
+              // if (isSearching == true) {
+              //   return PageIndexDrug(
+              //     isSearch: true,
+              //     inputSearch: searchWord,
+              //     letterIndex: alpha[index],
+              //   );
+              // } else {
+              return PageIndexDrug(
+                // isSearch: false,
+                letterIndex: alpha[index],
+              );
+            },
+          ),
         ),
       );
     }
