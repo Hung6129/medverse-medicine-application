@@ -62,27 +62,6 @@ class _DrugDetailsState extends State<DrugDetails> {
     postApi = fetchDetailData();
   }
 
-  GoogleTranslator translator = GoogleTranslator();
-  var output;
-
-  void translate1(ProductModel data) {
-    translator.translate(data.productLabeller, to: 'vi').then((value) {
-      print(value.toString());
-      setState(() {
-        output = value;
-      });
-    });
-  }
-
-  void translate2(ProductModel data) {
-    translator.translate(data.productRoute, to: 'vi').then((value) {
-      print(value.toString());
-      setState(() {
-        output = value;
-      });
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     /// Sliver app bar for product name
@@ -131,8 +110,6 @@ class _DrugDetailsState extends State<DrugDetails> {
 
     /// Sliver
     Widget __sliverAppBarDetail(ProductModel data) {
-      translate1(data);
-      // translate2(data);
       return SliverToBoxAdapter(
         child: Container(
           padding: EdgeInsets.only(
@@ -143,8 +120,6 @@ class _DrugDetailsState extends State<DrugDetails> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(output.toString() ?? "data bi null"),
-              // Text(output.toString() ?? "data bi null"),
               // Product
               RichTextCus(text1: "Labeller:", text2: data.productLabeller),
               RichTextCus(text1: "Route:", text2: data.productRoute), //d
