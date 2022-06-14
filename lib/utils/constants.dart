@@ -10,6 +10,7 @@ class Constants {
 
   /// Find drug by name
   static const String NAME_SEARCH = "/api/products/name?name=";
+  static const String NAME_SEARCH_FAST = "/api/search2/name/";
 
   // Interaction check by drugs id
   static const String INTERACTION_CHECKER = "/api/interactions/checkByTwoIDs?";

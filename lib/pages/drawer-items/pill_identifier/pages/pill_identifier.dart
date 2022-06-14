@@ -65,24 +65,24 @@ class _PillIdentifierState extends State<PillIdentifier> {
   // ];
 
 // List of Shapes
-  List<String> pill_shapes = [
-    "CAPSULE",
-    "OVAL",
-    "TEAR",
-    "ROUND",
-    "HEXAGON(6sided)",
-    "SQUARE",
-    "TRIANGLE",
-    "PENTAGON(5sided)",
-    "DIAMOND",
-    "RECTANGLE",
-    "SEMI-CIRCLE",
-    "DOUBLECIRCLE",
-    "TRAPEZOID",
-    "FREEFORM",
-    "NEED ATTENTION",
-    "BULLET",
-  ];
+  var pill_shapes = {
+    "CAPSULE": "Viên con nhộng",
+    "OVAL": 'Hình trái xoan',
+    "TEAR": 'Hình giọt nước',
+    "ROUND": 'Hình tròn',
+    "HEXAGON(6sided)": "Lục giác",
+    "SQUARE": "Hình vuông",
+    "TRIANGLE": "HÌnh tam giác",
+    "PENTAGON(5sided)": "Ngũ giác",
+    "DIAMOND": "Hình kim cương",
+    "RECTANGLE": "Hình chữ nhật",
+    "SEMI-CIRCLE": "Nửa hình tròn",
+    "DOUBLECIRCLE": "Hình số 8",
+    "TRAPEZOID": "HÌnh thang",
+    "NEED ATTENTION": "Thất giác",
+    "BULLET": "Viên nén",
+    "FREEFORM": 'Hình dạng khác',
+  };
 
 // List of Size
   List<String> pill_sizes = [
@@ -258,7 +258,7 @@ class _PillIdentifierState extends State<PillIdentifier> {
           decoration: InputDecoration(
             border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(Dimensions.radius15)),
-            hintText: 'Input a imprint',
+            hintText: 'Nhập mã kí tự trên thuôc',
             hintStyle: TextStyle(
               fontSize: Dimensions.font14,
             ),
@@ -288,11 +288,12 @@ class _PillIdentifierState extends State<PillIdentifier> {
                 child: DropdownButton<String>(
                   value: dropdownColor,
                   hint: AppText(
-                    text: "Pick a color",
+                    text: "Chọn một màu bất kì",
                     size: Dimensions.font14,
                   ),
                   isDense: true,
                   onChanged: (String newValue) {
+                    print(dropdownColor);
                     setState(() {
                       dropdownColor = newValue;
                     });
@@ -335,7 +336,7 @@ class _PillIdentifierState extends State<PillIdentifier> {
                 child: DropdownButton<String>(
                   value: dropdownShape,
                   hint: AppText(
-                    text: "Pick a shape",
+                    text: "Chọn một hình dáng",
                     size: Dimensions.font14,
                   ),
                   isDense: true,
@@ -343,10 +344,12 @@ class _PillIdentifierState extends State<PillIdentifier> {
                     setState(
                       () {
                         dropdownShape = newValue;
+                        print("347" + dropdownColor);
+                        print("348" + newValue);
                       },
                     );
                   },
-                  items: pill_shapes.map(
+                  items: pill_shapes.values.map(
                     (value) {
                       return DropdownMenuItem(
                         value: value,
@@ -386,7 +389,7 @@ class _PillIdentifierState extends State<PillIdentifier> {
                 child: DropdownButton<String>(
                   value: dropdownSize,
                   hint: AppText(
-                    text: "Pick a size",
+                    text: "Chọn kích cỡ",
                     size: Dimensions.font14,
                   ),
                   isDense: true,

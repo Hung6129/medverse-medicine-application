@@ -73,7 +73,15 @@ class _InteractionCheckerResultState extends State<InteractionCheckerResult> {
         future: data,
         builder: (context, AsyncSnapshot<CheckInteractionModel> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return circularProgress(context);
+            return Center(
+                child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                // Image.asset("assets/images/loading.png"),
+                circularProgress(context),
+              ],
+            ));
           }
           if (snapshot.connectionState == ConnectionState.done) {
             if (snapshot.data == null) {
@@ -197,9 +205,7 @@ class _InteractionCheckerResultState extends State<InteractionCheckerResult> {
         ),
         centerTitle: true,
       ),
-      body: SingleChildScrollView(
-        child: __getInteractionDetail(),
-      ),
+      body: __getInteractionDetail(),
     );
   }
 }

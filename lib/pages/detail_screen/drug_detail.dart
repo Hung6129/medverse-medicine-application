@@ -1,14 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:medverse_mobile_app/utils/constants.dart';
+import '/utils/constants.dart';
 import 'dart:async';
 import 'dart:convert';
-import 'package:medverse_mobile_app/widgets/indicators.dart';
+import '/widgets/indicators.dart';
 import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
 import 'package:http/http.dart' as http;
-import 'package:translator/translator.dart';
 import '../../models/drug_bank_db/product_model.dart';
 import '../../services/service_data.dart';
 import '../../theme/palette.dart';
@@ -248,10 +247,6 @@ class _DrugDetailsState extends State<DrugDetails> {
               children: [
                 // Image.asset("assets/images/loading.png"),
                 circularProgress(context),
-                AppText(
-                  text: "Đang tải dữ liệu",
-                  color: Palette.mainBlueTheme,
-                )
               ],
             ));
           }

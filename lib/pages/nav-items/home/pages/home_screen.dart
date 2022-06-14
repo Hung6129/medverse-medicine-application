@@ -108,31 +108,31 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     /// Loading Shimmer Popular
-    Widget __loadingPoShimmer() {
-      return Container(
-        padding: EdgeInsets.only(left: 20),
-        height: Dimensions.pageView,
-        width: double.maxFinite,
-        child: ListView.builder(
-          itemCount: 5,
-          scrollDirection: Axis.horizontal,
-          itemBuilder: (BuildContext context, int index) {
-            return Shimmer(
-              child: Container(
-                margin: EdgeInsets.only(right: 20, top: 10),
-                width: 250,
-                decoration: BoxDecoration(
-                  color: Palette.grey300,
-                  borderRadius: BorderRadius.circular(
-                    Dimensions.radius20,
-                  ),
-                ),
-              ),
-            );
-          },
-        ),
-      );
-    }
+    // Widget __loadingPoShimmer() {
+    //   return Container(
+    //     padding: EdgeInsets.only(left: 20),
+    //     height: Dimensions.pageView,
+    //     width: double.maxFinite,
+    //     child: ListView.builder(
+    //       itemCount: 5,
+    //       scrollDirection: Axis.horizontal,
+    //       itemBuilder: (BuildContext context, int index) {
+    //         return Shimmer(
+    //           child: Container(
+    //             margin: EdgeInsets.only(right: 20, top: 10),
+    //             width: 250,
+    //             decoration: BoxDecoration(
+    //               color: Palette.grey300,
+    //               borderRadius: BorderRadius.circular(
+    //                 Dimensions.radius20,
+    //               ),
+    //             ),
+    //           ),
+    //         );
+    //       },
+    //     ),
+    //   );
+    // }
 
     /// Title
     Widget __title() {
@@ -189,7 +189,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       labelText: 'Hôm nay bạn muốn tìm thuốc gì?'),
                 ),
                 suggestionsCallback: (String pattern) {
-                  return TypeAheadByName.getTypeAheadByName(pattern);
+                  return TypeAheadByNameFast.getTypeAheadByName(pattern);
                 },
                 itemBuilder: (context, suggestion) {
                   return ListTile(
@@ -205,8 +205,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   return suggestionsBox;
                 },
                 onSuggestionSelected: (suggestion) async {
-                  print("tapped " + suggestion['productName']);
-                  print("tappedx2 " + suggestion['productId']);
+                  // print("tapped " + suggestion['productName']);
+                  // print("tappedx2 " + suggestion['productId']);
                   BlocProvider.of<HomeScreenBloc>(context)
                     ..add(
                       OnTapEvent(

@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:medverse_mobile_app/models/drug_bank_db/product_name_api_fast.dart';
 import 'package:medverse_mobile_app/utils/constants.dart';
 import '../models/drug_bank_db/favorite_list_model_w_name.dart';
 import '../models/drug_bank_db/product_name_api.dart';
@@ -29,6 +30,32 @@ class TypeAheadByName {
                 'productName': e.productName,
                 'productId': e.productID,
                 'drugId': e.drugbankID
+              })
+          .toList());
+    }
+  }
+}
+
+class TypeAheadByNameFast {
+  static Future<List<Map<String, String>>> getTypeAheadByName(
+      String input) async {
+    if (input.isEmpty) {
+      return <Map<String, String>>[];
+    } else {
+      http.Response resData = await http.get(
+          Uri.parse(Constants.BASE_URL + Constants.NAME_SEARCH_FAST + input));
+      List<ProductNameApiFast> suggest = [];
+      if (resData.statusCode == 200) {
+        Iterable listData = json.decode(resData.body);
+        suggest = List<ProductNameApiFast>.from(
+            listData.map((e) => ProductNameApiFast.fromJson(e)));
+      } else {
+        throw ('Request failed with status: ${resData.statusCode}.');
+      }
+      return Future.value(suggest
+          .map((e) => {
+                'productName': e.name,
+                'productId': e.productID,
               })
           .toList());
     }
