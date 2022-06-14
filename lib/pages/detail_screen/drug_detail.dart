@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import '../../widgets/awesome_dialog.dart';
 import '/utils/constants.dart';
 import 'dart:async';
 import 'dart:convert';
@@ -170,52 +171,39 @@ class _DrugDetailsState extends State<DrugDetails> {
               IconButton(
                   onPressed: () async {
                     if (_isAdded == false) {
-                      showTopSnackBar(
-                        context,
-                        CustomSnackBar.success(
-                          message: "Đã thêm vào danh sách yêu thích thành công",
-                        ),
-                      );
+                      AwesomeDialog(
+                        context: context,
+                        dialogType: DialogType.SUCCES,
+                        animType: AnimType.SCALE,
+                        title: 'Yeah',
+                        desc: 'Bạn đã lưu vào danh sách yêu thích thành công',
+                        autoHide: const Duration(seconds: 2),
+                      ).show();
                       await SetToFavoriteList.setToFavoriteList(
                           productModel.productID, savedTime);
                       setState(() {
                         _isAdded = true;
                       });
                     } else {
-                      showDialog(
-                          context: context,
-                          barrierDismissible: false,
-                          builder: (BuildContext context) {
-                            return AlertDialog(
-                              title: AppText(text: "Bỏ lưu"),
-                              content: AppText(
-                                  text:
-                                      "Gỡ thuốc này ra khỏi danh sách yêu thích ?"),
-                              actions: <Widget>[
-                                FlatButton(
-                                  child: AppText(
-                                      text: "Huỷ", color: Palette.warningColor),
-                                  onPressed: () {
-                                    Navigator.of(context).pop();
-                                  },
-                                ),
-                                FlatButton(
-                                  child: AppText(
-                                    text: "Gỡ lưu",
-                                    color: Palette.grey,
-                                  ),
-                                  onPressed: () async {
-                                    await DeleteItemInFavList.deleteItems(
-                                        productModel.productID);
-                                    setState(() {
-                                      _isAdded = false;
-                                    });
-                                    Navigator.of(context).pop();
-                                  },
-                                )
-                              ],
-                            );
+                      AwesomeDialog(
+                        context: context,
+                        dialogType: DialogType.WARNING,
+                        headerAnimationLoop: false,
+                        animType: AnimType.TOPSLIDE,
+                        showCloseIcon: true,
+                        closeIcon: const Icon(Icons.close_fullscreen_outlined),
+                        title: 'Bỏ lưu',
+                        desc: 'Bạn có chắc muốn bỏ yêu thích thuốc này?',
+                        btnCancelOnPress: () {},
+                        btnOkOnPress: () async {
+                          await DeleteItemInFavList.deleteItems(
+                              productModel.productID);
+                          setState(() {
+                            _isAdded = false;
                           });
+                          // Navigator.of(context).pop();
+                        },
+                      ).show();
                     }
                   },
                   icon: _isAdded == true

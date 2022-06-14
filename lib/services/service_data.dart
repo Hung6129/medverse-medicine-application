@@ -87,7 +87,7 @@ class GetFavoriteList {
     var db = await DatabaseSqliteConnection.drugBankAccess();
 
     List<Map<String, dynamic>> allRows = await db.rawQuery(
-        'SELECT productID,product_name,savedTime FROM favorite_drug inner join products on products.product_id = favorite_drug.productID');
+        'SELECT productID,product_name,product_labeller,savedTime FROM favorite_drug inner join products on products.product_id = favorite_drug.productID');
 
     return List.generate(
       allRows.length,
@@ -95,6 +95,7 @@ class GetFavoriteList {
         return FavoriteListWName(
           productID: allRows[i]['productID'].toString(),
           product_name: allRows[i]['product_name'].toString(),
+          product_labeller: allRows[i]['product_labeller'].toString(),
           savedTime: allRows[i]['savedTime'].toString(),
         );
       },

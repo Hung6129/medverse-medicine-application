@@ -34,8 +34,14 @@ class _FavoriteDrugsListScreenNavState
     if (dataList.isEmpty) {
       return null;
     } else
-      print(dataList.length);
-    return dataList;
+      print(dataList.length.toString());
+    return dataList.reversed.toList();
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
   }
 
   @override
@@ -121,7 +127,8 @@ class _FavoriteDrugsListScreenNavState
                                               Dimensions.radius20)),
                                       image: DecorationImage(
                                         fit: BoxFit.cover,
-                                        image: AssetImage(imagesFav),
+                                        image: AssetImage(
+                                            "assets/images/splash/Medverse.png"),
                                       ),
                                     ),
                                   ),
@@ -146,6 +153,15 @@ class _FavoriteDrugsListScreenNavState
                                                   .data[index].product_name,
                                               color: Palette.textNo,
                                               size: Dimensions.font16,
+                                              fontWeight: FontWeight.normal,
+                                            ),
+                                            SizedBox(
+                                                height: Dimensions.height10),
+                                            AppText(
+                                              text: snapshot
+                                                  .data[index].product_labeller,
+                                              color: Palette.textNo,
+                                              size: Dimensions.font14,
                                               fontWeight: FontWeight.normal,
                                             ),
                                             SizedBox(
