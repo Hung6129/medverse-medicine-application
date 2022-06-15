@@ -10,12 +10,12 @@ import 'package:flutter/material.dart';
 
 class CompareResult extends StatefulWidget {
   final String query1;
-  // final String query2;
+  final String query2;
 
   const CompareResult({
     Key key,
     this.query1,
-    // this.query2,
+    this.query2,
   }) : super(key: key);
 
   @override
@@ -24,18 +24,21 @@ class CompareResult extends StatefulWidget {
 
 class _CompareResultState extends State<CompareResult> {
   /// set list
-  Future<CompareDrugModel> dataList;
+  Future<List<CompareDrugModel>> dataList;
 
   /// get list
-  Future<CompareDrugModel> fetchDetailData() async {
+  Future<List<CompareDrugModel>> fetchDetailData() async {
     final response = await http.get(Uri.parse(
         Constants.BASE_URL + Constants.DRUG_ID_SEARCH + widget.query1));
     if (response.statusCode == 200) {
-      return CompareDrugModel.fromJson(jsonDecode(response.body));
+      List<dynamic> list = json.decode(response.body);
+      print(list.length);
+      print(list);
+      return list.map((e) => CompareDrugModel.fromJson(e)).toList();
     } else {
       throw Exception('Failed to load data');
     }
-  }
+  } 
 
   @override
   void initState() {
@@ -46,14 +49,20 @@ class _CompareResultState extends State<CompareResult> {
   @override
   Widget build(BuildContext context) {
     Widget __table() {
-      return FutureBuilder<CompareDrugModel>(
+      return FutureBuilder<List<CompareDrugModel>>(
         future: dataList,
         builder: (ctx, snapshot) {
           var data = snapshot.data;
           if (snapshot.hasData) {
             // show table
-            AppText(
-              text: data.drugName,
+            ListView.builder(
+              itemCount: data.length,
+              scrollDirection: Axis.horizontal,
+              itemBuilder: (context, index) {
+                return AppText(
+                  text: data[index].drugDescription,
+                );
+              },
             );
           }
           if (snapshot.hasError || snapshot.data == null) {

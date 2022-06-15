@@ -238,21 +238,21 @@ class _DrugDetailsState extends State<DrugDetails> {
               ],
             ));
           }
-          if (snapshot.data == null) {
-            return Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Image.asset("assets/images/Nodata-cuate.png"),
-                AppText(
-                  text: "Không tìm thấy kết quả",
-                  color: Palette.warningColor,
-                  fontWeight: FontWeight.bold,
-                )
-              ],
-            );
-          }
-          if (snapshot.hasData) {
+          // if (snapshot.data == null) {
+          //   return Column(
+          //     mainAxisAlignment: MainAxisAlignment.center,
+          //     crossAxisAlignment: CrossAxisAlignment.center,
+          //     children: [
+          //       Image.asset("assets/images/Nodata-cuate.png"),
+          //       AppText(
+          //         text: "Không tìm thấy kết quả",
+          //         color: Palette.warningColor,
+          //         fontWeight: FontWeight.bold,
+          //       )
+          //     ],
+          //   );
+          // }
+          else if (snapshot.hasData) {
             var info = snapshot.data;
             return Scaffold(
               body: CustomScrollView(
@@ -269,10 +269,10 @@ class _DrugDetailsState extends State<DrugDetails> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Image.asset("assets/images/error_image.jpg"),
+                Image.asset("assets/images/error_image.png"),
                 AppText(
                   text: "Đã có lỗi gì đó xảy ra",
-                  color: Palette.warningColor,
+                  color: Palette.mainBlueTheme,
                 )
               ],
             ));

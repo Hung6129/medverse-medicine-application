@@ -135,7 +135,7 @@ class _PillIdentifierListResultState extends State<PillIdentifierListResult> {
                                   borderRadius: BorderRadius.circular(
                                       Dimensions.radius15),
                                   image: DecorationImage(
-                                    fit: BoxFit.cover,
+                                    fit: BoxFit.fill,
                                     image: AssetImage(
                                         assetImage + data.pill_file_name),
                                   ),

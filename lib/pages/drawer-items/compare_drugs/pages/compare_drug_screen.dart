@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 
+import '../../../../models/drug_bank_db/compare_drug_model.dart';
 import '../../../../services/service_data.dart';
 import '../../../../theme/palette.dart';
 import '../../../../utils/app_text_theme.dart';
@@ -50,17 +51,6 @@ class _CompareDrugState extends State<CompareDrug> {
   /// Select text
   String selectText =
       "Bắt đầu gõ tên một loại thuốc. Một danh sách các gợi ý sẽ xuất hiện sau đó vui lòng chọn từ danh sách.";
-
-  // Future<List<CompareDrugModel>> fetchCompareData(String id) async {
-  //   var response = await http
-  //       .get(Uri.parse(Constants.BASE_URL + Constants.DRUG_ID_SEARCH + id));
-  //   if (response.statusCode == 200) {
-  //     List listTrend = json.decode(response.body) as List;
-  //     return listTrend.map((e) => CompareDrugModel.fromJson(e)).toList();
-  //   } else {
-  //     throw Exception("Failed to fetch data");
-  //   }
-  // }
 
   @override
   void initState() {
@@ -224,37 +214,37 @@ class _CompareDrugState extends State<CompareDrug> {
           ),
           child: TextButton(
             onPressed: () {
-              // if (addedItemsList.length == 0 && addedItemsIdList.length == 0) {
-              //   AwesomeDialog(
-              //     dialogBackgroundColor: Colors.white,
-              //     context: context,
-              //     headerAnimationLoop: false,
-              //     titleTextStyle: TextStyle(
-              //         color: Colors.black, fontSize: Dimensions.font20),
-              //     descTextStyle: TextStyle(color: Colors.black),
-              //     dialogType: DialogType.NO_HEADER,
-              //     btnOkColor: Palette.pastel5,
-              //     title: 'Lỗi',
-              //     desc: 'Hãy nhập vào đủ 2 tên thuốc để xem so sánh',
-              //     btnOkOnPress: () {
-              //       focusNode.requestFocus();
-              //     },
-              //     btnOkIcon: Icons.check_circle,
-              //   ).show();
-              // } else {
-              print(addedItemsIdList[0]);
-              // print(addedItemsIdList[1]);
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => CompareResult(
-                    query1: addedItemsIdList[0],
-                    // query2: addedItemsIdList[1],
+              if (addedItemsList.length == 0 && addedItemsIdList.length == 0) {
+                AwesomeDialog(
+                  dialogBackgroundColor: Colors.white,
+                  context: context,
+                  headerAnimationLoop: false,
+                  titleTextStyle: TextStyle(
+                      color: Colors.black, fontSize: Dimensions.font20),
+                  descTextStyle: TextStyle(color: Colors.black),
+                  dialogType: DialogType.NO_HEADER,
+                  btnOkColor: Palette.pastel5,
+                  title: 'Lỗi',
+                  desc: 'Hãy nhập vào đủ 2 tên thuốc để xem so sánh',
+                  btnOkOnPress: () {
+                    focusNode.requestFocus();
+                  },
+                  btnOkIcon: Icons.check_circle,
+                ).show();
+              } else {
+                print(addedItemsIdList[0]);
+                print(addedItemsIdList[1]);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => CompareResult(
+                      query1: addedItemsIdList[0],
+                      // query2: addedItemsIdList[1],
+                    ),
                   ),
-                ),
-              );
+                );
+              }
             },
-            // },
             child: AppText(
               text: "So sánh",
               color: Palette.whiteText,
@@ -282,23 +272,27 @@ class _CompareDrugState extends State<CompareDrug> {
             __intro(),
 
             /// Compare box
-            Neumorphic(
-              style: NeumorphicStyle(
-                shape: NeumorphicShape.flat,
-                boxShape:
-                    NeumorphicBoxShape.roundRect(BorderRadius.circular(12)),
-                depth: 15,
-                lightSource: LightSource.top,
-                color: Colors.white,
-              ),
-              child: Container(
-                width: Dimensions.boxSearchViewWidth,
-                child: Column(
-                  children: [
-                    __searchInput(),
-                    __listBox(),
-                    __compare(),
-                  ],
+            Padding(
+              padding: EdgeInsets.only(
+                  left: Dimensions.height30, right: Dimensions.height30),
+              child: Neumorphic(
+                style: NeumorphicStyle(
+                  shape: NeumorphicShape.flat,
+                  boxShape:
+                      NeumorphicBoxShape.roundRect(BorderRadius.circular(12)),
+                  depth: 15,
+                  lightSource: LightSource.top,
+                  color: Colors.white,
+                ),
+                child: Container(
+                  width: Dimensions.boxSearchViewWidth,
+                  child: Column(
+                    children: [
+                      __searchInput(),
+                      __listBox(),
+                      __compare(),
+                    ],
+                  ),
                 ),
               ),
             ),

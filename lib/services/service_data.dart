@@ -39,26 +39,22 @@ class TypeAheadByName {
 class TypeAheadByNameFast {
   static Future<List<Map<String, String>>> getTypeAheadByName(
       String input) async {
-    if (input.isEmpty) {
-      return <Map<String, String>>[];
+    http.Response resData = await http.get(
+        Uri.parse(Constants.BASE_URL + Constants.NAME_SEARCH_FAST + input));
+    List<ProductNameApiFast> suggest = [];
+    if (resData.statusCode == 200) {
+      Iterable listData = json.decode(resData.body);
+      suggest = List<ProductNameApiFast>.from(
+          listData.map((e) => ProductNameApiFast.fromJson(e)));
     } else {
-      http.Response resData = await http.get(
-          Uri.parse(Constants.BASE_URL + Constants.NAME_SEARCH_FAST + input));
-      List<ProductNameApiFast> suggest = [];
-      if (resData.statusCode == 200) {
-        Iterable listData = json.decode(resData.body);
-        suggest = List<ProductNameApiFast>.from(
-            listData.map((e) => ProductNameApiFast.fromJson(e)));
-      } else {
-        throw ('Request failed with status: ${resData.statusCode}.');
-      }
-      return Future.value(suggest
-          .map((e) => {
-                'productName': e.name,
-                'productId': e.productID,
-              })
-          .toList());
+      throw ('Request failed with status: ${resData.statusCode}.');
     }
+    return Future.value(suggest
+        .map((e) => {
+              'productName': e.name,
+              'productId': e.productID,
+            })
+        .toList());
   }
 }
 

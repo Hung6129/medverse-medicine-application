@@ -5,9 +5,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
-import 'package:medverse_mobile_app/models/drug_bank_db/product_name_api.dart';
 import 'package:medverse_mobile_app/models/drug_bank_db/trend_list_images.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import '../../../../utils/constants.dart';
 import '../../../../widgets/awesome_dialog.dart';
 import '/pages/nav-items/home/bloc/home_screen_bloc.dart';
@@ -205,10 +203,16 @@ class _HomeScreenState extends State<HomeScreen> {
                         borderSide:
                             BorderSide(width: 3, color: Palette.mainBlueTheme),
                       ),
-                      labelText: 'Hôm nay bạn muốn tìm thuốc gì?'),
+                      labelText: 'Nhập thuốc bạn muốn kiểm tra'),
                 ),
                 suggestionsCallback: (String pattern) {
-                  return TypeAheadByNameFast.getTypeAheadByName(pattern);
+                  if (pattern == null ||
+                      pattern.trim().isEmpty ||
+                      pattern.length == 0) {
+                    return [];
+                  } else {
+                    return TypeAheadByNameFast.getTypeAheadByName(pattern);
+                  }
                 },
                 itemBuilder: (context, suggestion) {
                   return ListTile(
@@ -310,7 +314,7 @@ class _HomeScreenState extends State<HomeScreen> {
             return __loadingPoShimmer();
           } else if (snapshot.data == null) {
             return Container(
-              child: Text("bi null"),
+              child: __loadingPoShimmer(),  
             );
           } else if (snapshot.hasData) {
             var data = snapshot.data;
@@ -418,7 +422,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // __title(),
+                    __title(),
                     SizedBox(
                       height: Dimensions.height15,
                     ),
