@@ -4,7 +4,6 @@ import '/widgets/awesome_dialog.dart';
 import '/theme/palette.dart';
 import '/widgets/app_text.dart';
 import '/widgets/dimension.dart';
-import 'package:flutter/material.dart';
 
 import 'pill_identifier_result.dart';
 
@@ -19,6 +18,7 @@ class _PillIdentifierState extends State<PillIdentifier> {
 // Imprint input controller
   TextEditingController txtImprint = TextEditingController();
   FocusNode focusNode;
+  GlobalKey<FormFieldState> _key;
 
   @override
   void initState() {
@@ -272,10 +272,17 @@ class _PillIdentifierState extends State<PillIdentifier> {
       return Padding(
         padding: const EdgeInsets.all(8.0),
         child: FormField<String>(
+          key: _key,
           builder: (FormFieldState<String> state) {
             return InputDecorator(
               decoration: InputDecoration(
                 prefixIcon: Icon(CupertinoIcons.color_filter),
+                suffixIcon: IconButton(
+                  icon: Icon(CupertinoIcons.multiply),
+                  onPressed: () {
+                    _key.currentState.reset();
+                  },
+                ),
                 border: OutlineInputBorder(
                   borderSide: BorderSide(
                     width: 4,
@@ -518,30 +525,34 @@ class _PillIdentifierState extends State<PillIdentifier> {
             __title(),
 
             // Query fill box
-            Neumorphic(
-              style: NeumorphicStyle(
-                shape: NeumorphicShape.flat,
-                boxShape:
-                    NeumorphicBoxShape.roundRect(BorderRadius.circular(12)),
-                depth: 15,
-                lightSource: LightSource.top,
-                color: Colors.white,
-              ),
-              child: Container(
-                width: Dimensions.boxSearchViewWidth,
+            Padding(
+              padding: EdgeInsets.only(
+                  left: Dimensions.height30, right: Dimensions.height30),
+              child: Neumorphic(
+                style: NeumorphicStyle(
+                  shape: NeumorphicShape.flat,
+                  boxShape:
+                      NeumorphicBoxShape.roundRect(BorderRadius.circular(12)),
+                  depth: 15,
+                  lightSource: LightSource.top,
+                  color: Colors.white,
+                ),
+                child: Container(
+                  // width: Dimensions.boxSearchViewWidth,
 
-                /// All the field
-                child: Column(
-                  children: [
-                    __imprint(),
-                    __color(),
-                    __shape(),
-                    __size(),
-                    __searchBtn(),
-                    SizedBox(
-                      height: 10,
-                    )
-                  ],
+                  /// All the field
+                  child: Column(
+                    children: [
+                      __imprint(),
+                      __color(),
+                      __shape(),
+                      __size(),
+                      __searchBtn(),
+                      SizedBox(
+                        height: 10,
+                      )
+                    ],
+                  ),
                 ),
               ),
             ),

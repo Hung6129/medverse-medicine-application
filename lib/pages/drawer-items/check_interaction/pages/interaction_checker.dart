@@ -116,10 +116,16 @@ class _InteractionCheckerState extends State<InteractionChecker> {
                         borderSide:
                             BorderSide(width: 3, color: Palette.mainBlueTheme),
                       ),
-                      labelText: 'Nhập thuốc bạn muốn kiểm tra'),
+                      labelText: 'Nhập thuốc bạn muốn tìm'),
                 ),
                 suggestionsCallback: (String pattern) {
-                  return TypeAheadByName.getTypeAheadByName(pattern);
+                  if (pattern == null ||
+                      pattern.trim().isEmpty ||
+                      pattern.length == 0) {
+                    return [];
+                  } else {
+                    return TypeAheadByName.getTypeAheadByName(pattern);
+                  }
                 },
                 itemBuilder: (context, suggestion) {
                   return ListTile(
@@ -285,23 +291,27 @@ class _InteractionCheckerState extends State<InteractionChecker> {
             __title(),
 
             /// Input Box
-            Neumorphic(
-              style: NeumorphicStyle(
-                shape: NeumorphicShape.flat,
-                boxShape:
-                    NeumorphicBoxShape.roundRect(BorderRadius.circular(12)),
-                depth: 15,
-                lightSource: LightSource.top,
-                color: Colors.white,
-              ),
-              child: Container(
-                width: Dimensions.boxSearchViewWidth,
-                child: Column(
-                  children: [
-                    __textInput(),
-                    __listItems(),
-                    __checkBtn(),
-                  ],
+            Padding(
+              padding: EdgeInsets.only(
+                  left: Dimensions.height30, right: Dimensions.height30),
+              child: Neumorphic(
+                style: NeumorphicStyle(
+                  shape: NeumorphicShape.flat,
+                  boxShape:
+                      NeumorphicBoxShape.roundRect(BorderRadius.circular(12)),
+                  depth: 15,
+                  lightSource: LightSource.top,
+                  color: Colors.white,
+                ),
+                child: Container(
+                  width: Dimensions.boxSearchViewWidth,
+                  child: Column(
+                    children: [
+                      __textInput(),
+                      __listItems(),
+                      __checkBtn(),
+                    ],
+                  ),
                 ),
               ),
             ),
