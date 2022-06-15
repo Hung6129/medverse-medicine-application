@@ -10,6 +10,7 @@ class Constants {
 
   /// Find drug by name
   static const String NAME_SEARCH = "/api/products/name?name=";
+  static const String NAME_SEARCH_FAST = "/api/search2/name/";
 
   // Interaction check by drugs id
   static const String INTERACTION_CHECKER = "/api/interactions/checkByTwoIDs?";
@@ -17,9 +18,13 @@ class Constants {
   // Compare
   static const String DRUG_ID_SEARCH = "/api/drugs/";
 
-  // Reacommended
+  // Recommended
   static const String DRUG_RECOMMENDED_WITH_DRUGID =
       "/api/products/suggest?id=";
+
+  // Trend list image
+  static const String TREND_LIST_IMAGES =
+      "/api/trends/id?trendId=default2021US";
 
   /// Colors for theme
   static Color lightPrimary = Color(0xfff3f4f9);

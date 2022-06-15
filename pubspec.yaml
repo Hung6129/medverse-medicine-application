@@ -94,7 +94,7 @@ dependencies:
   flutter_slidable: any
   flutter_typeahead: any
   analyzer: 
-  translator: any
+  translator: 
   # google_translator: ^1.0.0
 
 dev_dependencies:

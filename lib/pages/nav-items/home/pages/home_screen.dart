@@ -1,10 +1,14 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:medverse_mobile_app/models/drug_bank_db/product_name_api.dart';
+import 'package:medverse_mobile_app/models/drug_bank_db/trend_list_images.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../../../../utils/constants.dart';
 import '../../../../widgets/awesome_dialog.dart';
 import '/pages/nav-items/home/bloc/home_screen_bloc.dart';
 import '/services/service_data.dart';
@@ -15,6 +19,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '/widgets/navigation_drawer_widget.dart';
 import '/theme/palette.dart';
 import '/widgets/app_text.dart';
+import 'package:http/http.dart' as http;
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key key}) : super(key: key);
@@ -24,18 +29,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  /// Set search value
-  String _selectedDrugs;
-
-  /// Set form
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
-  /// Set texteditcontroller
-  final TextEditingController _typeAheadController = TextEditingController();
-
-  /// Example images
-  // String imagesFav = "assets/image/300_imagesrxnav/";
-
   /// Get list images
   // final List<String> imgList = [
   //   "00093-7286-89_RXNAVIMAGE10_D62FEB6F.jpg",
@@ -58,11 +51,17 @@ class _HomeScreenState extends State<HomeScreen> {
   //   'Cephalexin 500 MG Oral Capsule',
   // ];
 
-  /// init
-  @override
-  void initState() {
-    super.initState();
-  }
+  /// Example images
+  String imagesFav = "assets/image/300_imagesrxnav/";
+
+  /// Set search value
+  String _selectedDrugs;
+
+  /// Set form
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  /// Set texteditcontroller
+  final TextEditingController _typeAheadController = TextEditingController();
 
   /// Maps icon and name
   var imagesIcon = {
@@ -104,7 +103,27 @@ class _HomeScreenState extends State<HomeScreen> {
     ),
   };
 
-  List<String> list;
+  Future<List<TrendListImage>> listTrendImages;
+
+  Future<List<TrendListImage>> fetchTrendData() async {
+    final response = await http
+        .get(Uri.parse(Constants.BASE_URL + Constants.TREND_LIST_IMAGES));
+    if (response.statusCode == 200) {
+      List<dynamic> list = json.decode(response.body);
+      print(list.length);
+      print(list);
+      return list.map((e) => TrendListImage.fromJson(e)).toList();
+    } else {
+      throw Exception('Failed to load data');
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    listTrendImages = fetchTrendData();
+  }
+
   @override
   Widget build(BuildContext context) {
     /// Loading Shimmer Popular
@@ -189,7 +208,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       labelText: 'Hôm nay bạn muốn tìm thuốc gì?'),
                 ),
                 suggestionsCallback: (String pattern) {
-                  return TypeAheadByName.getTypeAheadByName(pattern);
+                  return TypeAheadByNameFast.getTypeAheadByName(pattern);
                 },
                 itemBuilder: (context, suggestion) {
                   return ListTile(
@@ -205,8 +224,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   return suggestionsBox;
                 },
                 onSuggestionSelected: (suggestion) async {
-                  print("tapped " + suggestion['productName']);
-                  print("tappedx2 " + suggestion['productId']);
+                  // print("tapped " + suggestion['productName']);
+                  // print("tappedx2 " + suggestion['productId']);
                   BlocProvider.of<HomeScreenBloc>(context)
                     ..add(
                       OnTapEvent(
@@ -283,78 +302,101 @@ class _HomeScreenState extends State<HomeScreen> {
     }
 
     /// Build carouse slider
-    // Widget __carouseSlider() {
-    //   return CarouselSlider.builder(
-    //     itemCount: imgList.length,
-    //     options: CarouselOptions(
-    //       autoPlayAnimationDuration: Duration(seconds: 3),
-    //       autoPlayCurve: Curves.linearToEaseOut,
-    //       aspectRatio: 16 / 10,
-    //       enlargeCenterPage: true,
-    //       autoPlay: true,
-    //     ),
-    //     itemBuilder: (ctx, index, realIdx) {
-    //       return Stack(
-    //             children: [
-    //               Container(
-    //                 height: Dimensions.pageViewContainer,
-    //                 margin: EdgeInsets.only(
-    //                   left: Dimensions.width10,
-    //                   right: Dimensions.width10,
-    //                 ),
-    //                 decoration: BoxDecoration(
-    //                   borderRadius: BorderRadius.circular(Dimensions.radius30),
-    //                   color: index.isEven
-    //                       ? Palette.mainBlueTheme
-    //                       : Palette.pastel2,
-    //                   image: DecorationImage(
-    //                     image: AssetImage(imagesFav + imgList[index]),
-    //                     fit: BoxFit.cover,
-    //                   ),
-    //                 ),
-    //               ),
-    //               Align(
-    //                 alignment: Alignment.bottomCenter,
-    //                 child: Container(
-    //                   margin: EdgeInsets.only(
-    //                     left: Dimensions.width30,
-    //                     right: Dimensions.width30,
-    //                   ),
-    //                   decoration: BoxDecoration(
-    //                     borderRadius:
-    //                         BorderRadius.circular(Dimensions.radius20),
-    //                     color: Colors.white,
-    //                     boxShadow: [
-    //                       BoxShadow(
-    //                         color: Color(0xFFe8e8e8),
-    //                         blurRadius: 5.0,
-    //                         offset: Offset(0, 5),
-    //                       ),
-    //                       BoxShadow(
-    //                         color: Colors.white,
-    //                         offset: Offset(-5, 0),
-    //                       ),
-    //                       BoxShadow(
-    //                         color: Colors.white,
-    //                         offset: Offset(5, 0),
-    //                       ),
-    //                     ],
-    //                   ),
-    //                   child: Padding(
-    //                     padding: const EdgeInsets.only(
-    //                         top: 3, bottom: 8, left: 8, right: 8),
-    //                     child: AppText(
-    //                       text: imgName[index],
-    //                     ),
-    //                   ),
-    //                 ),
-    //               ),
-    //             ],
-    //           ) ??
-    //           __loadingPoShimmer();
-    //     },
-    //   );
-    // }
+    Widget __carouseSlider() {
+      return FutureBuilder(
+        future: listTrendImages,
+        builder: (context, AsyncSnapshot<List<TrendListImage>> snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return __loadingPoShimmer();
+          } else if (snapshot.data == null) {
+            return Container(
+              child: Text("bi null"),
+            );
+          } else if (snapshot.hasData) {
+            var data = snapshot.data;
+            return CarouselSlider.builder(
+              itemCount: data.length,
+              options: CarouselOptions(
+                autoPlayAnimationDuration: Duration(seconds: 3),
+                autoPlayCurve: Curves.linearToEaseOut,
+                aspectRatio: 16 / 10,
+                enlargeCenterPage: true,
+                autoPlay: true,
+              ),
+              itemBuilder: (ctx, index, realIdx) {
+                return Stack(
+                  children: [
+                    Container(
+                      height: Dimensions.pageViewContainer,
+                      margin: EdgeInsets.only(
+                        left: Dimensions.width10,
+                        right: Dimensions.width10,
+                      ),
+                      decoration: BoxDecoration(
+                        borderRadius:
+                            BorderRadius.circular(Dimensions.radius20),
+                        color: index.isEven
+                            ? Palette.mainBlueTheme
+                            : Palette.pastel2,
+                        image: DecorationImage(
+                          image: AssetImage(
+                              imagesFav + data[index].rxnavImageFilename),
+                          fit: BoxFit.fill,
+                        ),
+                      ),
+                    ),
+                    Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Container(
+                        margin: EdgeInsets.only(
+                          left: Dimensions.width30,
+                          right: Dimensions.width30,
+                        ),
+                        decoration: BoxDecoration(
+                          borderRadius:
+                              BorderRadius.circular(Dimensions.radius20),
+                          color: Colors.white,
+                          boxShadow: [
+                            BoxShadow(
+                              color: Color(0xFFe8e8e8),
+                              blurRadius: 5.0,
+                              offset: Offset(0, 5),
+                            ),
+                            BoxShadow(
+                              color: Colors.white,
+                              offset: Offset(-5, 0),
+                            ),
+                            BoxShadow(
+                              color: Colors.white,
+                              offset: Offset(5, 0),
+                            ),
+                          ],
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.only(
+                              top: 3, bottom: 8, left: 8, right: 8),
+                          child: Text(
+                            data[index].pillOverviewData,
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 2,
+                            style: TextStyle(
+                              fontSize: Dimensions.font18,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                );
+              },
+            );
+          }
+          return Container(
+            child: Text("loi"),
+          );
+        },
+      );
+    }
 
     /// Build body
     return WillPopScope(
@@ -380,7 +422,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     SizedBox(
                       height: Dimensions.height15,
                     ),
-                    // __carouseSlider(),
+                    __carouseSlider(),
                   ],
                 ),
               ],

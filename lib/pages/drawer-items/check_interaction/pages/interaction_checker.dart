@@ -19,6 +19,8 @@ class InteractionChecker extends StatefulWidget {
 class _InteractionCheckerState extends State<InteractionChecker> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _typeAheadController = TextEditingController();
+  String selectText =
+      "Bắt đầu gõ tên một loại thuốc. Một danh sách các gợi ý sẽ xuất hiện sau đó vui lòng chọn từ danh sách.";
 
   // String _selectedDrug;
   List<String> addedItemsList = [];
@@ -221,41 +223,49 @@ class _InteractionCheckerState extends State<InteractionChecker> {
 
 // list items
     Widget __listItems() {
-      return Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Container(
-          padding: EdgeInsets.only(left: 10, right: 10),
-          height: 100,
-          width: 300,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(Dimensions.radius20),
-            color: Colors.grey[100],
-          ),
-          child: ListView.builder(
-            itemCount: addedItemsList.length,
-            itemBuilder: (context, index) {
-              return Chip(
-                deleteIconColor: Colors.white,
-                backgroundColor: Palette.mainBlueTheme.withOpacity(0.7),
-                label: AppText(
-                  text: addedItemsList[index],
-                  color: Colors.white,
-                  size: Dimensions.font20,
+      return addedItemsList.isEmpty
+          ? Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: AppText(
+                text: selectText,
+                size: Dimensions.font14,
+              ),
+            )
+          : Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                padding: EdgeInsets.only(left: 10, right: 10),
+                height: 100,
+                width: 300,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(Dimensions.radius20),
+                  color: Colors.grey[100],
                 ),
-                deleteIcon: Icon(
-                  CupertinoIcons.multiply,
+                child: ListView.builder(
+                  itemCount: addedItemsList.length,
+                  itemBuilder: (context, index) {
+                    return Chip(
+                      deleteIconColor: Colors.white,
+                      backgroundColor: Palette.mainBlueTheme.withOpacity(0.7),
+                      label: AppText(
+                        text: addedItemsList[index],
+                        color: Colors.white,
+                        size: Dimensions.font20,
+                      ),
+                      deleteIcon: Icon(
+                        CupertinoIcons.multiply,
+                      ),
+                      onDeleted: () {
+                        setState(() {
+                          addedItemsList.removeAt(index);
+                          addedItemsIdList.removeAt(index);
+                        });
+                      },
+                    );
+                  },
                 ),
-                onDeleted: () {
-                  setState(() {
-                    addedItemsList.removeAt(index);
-                    addedItemsIdList.removeAt(index);
-                  });
-                },
-              );
-            },
-          ),
-        ),
-      );
+              ),
+            );
     }
 
     return Scaffold(

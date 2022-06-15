@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:medverse_mobile_app/models/drug_bank_db/product_name_api_fast.dart';
 import 'package:medverse_mobile_app/utils/constants.dart';
 import '../models/drug_bank_db/favorite_list_model_w_name.dart';
 import '../models/drug_bank_db/product_name_api.dart';
@@ -35,6 +36,32 @@ class TypeAheadByName {
   }
 }
 
+class TypeAheadByNameFast {
+  static Future<List<Map<String, String>>> getTypeAheadByName(
+      String input) async {
+    if (input.isEmpty) {
+      return <Map<String, String>>[];
+    } else {
+      http.Response resData = await http.get(
+          Uri.parse(Constants.BASE_URL + Constants.NAME_SEARCH_FAST + input));
+      List<ProductNameApiFast> suggest = [];
+      if (resData.statusCode == 200) {
+        Iterable listData = json.decode(resData.body);
+        suggest = List<ProductNameApiFast>.from(
+            listData.map((e) => ProductNameApiFast.fromJson(e)));
+      } else {
+        throw ('Request failed with status: ${resData.statusCode}.');
+      }
+      return Future.value(suggest
+          .map((e) => {
+                'productName': e.name,
+                'productId': e.productID,
+              })
+          .toList());
+    }
+  }
+}
+
 class DatabaseProvider {
   /// Get database's name
   static const String drugBank = "drugbank.sqlite3";
@@ -60,7 +87,7 @@ class GetFavoriteList {
     var db = await DatabaseSqliteConnection.drugBankAccess();
 
     List<Map<String, dynamic>> allRows = await db.rawQuery(
-        'SELECT productID,product_name,savedTime FROM favorite_drug inner join products on products.product_id = favorite_drug.productID');
+        'SELECT productID,product_name,product_labeller,savedTime FROM favorite_drug inner join products on products.product_id = favorite_drug.productID');
 
     return List.generate(
       allRows.length,
@@ -68,6 +95,7 @@ class GetFavoriteList {
         return FavoriteListWName(
           productID: allRows[i]['productID'].toString(),
           product_name: allRows[i]['product_name'].toString(),
+          product_labeller: allRows[i]['product_labeller'].toString(),
           savedTime: allRows[i]['savedTime'].toString(),
         );
       },
