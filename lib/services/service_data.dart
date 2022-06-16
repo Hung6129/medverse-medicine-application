@@ -25,7 +25,11 @@ class TypeAheadByName {
         suggest = List<ProductNameApi>.from(
             listData.map((e) => ProductNameApi.fromJson(e)));
       } else {
-        throw ('Request failed with status: ${resData.statusCode}.');
+        if (resData.statusCode == 503) {
+          throw ('Hệ thống đang có lỗi, vui lòng chờ trong giây lát');
+        } else {
+          throw (resData.statusCode);
+        }
       }
       return Future.value(suggest
           .map((e) => {
@@ -49,7 +53,11 @@ class TypeAheadByNameFast {
       suggest = List<ProductNameApiFast>.from(
           listData.map((e) => ProductNameApiFast.fromJson(e)));
     } else {
-      throw ('Request failed with status: ${resData.statusCode}.');
+      if (resData.statusCode == 503) {
+        throw ('Hệ thống đang có lỗi, vui lòng chờ trong giây lát');
+      } else {
+        throw (resData.statusCode);
+      }
     }
     return Future.value(suggest
         .map((e) => {

@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
+import '../../../../widgets/app_text.dart';
+import '../../../../widgets/dimension.dart';
 import '/auth/login/login.dart';
 import '/utils/app_text_theme.dart';
 import '/view_models/auth/capture_image_view_model.dart';
@@ -55,9 +57,10 @@ class _CaptureimagePageState extends State<CaptureimagePage> {
             ? Scaffold(
                 appBar: AppBar(
                   backgroundColor: Palette.mainBlueTheme,
-                  title: Text(
-                    'Báo cáo thuốc đến Admin',
-                    style: MobileTextTheme().appBarStyle,
+                  title: AppText(
+                    text: 'Báo cáo ảnh thuốc',
+                    size: Dimensions.font20,
+                    fontWeight: FontWeight.bold,
                   ),
                   actions: [
                     GestureDetector(

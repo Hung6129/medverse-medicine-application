@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/cupertino.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/services.dart';
@@ -102,6 +101,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   double _height;
   double _width;
+
+  /// test
 
   @override
   Widget build(BuildContext context) {
@@ -237,59 +238,6 @@ class _HomeScreenState extends State<HomeScreen> {
       );
     }
 
-    /// Build list function icon
-    // Widget __listFunIcon() {
-    //   return Padding(
-    //     padding: EdgeInsets.only(bottom: Dimensions.height10),
-    //     child: Container(
-    //       width: double.maxFinite,
-    //       height: 110,
-    //       child: ListView.builder(
-    //         scrollDirection: Axis.horizontal,
-    //         itemCount: imagesIcon.keys.length,
-    //         itemBuilder: (_, index) {
-    //           return Padding(
-    //             padding: const EdgeInsets.only(
-    //                 left: 10, right: 20, top: 10, bottom: 10),
-    //             child: Container(
-    //               width: 100,
-    //               child: NeumorphicButton(
-    //                 style: NeumorphicStyle(
-    //                   shape: NeumorphicShape.flat,
-    //                   color: Colors.white,
-    //                 ),
-    //                 onPressed: () {
-    //                   switch (index) {
-    //                     case 0:
-    //                       Navigator.pushNamed(context, "/pill-identifier");
-    //                       break;
-    //                     case 1:
-    //                       Navigator.pushNamed(context, "/compare-drug");
-    //                       break;
-    //                     case 2:
-    //                       Navigator.pushNamed(context, "/interaction-checker");
-    //                       break;
-    //                     case 3:
-    //                       Navigator.pushNamed(context, "/health-profile");
-    //                       break;
-    //                   }
-    //                 },
-    //                 child: Column(
-    //                   mainAxisAlignment: MainAxisAlignment.center,
-    //                   children: [
-    //                     imagesIcon.keys.elementAt(index),
-    //                     imagesIcon.values.elementAt(index),
-    //                   ],
-    //                 ),
-    //               ),
-    //             ),
-    //           );
-    //         },
-    //       ),
-    //     ),
-    //   );
-    // }
-
     /// Build carouse slider
     Widget __carouseSlider() {
       return FutureBuilder(
@@ -308,75 +256,118 @@ class _HomeScreenState extends State<HomeScreen> {
               options: CarouselOptions(
                 autoPlayAnimationDuration: Duration(seconds: 3),
                 autoPlayCurve: Curves.linearToEaseOut,
-                aspectRatio: 16 / 8,
                 enlargeCenterPage: true,
                 autoPlay: true,
               ),
               itemBuilder: (ctx, index, realIdx) {
-                return Stack(
-                  children: [
-                    Container(
-                      height: Dimensions.pageViewContainer,
-                      margin: EdgeInsets.only(
-                        left: Dimensions.width10,
-                        right: Dimensions.width10,
-                      ),
-                      decoration: BoxDecoration(
-                        borderRadius:
-                            BorderRadius.circular(Dimensions.radius20),
-                        color: index.isEven
-                            ? Palette.mainBlueTheme
-                            : Palette.pastel2,
-                        image: DecorationImage(
-                          image: AssetImage(
-                              imagesFav + data[index].rxnavImageFilename),
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                    ),
-                    Align(
-                      alignment: Alignment.bottomCenter,
-                      child: Container(
-                        margin: EdgeInsets.only(
-                          left: Dimensions.width30,
-                          right: Dimensions.width30,
-                        ),
-                        decoration: BoxDecoration(
-                          borderRadius:
-                              BorderRadius.circular(Dimensions.radius20),
-                          color: Colors.white,
-                          boxShadow: [
-                            BoxShadow(
-                              color: Color(0xFFe8e8e8),
-                              blurRadius: 5.0,
-                              offset: Offset(0, 5),
-                            ),
-                            BoxShadow(
-                              color: Colors.white,
-                              offset: Offset(-5, 0),
-                            ),
-                            BoxShadow(
-                              color: Colors.white,
-                              offset: Offset(5, 0),
-                            ),
-                          ],
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.only(
-                              top: 3, bottom: 8, left: 8, right: 8),
-                          child: Text(
-                            data[index].pillOverviewData,
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 2,
-                            style: TextStyle(
-                              fontSize: Dimensions.font18,
-                            ),
+                return Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      children: [
+                        Flexible(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Container(
+                                  width: _width / 2.5,
+                                  child: Text(
+                                    data[index].pillOverviewData,
+                                    style: TextStyle(
+                                      fontSize: Dimensions.font14,
+                                    ),
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                    softWrap: true,
+                                  )),
+                            ],
                           ),
                         ),
-                      ),
+                        Container(
+                          width: _width / 2.5,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.rectangle,
+                            color: Palette.pastel4,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          padding: EdgeInsets.all(10),
+                          child: Image.asset(
+                            imagesFav + data[index].rxnavImageFilename,
+                            fit: BoxFit.cover,
+                            height: _height / 4,
+                            width: _width / 4,
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
-                );
+                  ),
+                )
+                    // Stack(
+                    //   children: [
+                    //     Container(
+                    //       height: Dimensions.pageViewContainer,
+                    //       margin: EdgeInsets.only(
+                    //         left: Dimensions.width10,
+                    //         right: Dimensions.width10,
+                    //       ),
+                    //       decoration: BoxDecoration(
+                    //         borderRadius:
+                    //             BorderRadius.circular(Dimensions.radius20),
+                    //         color: index.isEven
+                    //             ? Palette.mainBlueTheme
+                    //             : Palette.pastel2,
+                    //         image: DecorationImage(
+                    //           image: AssetImage(
+                    //               imagesFav + data[index].rxnavImageFilename),
+                    //           fit: BoxFit.fill,
+                    //         ),
+                    //       ),
+                    //     ),
+                    //     Align(
+                    //       alignment: Alignment.bottomCenter,
+                    //       child: Container(
+                    //         margin: EdgeInsets.only(
+                    //           left: Dimensions.width30,
+                    //           right: Dimensions.width30,
+                    //         ),
+                    //         decoration: BoxDecoration(
+                    //           borderRadius:
+                    //               BorderRadius.circular(Dimensions.radius20),
+                    //           color: Colors.white,
+                    //           boxShadow: [
+                    //             BoxShadow(
+                    //               color: Color(0xFFe8e8e8),
+                    //               blurRadius: 5.0,
+                    //               offset: Offset(0, 5),
+                    //             ),
+                    //             BoxShadow(
+                    //               color: Colors.white,
+                    //               offset: Offset(-5, 0),
+                    //             ),
+                    //             BoxShadow(
+                    //               color: Colors.white,
+                    //               offset: Offset(5, 0),
+                    //             ),
+                    //           ],
+                    //         ),
+                    //         child: Padding(
+                    //           padding: const EdgeInsets.only(
+                    //               top: 3, bottom: 8, left: 8, right: 8),
+                    //           child: Text(
+                    //             data[index].pillOverviewData,
+                    //             overflow: TextOverflow.ellipsis,
+                    //             maxLines: 2,
+                    //             style: TextStyle(
+                    //               fontSize: Dimensions.font18,
+                    //             ),
+                    //           ),
+                    //         ),
+                    //       ),
+                    //     ),
+                    //   ],
+                    // )
+                    ;
               },
             );
           }
@@ -403,8 +394,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   },
                   child: Image.asset(
                     'assets/images/pillidentifier-icon.png',
-                    height: _height / 12,
-                    width: _width / 12,
+                    height: _height / 10,
+                    width: _width / 10,
                   ),
                 ),
                 Flexible(
@@ -423,8 +414,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     },
                     child: Image.asset(
                       'assets/images/compare-icon.png',
-                      height: _height / 12,
-                      width: _width / 12,
+                      height: _height / 10,
+                      width: _width / 10,
                     )),
                 Flexible(
                   child: Text(
@@ -442,8 +433,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     },
                     child: Image.asset(
                       'assets/images/interaction-icon.png',
-                      height: _height / 12,
-                      width: _width / 12,
+                      height: _height / 10,
+                      width: _width / 10,
                     )),
                 Flexible(
                   child: Text(
@@ -461,8 +452,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     },
                     child: Image.asset(
                       'assets/images/bmi-icon.png',
-                      height: _height / 12,
-                      width: _width / 12,
+                      height: _height / 10,
+                      width: _width / 10,
                     )),
                 Flexible(
                   child: Text(
@@ -480,8 +471,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   },
                   child: Image.asset(
                     'assets/images/index-icon.png',
-                    height: _height / 12,
-                    width: _width / 12,
+                    height: _height / 10,
+                    width: _width / 10,
                   ),
                 ),
                 Flexible(
@@ -500,13 +491,53 @@ class _HomeScreenState extends State<HomeScreen> {
                   },
                   child: Image.asset(
                     'assets/images/healthprofile-icon.png',
-                    height: _height / 12,
-                    width: _width / 12,
+                    height: _height / 10,
+                    width: _width / 10,
                   ),
                 ),
                 Flexible(
                   child: Text(
                     "Hồ sơ",
+                    style: TextStyle(fontSize: 13),
+                  ),
+                ),
+              ],
+            ),
+            Column(
+              children: <Widget>[
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(context, "/report-images");
+                  },
+                  child: Image.asset(
+                    'assets/images/report-icon.png',
+                    height: _height / 10,
+                    width: _width / 10,
+                  ),
+                ),
+                Flexible(
+                  child: Text(
+                    "Báo cáo",
+                    style: TextStyle(fontSize: 13),
+                  ),
+                ),
+              ],
+            ),
+            Column(
+              children: <Widget>[
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(context, "/dictionary");
+                  },
+                  child: Image.asset(
+                    'assets/images/dictionary-icon.png',
+                    height: _height / 10,
+                    width: _width / 10,
+                  ),
+                ),
+                Flexible(
+                  child: Text(
+                    "Từ điển",
                     style: TextStyle(fontSize: 13),
                   ),
                 ),

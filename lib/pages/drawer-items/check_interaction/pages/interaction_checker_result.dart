@@ -199,9 +199,10 @@ class _InteractionCheckerResultState extends State<InteractionCheckerResult> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Palette.mainBlueTheme,
-        title: Text(
-          'Kết quả tương kỵ',
-          style: TextStyle(fontWeight: FontWeight.w900),
+        title: AppText(
+          text: 'Kiểm tra tương kỵ',
+          size: Dimensions.font20,
+          fontWeight: FontWeight.bold,
         ),
         centerTitle: true,
       ),

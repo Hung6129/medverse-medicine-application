@@ -318,9 +318,10 @@ class _CompareResultState extends State<CompareResult> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Palette.mainBlueTheme,
-        title: Text(
-          'So sánh',
-          style: TextStyle(fontWeight: FontWeight.w900),
+        title: AppText(
+          text: 'So sánh thuốc',
+          size: Dimensions.font20,
+          fontWeight: FontWeight.bold,
         ),
         centerTitle: true,
       ),

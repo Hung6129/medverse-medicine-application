@@ -215,18 +215,20 @@ class _FavoriteDrugsListScreenNavState
       );
     }
 
-    return Scaffold(
-      backgroundColor: Colors.white,
-      drawer: NavigationDrawerWidget(),
-      appBar: AppBar(
-        backgroundColor: Palette.mainBlueTheme,
-        title: Text(
-          'Danh sách yêu thích',
-          style: MobileTextTheme().appBarStyle,
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        drawer: NavigationDrawerWidget(),
+        appBar: AppBar(
+          backgroundColor: Palette.mainBlueTheme,
+          title: Text(
+            'Danh sách yêu thích',
+            style: MobileTextTheme().appBarStyle,
+          ),
+          centerTitle: true,
         ),
-        centerTitle: true,
+        body: _getAll == null ? __emtyList() : __getFavList(),
       ),
-      body: _getAll == null ? __emtyList() : __getFavList(),
     );
   }
 }

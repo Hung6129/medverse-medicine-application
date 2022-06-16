@@ -128,7 +128,7 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
                   child: Column(
                     children: [
                       buildMenuItem(
-                        text: 'Chỉ mục danh sách thuốc',
+                        text: 'Danh mục thuốc',
                         icon: Icons.info_outlined,
                         onClicked: () => selectedItem(context, 12),
                       ),
@@ -138,7 +138,7 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
                         onClicked: () => selectedItem(context, 1),
                       ),
                       buildMenuItem(
-                        text: 'Báo cáo thuốc đến Admin',
+                        text: 'Báo cáo ảnh thuốc',
                         icon: Icons.photo_camera_outlined,
                         onClicked: () => selectedItem(context, 2),
                       ),
@@ -194,14 +194,14 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
                             animType: AnimType.TOPSLIDE,
                             showCloseIcon: true,
                             closeIcon:
-                            const Icon(Icons.close_fullscreen_outlined),
+                                const Icon(Icons.close_fullscreen_outlined),
                             title: 'Thông báo',
                             desc: 'Bạn có chắc muốn thoát tài khoản này?',
                             descTextStyle: AppTextTheme.oswaldTextStyle,
                             btnCancelOnPress: () {},
                             btnOkOnPress: () async {
                               setState(
-                                    () {
+                                () {
                                   isLoading = true;
                                 },
                               );
@@ -209,7 +209,7 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
                               /// Calling delete post method in Post Manager model
                               firebaseAuth.signOut();
                               setState(
-                                    () {
+                                () {
                                   isLoading = false;
                                 },
                               );

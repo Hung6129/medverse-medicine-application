@@ -256,9 +256,10 @@ class _CompareDrugState extends State<CompareDrug> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Palette.mainBlueTheme,
-        title: Text(
-          'So sánh thuốc',
-          style: MobileTextTheme().appBarStyle,
+        title: AppText(
+          text: 'So sánh thuốc',
+          size: Dimensions.font20,
+          fontWeight: FontWeight.bold,
         ),
         centerTitle: true,
       ),
