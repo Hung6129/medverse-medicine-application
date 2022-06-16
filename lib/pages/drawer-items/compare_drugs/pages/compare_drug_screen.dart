@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 
-import '../../../../models/drug_bank_db/compare_drug_model.dart';
 import '../../../../services/service_data.dart';
 import '../../../../theme/palette.dart';
 import '../../../../utils/app_text_theme.dart';
@@ -41,8 +40,6 @@ class _CompareDrugState extends State<CompareDrug> {
       addedItemsIdList.insert(0, value);
     });
   }
-
-  // Future<List<CompareDrugModel>> listData;
 
   /// Intro text
   String introText =
@@ -136,9 +133,9 @@ class _CompareDrugState extends State<CompareDrug> {
                 onSuggestionSelected: (suggestion) {
                   _typeAheadController.text = suggestion['productName'];
                   print(_typeAheadController.text);
-                  print(suggestion['drugId']);
+                  print(suggestion['productId']);
                   __addItemToList(_typeAheadController.text);
-                  __addItemIdToList(suggestion['drugId']);
+                  __addItemIdToList(suggestion['productId']);
                 },
                 validator: (value) {
                   if (value.isEmpty) {
@@ -239,7 +236,7 @@ class _CompareDrugState extends State<CompareDrug> {
                   MaterialPageRoute(
                     builder: (context) => CompareResult(
                       query1: addedItemsIdList[0],
-                      // query2: addedItemsIdList[1],
+                      query2: addedItemsIdList[1],
                     ),
                   ),
                 );

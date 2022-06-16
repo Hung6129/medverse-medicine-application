@@ -27,28 +27,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  /// Get list images
-  // final List<String> imgList = [
-  //   "00093-7286-89_RXNAVIMAGE10_D62FEB6F.jpg",
-  //   "00093-7290-56_RXNAVIMAGE10_A73953CA.jpg",
-  //   "00093-7306-06_RXNAVIMAGE10_BC42DE66.jpg",
-  //   "00093-7393-98_RXNAVIMAGE10_32391918.jpg",
-  //   "69097-0123-03_NLMIMAGE10_8D4EC6D6.jpg",
-  //   "69238-1251-06_NLMIMAGE10_FE50FF27.jpg",
-  //   "99207-0467-30_NLMIMAGE10_C11D60AB.jpg",
-  //   "76439-0102-50_NLMIMAGE10_3A3D9D0C.jpg",
-  // ];
-  // final List<String> imgName = [
-  //   'Levetiracetam 500 MG Oral Tablet',
-  //   'Raloxifene Hydrochloride 60 MG Oral Tablet',
-  //   'celecoxib 50 MG Oral Capsule',
-  //   'Fosinopril Sodium 20 MG Oral Tablet',
-  //   'topiramate 50 MG Oral Tablet',
-  //   'Estradiol 1 MG / norethindrone ',
-  //   '24 HR Minocycline 105 MG Extended ',
-  //   'Cephalexin 500 MG Oral Capsule',
-  // ];
-
   /// Example images
   String imagesFav = "assets/image/300_imagesrxnav/";
 
@@ -122,8 +100,14 @@ class _HomeScreenState extends State<HomeScreen> {
     listTrendImages = fetchTrendData();
   }
 
+  double _height;
+  double _width;
+
   @override
   Widget build(BuildContext context) {
+    _height = MediaQuery.of(context).size.height;
+    _width = MediaQuery.of(context).size.width;
+
     /// Loading Shimmer Popular
     Widget __loadingPoShimmer() {
       return Container(
@@ -157,7 +141,7 @@ class _HomeScreenState extends State<HomeScreen> {
           margin: EdgeInsets.only(left: 20, right: 20),
           child: AppText(
             text: "Xu hướng tìm kiếm",
-            size: Dimensions.font20,
+            size: Dimensions.font18,
             color: Palette.pastel1,
             fontWeight: FontWeight.bold,
           ));
@@ -203,6 +187,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         borderSide:
                             BorderSide(width: 3, color: Palette.mainBlueTheme),
                       ),
+                      labelStyle: TextStyle(fontSize: Dimensions.font14),
                       labelText: 'Nhập thuốc bạn muốn kiểm tra'),
                 ),
                 suggestionsCallback: (String pattern) {
@@ -253,57 +238,57 @@ class _HomeScreenState extends State<HomeScreen> {
     }
 
     /// Build list function icon
-    Widget __listFunIcon() {
-      return Padding(
-        padding: EdgeInsets.only(bottom: Dimensions.height10),
-        child: Container(
-          width: double.maxFinite,
-          height: 110,
-          child: ListView.builder(
-            scrollDirection: Axis.horizontal,
-            itemCount: imagesIcon.keys.length,
-            itemBuilder: (_, index) {
-              return Padding(
-                padding: const EdgeInsets.only(
-                    left: 10, right: 20, top: 10, bottom: 10),
-                child: Container(
-                  width: 100,
-                  child: NeumorphicButton(
-                    style: NeumorphicStyle(
-                      shape: NeumorphicShape.flat,
-                      color: Colors.white,
-                    ),
-                    onPressed: () {
-                      switch (index) {
-                        case 0:
-                          Navigator.pushNamed(context, "/pill-identifier");
-                          break;
-                        case 1:
-                          Navigator.pushNamed(context, "/compare-drug");
-                          break;
-                        case 2:
-                          Navigator.pushNamed(context, "/interaction-checker");
-                          break;
-                        case 3:
-                          Navigator.pushNamed(context, "/health-profile");
-                          break;
-                      }
-                    },
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        imagesIcon.keys.elementAt(index),
-                        imagesIcon.values.elementAt(index),
-                      ],
-                    ),
-                  ),
-                ),
-              );
-            },
-          ),
-        ),
-      );
-    }
+    // Widget __listFunIcon() {
+    //   return Padding(
+    //     padding: EdgeInsets.only(bottom: Dimensions.height10),
+    //     child: Container(
+    //       width: double.maxFinite,
+    //       height: 110,
+    //       child: ListView.builder(
+    //         scrollDirection: Axis.horizontal,
+    //         itemCount: imagesIcon.keys.length,
+    //         itemBuilder: (_, index) {
+    //           return Padding(
+    //             padding: const EdgeInsets.only(
+    //                 left: 10, right: 20, top: 10, bottom: 10),
+    //             child: Container(
+    //               width: 100,
+    //               child: NeumorphicButton(
+    //                 style: NeumorphicStyle(
+    //                   shape: NeumorphicShape.flat,
+    //                   color: Colors.white,
+    //                 ),
+    //                 onPressed: () {
+    //                   switch (index) {
+    //                     case 0:
+    //                       Navigator.pushNamed(context, "/pill-identifier");
+    //                       break;
+    //                     case 1:
+    //                       Navigator.pushNamed(context, "/compare-drug");
+    //                       break;
+    //                     case 2:
+    //                       Navigator.pushNamed(context, "/interaction-checker");
+    //                       break;
+    //                     case 3:
+    //                       Navigator.pushNamed(context, "/health-profile");
+    //                       break;
+    //                   }
+    //                 },
+    //                 child: Column(
+    //                   mainAxisAlignment: MainAxisAlignment.center,
+    //                   children: [
+    //                     imagesIcon.keys.elementAt(index),
+    //                     imagesIcon.values.elementAt(index),
+    //                   ],
+    //                 ),
+    //               ),
+    //             ),
+    //           );
+    //         },
+    //       ),
+    //     ),
+    //   );
+    // }
 
     /// Build carouse slider
     Widget __carouseSlider() {
@@ -314,7 +299,7 @@ class _HomeScreenState extends State<HomeScreen> {
             return __loadingPoShimmer();
           } else if (snapshot.data == null) {
             return Container(
-              child: __loadingPoShimmer(),  
+              child: __loadingPoShimmer(),
             );
           } else if (snapshot.hasData) {
             var data = snapshot.data;
@@ -323,7 +308,7 @@ class _HomeScreenState extends State<HomeScreen> {
               options: CarouselOptions(
                 autoPlayAnimationDuration: Duration(seconds: 3),
                 autoPlayCurve: Curves.linearToEaseOut,
-                aspectRatio: 16 / 10,
+                aspectRatio: 16 / 8,
                 enlargeCenterPage: true,
                 autoPlay: true,
               ),
@@ -402,6 +387,207 @@ class _HomeScreenState extends State<HomeScreen> {
       );
     }
 
+    Widget __listIcon() {
+      return Container(
+        margin: EdgeInsets.only(left: 10, right: 10),
+        child: GridView.count(
+          physics: NeverScrollableScrollPhysics(),
+          shrinkWrap: true,
+          crossAxisCount: 4,
+          children: <Widget>[
+            Column(
+              children: <Widget>[
+                GestureDetector(
+                  onTap: () {
+                    //Navigator.of(context).pushNamed(ELECTRONICS_ITEM_LIST);
+                    print('Routing to Electronics item list');
+                  },
+                  child: Image.asset(
+                    'assets/images/bike.jpg',
+                    height: _height / 12,
+                    width: _width / 12,
+                  ),
+                ),
+                SizedBox(
+                  height: 5,
+                ),
+                Flexible(
+                  child: AppText(
+                    text: "Tìm kiếm",
+                    size: Dimensions.font14,
+                  ),
+                ),
+              ],
+            ),
+            Column(
+              children: <Widget>[
+                GestureDetector(
+                    onTap: () {
+                      //Navigator.of(context).pushNamed(PROPERTIES_ITEM_LIST);
+                      print('Routing to Properties item list');
+                    },
+                    child: Image.asset(
+                      'assets/images/bike.jpg',
+                      height: _height / 12,
+                      width: _width / 12,
+                    )),
+                SizedBox(
+                  height: 5,
+                ),
+                Flexible(
+                  child: Text(
+                    "So sánh",
+                    style: TextStyle(fontSize: 13),
+                  ),
+                ),
+              ],
+            ),
+            Column(
+              children: <Widget>[
+                GestureDetector(
+                    onTap: () {
+                      //Navigator.of(context).pushNamed(JOBS_ITEM_LIST);
+                      print('Routing to Jobs item list');
+                    },
+                    child: Image.asset(
+                      'assets/images/bike.jpg',
+                      height: _height / 12,
+                      width: _width / 12,
+                    )),
+                SizedBox(
+                  height: 5,
+                ),
+                Flexible(
+                  child: Text(
+                    "Tương kỵ",
+                    style: TextStyle(fontSize: 13),
+                  ),
+                ),
+              ],
+            ),
+            Column(
+              children: <Widget>[
+                GestureDetector(
+                    onTap: () {
+                      //Navigator.of(context).pushNamed(FURNITURE_ITEM_LIST);
+                      print('Routing to Furniture item list');
+                    },
+                    child: Image.asset(
+                      'assets/images/bike.jpg',
+                      height: _height / 12,
+                      width: _width / 12,
+                    )),
+                SizedBox(
+                  height: 5,
+                ),
+                Flexible(
+                  child: Text(
+                    "BMI",
+                    style: TextStyle(fontSize: 13),
+                  ),
+                ),
+              ],
+            ),
+            Column(
+              children: <Widget>[
+                GestureDetector(
+                  onTap: () {
+                    //Navigator.of(context).pushNamed(CARS_ITEM_LIST);
+                    print('Routing to Cars item list');
+                  },
+                  child: Image.asset(
+                    'assets/images/bike.jpg',
+                    height: _height / 12,
+                    width: _width / 12,
+                  ),
+                ),
+                SizedBox(
+                  height: 5,
+                ),
+                Flexible(
+                  child: Text(
+                    "Mục lục",
+                    style: TextStyle(fontSize: 13),
+                  ),
+                ),
+              ],
+            ),
+            Column(
+              children: <Widget>[
+                GestureDetector(
+                  onTap: () {
+                    //Navigator.of(context).pushNamed(BIKES_ITEM_LIST);
+                    print('Routing to Bikes item list');
+                  },
+                  child: Image.asset(
+                    'assets/images/bike.jpg',
+                    height: _height / 12,
+                    width: _width / 12,
+                  ),
+                ),
+                SizedBox(
+                  height: 5,
+                ),
+                Flexible(
+                  child: Text(
+                    "Hồ sơ",
+                    style: TextStyle(fontSize: 13),
+                  ),
+                ),
+              ],
+            ),
+            // Column(
+            //   children: <Widget>[
+            //     GestureDetector(
+            //         onTap: () {
+            //           //Navigator.of(context).pushNamed(MOBILES_ITEM_LIST);
+            //           print('Routing to Mobiles item list');
+            //         },
+            //         child: Image.asset(
+            //           'assets/images/bike.jpg',
+            //           height: _height / 12,
+            //           width: _width / 12,
+            //         )),
+            //     SizedBox(
+            //       height: 5,
+            //     ),
+            //     Flexible(
+            //       child: Text(
+            //         "Mobiles",
+            //         style: TextStyle(fontSize: 13),
+            //       ),
+            //     ),
+            //   ],
+            // ),
+            // Column(
+            //   children: <Widget>[
+            //     GestureDetector(
+            //       onTap: () {
+            //         //Navigator.of(context).pushNamed(PETS_ITEM_LIST);
+            //         print('Routing to Pets item list');
+            //       },
+            //       child: Image.asset(
+            //         'assets/images/bike.jpg',
+            //         height: _height / 12,
+            //         width: _width / 12,
+            //       ),
+            //     ),
+            //     SizedBox(
+            //       height: 5,
+            //     ),
+            //     Flexible(
+            //       child: Text(
+            //         "Pets",
+            //         style: TextStyle(fontSize: 13),
+            //       ),
+            //     ),
+            //   ],
+            // ),
+          ],
+        ),
+      );
+    }
+
     /// Build body
     return WillPopScope(
       child: SafeArea(
@@ -415,16 +601,16 @@ class _HomeScreenState extends State<HomeScreen> {
               children: [
                 // Search bar
                 __searchBar(),
-                // List function
-                __listFunIcon(),
-
+                //Test
+                __listIcon(),
+                Divider(),
                 // List popular product
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     __title(),
                     SizedBox(
-                      height: Dimensions.height15,
+                      height: Dimensions.height10,
                     ),
                     __carouseSlider(),
                   ],
