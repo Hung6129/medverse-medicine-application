@@ -151,10 +151,10 @@ class _HomeScreenState extends State<HomeScreen> {
     Widget __searchBar() {
       return Padding(
         padding: EdgeInsets.only(
-          top: Dimensions.height20,
+          top: Dimensions.height10,
           right: Dimensions.height30,
           left: Dimensions.height30,
-          bottom: Dimensions.height20,
+          bottom: Dimensions.height10,
         ),
         child: Form(
           key: this._formKey,
@@ -399,17 +399,13 @@ class _HomeScreenState extends State<HomeScreen> {
               children: <Widget>[
                 GestureDetector(
                   onTap: () {
-                    //Navigator.of(context).pushNamed(ELECTRONICS_ITEM_LIST);
-                    print('Routing to Electronics item list');
+                    Navigator.pushNamed(context, "/pill-identifier");
                   },
                   child: Image.asset(
-                    'assets/images/bike.jpg',
+                    'assets/images/pillidentifier-icon.png',
                     height: _height / 12,
                     width: _width / 12,
                   ),
-                ),
-                SizedBox(
-                  height: 5,
                 ),
                 Flexible(
                   child: AppText(
@@ -423,17 +419,13 @@ class _HomeScreenState extends State<HomeScreen> {
               children: <Widget>[
                 GestureDetector(
                     onTap: () {
-                      //Navigator.of(context).pushNamed(PROPERTIES_ITEM_LIST);
-                      print('Routing to Properties item list');
+                      Navigator.pushNamed(context, "/compare-drug");
                     },
                     child: Image.asset(
-                      'assets/images/bike.jpg',
+                      'assets/images/compare-icon.png',
                       height: _height / 12,
                       width: _width / 12,
                     )),
-                SizedBox(
-                  height: 5,
-                ),
                 Flexible(
                   child: Text(
                     "So sánh",
@@ -446,17 +438,13 @@ class _HomeScreenState extends State<HomeScreen> {
               children: <Widget>[
                 GestureDetector(
                     onTap: () {
-                      //Navigator.of(context).pushNamed(JOBS_ITEM_LIST);
-                      print('Routing to Jobs item list');
+                      Navigator.pushNamed(context, "/interaction-checker");
                     },
                     child: Image.asset(
-                      'assets/images/bike.jpg',
+                      'assets/images/interaction-icon.png',
                       height: _height / 12,
                       width: _width / 12,
                     )),
-                SizedBox(
-                  height: 5,
-                ),
                 Flexible(
                   child: Text(
                     "Tương kỵ",
@@ -469,17 +457,13 @@ class _HomeScreenState extends State<HomeScreen> {
               children: <Widget>[
                 GestureDetector(
                     onTap: () {
-                      //Navigator.of(context).pushNamed(FURNITURE_ITEM_LIST);
-                      print('Routing to Furniture item list');
+                      Navigator.pushNamed(context, "/bmi");
                     },
                     child: Image.asset(
-                      'assets/images/bike.jpg',
+                      'assets/images/bmi-icon.png',
                       height: _height / 12,
                       width: _width / 12,
                     )),
-                SizedBox(
-                  height: 5,
-                ),
                 Flexible(
                   child: Text(
                     "BMI",
@@ -492,17 +476,13 @@ class _HomeScreenState extends State<HomeScreen> {
               children: <Widget>[
                 GestureDetector(
                   onTap: () {
-                    //Navigator.of(context).pushNamed(CARS_ITEM_LIST);
-                    print('Routing to Cars item list');
+                    Navigator.pushNamed(context, "/drug-index");
                   },
                   child: Image.asset(
-                    'assets/images/bike.jpg',
+                    'assets/images/index-icon.png',
                     height: _height / 12,
                     width: _width / 12,
                   ),
-                ),
-                SizedBox(
-                  height: 5,
                 ),
                 Flexible(
                   child: Text(
@@ -516,17 +496,13 @@ class _HomeScreenState extends State<HomeScreen> {
               children: <Widget>[
                 GestureDetector(
                   onTap: () {
-                    //Navigator.of(context).pushNamed(BIKES_ITEM_LIST);
-                    print('Routing to Bikes item list');
+                    Navigator.pushNamed(context, "/health-profile");
                   },
                   child: Image.asset(
-                    'assets/images/bike.jpg',
+                    'assets/images/healthprofile-icon.png',
                     height: _height / 12,
                     width: _width / 12,
                   ),
-                ),
-                SizedBox(
-                  height: 5,
                 ),
                 Flexible(
                   child: Text(
@@ -536,53 +512,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ],
             ),
-            // Column(
-            //   children: <Widget>[
-            //     GestureDetector(
-            //         onTap: () {
-            //           //Navigator.of(context).pushNamed(MOBILES_ITEM_LIST);
-            //           print('Routing to Mobiles item list');
-            //         },
-            //         child: Image.asset(
-            //           'assets/images/bike.jpg',
-            //           height: _height / 12,
-            //           width: _width / 12,
-            //         )),
-            //     SizedBox(
-            //       height: 5,
-            //     ),
-            //     Flexible(
-            //       child: Text(
-            //         "Mobiles",
-            //         style: TextStyle(fontSize: 13),
-            //       ),
-            //     ),
-            //   ],
-            // ),
-            // Column(
-            //   children: <Widget>[
-            //     GestureDetector(
-            //       onTap: () {
-            //         //Navigator.of(context).pushNamed(PETS_ITEM_LIST);
-            //         print('Routing to Pets item list');
-            //       },
-            //       child: Image.asset(
-            //         'assets/images/bike.jpg',
-            //         height: _height / 12,
-            //         width: _width / 12,
-            //       ),
-            //     ),
-            //     SizedBox(
-            //       height: 5,
-            //     ),
-            //     Flexible(
-            //       child: Text(
-            //         "Pets",
-            //         style: TextStyle(fontSize: 13),
-            //       ),
-            //     ),
-            //   ],
-            // ),
           ],
         ),
       );
