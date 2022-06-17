@@ -305,7 +305,6 @@ class _InteractionCheckerState extends State<InteractionChecker> {
                   color: Colors.white,
                 ),
                 child: Container(
-                  width: Dimensions.boxSearchViewWidth,
                   child: Column(
                     children: [
                       __textInput(),
