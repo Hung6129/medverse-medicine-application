@@ -394,8 +394,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   },
                   child: Image.asset(
                     'assets/images/pillidentifier-icon.png',
-                    height: _height / 10,
-                    width: _width / 10,
+                    height: _height / 12,
+                    width: _width / 12,
                   ),
                 ),
                 Flexible(
@@ -414,8 +414,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     },
                     child: Image.asset(
                       'assets/images/compare-icon.png',
-                      height: _height / 10,
-                      width: _width / 10,
+                      height: _height / 12,
+                      width: _width / 12,
                     )),
                 Flexible(
                   child: Text(
@@ -433,8 +433,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     },
                     child: Image.asset(
                       'assets/images/interaction-icon.png',
-                      height: _height / 10,
-                      width: _width / 10,
+                      height: _height / 12,
+                      width: _width / 12,
                     )),
                 Flexible(
                   child: Text(
@@ -452,8 +452,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     },
                     child: Image.asset(
                       'assets/images/bmi-icon.png',
-                      height: _height / 10,
-                      width: _width / 10,
+                      height: _height / 12,
+                      width: _width / 12,
                     )),
                 Flexible(
                   child: Text(
@@ -471,8 +471,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   },
                   child: Image.asset(
                     'assets/images/index-icon.png',
-                    height: _height / 10,
-                    width: _width / 10,
+                    height: _height / 12,
+                    width: _width / 12,
                   ),
                 ),
                 Flexible(
@@ -491,8 +491,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   },
                   child: Image.asset(
                     'assets/images/healthprofile-icon.png',
-                    height: _height / 10,
-                    width: _width / 10,
+                    height: _height / 12,
+                    width: _width / 12,
                   ),
                 ),
                 Flexible(
@@ -511,8 +511,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   },
                   child: Image.asset(
                     'assets/images/report-icon.png',
-                    height: _height / 10,
-                    width: _width / 10,
+                    height: _height / 12,
+                    width: _width / 12,
                   ),
                 ),
                 Flexible(
@@ -531,8 +531,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   },
                   child: Image.asset(
                     'assets/images/dictionary-icon.png',
-                    height: _height / 10,
-                    width: _width / 10,
+                    height: _height / 12,
+                    width: _width / 12,
                   ),
                 ),
                 Flexible(
