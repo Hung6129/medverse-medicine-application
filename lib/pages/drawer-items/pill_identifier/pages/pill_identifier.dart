@@ -277,12 +277,12 @@ class _PillIdentifierState extends State<PillIdentifier> {
             return InputDecorator(
               decoration: InputDecoration(
                 prefixIcon: Icon(CupertinoIcons.color_filter),
-                suffixIcon: IconButton(
-                  icon: Icon(CupertinoIcons.multiply),
-                  onPressed: () {
-                    _key.currentState.reset();
-                  },
-                ),
+                // suffixIcon: IconButton(
+                //   icon: Icon(CupertinoIcons.multiply),
+                //   onPressed: () {
+                //     _key.currentState.reset();
+                //   },
+                // ),
                 border: OutlineInputBorder(
                   borderSide: BorderSide(
                     width: 4,
@@ -356,7 +356,7 @@ class _PillIdentifierState extends State<PillIdentifier> {
                       },
                     );
                   },
-                  items: pill_shapes.values.map(
+                  items: pill_shapes.keys.map(
                     (value) {
                       return DropdownMenuItem(
                         value: value,

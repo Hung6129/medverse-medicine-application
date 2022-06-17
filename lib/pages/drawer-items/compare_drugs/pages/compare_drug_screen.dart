@@ -283,7 +283,6 @@ class _CompareDrugState extends State<CompareDrug> {
                   color: Colors.white,
                 ),
                 child: Container(
-                  width: Dimensions.boxSearchViewWidth,
                   child: Column(
                     children: [
                       __searchInput(),

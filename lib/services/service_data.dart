@@ -14,31 +14,45 @@ import '/utils/database_sqlite_connection.dart';
 class TypeAheadByName {
   static Future<List<Map<String, String>>> getTypeAheadByName(
       String input) async {
-    if (input.isEmpty) {
-      return <Map<String, String>>[];
+    // if (input.isEmpty) {
+    //   return <Map<String, String>>[];
+    // } else {
+    http.Response resData = await http
+        .get(Uri.parse(Constants.BASE_URL + Constants.NAME_SEARCH + input));
+    List<ProductNameApi> suggest = [];
+    if (resData.statusCode == 200) {
+      Iterable listData = json.decode(resData.body);
+      suggest = List<ProductNameApi>.from(
+          listData.map((e) => ProductNameApi.fromJson(e)));
     } else {
-      http.Response resData = await http
-          .get(Uri.parse(Constants.BASE_URL + Constants.NAME_SEARCH + input));
-      List<ProductNameApi> suggest = [];
-      if (resData.statusCode == 200) {
-        Iterable listData = json.decode(resData.body);
-        suggest = List<ProductNameApi>.from(
-            listData.map((e) => ProductNameApi.fromJson(e)));
-      } else {
-        if (resData.statusCode == 503) {
-          throw ('Hệ thống đang có lỗi, vui lòng chờ trong giây lát');
-        } else {
-          throw (resData.statusCode);
-        }
+      switch (resData.statusCode) {
+        case 403:
+          throw (resData.statusCode.toString() +
+              "Truy cập đang bị chặn, vui lòng thử lại sau");
+        case 404: //Resource Not Found
+          throw (resData.statusCode.toString() +
+              "Không tìm thấy, vui lòng thử cách khác");
+        case 500:
+          throw (resData.statusCode.toString() +
+              "Truy cập vào hệ thống đang gặp vấn đề, vui lòng thử lại sau"); //Internal Server Error
+        case 502:
+          throw (resData.statusCode.toString() +
+              "Kết nối tới hệ thống đang bị lỗi, vui lòng thử lại sau");
+        case 503:
+          throw (resData.statusCode.toString() +
+              "Hệ thống đang bị lỗi, vui lòng thử lại sau");
+        default:
+          throw (resData.statusCode.toString() + "Đã có lỗi gì đó xảy ra!");
       }
-      return Future.value(suggest
-          .map((e) => {
-                'productName': e.productName,
-                'productId': e.productID,
-                'drugId': e.drugbankID
-              })
-          .toList());
     }
+    return Future.value(suggest
+        .map((e) => {
+              'productName': e.productName,
+              'productId': e.productID,
+              'drugId': e.drugbankID
+            })
+        .toList());
+    // }
   }
 }
 
@@ -53,10 +67,24 @@ class TypeAheadByNameFast {
       suggest = List<ProductNameApiFast>.from(
           listData.map((e) => ProductNameApiFast.fromJson(e)));
     } else {
-      if (resData.statusCode == 503) {
-        throw ('Hệ thống đang có lỗi, vui lòng chờ trong giây lát');
-      } else {
-        throw (resData.statusCode);
+      switch (resData.statusCode) {
+        case 403: //Forbidden
+          throw (resData.statusCode.toString() +
+              "Truy cập đang bị chặn, vui lòng thử lại sau");
+        case 404: //Resource Not Found
+          throw (resData.statusCode.toString() +
+              "Không tìm thấy, vui lòng thử cách khác");
+        case 500:
+          throw (resData.statusCode.toString() +
+              "Truy cập vào hệ thống đang gặp vấn đề, vui lòng thử lại sau"); //Internal Server Error
+        case 502:
+          throw (resData.statusCode.toString() +
+              "Kết nối tới hệ thống đang bị lỗi, vui lòng thử lại sau");
+        case 503:
+          throw (resData.statusCode.toString() +
+              "Hệ thống đang bị lỗi, vui lòng thử lại sau");
+        default:
+          throw (resData.statusCode.toString() + "Đã có lỗi gì đó xảy ra!");
       }
     }
     return Future.value(suggest
@@ -137,7 +165,7 @@ class PillIdentifierResult {
     var db = await DatabaseSqliteConnection.drugBankAccess();
     List<Map<String, dynamic>> maps = await db.rawQuery(
         "SELECT * FROM pilL_data_detail where pill_shape like '%$shape%' and pill_size like '%$size%'  and pill_colors like '%$color%' and pill_imprints like '%$imprint%'");
-    print(maps);
+    // print(maps);
     return List.generate(
       maps.length,
       (i) {
