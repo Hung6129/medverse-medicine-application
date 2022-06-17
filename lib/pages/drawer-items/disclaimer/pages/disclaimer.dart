@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:medverse_mobile_app/widgets/dimension.dart';
+import '../../../../widgets/app_text.dart';
 import '/theme/palette.dart';
 import '/utils/app_text_theme.dart';
 
@@ -22,9 +23,10 @@ class _DisclaimerState extends State<Disclaimer> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Palette.mainBlueTheme,
-        title: Text(
-          'Miễn trừ trách nhiệm',
-          style: MobileTextTheme().appBarStyle,
+        title: AppText(
+          text: 'Miễn trừ trách nhiệm',
+          size: Dimensions.font20,
+          fontWeight: FontWeight.bold,
         ),
         centerTitle: true,
       ),

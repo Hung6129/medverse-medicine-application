@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/cupertino.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/services.dart';
@@ -27,28 +26,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  /// Get list images
-  // final List<String> imgList = [
-  //   "00093-7286-89_RXNAVIMAGE10_D62FEB6F.jpg",
-  //   "00093-7290-56_RXNAVIMAGE10_A73953CA.jpg",
-  //   "00093-7306-06_RXNAVIMAGE10_BC42DE66.jpg",
-  //   "00093-7393-98_RXNAVIMAGE10_32391918.jpg",
-  //   "69097-0123-03_NLMIMAGE10_8D4EC6D6.jpg",
-  //   "69238-1251-06_NLMIMAGE10_FE50FF27.jpg",
-  //   "99207-0467-30_NLMIMAGE10_C11D60AB.jpg",
-  //   "76439-0102-50_NLMIMAGE10_3A3D9D0C.jpg",
-  // ];
-  // final List<String> imgName = [
-  //   'Levetiracetam 500 MG Oral Tablet',
-  //   'Raloxifene Hydrochloride 60 MG Oral Tablet',
-  //   'celecoxib 50 MG Oral Capsule',
-  //   'Fosinopril Sodium 20 MG Oral Tablet',
-  //   'topiramate 50 MG Oral Tablet',
-  //   'Estradiol 1 MG / norethindrone ',
-  //   '24 HR Minocycline 105 MG Extended ',
-  //   'Cephalexin 500 MG Oral Capsule',
-  // ];
-
   /// Example images
   String imagesFav = "assets/image/300_imagesrxnav/";
 
@@ -122,8 +99,16 @@ class _HomeScreenState extends State<HomeScreen> {
     listTrendImages = fetchTrendData();
   }
 
+  double _height;
+  double _width;
+
+  /// test
+
   @override
   Widget build(BuildContext context) {
+    _height = MediaQuery.of(context).size.height;
+    _width = MediaQuery.of(context).size.width;
+
     /// Loading Shimmer Popular
     Widget __loadingPoShimmer() {
       return Container(
@@ -157,7 +142,7 @@ class _HomeScreenState extends State<HomeScreen> {
           margin: EdgeInsets.only(left: 20, right: 20),
           child: AppText(
             text: "Xu hướng tìm kiếm",
-            size: Dimensions.font20,
+            size: Dimensions.font18,
             color: Palette.pastel1,
             fontWeight: FontWeight.bold,
           ));
@@ -167,10 +152,10 @@ class _HomeScreenState extends State<HomeScreen> {
     Widget __searchBar() {
       return Padding(
         padding: EdgeInsets.only(
-          top: Dimensions.height20,
+          top: Dimensions.height10,
           right: Dimensions.height30,
           left: Dimensions.height30,
-          bottom: Dimensions.height20,
+          bottom: Dimensions.height10,
         ),
         child: Form(
           key: this._formKey,
@@ -203,6 +188,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         borderSide:
                             BorderSide(width: 3, color: Palette.mainBlueTheme),
                       ),
+                      labelStyle: TextStyle(fontSize: Dimensions.font14),
                       labelText: 'Nhập thuốc bạn muốn kiểm tra'),
                 ),
                 suggestionsCallback: (String pattern) {
@@ -252,59 +238,6 @@ class _HomeScreenState extends State<HomeScreen> {
       );
     }
 
-    /// Build list function icon
-    Widget __listFunIcon() {
-      return Padding(
-        padding: EdgeInsets.only(bottom: Dimensions.height10),
-        child: Container(
-          width: double.maxFinite,
-          height: 110,
-          child: ListView.builder(
-            scrollDirection: Axis.horizontal,
-            itemCount: imagesIcon.keys.length,
-            itemBuilder: (_, index) {
-              return Padding(
-                padding: const EdgeInsets.only(
-                    left: 10, right: 20, top: 10, bottom: 10),
-                child: Container(
-                  width: 100,
-                  child: NeumorphicButton(
-                    style: NeumorphicStyle(
-                      shape: NeumorphicShape.flat,
-                      color: Colors.white,
-                    ),
-                    onPressed: () {
-                      switch (index) {
-                        case 0:
-                          Navigator.pushNamed(context, "/pill-identifier");
-                          break;
-                        case 1:
-                          Navigator.pushNamed(context, "/compare-drug");
-                          break;
-                        case 2:
-                          Navigator.pushNamed(context, "/interaction-checker");
-                          break;
-                        case 3:
-                          Navigator.pushNamed(context, "/health-profile");
-                          break;
-                      }
-                    },
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        imagesIcon.keys.elementAt(index),
-                        imagesIcon.values.elementAt(index),
-                      ],
-                    ),
-                  ),
-                ),
-              );
-            },
-          ),
-        ),
-      );
-    }
-
     /// Build carouse slider
     Widget __carouseSlider() {
       return FutureBuilder(
@@ -314,7 +247,7 @@ class _HomeScreenState extends State<HomeScreen> {
             return __loadingPoShimmer();
           } else if (snapshot.data == null) {
             return Container(
-              child: __loadingPoShimmer(),  
+              child: __loadingPoShimmer(),
             );
           } else if (snapshot.hasData) {
             var data = snapshot.data;
@@ -323,75 +256,118 @@ class _HomeScreenState extends State<HomeScreen> {
               options: CarouselOptions(
                 autoPlayAnimationDuration: Duration(seconds: 3),
                 autoPlayCurve: Curves.linearToEaseOut,
-                aspectRatio: 16 / 10,
                 enlargeCenterPage: true,
                 autoPlay: true,
               ),
               itemBuilder: (ctx, index, realIdx) {
-                return Stack(
-                  children: [
-                    Container(
-                      height: Dimensions.pageViewContainer,
-                      margin: EdgeInsets.only(
-                        left: Dimensions.width10,
-                        right: Dimensions.width10,
-                      ),
-                      decoration: BoxDecoration(
-                        borderRadius:
-                            BorderRadius.circular(Dimensions.radius20),
-                        color: index.isEven
-                            ? Palette.mainBlueTheme
-                            : Palette.pastel2,
-                        image: DecorationImage(
-                          image: AssetImage(
-                              imagesFav + data[index].rxnavImageFilename),
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                    ),
-                    Align(
-                      alignment: Alignment.bottomCenter,
-                      child: Container(
-                        margin: EdgeInsets.only(
-                          left: Dimensions.width30,
-                          right: Dimensions.width30,
-                        ),
-                        decoration: BoxDecoration(
-                          borderRadius:
-                              BorderRadius.circular(Dimensions.radius20),
-                          color: Colors.white,
-                          boxShadow: [
-                            BoxShadow(
-                              color: Color(0xFFe8e8e8),
-                              blurRadius: 5.0,
-                              offset: Offset(0, 5),
-                            ),
-                            BoxShadow(
-                              color: Colors.white,
-                              offset: Offset(-5, 0),
-                            ),
-                            BoxShadow(
-                              color: Colors.white,
-                              offset: Offset(5, 0),
-                            ),
-                          ],
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.only(
-                              top: 3, bottom: 8, left: 8, right: 8),
-                          child: Text(
-                            data[index].pillOverviewData,
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 2,
-                            style: TextStyle(
-                              fontSize: Dimensions.font18,
-                            ),
+                return Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      children: [
+                        Flexible(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Container(
+                                  width: _width / 2.5,
+                                  child: Text(
+                                    data[index].pillOverviewData,
+                                    style: TextStyle(
+                                      fontSize: Dimensions.font14,
+                                    ),
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                    softWrap: true,
+                                  )),
+                            ],
                           ),
                         ),
-                      ),
+                        Container(
+                          width: _width / 2.5,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.rectangle,
+                            color: Palette.pastel4,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          padding: EdgeInsets.all(10),
+                          child: Image.asset(
+                            imagesFav + data[index].rxnavImageFilename,
+                            fit: BoxFit.cover,
+                            height: _height / 4,
+                            width: _width / 4,
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
-                );
+                  ),
+                )
+                    // Stack(
+                    //   children: [
+                    //     Container(
+                    //       height: Dimensions.pageViewContainer,
+                    //       margin: EdgeInsets.only(
+                    //         left: Dimensions.width10,
+                    //         right: Dimensions.width10,
+                    //       ),
+                    //       decoration: BoxDecoration(
+                    //         borderRadius:
+                    //             BorderRadius.circular(Dimensions.radius20),
+                    //         color: index.isEven
+                    //             ? Palette.mainBlueTheme
+                    //             : Palette.pastel2,
+                    //         image: DecorationImage(
+                    //           image: AssetImage(
+                    //               imagesFav + data[index].rxnavImageFilename),
+                    //           fit: BoxFit.fill,
+                    //         ),
+                    //       ),
+                    //     ),
+                    //     Align(
+                    //       alignment: Alignment.bottomCenter,
+                    //       child: Container(
+                    //         margin: EdgeInsets.only(
+                    //           left: Dimensions.width30,
+                    //           right: Dimensions.width30,
+                    //         ),
+                    //         decoration: BoxDecoration(
+                    //           borderRadius:
+                    //               BorderRadius.circular(Dimensions.radius20),
+                    //           color: Colors.white,
+                    //           boxShadow: [
+                    //             BoxShadow(
+                    //               color: Color(0xFFe8e8e8),
+                    //               blurRadius: 5.0,
+                    //               offset: Offset(0, 5),
+                    //             ),
+                    //             BoxShadow(
+                    //               color: Colors.white,
+                    //               offset: Offset(-5, 0),
+                    //             ),
+                    //             BoxShadow(
+                    //               color: Colors.white,
+                    //               offset: Offset(5, 0),
+                    //             ),
+                    //           ],
+                    //         ),
+                    //         child: Padding(
+                    //           padding: const EdgeInsets.only(
+                    //               top: 3, bottom: 8, left: 8, right: 8),
+                    //           child: Text(
+                    //             data[index].pillOverviewData,
+                    //             overflow: TextOverflow.ellipsis,
+                    //             maxLines: 2,
+                    //             style: TextStyle(
+                    //               fontSize: Dimensions.font18,
+                    //             ),
+                    //           ),
+                    //         ),
+                    //       ),
+                    //     ),
+                    //   ],
+                    // )
+                    ;
               },
             );
           }
@@ -399,6 +375,176 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Text("loi"),
           );
         },
+      );
+    }
+
+    Widget __listIcon() {
+      return Container(
+        margin: EdgeInsets.only(left: 10, right: 10),
+        child: GridView.count(
+          physics: NeverScrollableScrollPhysics(),
+          shrinkWrap: true,
+          crossAxisCount: 4,
+          children: <Widget>[
+            Column(
+              children: <Widget>[
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(context, "/pill-identifier");
+                  },
+                  child: Image.asset(
+                    'assets/images/pillidentifier-icon.png',
+                    height: _height / 10,
+                    width: _width / 10,
+                  ),
+                ),
+                Flexible(
+                  child: AppText(
+                    text: "Tìm kiếm",
+                    size: Dimensions.font14,
+                  ),
+                ),
+              ],
+            ),
+            Column(
+              children: <Widget>[
+                GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(context, "/compare-drug");
+                    },
+                    child: Image.asset(
+                      'assets/images/compare-icon.png',
+                      height: _height / 10,
+                      width: _width / 10,
+                    )),
+                Flexible(
+                  child: Text(
+                    "So sánh",
+                    style: TextStyle(fontSize: 13),
+                  ),
+                ),
+              ],
+            ),
+            Column(
+              children: <Widget>[
+                GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(context, "/interaction-checker");
+                    },
+                    child: Image.asset(
+                      'assets/images/interaction-icon.png',
+                      height: _height / 10,
+                      width: _width / 10,
+                    )),
+                Flexible(
+                  child: Text(
+                    "Tương kỵ",
+                    style: TextStyle(fontSize: 13),
+                  ),
+                ),
+              ],
+            ),
+            Column(
+              children: <Widget>[
+                GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(context, "/bmi");
+                    },
+                    child: Image.asset(
+                      'assets/images/bmi-icon.png',
+                      height: _height / 10,
+                      width: _width / 10,
+                    )),
+                Flexible(
+                  child: Text(
+                    "BMI",
+                    style: TextStyle(fontSize: 13),
+                  ),
+                ),
+              ],
+            ),
+            Column(
+              children: <Widget>[
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(context, "/drug-index");
+                  },
+                  child: Image.asset(
+                    'assets/images/index-icon.png',
+                    height: _height / 10,
+                    width: _width / 10,
+                  ),
+                ),
+                Flexible(
+                  child: Text(
+                    "Mục lục",
+                    style: TextStyle(fontSize: 13),
+                  ),
+                ),
+              ],
+            ),
+            Column(
+              children: <Widget>[
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(context, "/health-profile");
+                  },
+                  child: Image.asset(
+                    'assets/images/healthprofile-icon.png',
+                    height: _height / 10,
+                    width: _width / 10,
+                  ),
+                ),
+                Flexible(
+                  child: Text(
+                    "Hồ sơ",
+                    style: TextStyle(fontSize: 13),
+                  ),
+                ),
+              ],
+            ),
+            Column(
+              children: <Widget>[
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(context, "/report-images");
+                  },
+                  child: Image.asset(
+                    'assets/images/report-icon.png',
+                    height: _height / 10,
+                    width: _width / 10,
+                  ),
+                ),
+                Flexible(
+                  child: Text(
+                    "Báo cáo",
+                    style: TextStyle(fontSize: 13),
+                  ),
+                ),
+              ],
+            ),
+            Column(
+              children: <Widget>[
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(context, "/dictionary");
+                  },
+                  child: Image.asset(
+                    'assets/images/dictionary-icon.png',
+                    height: _height / 10,
+                    width: _width / 10,
+                  ),
+                ),
+                Flexible(
+                  child: Text(
+                    "Từ điển",
+                    style: TextStyle(fontSize: 13),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
       );
     }
 
@@ -415,16 +561,16 @@ class _HomeScreenState extends State<HomeScreen> {
               children: [
                 // Search bar
                 __searchBar(),
-                // List function
-                __listFunIcon(),
-
+                //Test
+                __listIcon(),
+                Divider(),
                 // List popular product
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     __title(),
                     SizedBox(
-                      height: Dimensions.height15,
+                      height: Dimensions.height10,
                     ),
                     __carouseSlider(),
                   ],

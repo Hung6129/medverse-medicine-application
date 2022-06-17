@@ -277,9 +277,10 @@ class _InteractionCheckerState extends State<InteractionChecker> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Palette.mainBlueTheme,
-        title: Text(
-          'Kiểm tra tương kị thuốc',
-          style: MobileTextTheme().appBarStyle,
+        title: AppText(
+          text: 'Kiểm tra tương kỵ thuốc',
+          size: Dimensions.font20,
+          fontWeight: FontWeight.bold,
         ),
         centerTitle: true,
       ),

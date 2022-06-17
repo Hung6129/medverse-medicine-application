@@ -1,4 +1,8 @@
 import 'package:medverse_mobile_app/posts/create_post.dart';
+import '../pages/drawer-items/bmi_calculator/pages/input_screen.dart';
+import '../pages/drawer-items/capture_images/pages/image_capture_page.dart';
+import '../pages/drawer-items/drug_index/pages/drug_index.dart';
+import '../pages/drawer-items/medicine_dictionary/pages/medicine_dictionary.dart';
 import '/models/drug_bank_db/product_model.dart';
 import '/pages/detail_screen/drug_detail.dart';
 import '/pages/drawer-items/pill_identifier/pages/pill_identifier_result.dart';
@@ -59,9 +63,6 @@ class AppRoutes {
       case "/pill-identifier":
         return getMaterialRoute(PillIdentifier());
 
-      case "/pill-identifier-result":
-        return getMaterialRoute(PillIdentifierListResult());
-
       /// compare route
       case "/compare-drug":
         return getMaterialRoute(CompareDrug());
@@ -73,6 +74,22 @@ class AppRoutes {
       /// health profile
       case "/health-profile":
         return getMaterialRoute(TabHealthProfile());
+
+      /// BMI
+      case "/bmi":
+        return getMaterialRoute(InputCalculateBMI());
+
+      /// DrugIndex
+      case "/drug-index":
+        return getMaterialRoute(DrugIndex());
+
+      /// Dictionary
+      case "/dictionary":
+        return getMaterialRoute(MedicineDictionary());
+
+      /// Report to admin
+      case "/report-images":
+        return getMaterialRoute(CaptureimagePage());
     }
   }
 }

@@ -211,9 +211,10 @@ class _PillIdentifierListResultState extends State<PillIdentifierListResult> {
       // backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Palette.mainBlueTheme,
-        title: Text(
-          'Tìm kiếm nâng cao',
-          style: TextStyle(fontWeight: FontWeight.w900),
+        title: AppText(
+          text: 'Tìm kiếm nâng cao',
+          size: Dimensions.font20,
+          fontWeight: FontWeight.bold,
         ),
         centerTitle: true,
       ),

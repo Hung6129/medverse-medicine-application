@@ -16,7 +16,7 @@ class Constants {
   static const String INTERACTION_CHECKER = "/api/interactions/checkByTwoIDs?";
 
   // Compare
-  static const String DRUG_ID_SEARCH = "/api/drugs/";
+  static const String DRUG_COMPARE = "/api/drugs/compare?";
 
   // Recommended
   static const String DRUG_RECOMMENDED_WITH_DRUGID =

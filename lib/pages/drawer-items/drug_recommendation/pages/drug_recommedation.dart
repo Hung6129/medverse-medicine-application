@@ -41,9 +41,10 @@ class _DrugRecommendationState extends State<DrugRecommendation> {
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
           backgroundColor: Palette.mainBlueTheme,
-          title: Text(
-            'Gợi ý thuốc',
-            style: MobileTextTheme().appBarStyle,
+          title: AppText(
+            text: 'Gợi ý thuốc',
+            size: Dimensions.font20,
+            fontWeight: FontWeight.bold,
           ),
           centerTitle: true,
         ),
@@ -70,7 +71,7 @@ class _DrugRecommendationState extends State<DrugRecommendation> {
                               bottom: Dimensions.height10,
                             ),
                             child: AppText(
-                              text: listData[index].productName ,
+                              text: listData[index].productName,
                             )),
                       ),
                     )
