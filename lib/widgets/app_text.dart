@@ -18,7 +18,7 @@ class AppText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  Text(
+    return Text(
       text,
       style: GoogleFonts.roboto(
         color: color,

@@ -7,7 +7,7 @@ AppBar appBarMain({
 }) {
   return AppBar(
     elevation: 0,
-    iconTheme: IconThemeData(color: Palette.pastel1),
+    iconTheme: IconThemeData(color: Palette.mainBlueThemesec),
     backgroundColor: Palette.whiteText,
     title: Text(
       titleText,

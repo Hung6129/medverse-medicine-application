@@ -17,6 +17,8 @@ class Constants {
 
   // Compare
   static const String DRUG_COMPARE = "/api/drugs/compare?";
+  // Send data
+  static const String SEND_DATA = "/api/trafficcollector/send?productName=";
 
   // Recommended
   static const String DRUG_RECOMMENDED_WITH_DRUGID =

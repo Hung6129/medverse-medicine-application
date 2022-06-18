@@ -102,7 +102,11 @@ class _HomeScreenState extends State<HomeScreen> {
   double _height;
   double _width;
 
-  /// test
+  _sendingData(String id) async {
+    print("sending");
+    print(id);
+    await SendData().sendingId(id);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -214,8 +218,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   return suggestionsBox;
                 },
                 onSuggestionSelected: (suggestion) async {
-                  // print("tapped " + suggestion['productName']);
-                  // print("tappedx2 " + suggestion['productId']);
                   BlocProvider.of<HomeScreenBloc>(context)
                     ..add(
                       OnTapEvent(
@@ -223,6 +225,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         navigateData: suggestion['productId'],
                       ),
                     );
+                  await _sendingData(suggestion['productId']);
                 },
                 validator: (value) {
                   if (value.isEmpty) {

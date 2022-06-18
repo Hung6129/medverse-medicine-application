@@ -40,7 +40,6 @@ class _FavoriteDrugsListScreenNavState
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
   }
 
@@ -96,8 +95,8 @@ class _FavoriteDrugsListScreenNavState
                                   },
                                   backgroundColor: Palette.warningColor,
                                   foregroundColor: Colors.white,
-                                  icon: CupertinoIcons.delete_solid,
-                                  label: 'Xoá',
+                                  icon: CupertinoIcons.delete,
+                                  label: 'Huỷ lưu',
                                 ),
                               ],
                             ),
@@ -157,12 +156,16 @@ class _FavoriteDrugsListScreenNavState
                                             ),
                                             SizedBox(
                                                 height: Dimensions.height10),
-                                            AppText(
-                                              text: snapshot
+                                            Text(
+                                              snapshot
                                                   .data[index].product_labeller,
-                                              color: Palette.textNo,
-                                              size: Dimensions.font14,
-                                              fontWeight: FontWeight.normal,
+                                              overflow: TextOverflow.ellipsis,
+                                              maxLines: 2,
+                                              style: TextStyle(
+                                                color: Palette.textNo,
+                                                fontSize: Dimensions.font14,
+                                                fontWeight: FontWeight.normal,
+                                              ),
                                             ),
                                             SizedBox(
                                                 height: Dimensions.height10),

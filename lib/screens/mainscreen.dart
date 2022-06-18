@@ -2,6 +2,7 @@ import 'package:animations/animations.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:medverse_mobile_app/theme/palette.dart';
+import 'package:medverse_mobile_app/widgets/dimension.dart';
 import '/pages/nav-items/favorite/favorite_drugs_list_nav.dart';
 import '/widgets/navigation_drawer_widget.dart';
 import '/pages/nav-items/notification/pages/notification.dart';
@@ -75,9 +76,9 @@ class _TabScreenState extends State<TabScreen> {
                   icon: Icon(
                     item['icon'],
                     color: item['index'] != _page
-                        ? Palette.pastel2.withOpacity(0.4)
-                        : Palette.pastel2,
-                    size: 20.0,
+                        ? Palette.mainBlueTheme.withOpacity(0.2)
+                        : Palette.mainBlueTheme,
+                    size: Dimensions.icon24,
                   ),
                   onPressed: () {
                     navigationTapped(item['index']);

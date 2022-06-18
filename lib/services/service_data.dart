@@ -11,48 +11,56 @@ import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import '/utils/database_sqlite_connection.dart';
 
+class SendData {
+  sendingId(String id) {
+    return http.post(
+      Uri.parse(Constants.BASE_URL + Constants.SEND_DATA + id),
+    );
+  }
+}
+
 class TypeAheadByName {
   static Future<List<Map<String, String>>> getTypeAheadByName(
       String input) async {
-    // if (input.isEmpty) {
-    //   return <Map<String, String>>[];
-    // } else {
-    http.Response resData = await http
-        .get(Uri.parse(Constants.BASE_URL + Constants.NAME_SEARCH + input));
-    List<ProductNameApi> suggest = [];
-    if (resData.statusCode == 200) {
-      Iterable listData = json.decode(resData.body);
-      suggest = List<ProductNameApi>.from(
-          listData.map((e) => ProductNameApi.fromJson(e)));
+    if (input.isEmpty) {
+      return <Map<String, String>>[];
     } else {
-      switch (resData.statusCode) {
-        case 403:
-          throw (resData.statusCode.toString() +
-              " Truy cập đang bị chặn, vui lòng thử lại sau");
-        case 404: //Resource Not Found
-          throw (resData.statusCode.toString() +
-              " Không tìm thấy, vui lòng thử cách khác");
-        case 500:
-          throw (resData.statusCode.toString() +
-              " Truy cập vào hệ thống đang gặp vấn đề, vui lòng thử lại sau"); //Internal Server Error
-        case 502:
-          throw (resData.statusCode.toString() +
-              " Kết nối tới hệ thống đang bị lỗi, vui lòng thử lại sau");
-        case 503:
-          throw (resData.statusCode.toString() +
-              " Hệ thống đang bị lỗi, vui lòng thử lại sau");
-        default:
-          throw (resData.statusCode.toString() + "Đã có lỗi gì đó xảy ra!");
+      http.Response resData = await http
+          .get(Uri.parse(Constants.BASE_URL + Constants.NAME_SEARCH + input));
+      List<ProductNameApi> suggest = [];
+      if (resData.statusCode == 200) {
+        Iterable listData = json.decode(resData.body);
+        suggest = List<ProductNameApi>.from(
+            listData.map((e) => ProductNameApi.fromJson(e)));
+      } else {
+        switch (resData.statusCode) {
+          case 403:
+            throw (resData.statusCode.toString() +
+                " Truy cập đang bị chặn, vui lòng thử lại sau");
+          case 404: //Resource Not Found
+            throw (resData.statusCode.toString() +
+                " Không tìm thấy, vui lòng thử cách khác");
+          case 500:
+            throw (resData.statusCode.toString() +
+                " Truy cập vào hệ thống đang gặp vấn đề, vui lòng thử lại sau"); //Internal Server Error
+          case 502:
+            throw (resData.statusCode.toString() +
+                " Kết nối tới hệ thống đang bị lỗi, vui lòng thử lại sau");
+          case 503:
+            throw (resData.statusCode.toString() +
+                " Hệ thống đang bị lỗi, vui lòng thử lại sau");
+          default:
+            throw (resData.statusCode.toString() + "Đã có lỗi gì đó xảy ra!");
+        }
       }
+      return Future.value(suggest
+          .map((e) => {
+                'productName': e.productName,
+                'productId': e.productID,
+                'drugId': e.drugbankID
+              })
+          .toList());
     }
-    return Future.value(suggest
-        .map((e) => {
-              'productName': e.productName,
-              'productId': e.productID,
-              'drugId': e.drugbankID
-            })
-        .toList());
-    // }
   }
 }
 
