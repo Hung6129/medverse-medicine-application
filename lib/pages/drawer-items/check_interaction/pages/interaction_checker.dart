@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-import 'package:medverse_mobile_app/utils/app_text_theme.dart';
-import '../../../../models/drug_bank_db/product_name.dart';
+import '/utils/app_text_theme.dart';
+import '/widgets/awesome_dialog.dart';
 import '/services/service_data.dart';
 import '/theme/palette.dart';
 import '/widgets/app_text.dart';
@@ -19,9 +19,12 @@ class InteractionChecker extends StatefulWidget {
 class _InteractionCheckerState extends State<InteractionChecker> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _typeAheadController = TextEditingController();
+  String selectText =
+      "Bắt đầu gõ tên một loại thuốc. Một danh sách các gợi ý sẽ xuất hiện sau đó vui lòng chọn từ danh sách.";
 
   // String _selectedDrug;
   List<String> addedItemsList = [];
+  List<String> addedItemsIdList = [];
 
   // Add to list function
   void __addItemToList(String value) {
@@ -37,7 +40,21 @@ class _InteractionCheckerState extends State<InteractionChecker> {
     }
   }
 
+  void __addItemIdToList(String value) {
+    if (addedItemsIdList.length == 2) {
+      addedItemsIdList.removeLast();
+      setState(() {
+        addedItemsIdList.insert(0, value);
+      });
+    } else {
+      setState(() {
+        addedItemsIdList.insert(0, value);
+      });
+    }
+  }
+
   FocusNode focusNode;
+
   @override
   void initState() {
     super.initState();
@@ -99,17 +116,21 @@ class _InteractionCheckerState extends State<InteractionChecker> {
                         borderSide:
                             BorderSide(width: 3, color: Palette.mainBlueTheme),
                       ),
-                      labelText: 'Nhập thuốc bạn muốn kiểm tra'),
+                      labelText: 'Nhập thuốc bạn muốn tìm'),
                 ),
                 suggestionsCallback: (String pattern) {
-                  return TypeAhead2.searchName(pattern);
+                  // if (pattern == null ||
+                  //     pattern.trim().isEmpty ||
+                  //     pattern.length == 0) {
+                  //   return [];
+                  // } else {
+                  return TypeAheadByName.getTypeAheadByName(pattern);
+                  // }
                 },
-                itemBuilder: (context, ProductName suggestion) {
+                itemBuilder: (context, suggestion) {
                   return ListTile(
                     title: AppText(
-                      text: suggestion.product_name +
-                          "-" +
-                          suggestion.product_code,
+                      text: suggestion['productName'],
                       color: Colors.black54,
                       size: Dimensions.font14,
                       fontWeight: FontWeight.normal,
@@ -119,43 +140,15 @@ class _InteractionCheckerState extends State<InteractionChecker> {
                 transitionBuilder: (context, suggestionsBox, controller) {
                   return suggestionsBox;
                 },
-                onSuggestionSelected: (ProductName suggestion) {
-                  if (addedItemsList.length == 2) {
-                    print("cannot add");
-                  }
-                  _typeAheadController.text = suggestion.product_name;
+                onSuggestionSelected: (suggestion) {
+                  _typeAheadController.text = suggestion['productName'];
                   print(_typeAheadController.text);
+                  print(suggestion['drugId']);
                   __addItemToList(_typeAheadController.text);
+                  __addItemIdToList(suggestion['drugId']);
                 },
               ),
             ],
-          ),
-        ),
-      );
-    }
-
-    // add btn
-    Widget __addBtn() {
-      return Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Container(
-          width: 350,
-          height: 50,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20), color: Palette.grey300),
-          child: TextButton(
-            onPressed: () {
-              String addValue = this._typeAheadController.text;
-              setState(() {
-                addedItemsList.add(addValue);
-              });
-            },
-            child: AppText(
-              text: "Thêm",
-              color: Palette.mainBlueTheme,
-              size: Dimensions.font20,
-              fontWeight: FontWeight.normal,
-            ),
           ),
         ),
       );
@@ -174,25 +167,51 @@ class _InteractionCheckerState extends State<InteractionChecker> {
           ),
           child: TextButton(
             onPressed: () {
-              if (addedItemsList.isEmpty) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: AppText(
-                      text: "Chọn 2 thuốc để kiểm tra tương kỵ",
-                    ),
-                    duration: Duration(seconds: 4),
-                    action: SnackBarAction(
-                      label: "Thêm",
-                      onPressed: () => focusNode.requestFocus(),
-                    ),
-                  ),
-                );
+              if (addedItemsList.length == 0 && addedItemsIdList.length == 0) {
+                AwesomeDialog(
+                  dialogBackgroundColor: Colors.white,
+                  context: context,
+                  headerAnimationLoop: false,
+                  titleTextStyle: TextStyle(
+                      color: Colors.black, fontSize: Dimensions.font20),
+                  descTextStyle: TextStyle(color: Colors.black),
+                  dialogType: DialogType.NO_HEADER,
+                  btnOkColor: Palette.pastelList1,
+                  title: 'Lỗi',
+                  desc: 'Hãy nhập vào đủ 2 tên thuốc để xem tương kị',
+                  btnOkOnPress: () {
+                    focusNode.requestFocus();
+                  },
+                  btnOkIcon: Icons.check_circle,
+                ).show();
+              } else if (addedItemsList.length == 1 &&
+                  addedItemsIdList.length == 1) {
+                AwesomeDialog(
+                  dialogBackgroundColor: Colors.white,
+                  context: context,
+                  headerAnimationLoop: false,
+                  titleTextStyle: TextStyle(
+                      color: Colors.black, fontSize: Dimensions.font20),
+                  descTextStyle: TextStyle(color: Colors.black),
+                  dialogType: DialogType.NO_HEADER,
+                  btnOkColor: Palette.pastelList1,
+                  title: 'Lỗi',
+                  desc: 'Hãy nhập vào đủ 2 tên thuốc để xem tương kị',
+                  btnOkOnPress: () {
+                    focusNode.requestFocus();
+                  },
+                  btnOkIcon: Icons.check_circle,
+                ).show();
               } else {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (context) => InteractionCheckerResult(
-                        name1: addedItemsList[0], name2: addedItemsList[1]),
+                      name1: addedItemsList[0],
+                      name2: addedItemsList[1],
+                      id1: addedItemsIdList[0],
+                      id2: addedItemsIdList[1],
+                    ),
                   ),
                 );
               }
@@ -210,71 +229,89 @@ class _InteractionCheckerState extends State<InteractionChecker> {
 
 // list items
     Widget __listItems() {
-      return Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Container(
-          padding: EdgeInsets.only(left: 10, right: 10),
-          height: 100,
-          width: 300,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(Dimensions.radius20),
-            color: Colors.grey[100],
-          ),
-          child: ListView.builder(
-            itemCount: addedItemsList.length,
-            itemBuilder: (context, index) {
-              return Chip(
-                deleteIconColor: Colors.white,
-                backgroundColor: Palette.mainBlueTheme.withOpacity(0.7),
-                label: AppText(
-                  text: addedItemsList[index],
-                  color: Colors.white,
-                  size: Dimensions.font20,
+      return addedItemsList.isEmpty
+          ? Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: AppText(
+                text: selectText,
+                size: Dimensions.font14,
+              ),
+            )
+          : Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                padding: EdgeInsets.only(left: 10, right: 10),
+                height: 100,
+                width: 300,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(Dimensions.radius20),
+                  color: Colors.grey[100],
                 ),
-                deleteIcon: Icon(
-                  CupertinoIcons.multiply,
+                child: ListView.builder(
+                  itemCount: addedItemsList.length,
+                  itemBuilder: (context, index) {
+                    return Chip(
+                      deleteIconColor: Colors.white,
+                      backgroundColor: Palette.mainBlueTheme.withOpacity(0.7),
+                      label: AppText(
+                        text: addedItemsList[index],
+                        color: Colors.white,
+                        size: Dimensions.font20,
+                      ),
+                      deleteIcon: Icon(
+                        CupertinoIcons.multiply,
+                      ),
+                      onDeleted: () {
+                        setState(() {
+                          addedItemsList.removeAt(index);
+                          addedItemsIdList.removeAt(index);
+                        });
+                      },
+                    );
+                  },
                 ),
-                onDeleted: () {
-                  setState(() {
-                    addedItemsList.removeAt(index);
-                  });
-                },
-              );
-            },
-          ),
-        ),
-      );
+              ),
+            );
     }
 
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Palette.mainBlueTheme,
-        title: Text(
-          'Kiểm tra tương kị thuốc',
-          style: MobileTextTheme().appBarStyle,
+        title: AppText(
+          text: 'Kiểm tra tương kỵ thuốc',
+          size: Dimensions.font20,
+          fontWeight: FontWeight.bold,
         ),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
+        physics: NeverScrollableScrollPhysics(),
         child: Column(
           // mainAxisAlignment: MainAxisAlignment.center,
           children: [
             __title(),
 
             /// Input Box
-            Neumorphic(
-              style: NeumorphicStyle(
-                shape: NeumorphicShape.flat,
-                boxShape:
-                    NeumorphicBoxShape.roundRect(BorderRadius.circular(12)),
-                depth: 15,
-                lightSource: LightSource.top,
-                color: Colors.white,
-              ),
-              child: Container(
-                width: Dimensions.boxSearchViewWidth,
-                child: Column(
-                  children: [__textInput(), __listItems(), __checkBtn()],
+            Padding(
+              padding: EdgeInsets.only(
+                  left: Dimensions.height30, right: Dimensions.height30),
+              child: Neumorphic(
+                style: NeumorphicStyle(
+                  shape: NeumorphicShape.flat,
+                  boxShape:
+                      NeumorphicBoxShape.roundRect(BorderRadius.circular(12)),
+                  depth: 15,
+                  lightSource: LightSource.top,
+                  color: Colors.white,
+                ),
+                child: Container(
+                  child: Column(
+                    children: [
+                      __textInput(),
+                      __listItems(),
+                      __checkBtn(),
+                    ],
+                  ),
                 ),
               ),
             ),

@@ -93,7 +93,7 @@ class PostModel {
     /// Call user's model
     UserModel user = UserModel.fromJson(doc.data());
     PostModel post = PostModel.fromJson(docPost.data());
-    
+
     pictureUrl = await _fileUploadService.uploadPostFile(file: postImage);
 
     Map<String, dynamic> data = <String, dynamic>{

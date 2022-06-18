@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import '../../../../widgets/app_text.dart';
+import '../../../../widgets/dimension.dart';
 import '/utils/app_text_theme.dart';
 import '/theme/palette.dart';
 import '/pages/drawer-items/bmi_calculator/widgets/bottom_button.dart';
@@ -31,9 +33,10 @@ class _InputPageState extends State<InputCalculateBMI> {
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: Palette.mainBlueTheme,
-          title: Text(
-            'Tính chỉ số BMI',
-            style: MobileTextTheme().appBarStyle,
+          title: AppText(
+            text: 'Tính chỉ số BMI',
+            size: Dimensions.font20,
+            fontWeight: FontWeight.bold,
           ),
           centerTitle: true,
         ),
@@ -165,9 +168,11 @@ class _InputPageState extends State<InputCalculateBMI> {
                               RoundIconButton(
                                 icon: FontAwesomeIcons.plus,
                                 onPressed: () {
-                                  setState(() {
-                                    weight++;
-                                  },);
+                                  setState(
+                                    () {
+                                      weight++;
+                                    },
+                                  );
                                 },
                               ),
                             ],

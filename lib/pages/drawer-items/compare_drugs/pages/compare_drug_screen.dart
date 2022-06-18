@@ -1,13 +1,10 @@
-import 'dart:ui';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
-import '../../../../models/drug_bank_db/product_name.dart';
+
 import '../../../../services/service_data.dart';
 import '../../../../theme/palette.dart';
 import '../../../../utils/app_text_theme.dart';
-import '../../../../widgets/animated_button.dart';
 import '../../../../widgets/app_text.dart';
 import '../../../../widgets/awesome_dialog.dart';
 import '../../../../widgets/dimension.dart';
@@ -33,29 +30,15 @@ class _CompareDrugState extends State<CompareDrug> {
 
   // Add to list function
   void __addItemToList(String value) {
-    if (addedItemsList.length == 2) {
-      addedItemsList.removeLast();
-      setState(() {
-        addedItemsList.insert(0, value);
-      });
-    } else {
-      setState(() {
-        addedItemsList.insert(0, value);
-      });
-    }
+    setState(() {
+      addedItemsList.insert(0, value);
+    });
   }
 
   void __addItemIdToList(String value) {
-    if (addedItemsIdList.length == 2) {
-      addedItemsIdList.removeLast();
-      setState(() {
-        addedItemsIdList.insert(0, value);
-      });
-    } else {
-      setState(() {
-        addedItemsIdList.insert(0, value);
-      });
-    }
+    setState(() {
+      addedItemsIdList.insert(0, value);
+    });
   }
 
   /// Intro text
@@ -65,6 +48,7 @@ class _CompareDrugState extends State<CompareDrug> {
   /// Select text
   String selectText =
       "Bắt đầu gõ tên một loại thuốc. Một danh sách các gợi ý sẽ xuất hiện sau đó vui lòng chọn từ danh sách.";
+
   @override
   void initState() {
     super.initState();
@@ -113,12 +97,6 @@ class _CompareDrugState extends State<CompareDrug> {
                         icon: Icon(CupertinoIcons.clear),
                         onPressed: () {
                           _typeAheadController.clear();
-                          // print(addedItemsIdList.length);
-                          // print(addedItemsList.length);
-                          // print(addedItemsIdList[0]);
-                          // print(addedItemsIdList[1]);
-                          // print(addedItemsList[0]);
-                          // print(addedItemsList[1]);
                         },
                       ),
                       focusedBorder: OutlineInputBorder(
@@ -137,14 +115,12 @@ class _CompareDrugState extends State<CompareDrug> {
                       labelText: 'Hôm nay bạn muốn tìm thuốc gì?'),
                 ),
                 suggestionsCallback: (String pattern) {
-                  return TypeAhead2.searchName(pattern);
+                  return TypeAheadByName.getTypeAheadByName(pattern);
                 },
-                itemBuilder: (context, ProductName suggestion) {
+                itemBuilder: (context, suggestion) {
                   return ListTile(
                     title: AppText(
-                      text: suggestion.product_name +
-                          "-" +
-                          suggestion.product_code,
+                      text: suggestion['productName'],
                       color: Colors.black54,
                       size: Dimensions.font14,
                       fontWeight: FontWeight.normal,
@@ -154,17 +130,12 @@ class _CompareDrugState extends State<CompareDrug> {
                 transitionBuilder: (context, suggestionsBox, controller) {
                   return suggestionsBox;
                 },
-                onSuggestionSelected: (ProductName suggestion) {
-                  // if (addedItemsList.length == 2 &&
-                  //     addedItemsIdList.length == 2) {
-                  //   print("cannot add");
-                  // } else {
-                  _typeAheadController.text = suggestion.product_name;
+                onSuggestionSelected: (suggestion) {
+                  _typeAheadController.text = suggestion['productName'];
                   print(_typeAheadController.text);
-                  print(suggestion.product_id);
+                  print(suggestion['productId']);
                   __addItemToList(_typeAheadController.text);
-                  __addItemIdToList(suggestion.product_id);
-                  // }
+                  __addItemIdToList(suggestion['productId']);
                 },
                 validator: (value) {
                   if (value.isEmpty) {
@@ -242,14 +213,14 @@ class _CompareDrugState extends State<CompareDrug> {
             onPressed: () {
               if (addedItemsList.length == 0 && addedItemsIdList.length == 0) {
                 AwesomeDialog(
-                  dialogBackgroundColor: Palette.mainBlueTheme,
+                  dialogBackgroundColor: Colors.white,
                   context: context,
                   headerAnimationLoop: false,
                   titleTextStyle: TextStyle(
-                      color: Colors.white, fontSize: Dimensions.font20),
-                  descTextStyle: TextStyle(color: Colors.white),
+                      color: Colors.black, fontSize: Dimensions.font20),
+                  descTextStyle: TextStyle(color: Colors.black),
                   dialogType: DialogType.NO_HEADER,
-                  btnOkColor: Palette.pastel3,
+                  btnOkColor: Palette.pastel5,
                   title: 'Lỗi',
                   desc: 'Hãy nhập vào đủ 2 tên thuốc để xem so sánh',
                   btnOkOnPress: () {
@@ -258,6 +229,8 @@ class _CompareDrugState extends State<CompareDrug> {
                   btnOkIcon: Icons.check_circle,
                 ).show();
               } else {
+                print(addedItemsIdList[0]);
+                print(addedItemsIdList[1]);
                 Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -283,9 +256,10 @@ class _CompareDrugState extends State<CompareDrug> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Palette.mainBlueTheme,
-        title: Text(
-          'So sánh thuốc',
-          style: MobileTextTheme().appBarStyle,
+        title: AppText(
+          text: 'So sánh thuốc',
+          size: Dimensions.font20,
+          fontWeight: FontWeight.bold,
         ),
         centerTitle: true,
       ),
@@ -296,21 +270,31 @@ class _CompareDrugState extends State<CompareDrug> {
             __intro(),
 
             /// Compare box
-            Neumorphic(
-              style: NeumorphicStyle(
-                shape: NeumorphicShape.flat,
-                boxShape:
-                    NeumorphicBoxShape.roundRect(BorderRadius.circular(12)),
-                depth: 15,
-                lightSource: LightSource.top,
-                color: Colors.white,
-              ),
-              child: Container(
-                width: Dimensions.boxSearchViewWidth,
-                child: Column(
-                  children: [__searchInput(), __listBox(), __compare()],
+            Padding(
+              padding: EdgeInsets.only(
+                  left: Dimensions.height30, right: Dimensions.height30),
+              child: Neumorphic(
+                style: NeumorphicStyle(
+                  shape: NeumorphicShape.flat,
+                  boxShape:
+                      NeumorphicBoxShape.roundRect(BorderRadius.circular(12)),
+                  depth: 15,
+                  lightSource: LightSource.top,
+                  color: Colors.white,
+                ),
+                child: Container(
+                  child: Column(
+                    children: [
+                      __searchInput(),
+                      __listBox(),
+                      __compare(),
+                    ],
+                  ),
                 ),
               ),
+            ),
+            SizedBox(
+              height: Dimensions.height10,
             ),
           ],
         ),

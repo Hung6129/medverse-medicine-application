@@ -1,12 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-import 'package:top_snackbar_flutter/custom_snack_bar.dart';
-import 'package:top_snackbar_flutter/top_snack_bar.dart';
-
+import '/widgets/awesome_dialog.dart';
 import '/theme/palette.dart';
 import '/widgets/app_text.dart';
 import '/widgets/dimension.dart';
-import 'package:flutter/material.dart';
 
 import 'pill_identifier_result.dart';
 
@@ -20,6 +17,20 @@ class PillIdentifier extends StatefulWidget {
 class _PillIdentifierState extends State<PillIdentifier> {
 // Imprint input controller
   TextEditingController txtImprint = TextEditingController();
+  FocusNode focusNode;
+  GlobalKey<FormFieldState> _key;
+
+  @override
+  void initState() {
+    super.initState();
+    focusNode = FocusNode();
+  }
+
+  @override
+  void dispose() {
+    focusNode.dispose();
+    super.dispose();
+  }
 
 // List of Color 1
   // List<String> pill_color_1 = [
@@ -214,6 +225,7 @@ class _PillIdentifierState extends State<PillIdentifier> {
     "YELLOW,WHITE",
     "YELLOW,YELLOW",
   ];
+
   @override
   Widget build(BuildContext context) {
     /// Title
@@ -238,6 +250,7 @@ class _PillIdentifierState extends State<PillIdentifier> {
       return Padding(
         padding: const EdgeInsets.all(8.0),
         child: TextFormField(
+          focusNode: focusNode,
           controller: txtImprint,
           style: TextStyle(
             fontSize: Dimensions.font14,
@@ -245,7 +258,7 @@ class _PillIdentifierState extends State<PillIdentifier> {
           decoration: InputDecoration(
             border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(Dimensions.radius15)),
-            hintText: 'Input a imprint',
+            hintText: 'Nhập mã kí tự trên thuôc',
             hintStyle: TextStyle(
               fontSize: Dimensions.font14,
             ),
@@ -259,24 +272,35 @@ class _PillIdentifierState extends State<PillIdentifier> {
       return Padding(
         padding: const EdgeInsets.all(8.0),
         child: FormField<String>(
+          key: _key,
           builder: (FormFieldState<String> state) {
             return InputDecorator(
               decoration: InputDecoration(
-                  prefixIcon: Icon(CupertinoIcons.color_filter),
-                  border: OutlineInputBorder(
-                      borderSide:
-                          BorderSide(width: 4, color: Palette.mainBlueTheme),
-                      borderRadius:
-                          BorderRadius.circular(Dimensions.radius15))),
+                prefixIcon: Icon(CupertinoIcons.color_filter),
+                // suffixIcon: IconButton(
+                //   icon: Icon(CupertinoIcons.multiply),
+                //   onPressed: () {
+                //     _key.currentState.reset();
+                //   },
+                // ),
+                border: OutlineInputBorder(
+                  borderSide: BorderSide(
+                    width: 4,
+                    color: Palette.mainBlueTheme,
+                  ),
+                  borderRadius: BorderRadius.circular(Dimensions.radius15),
+                ),
+              ),
               child: DropdownButtonHideUnderline(
                 child: DropdownButton<String>(
                   value: dropdownColor,
                   hint: AppText(
-                    text: "Pick a color",
+                    text: "Chọn một màu bất kì",
                     size: Dimensions.font14,
                   ),
                   isDense: true,
                   onChanged: (String newValue) {
+                    print(dropdownColor);
                     setState(() {
                       dropdownColor = newValue;
                     });
@@ -319,7 +343,7 @@ class _PillIdentifierState extends State<PillIdentifier> {
                 child: DropdownButton<String>(
                   value: dropdownShape,
                   hint: AppText(
-                    text: "Pick a shape",
+                    text: "Chọn một hình dáng",
                     size: Dimensions.font14,
                   ),
                   isDense: true,
@@ -327,6 +351,8 @@ class _PillIdentifierState extends State<PillIdentifier> {
                     setState(
                       () {
                         dropdownShape = newValue;
+                        // print("347" + dropdownColor);
+                        // print("348" + newValue);
                       },
                     );
                   },
@@ -370,7 +396,7 @@ class _PillIdentifierState extends State<PillIdentifier> {
                 child: DropdownButton<String>(
                   value: dropdownSize,
                   hint: AppText(
-                    text: "Pick a size",
+                    text: "Chọn kích cỡ",
                     size: Dimensions.font14,
                   ),
                   isDense: true,
@@ -419,15 +445,23 @@ class _PillIdentifierState extends State<PillIdentifier> {
                   dropdownShape == null &&
                   dropdownSize == null &&
                   txtImprint.text.isEmpty) {
-                print("Chon mot field de xem ket qua");
-                showTopSnackBar(
-                  context,
-                  CustomSnackBar.error(
-                    backgroundColor: Palette.warningColor,
-                    message:
-                        "Please check did you pick any field yet and try again",
-                  ),
-                );
+                AwesomeDialog(
+                  dialogBackgroundColor: Colors.white,
+                  context: context,
+                  headerAnimationLoop: false,
+                  titleTextStyle: TextStyle(
+                      color: Colors.black, fontSize: Dimensions.font20),
+                  descTextStyle: TextStyle(color: Colors.black),
+                  dialogType: DialogType.NO_HEADER,
+                  btnOkColor: Palette.mainBlueTheme,
+                  title: 'Lỗi',
+                  desc:
+                      'Hãy điền vào it nhất 1 trường thông tin để xem kết quả',
+                  btnOkOnPress: () {
+                    focusNode.requestFocus();
+                  },
+                  btnOkIcon: Icons.check_circle,
+                ).show();
               } else {
                 String blank = "".trim();
                 Navigator.push(
@@ -479,9 +513,10 @@ class _PillIdentifierState extends State<PillIdentifier> {
       // backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Palette.mainBlueTheme,
-        title: Text(
-          'Tìm kiếm nâng cao',
-          style: TextStyle(fontWeight: FontWeight.w900),
+        title: AppText(
+          text: 'Tìm kiếm nâng cao',
+          size: Dimensions.font20,
+          fontWeight: FontWeight.bold,
         ),
         centerTitle: true,
       ),
@@ -491,30 +526,34 @@ class _PillIdentifierState extends State<PillIdentifier> {
             __title(),
 
             // Query fill box
-            Neumorphic(
-              style: NeumorphicStyle(
-                shape: NeumorphicShape.flat,
-                boxShape:
-                    NeumorphicBoxShape.roundRect(BorderRadius.circular(12)),
-                depth: 15,
-                lightSource: LightSource.top,
-                color: Colors.white,
-              ),
-              child: Container(
-                width: Dimensions.boxSearchViewWidth,
+            Padding(
+              padding: EdgeInsets.only(
+                  left: Dimensions.height30, right: Dimensions.height30),
+              child: Neumorphic(
+                style: NeumorphicStyle(
+                  shape: NeumorphicShape.flat,
+                  boxShape:
+                      NeumorphicBoxShape.roundRect(BorderRadius.circular(12)),
+                  depth: 15,
+                  lightSource: LightSource.top,
+                  color: Colors.white,
+                ),
+                child: Container(
+                  // width: Dimensions.boxSearchViewWidth,
 
-                /// All the field
-                child: Column(
-                  children: [
-                    __imprint(),
-                    __color(),
-                    __shape(),
-                    __size(),
-                    __searchBtn(),
-                    SizedBox(
-                      height: 10,
-                    )
-                  ],
+                  /// All the field
+                  child: Column(
+                    children: [
+                      __imprint(),
+                      __color(),
+                      __shape(),
+                      __size(),
+                      __searchBtn(),
+                      SizedBox(
+                        height: 10,
+                      )
+                    ],
+                  ),
                 ),
               ),
             ),

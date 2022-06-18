@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../../../../widgets/app_text.dart';
+import '../../../../widgets/dimension.dart';
 import '/utils/app_text_theme.dart';
 import '/theme/palette.dart';
 import '/models/dictionary_model.dart';
@@ -47,9 +49,10 @@ class _MedicineDictionaryState extends State<MedicineDictionary> {
                   },
                   style: MobileTextTheme().kBodyTextStyle,
                 )
-              : Text(
-                  'Từ điển y học',
-                  style: MobileTextTheme().appBarStyle,
+              : AppText(
+                  text: 'Từ điển y học',
+                  size: Dimensions.font20,
+                  fontWeight: FontWeight.bold,
                 ),
           actions: [
             isSearching

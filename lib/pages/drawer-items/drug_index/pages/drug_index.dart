@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:medverse_mobile_app/models/drug_model.dart';
 import '../../../../utils/data_dao.dart';
+import '../../../../widgets/app_text.dart';
+import '../../../../widgets/dimension.dart';
 import '../widgets/page_index_drug.dart';
 import '/theme/palette.dart';
 import '/utils/app_text_theme.dart';
@@ -83,20 +85,22 @@ class _MedicineDictionaryState extends State<DrugIndex> {
           ),
         ),
         child: TabBarView(
-          children: List.generate(alpha.length, (index) {
-            // if (isSearching == true) {
-            //   return PageIndexDrug(
-            //     isSearch: true,
-            //     inputSearch: searchWord,
-            //     letterIndex: alpha[index],
-            //   );
-            // } else {
-            return PageIndexDrug(
-              // isSearch: false,
-              letterIndex: alpha[index],
-            );
-            // }
-          }),
+          children: List.generate(
+            alpha.length,
+            (index) {
+              // if (isSearching == true) {
+              //   return PageIndexDrug(
+              //     isSearch: true,
+              //     inputSearch: searchWord,
+              //     letterIndex: alpha[index],
+              //   );
+              // } else {
+              return PageIndexDrug(
+                // isSearch: false,
+                letterIndex: alpha[index],
+              );
+            },
+          ),
         ),
       );
     }
@@ -121,9 +125,10 @@ class _MedicineDictionaryState extends State<DrugIndex> {
                 },
                 style: MobileTextTheme().kBodyTextStyle,
               )
-            : Text(
-                'Danh sách mục thuốc',
-                style: MobileTextTheme().appBarStyle,
+            : AppText(
+                text: 'Danh mục thuốc',
+                size: Dimensions.font20,
+                fontWeight: FontWeight.bold,
               ),
         actions: [
           isSearching

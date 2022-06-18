@@ -117,6 +117,8 @@ abstract class AppTextTheme {
   TextStyle get profileLocation;
   TextStyle get profileMail;
 
+  // Using for interaction result
+  TextStyle get interactionResult;
 
   static final oswaldTextStyle = GoogleFonts.roboto(
     color: Palette.textNo,
@@ -427,5 +429,11 @@ class MobileTextTheme implements AppTextTheme {
   @override
   final profileMail = GoogleFonts.roboto(
     fontSize: 10,
+  );
+
+  @override
+  final interactionResult = GoogleFonts.roboto(
+    color: Palette.red,
+    fontSize: 15,
   );
 }

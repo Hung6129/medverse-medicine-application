@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../../../nav-items/home/bloc/home_screen_bloc.dart';
+import '/pages/nav-items/home/bloc/home_screen_bloc.dart';
 import '/models/drug_model.dart';
 import '/utils/data_dao.dart';
 import '/widgets/indicators.dart';
@@ -135,7 +134,17 @@ class _DrugBState extends State<PageIndexDrug> {
 
           /// Show message if it have no data
         } else {
-          return circularProgress(context);
+          return Container(
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  circularProgress(context),
+                ],
+              ),
+            ),
+          );
         }
       },
     );

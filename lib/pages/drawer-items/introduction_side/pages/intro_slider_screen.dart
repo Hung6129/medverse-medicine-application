@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../widgets/app_text.dart';
+import '../../../../widgets/dimension.dart';
 import '/utils/app_text_theme.dart';
 import '/theme/palette.dart';
 
@@ -17,9 +19,10 @@ class _HelpScreenState extends State<HelpScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Palette.mainBlueTheme,
-        title: Text(
-          'Hướng dẫn sử dụng',
-          style: MobileTextTheme().appBarStyle,
+        title: AppText(
+          text: 'Hướng dẫn sử dụng',
+          size: Dimensions.font20,
+          fontWeight: FontWeight.bold,
         ),
         centerTitle: true,
       ),
