@@ -119,13 +119,13 @@ class _InteractionCheckerState extends State<InteractionChecker> {
                       labelText: 'Nhập thuốc bạn muốn tìm'),
                 ),
                 suggestionsCallback: (String pattern) {
-                  if (pattern == null ||
-                      pattern.trim().isEmpty ||
-                      pattern.length == 0) {
-                    return [];
-                  } else {
-                    return TypeAheadByName.getTypeAheadByName(pattern);
-                  }
+                  // if (pattern == null ||
+                  //     pattern.trim().isEmpty ||
+                  //     pattern.length == 0) {
+                  //   return [];
+                  // } else {
+                  return TypeAheadByName.getTypeAheadByName(pattern);
+                  // }
                 },
                 itemBuilder: (context, suggestion) {
                   return ListTile(
