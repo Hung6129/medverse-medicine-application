@@ -277,8 +277,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                     style: TextStyle(
                                       fontSize: Dimensions.font14,
                                     ),
-                                    maxLines: 2,
-                                    overflow: TextOverflow.ellipsis,
+                                    // maxLines: 2,
+                                    // overflow: TextOverflow.ellipsis,
                                     softWrap: true,
                                   )),
                             ],
