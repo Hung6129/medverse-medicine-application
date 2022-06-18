@@ -28,19 +28,19 @@ class TypeAheadByName {
       switch (resData.statusCode) {
         case 403:
           throw (resData.statusCode.toString() +
-              "Truy cập đang bị chặn, vui lòng thử lại sau");
+              " Truy cập đang bị chặn, vui lòng thử lại sau");
         case 404: //Resource Not Found
           throw (resData.statusCode.toString() +
-              "Không tìm thấy, vui lòng thử cách khác");
+              " Không tìm thấy, vui lòng thử cách khác");
         case 500:
           throw (resData.statusCode.toString() +
-              "Truy cập vào hệ thống đang gặp vấn đề, vui lòng thử lại sau"); //Internal Server Error
+              " Truy cập vào hệ thống đang gặp vấn đề, vui lòng thử lại sau"); //Internal Server Error
         case 502:
           throw (resData.statusCode.toString() +
-              "Kết nối tới hệ thống đang bị lỗi, vui lòng thử lại sau");
+              " Kết nối tới hệ thống đang bị lỗi, vui lòng thử lại sau");
         case 503:
           throw (resData.statusCode.toString() +
-              "Hệ thống đang bị lỗi, vui lòng thử lại sau");
+              " Hệ thống đang bị lỗi, vui lòng thử lại sau");
         default:
           throw (resData.statusCode.toString() + "Đã có lỗi gì đó xảy ra!");
       }

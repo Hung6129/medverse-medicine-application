@@ -65,24 +65,24 @@ class _PillIdentifierState extends State<PillIdentifier> {
   // ];
 
 // List of Shapes
-  var pill_shapes = {
-    "CAPSULE": "Viên con nhộng",
-    "OVAL": 'Hình trái xoan',
-    "TEAR": 'Hình giọt nước',
-    "ROUND": 'Hình tròn',
-    "HEXAGON(6sided)": "Lục giác",
-    "SQUARE": "Hình vuông",
-    "TRIANGLE": "HÌnh tam giác",
-    "PENTAGON(5sided)": "Ngũ giác",
-    "DIAMOND": "Hình kim cương",
-    "RECTANGLE": "Hình chữ nhật",
-    "SEMI-CIRCLE": "Nửa hình tròn",
-    "DOUBLECIRCLE": "Hình số 8",
-    "TRAPEZOID": "HÌnh thang",
-    "NEED ATTENTION": "Thất giác",
-    "BULLET": "Viên nén",
-    "FREEFORM": 'Hình dạng khác',
-  };
+  List<String> pill_shapes = [
+    "CAPSULE",
+    "OVAL",
+    "TEAR",
+    "ROUND",
+    "HEXAGON(6sided)",
+    "SQUARE",
+    "TRIANGLE",
+    "PENTAGON(5sided)",
+    "DIAMOND",
+    "RECTANGLE",
+    "SEMI-CIRCLE",
+    "DOUBLECIRCLE",
+    "TRAPEZOID",
+    "FREEFORM",
+    "NEED ATTENTION",
+    "BULLET",
+  ];
 
 // List of Size
   List<String> pill_sizes = [
@@ -351,12 +351,12 @@ class _PillIdentifierState extends State<PillIdentifier> {
                     setState(
                       () {
                         dropdownShape = newValue;
-                        print("347" + dropdownColor);
-                        print("348" + newValue);
+                        // print("347" + dropdownColor);
+                        // print("348" + newValue);
                       },
                     );
                   },
-                  items: pill_shapes.keys.map(
+                  items: pill_shapes.map(
                     (value) {
                       return DropdownMenuItem(
                         value: value,

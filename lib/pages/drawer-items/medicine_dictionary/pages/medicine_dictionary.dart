@@ -50,7 +50,7 @@ class _MedicineDictionaryState extends State<MedicineDictionary> {
                   style: MobileTextTheme().kBodyTextStyle,
                 )
               : AppText(
-                  text: 'Kiểm tra tương kỵ',
+                  text: 'Từ điển y học',
                   size: Dimensions.font20,
                   fontWeight: FontWeight.bold,
                 ),
