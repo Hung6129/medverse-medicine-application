@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 
 class Palette {
   static const Color p1 = Color(0xFFF8F5F1);
-  static const Color mainBlueTheme = Color(0xFF809bce);
+  static const Color mainBlueTheme = Color(0xFF89B5AF);
+  static const Color mainBlueThemesec = Color.fromARGB(255, 102, 184, 178);
   static const Color blue = Colors.blue;
   static const Color starRating = Color(0xFFF3950D);
   static const Color online = Color(0xFF4BCB1F);

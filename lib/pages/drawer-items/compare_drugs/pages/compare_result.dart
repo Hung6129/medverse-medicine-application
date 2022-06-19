@@ -33,9 +33,9 @@ class _CompareResultState extends State<CompareResult> {
         "productId1=${widget.query1}&productId2=${widget.query2}"));
     if (response.statusCode == 200) {
       List<dynamic> list = json.decode(response.body);
-      print("35" + widget.query1 + widget.query2);
-      print("36" + list.length.toString());
-      print("37" + list.toString());
+      // print("35" + widget.query1 + widget.query2);
+      // print("36" + list.length.toString());
+      // print("37" + list.toString());
       return list.map((e) => CompareDrugModel.fromJson(e)).toList();
     } else {
       throw Exception('Failed to load data');

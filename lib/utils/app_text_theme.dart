@@ -129,9 +129,7 @@ class MobileTextTheme implements AppTextTheme {
   /// Using for app bar in only home UI
   @override
   final homeAppBarStyle = GoogleFonts.roboto(
-    fontWeight: FontWeight.w900,
-    color: Palette.pastel1
-  );
+      fontWeight: FontWeight.w900, color: Palette.mainBlueThemesec);
 
   /// Using for all app bar in UI
   @override
@@ -433,7 +431,7 @@ class MobileTextTheme implements AppTextTheme {
 
   @override
   final interactionResult = GoogleFonts.roboto(
-    color: Palette.red,
+    color: Palette.warningColor,
     fontSize: 15,
   );
 }
