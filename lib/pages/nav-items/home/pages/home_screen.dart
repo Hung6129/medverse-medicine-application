@@ -85,8 +85,8 @@ class _HomeScreenState extends State<HomeScreen> {
         .get(Uri.parse(Constants.BASE_URL + Constants.TREND_LIST_IMAGES));
     if (response.statusCode == 200) {
       List<dynamic> list = json.decode(response.body);
-      print(list.length);
-      print(list);
+      // print(list.length);
+      // print(list);
       return list.map((e) => TrendListImage.fromJson(e)).toList();
     } else {
       throw Exception('Failed to load data');
@@ -103,8 +103,8 @@ class _HomeScreenState extends State<HomeScreen> {
   double _width;
 
   _sendingData(String id) async {
-    print("sending");
-    print(id);
+    // print("sending");
+    // print(id);
     await SendData().sendingId(id);
   }
 
@@ -192,8 +192,10 @@ class _HomeScreenState extends State<HomeScreen> {
                         borderSide:
                             BorderSide(width: 3, color: Palette.mainBlueTheme),
                       ),
-                      labelStyle: TextStyle(fontSize: Dimensions.font14),
-                      labelText: 'Nhập thuốc bạn muốn kiểm tra'),
+                      labelStyle: TextStyle(
+                          fontSize: Dimensions.font14,
+                          color: Palette.mainBlueTheme),
+                      labelText: 'Nhập thuốc mà bạn muốn tìm'),
                 ),
                 suggestionsCallback: (String pattern) {
                   if (pattern == null ||

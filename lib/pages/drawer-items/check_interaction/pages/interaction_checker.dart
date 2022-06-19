@@ -145,8 +145,8 @@ class _InteractionCheckerState extends State<InteractionChecker> {
                 },
                 onSuggestionSelected: (suggestion) {
                   _typeAheadController.text = suggestion['productName'];
-                  print(_typeAheadController.text);
-                  print(suggestion['drugId']);
+                  // print(_typeAheadController.text);
+                  // print(suggestion['drugId']);
                   __addItemToList(_typeAheadController.text);
                   __addItemIdToList(suggestion['drugId']);
                 },

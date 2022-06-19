@@ -4,7 +4,6 @@ import 'package:flutter_typeahead/flutter_typeahead.dart';
 
 import '../../../../services/service_data.dart';
 import '../../../../theme/palette.dart';
-import '../../../../utils/app_text_theme.dart';
 import '../../../../widgets/app_text.dart';
 import '../../../../widgets/awesome_dialog.dart';
 import '../../../../widgets/dimension.dart';
@@ -240,9 +239,25 @@ class _CompareDrugState extends State<CompareDrug> {
                   },
                   btnOkIcon: Icons.check_circle,
                 ).show();
+              } else if (addedItemsList.length == 1 &&
+                  addedItemsIdList.length == 1) {
+                AwesomeDialog(
+                  dialogBackgroundColor: Colors.white,
+                  context: context,
+                  headerAnimationLoop: false,
+                  titleTextStyle: TextStyle(
+                      color: Colors.black, fontSize: Dimensions.font20),
+                  descTextStyle: TextStyle(color: Colors.black),
+                  dialogType: DialogType.NO_HEADER,
+                  btnOkColor: Palette.pastelList1,
+                  title: 'Lỗi',
+                  desc: 'Hãy nhập vào đủ 2 tên thuốc để xem tương kị',
+                  btnOkOnPress: () {
+                    focusNode.requestFocus();
+                  },
+                  btnOkIcon: Icons.check_circle,
+                ).show();
               } else {
-                print(addedItemsIdList[0]);
-                print(addedItemsIdList[1]);
                 Navigator.push(
                   context,
                   MaterialPageRoute(

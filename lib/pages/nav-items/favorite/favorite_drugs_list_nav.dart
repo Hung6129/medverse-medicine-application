@@ -34,7 +34,7 @@ class _FavoriteDrugsListScreenNavState
     if (dataList.isEmpty) {
       return null;
     } else
-      print(dataList.length.toString());
+      // print(dataList.length.toString());
     return dataList.reversed.toList();
   }
 
@@ -147,12 +147,16 @@ class _FavoriteDrugsListScreenNavState
                                           mainAxisAlignment:
                                               MainAxisAlignment.center,
                                           children: [
-                                            AppText(
-                                              text: snapshot
+                                            Text(
+                                              snapshot
                                                   .data[index].product_name,
-                                              color: Palette.textNo,
-                                              size: Dimensions.font16,
-                                              fontWeight: FontWeight.normal,
+                                              overflow: TextOverflow.ellipsis,
+                                              maxLines: 2,
+                                              style: TextStyle(
+                                                color: Palette.textNo,
+                                                fontSize: Dimensions.font16,
+                                                fontWeight: FontWeight.normal,
+                                              ),
                                             ),
                                             SizedBox(
                                                 height: Dimensions.height10),

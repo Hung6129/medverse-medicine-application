@@ -66,7 +66,7 @@ class _DrugDetailsState extends State<DrugDetails> {
     Widget __sliverAppBarProductName(ProductModel data) {
       return SliverAppBar(
         iconTheme: IconThemeData(color: Palette.whiteText),
-        toolbarHeight: Dimensions.pageViewTextContainer,
+        toolbarHeight: 100,
         bottom: PreferredSize(
           preferredSize: Size.fromHeight(20),
           child: Container(
@@ -95,7 +95,7 @@ class _DrugDetailsState extends State<DrugDetails> {
         ),
         pinned: true,
         backgroundColor: Palette.mainBlueTheme,
-        expandedHeight: 150,
+        expandedHeight: 50,
         // flexibleSpace: FlexibleSpaceBar(
         //   background: Image.asset(
         //     "assets/images/splash/Medverse.png",

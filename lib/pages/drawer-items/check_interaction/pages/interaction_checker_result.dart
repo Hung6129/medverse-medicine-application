@@ -42,7 +42,7 @@ class _InteractionCheckerResultState extends State<InteractionCheckerResult> {
         Constants.INTERACTION_CHECKER +
         "firstID=${widget.id1}&secondID=${widget.id2}"));
     if (response.statusCode == 200) {
-      print(response.body);
+      // print(response.body);
       return CheckInteractionModel.fromJson(jsonDecode(response.body));
     } else {
       throw Exception('Failed to load data');
