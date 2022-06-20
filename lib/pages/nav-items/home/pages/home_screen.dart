@@ -376,9 +376,7 @@ class _HomeScreenState extends State<HomeScreen> {
               },
             );
           }
-          return Container(
-            child: Text("loi"),
-          );
+          return Container();
         },
       );
     }
