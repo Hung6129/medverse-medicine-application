@@ -190,6 +190,7 @@ class _EditHealthProfilePageState extends State<EditHeight> {
           msg: "Cập nhật thông tin chiều cao thành công",
           backgroundColor: Palette.activeButton,
         );
+        Navigator.of(context).pop();
       } on FirebaseAuthException catch (error) {
         Fluttertoast.showToast(msg: errorMessage);
         print(error.code);
