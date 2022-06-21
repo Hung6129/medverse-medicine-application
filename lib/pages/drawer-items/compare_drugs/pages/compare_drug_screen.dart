@@ -4,7 +4,6 @@ import 'package:flutter_typeahead/flutter_typeahead.dart';
 
 import '../../../../services/service_data.dart';
 import '../../../../theme/palette.dart';
-import '../../../../utils/app_text_theme.dart';
 import '../../../../widgets/app_text.dart';
 import '../../../../widgets/awesome_dialog.dart';
 import '../../../../widgets/dimension.dart';
@@ -94,7 +93,10 @@ class _CompareDrugState extends State<CompareDrug> {
                   controller: this._typeAheadController,
                   decoration: InputDecoration(
                       suffixIcon: IconButton(
-                        icon: Icon(CupertinoIcons.clear),
+                        icon: Icon(
+                          CupertinoIcons.clear,
+                          color: Palette.mainBlueTheme,
+                        ),
                         onPressed: () {
                           _typeAheadController.clear();
                         },
@@ -112,10 +114,19 @@ class _CompareDrugState extends State<CompareDrug> {
                         borderSide:
                             BorderSide(width: 3, color: Palette.mainBlueTheme),
                       ),
-                      labelText: 'Hôm nay bạn muốn tìm thuốc gì?'),
+                      labelStyle: TextStyle(
+                          fontSize: Dimensions.font14,
+                          color: Palette.mainBlueTheme),
+                      labelText: 'Nhập tên thuốc mà bạn muốn so sánh'),
                 ),
                 suggestionsCallback: (String pattern) {
-                  return TypeAheadByName.getTypeAheadByName(pattern);
+                  if (pattern == null ||
+                      pattern.trim().isEmpty ||
+                      pattern.length == 0) {
+                    return [];
+                  } else {
+                    return TypeAheadByNameFast.getTypeAheadByName(pattern);
+                  }
                 },
                 itemBuilder: (context, suggestion) {
                   return ListTile(
@@ -132,8 +143,8 @@ class _CompareDrugState extends State<CompareDrug> {
                 },
                 onSuggestionSelected: (suggestion) {
                   _typeAheadController.text = suggestion['productName'];
-                  print(_typeAheadController.text);
-                  print(suggestion['productId']);
+                  // print(_typeAheadController.text);
+                  // print(suggestion['productId']);
                   __addItemToList(_typeAheadController.text);
                   __addItemIdToList(suggestion['productId']);
                 },
@@ -228,9 +239,25 @@ class _CompareDrugState extends State<CompareDrug> {
                   },
                   btnOkIcon: Icons.check_circle,
                 ).show();
+              } else if (addedItemsList.length == 1 &&
+                  addedItemsIdList.length == 1) {
+                AwesomeDialog(
+                  dialogBackgroundColor: Colors.white,
+                  context: context,
+                  headerAnimationLoop: false,
+                  titleTextStyle: TextStyle(
+                      color: Colors.black, fontSize: Dimensions.font20),
+                  descTextStyle: TextStyle(color: Colors.black),
+                  dialogType: DialogType.NO_HEADER,
+                  btnOkColor: Palette.pastelList1,
+                  title: 'Lỗi',
+                  desc: 'Hãy nhập vào đủ 2 tên thuốc để xem tương kị',
+                  btnOkOnPress: () {
+                    focusNode.requestFocus();
+                  },
+                  btnOkIcon: Icons.check_circle,
+                ).show();
               } else {
-                print(addedItemsIdList[0]);
-                print(addedItemsIdList[1]);
                 Navigator.push(
                   context,
                   MaterialPageRoute(

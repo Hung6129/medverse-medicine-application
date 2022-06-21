@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-import '/utils/app_text_theme.dart';
 import '/widgets/awesome_dialog.dart';
 import '/services/service_data.dart';
 import '/theme/palette.dart';
@@ -97,35 +96,39 @@ class _InteractionCheckerState extends State<InteractionChecker> {
                   autocorrect: true,
                   controller: this._typeAheadController,
                   decoration: InputDecoration(
-                      suffixIcon: IconButton(
-                        icon: Icon(CupertinoIcons.clear),
-                        onPressed: () {
-                          _typeAheadController.clear();
-                        },
+                    suffixIcon: IconButton(
+                      icon: Icon(CupertinoIcons.clear),
+                      onPressed: () {
+                        _typeAheadController.clear();
+                      },
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(Dimensions.radius20),
                       ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(Dimensions.radius20),
-                        ),
-                        borderSide: BorderSide(color: Palette.mainBlueTheme),
+                      borderSide: BorderSide(color: Palette.mainBlueTheme),
+                    ),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(Dimensions.radius20),
                       ),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(Dimensions.radius20),
-                        ),
-                        borderSide:
-                            BorderSide(width: 3, color: Palette.mainBlueTheme),
-                      ),
-                      labelText: 'Nhập thuốc bạn muốn tìm'),
+                      borderSide:
+                          BorderSide(width: 3, color: Palette.mainBlueTheme),
+                    ),
+                    labelStyle: TextStyle(
+                        fontSize: Dimensions.font14,
+                        color: Palette.mainBlueTheme),
+                    labelText: 'Nhập thuốc bạn muốn kiểm tra tương kỵ',
+                  ),
                 ),
                 suggestionsCallback: (String pattern) {
-                  // if (pattern == null ||
-                  //     pattern.trim().isEmpty ||
-                  //     pattern.length == 0) {
-                  //   return [];
-                  // } else {
-                  return TypeAheadByName.getTypeAheadByName(pattern);
-                  // }
+                  if (pattern == null ||
+                      pattern.trim().isEmpty ||
+                      pattern.length == 0) {
+                    return [];
+                  } else {
+                    return TypeAheadByName.getTypeAheadByName(pattern);
+                  }
                 },
                 itemBuilder: (context, suggestion) {
                   return ListTile(
@@ -142,8 +145,8 @@ class _InteractionCheckerState extends State<InteractionChecker> {
                 },
                 onSuggestionSelected: (suggestion) {
                   _typeAheadController.text = suggestion['productName'];
-                  print(_typeAheadController.text);
-                  print(suggestion['drugId']);
+                  // print(_typeAheadController.text);
+                  // print(suggestion['drugId']);
                   __addItemToList(_typeAheadController.text);
                   __addItemIdToList(suggestion['drugId']);
                 },
@@ -228,26 +231,27 @@ class _InteractionCheckerState extends State<InteractionChecker> {
     }
 
 // list items
-    Widget __listItems() {
-      return addedItemsList.isEmpty
-          ? Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: AppText(
-                text: selectText,
-                size: Dimensions.font14,
-              ),
-            )
-          : Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                padding: EdgeInsets.only(left: 10, right: 10),
-                height: 100,
-                width: 300,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(Dimensions.radius20),
-                  color: Colors.grey[100],
-                ),
-                child: ListView.builder(
+    Widget __listBox() {
+      return Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Container(
+          padding: EdgeInsets.only(left: 10, right: 10),
+          height: 100,
+          width: 300,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(Dimensions.radius20),
+            color: Colors.grey[100],
+          ),
+          child: addedItemsList.isEmpty
+              ? Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: AppText(
+                    text: selectText,
+                    size: Dimensions.font14,
+                  ),
+                )
+              : ListView.builder(
+                  physics: NeverScrollableScrollPhysics(),
                   itemCount: addedItemsList.length,
                   itemBuilder: (context, index) {
                     return Chip(
@@ -270,8 +274,8 @@ class _InteractionCheckerState extends State<InteractionChecker> {
                     );
                   },
                 ),
-              ),
-            );
+        ),
+      );
     }
 
     return Scaffold(
@@ -308,7 +312,7 @@ class _InteractionCheckerState extends State<InteractionChecker> {
                   child: Column(
                     children: [
                       __textInput(),
-                      __listItems(),
+                      __listBox(),
                       __checkBtn(),
                     ],
                   ),

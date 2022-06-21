@@ -128,15 +128,4 @@ class PostModel {
     }
     return isSubmitted;
   }
-
-  Future<void> deletePost({
-    BuildContext context,
-    String postId,
-  }) async {
-    DocumentReference documentReference = postRef.doc(postId);
-
-    await documentReference
-        .delete()
-        .whenComplete(() => Navigator.pushReplacementNamed(context, "/social"));
-  }
 }

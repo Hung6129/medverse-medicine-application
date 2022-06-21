@@ -15,12 +15,16 @@ class EditPostScreen extends StatefulWidget {
   final String currentDescription;
   final String currentLocation;
 
+  /// Connect to Post Manager model
+  final PostModel post;
+
   EditPostScreen({
     this.documentId,
     this.currentUserID,
     this.currentImageUrl,
     this.currentDescription,
     this.currentLocation,
+    this.post,
   });
 
   @override
@@ -30,9 +34,6 @@ class EditPostScreen extends StatefulWidget {
 class _EditScreenState extends State<EditPostScreen> {
   final FocusNode _titleFocusNode = FocusNode();
   final FocusNode _descriptionFocusNode = FocusNode();
-
-  /// Connect to Post Manager model
-  final PostModel _postModel = PostModel();
 
   /// Loading animation
   bool _isDeleting = false;
@@ -90,16 +91,13 @@ class _EditScreenState extends State<EditPostScreen> {
                           );
 
                           /// Calling delete post method in Post Manager model
-                          await _postModel.deletePost(
-                            context: context,
-                            postId: widget.documentId,
-                          );
+                          deletePost();
                           setState(
                             () {
                               _isDeleting = false;
                             },
                           );
-                          Navigator.pushReplacementNamed(context, "/home");
+                          Navigator.of(context).pop();
                         },
                       ).show();
                     },
@@ -150,6 +148,36 @@ class _EditScreenState extends State<EditPostScreen> {
           ],
         ),
       ),
+    );
+  }
+
+  /// You can only delete your own posts
+  deletePost() async {
+    postRef.doc(widget.documentId).delete();
+
+    ///delete notification associated with that given post
+    QuerySnapshot notificationsSnap = await notificationRef
+        .doc(widget.post.ownerId)
+        .collection('notifications')
+        .where('postId', isEqualTo: widget.post.postId)
+        .get();
+    notificationsSnap.docs.forEach(
+          (doc) {
+        if (doc.exists) {
+          doc.reference.delete();
+        }
+      },
+    );
+
+    /// Delete all the comments associated with that given post
+    QuerySnapshot commentSnapshot =
+    await commentRef.doc(widget.post.postId).collection('comments').get();
+    commentSnapshot.docs.forEach(
+          (doc) {
+        if (doc.exists) {
+          doc.reference.delete();
+        }
+      },
     );
   }
 }

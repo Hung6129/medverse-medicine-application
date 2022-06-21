@@ -99,7 +99,7 @@ class _TimelineState extends State<Timeline> {
         appBar: AppBar(
           backgroundColor: Palette.mainBlueTheme,
           title: Text(
-            'Mạng xã hội',
+            'Medverse',
             style: MobileTextTheme().appBarStyle,
           ),
           centerTitle: true,

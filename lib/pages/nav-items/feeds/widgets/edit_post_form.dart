@@ -164,8 +164,7 @@ class _EditItemFormState extends State<EditItemForm> {
                     keyboardType: TextInputType.text,
                     inputAction: TextInputAction.next,
                     validator: (value) {
-                      if (value.isEmpty ||
-                          RegExp(r"\s").hasMatch(_descriptionController.text)) {
+                      if (value.trim().isEmpty) {
                         return ("Mời bạn nhập mô tả bài viết");
                       }
                       updateDescription = value;
@@ -240,7 +239,7 @@ class _EditItemFormState extends State<EditItemForm> {
                               _isProcessing = false;
                             },
                           );
-                          Navigator.pushReplacementNamed(context, "/social");
+                          Navigator.of(context).pop();
                         }
                       },
                       child: Padding(

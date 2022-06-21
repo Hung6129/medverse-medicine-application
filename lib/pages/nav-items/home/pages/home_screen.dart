@@ -85,8 +85,8 @@ class _HomeScreenState extends State<HomeScreen> {
         .get(Uri.parse(Constants.BASE_URL + Constants.TREND_LIST_IMAGES));
     if (response.statusCode == 200) {
       List<dynamic> list = json.decode(response.body);
-      print(list.length);
-      print(list);
+      // print(list.length);
+      // print(list);
       return list.map((e) => TrendListImage.fromJson(e)).toList();
     } else {
       throw Exception('Failed to load data');
@@ -102,7 +102,11 @@ class _HomeScreenState extends State<HomeScreen> {
   double _height;
   double _width;
 
-  /// test
+  _sendingData(String id) async {
+    // print("sending");
+    // print(id);
+    await SendData().sendingId(id);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -188,8 +192,10 @@ class _HomeScreenState extends State<HomeScreen> {
                         borderSide:
                             BorderSide(width: 3, color: Palette.mainBlueTheme),
                       ),
-                      labelStyle: TextStyle(fontSize: Dimensions.font14),
-                      labelText: 'Nhập thuốc bạn muốn kiểm tra'),
+                      labelStyle: TextStyle(
+                          fontSize: Dimensions.font14,
+                          color: Palette.mainBlueTheme),
+                      labelText: 'Nhập thuốc mà bạn muốn tìm'),
                 ),
                 suggestionsCallback: (String pattern) {
                   if (pattern == null ||
@@ -214,8 +220,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   return suggestionsBox;
                 },
                 onSuggestionSelected: (suggestion) async {
-                  // print("tapped " + suggestion['productName']);
-                  // print("tappedx2 " + suggestion['productId']);
                   BlocProvider.of<HomeScreenBloc>(context)
                     ..add(
                       OnTapEvent(
@@ -223,6 +227,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         navigateData: suggestion['productId'],
                       ),
                     );
+                  await _sendingData(suggestion['productId']);
                 },
                 validator: (value) {
                   if (value.isEmpty) {
@@ -277,8 +282,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                     style: TextStyle(
                                       fontSize: Dimensions.font14,
                                     ),
-                                    maxLines: 2,
-                                    overflow: TextOverflow.ellipsis,
+                                    // maxLines: 2,
+                                    // overflow: TextOverflow.ellipsis,
                                     softWrap: true,
                                   )),
                             ],
@@ -371,9 +376,7 @@ class _HomeScreenState extends State<HomeScreen> {
               },
             );
           }
-          return Container(
-            child: Text("loi"),
-          );
+          return Container();
         },
       );
     }

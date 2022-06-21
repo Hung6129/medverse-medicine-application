@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '/theme/palette.dart';
 
 class RoundIconButton extends StatelessWidget {
   final IconData icon;
@@ -14,7 +13,10 @@ class RoundIconButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return RawMaterialButton(
       elevation: 0.0,
-      child: Icon(icon),
+      child: Icon(
+        icon,
+        color: Colors.white,
+      ),
       onPressed: onPressed,
       constraints: BoxConstraints.tightFor(
         width: 56.0,

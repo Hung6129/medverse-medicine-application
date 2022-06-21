@@ -6,8 +6,6 @@ import '/utils/constants.dart';
 import 'dart:async';
 import 'dart:convert';
 import '/widgets/indicators.dart';
-import 'package:top_snackbar_flutter/custom_snack_bar.dart';
-import 'package:top_snackbar_flutter/top_snack_bar.dart';
 import 'package:http/http.dart' as http;
 import '../../models/drug_bank_db/product_model.dart';
 import '../../services/service_data.dart';
@@ -67,8 +65,8 @@ class _DrugDetailsState extends State<DrugDetails> {
     /// Sliver app bar for product name
     Widget __sliverAppBarProductName(ProductModel data) {
       return SliverAppBar(
+        iconTheme: IconThemeData(color: Palette.whiteText),
         toolbarHeight: 100,
-        // title: Icon(CupertinoIcons.arrow_left_circle_fill),
         bottom: PreferredSize(
           preferredSize: Size.fromHeight(20),
           child: Container(
@@ -88,7 +86,7 @@ class _DrugDetailsState extends State<DrugDetails> {
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: Palette.mainBlueTheme,
-                fontSize: Dimensions.font24,
+                fontSize: Dimensions.font20,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -100,7 +98,7 @@ class _DrugDetailsState extends State<DrugDetails> {
         expandedHeight: 50,
         // flexibleSpace: FlexibleSpaceBar(
         //   background: Image.asset(
-        //     imagesFav,
+        //     "assets/images/splash/Medverse.png",
         //     fit: BoxFit.cover,
         //     width: double.maxFinite,
         //   ),
@@ -121,6 +119,7 @@ class _DrugDetailsState extends State<DrugDetails> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // Product
+              RichTextCus(text1: "Medicine Name:", text2: data.drugName),
               RichTextCus(text1: "Labeller:", text2: data.productLabeller),
               RichTextCus(text1: "Route:", text2: data.productRoute), //d
               RichTextCus(text1: "Dosage:", text2: data.productdosage), //d
@@ -224,6 +223,7 @@ class _DrugDetailsState extends State<DrugDetails> {
     }
 
     return Scaffold(
+      backgroundColor: Colors.white,
       body: FutureBuilder(
         future: postApi,
         builder: (context, snapshot) {

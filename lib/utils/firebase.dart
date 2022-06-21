@@ -20,6 +20,7 @@ CollectionReference followingRef = firestore.collection('following');
 CollectionReference likesRef = firestore.collection('likes');
 CollectionReference favUsersRef = firestore.collection('favoriteUsers');
 CollectionReference drugReportRef = firestore.collection('drugReport');
+CollectionReference healthProfileRef = firestore.collection('healthProfile');
 
 // Storage refs
 Reference profilePic =storage.ref().child('profilePic');
