@@ -119,6 +119,7 @@ class _DrugDetailsState extends State<DrugDetails> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // Product
+              RichTextCus(text1: "Medicine Name:", text2: data.drugName),
               RichTextCus(text1: "Labeller:", text2: data.productLabeller),
               RichTextCus(text1: "Route:", text2: data.productRoute), //d
               RichTextCus(text1: "Dosage:", text2: data.productdosage), //d
