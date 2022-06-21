@@ -22,6 +22,7 @@ class AuthService {
     );
     if (res.user != null) {
       await saveUserToFirestore(name, res.user, email, country);
+      await createUserHealthProfileToFirestore(res.user);
       return true;
     } else {
       return false;
@@ -39,6 +40,19 @@ class AuthService {
       'bio': "",
       'country': country,
       'photoUrl': user.photoURL ?? ''
+    });
+  }
+
+  createUserHealthProfileToFirestore(User user) async {
+    await healthProfileRef.doc(user.uid).set({
+      'uid': user.uid,
+      'DBP': "",
+      'SBP': "",
+      'SP02': "",
+      'bloodGroup': "",
+      'bmi': "",
+      'height': "",
+      'weight': "",
     });
   }
 

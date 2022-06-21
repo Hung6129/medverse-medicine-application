@@ -194,56 +194,19 @@ class _EditHealthProfilePageState extends State<EditBloodGroup> {
         userHealthProfileModel.bloodGroup = dropdownValue;
 
         /// Connect to Health Profile Model
-        if(userHealthProfileModel.bloodGroup.isEmpty || userHealthProfileModel.bloodGroup == null) {
-          await firebaseFirestore
-              .collection("healthProfile")
-              .doc(user?.uid)
-              .set(userHealthProfileModel.updateBloodGroup())
-              .catchError((e) {
-            Fluttertoast.showToast(msg: e.message);
-          });
-          Fluttertoast.showToast(
-            msg: "Lưu thông tin nhóm máu thành công",
-            backgroundColor: Palette.activeButton,
-          );
-          Navigator.of(context).pop();
-        } else {
-          await firebaseFirestore
-              .collection("healthProfile")
-              .doc(user?.uid)
-              .update(userHealthProfileModel.updateBloodGroup())
-              .catchError((e) {
-            Fluttertoast.showToast(msg: e.message);
-          });
-          Fluttertoast.showToast(
-            msg: "Cập nhật thông tin nhóm máu thành công",
-            backgroundColor: Palette.activeButton,
-          );
-          Navigator.of(context).pop();
-        }
+        await firebaseFirestore
+            .collection("healthProfile")
+            .doc(user?.uid)
+            .update(userHealthProfileModel.updateBloodGroup())
+            .catchError((e) {
+          Fluttertoast.showToast(msg: e.message);
+        });
+        Fluttertoast.showToast(
+          msg: "Cập nhật thông tin nhóm máu thành công",
+          backgroundColor: Palette.activeButton,
+        );
+        Navigator.of(context).pop();
       } on FirebaseAuthException catch (error) {
-        switch (error.code) {
-          case "invalid-email":
-            errorMessage = "Your email address appears to be malformed.";
-            break;
-          case "wrong-password":
-            errorMessage = "Your password is wrong.";
-            break;
-          case "user-not-found":
-            errorMessage = "User with this email doesn't exist.";
-            break;
-          case "user-disabled":
-            errorMessage = "User with this email has been disabled.";
-            break;
-          case "too-many-requests":
-            errorMessage = "Too many requests";
-            break;
-          case "operation-not-allowed":
-            errorMessage = "Signing in with Email and Password is not enabled.";
-            break;
-          default:
-            errorMessage = "An undefined Error happened.";
-        }
         Fluttertoast.showToast(msg: errorMessage);
         print(error.code);
       }

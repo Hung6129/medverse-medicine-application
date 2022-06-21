@@ -42,7 +42,7 @@ class _EditHealthProfilePageState extends State<EditSP02> {
       controller: sp02EditingController,
       keyboardType: TextInputType.number,
       validator: (value) {
-        if (value.isEmpty) {
+        if (value.trim().isEmpty) {
           return "Hãy nhập chỉ số nhịp tim";
         }
         return null;
@@ -177,57 +177,19 @@ class _EditHealthProfilePageState extends State<EditSP02> {
         userHealthProfileModel.SP02 = sp02EditingController.text;
 
         /// Connect to Health Profile Model
-        if (userHealthProfileModel.SP02.isEmpty ||
-            userHealthProfileModel.SP02 == null) {
-          await firebaseFirestore
-              .collection("healthProfile")
-              .doc(user?.uid)
-              .set(userHealthProfileModel.updateSP02())
-              .catchError((e) {
-            Fluttertoast.showToast(msg: e.message);
-          });
-          Fluttertoast.showToast(
-            msg: "Lưu chỉ số nhịp tim thành công",
-            backgroundColor: Palette.activeButton,
-          );
-          Navigator.of(context).pop();
-        } else {
-          await firebaseFirestore
-              .collection("healthProfile")
-              .doc(user?.uid)
-              .update(userHealthProfileModel.updateSP02())
-              .catchError((e) {
-            Fluttertoast.showToast(msg: e.message);
-          });
-          Fluttertoast.showToast(
-            msg: "Cập nhật chỉ số nhịp tim thành công",
-            backgroundColor: Palette.activeButton,
-          );
-          Navigator.of(context).pop();
-        }
+        await firebaseFirestore
+            .collection("healthProfile")
+            .doc(user?.uid)
+            .update(userHealthProfileModel.updateSP02())
+            .catchError((e) {
+          Fluttertoast.showToast(msg: e.message);
+        });
+        Fluttertoast.showToast(
+          msg: "Cập nhật chỉ số nhịp tim thành công",
+          backgroundColor: Palette.activeButton,
+        );
+        Navigator.of(context).pop();
       } on FirebaseAuthException catch (error) {
-        switch (error.code) {
-          case "invalid-email":
-            errorMessage = "Your email address appears to be malformed.";
-            break;
-          case "wrong-password":
-            errorMessage = "Your password is wrong.";
-            break;
-          case "user-not-found":
-            errorMessage = "User with this email doesn't exist.";
-            break;
-          case "user-disabled":
-            errorMessage = "User with this email has been disabled.";
-            break;
-          case "too-many-requests":
-            errorMessage = "Too many requests";
-            break;
-          case "operation-not-allowed":
-            errorMessage = "Signing in with Email and Password is not enabled.";
-            break;
-          default:
-            errorMessage = "An undefined Error happened.";
-        }
         Fluttertoast.showToast(msg: errorMessage);
         print(error.code);
       }
