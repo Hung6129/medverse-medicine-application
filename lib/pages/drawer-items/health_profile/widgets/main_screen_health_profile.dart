@@ -121,8 +121,8 @@ class MapScreenState extends State<HealthProfile>
                         ),
                         SizedBox(width: 20),
                         Column(
-                          // mainAxisAlignment: MainAxisAlignment.center,
-                          // crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Text(
                               'Chiều cao:',
@@ -208,8 +208,8 @@ class MapScreenState extends State<HealthProfile>
                         ),
                         SizedBox(width: 20),
                         Column(
-                          // mainAxisAlignment: MainAxisAlignment.center,
-                          // crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Text(
                               'Cân nặng:',
@@ -295,8 +295,8 @@ class MapScreenState extends State<HealthProfile>
                         ),
                         SizedBox(width: 20),
                         Column(
-                          // mainAxisAlignment: MainAxisAlignment.center,
-                          // crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Text(
                               'Chỉ số BMI:',
@@ -382,8 +382,8 @@ class MapScreenState extends State<HealthProfile>
                         ),
                         SizedBox(width: 20),
                         Column(
-                          // mainAxisAlignment: MainAxisAlignment.center,
-                          // crossAxisAlignment: CrossAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
                           children: <Widget>[
                             Text(
                               'Huyết áp:',
@@ -471,8 +471,8 @@ class MapScreenState extends State<HealthProfile>
                         ),
                         SizedBox(width: 20),
                         Column(
-                          // mainAxisAlignment: MainAxisAlignment.center,
-                          // crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Text(
                               'Nhịp tim:',
@@ -558,8 +558,8 @@ class MapScreenState extends State<HealthProfile>
                         ),
                         SizedBox(width: 20),
                         Column(
-                          // mainAxisAlignment: MainAxisAlignment.center,
-                          // crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Text(
                               'Nhóm máu:',
