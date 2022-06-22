@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:provider/provider.dart';
+import '/theme/palette.dart';
+import '/utils/app_text_theme.dart';
+import '/widgets/dimension.dart';
 import '/auth/register/register.dart';
 import '/components/password_text_field.dart';
 import '/components/text_form_builder.dart';
@@ -11,6 +14,11 @@ import '/view_models/auth/login_view_model.dart';
 import '/widgets/indicators.dart';
 
 class Login extends StatefulWidget {
+
+  final VoidCallback onSignedIn;
+
+  const Login({Key key, this.onSignedIn}) : super(key: key);
+
   @override
   _LoginState createState() => _LoginState();
 }
@@ -24,7 +32,7 @@ class _LoginState extends State<Login> {
       progressIndicator: circularProgress(context),
       inAsyncCall: viewModel.loading,
       child: Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: Palette.whiteText,
         key: viewModel.scaffoldKey,
         body: ListView(
           padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 20.0),
@@ -40,21 +48,14 @@ class _LoginState extends State<Login> {
             SizedBox(height: 10.0),
             Center(
               child: Text(
-                'Welcome back!',
-                style: TextStyle(
-                  fontSize: 23.0,
-                  fontWeight: FontWeight.w900,
-                ),
+                'Chào mừng bạn đã trở lại!',
+                style: MobileTextTheme().welcomeBack,
               ),
             ),
             Center(
               child: Text(
-                'Log into your account and get started!',
-                style: TextStyle(
-                  fontSize: 12.0,
-                  fontWeight: FontWeight.w300,
-                  color: Theme.of(context).accentColor,
-                ),
+                'Đăng nhập tài khoản để bắt đầu!',
+                style: MobileTextTheme().loginToContinue,
               ),
             ),
             SizedBox(height: 25.0),
@@ -63,21 +64,39 @@ class _LoginState extends State<Login> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text('Don\'t have an account?'),
+                Text(
+                  'Bạn chưa có tài khoản?',
+                  style: AppTextTheme.oswaldTextStyle,
+                ),
                 GestureDetector(
                   onTap: () {
-                    Navigator.of(context)
-                        .push(CupertinoPageRoute(builder: (_) => Register()));
+                    Navigator.of(context).push(
+                      CupertinoPageRoute(
+                        builder: (_) => Register(),
+                      ),
+                    );
                   },
                   child: Text(
-                    'Sign up',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Theme.of(context).accentColor,
-                    ),
+                    'Đăng ký',
+                    style: MobileTextTheme().registerText,
                   ),
                 ),
               ],
+            ),
+            SizedBox(
+              height: Dimensions.height30,
+            ),
+            // Return
+            Center(
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.pushReplacementNamed(context, "/home");
+                },
+                child: Text(
+                  'Quay lại',
+                  style: MobileTextTheme().registerText,
+                ),
+              ),
             ),
           ],
         ),
@@ -92,9 +111,10 @@ class _LoginState extends State<Login> {
       child: Column(
         children: [
           TextFormBuilder(
+            key: Key('email'),
             enabled: !viewModel.loading,
             prefix: Feather.mail,
-            hintText: "Email",
+            hintText: "Email tài khoản",
             textInputAction: TextInputAction.next,
             validateFunction: Validations.validateEmail,
             onSaved: (String val) {
@@ -105,10 +125,11 @@ class _LoginState extends State<Login> {
           ),
           SizedBox(height: 15.0),
           PasswordFormBuilder(
+            key: Key('password'),
             enabled: !viewModel.loading,
             prefix: Feather.lock,
             suffix: Feather.eye,
-            hintText: "Password",
+            hintText: "Mật khẩu",
             textInputAction: TextInputAction.done,
             validateFunction: Validations.validatePassword,
             submitAction: () => viewModel.login(context),
@@ -130,10 +151,8 @@ class _LoginState extends State<Login> {
                   child: Align(
                     alignment: Alignment.centerRight,
                     child: Text(
-                      'Forgot Password?',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                      ),
+                      'Quên mật khẩu?',
+                      style: MobileTextTheme().forgotPassword,
                     ),
                   ),
                 ),
@@ -145,6 +164,7 @@ class _LoginState extends State<Login> {
             height: 45.0,
             width: 180.0,
             child: ElevatedButton(
+              key: Key('SignIn'),
               style: ButtonStyle(
                 shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                   RoundedRectangleBorder(
@@ -152,17 +172,13 @@ class _LoginState extends State<Login> {
                   ),
                 ),
                 backgroundColor: MaterialStateProperty.all<Color>(
-                  Theme.of(context).accentColor,
+                  Palette.mainBlueTheme,
                 ),
               ),
               // highlightElevation: 4.0,
               child: Text(
-                'Log in'.toUpperCase(),
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 12.0,
-                  fontWeight: FontWeight.w600,
-                ),
+                'Đăng nhập',
+                style: MobileTextTheme().loginButton,
               ),
               onPressed: () => viewModel.login(context),
             ),

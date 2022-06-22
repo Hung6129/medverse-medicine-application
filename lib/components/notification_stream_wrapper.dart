@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import '/utils/app_text_theme.dart';
 import '/widgets/indicators.dart';
 
 typedef ItemBuilder<T> = Widget Function(
@@ -37,7 +38,10 @@ class ActivityStreamWrapper extends StatelessWidget {
                   child: Center(
                     child: Padding(
                       padding: const EdgeInsets.only(top: 250.0),
-                      child: Text('No Recent Activities'),
+                      child: Text(
+                        'Rất tiếc. Hiện không có hoạt động nào',
+                        style: AppTextTheme.oswaldTextStyle,
+                      ),
                     ),
                   ),
                 )

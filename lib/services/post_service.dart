@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '/models/user.dart';
@@ -10,8 +9,9 @@ import 'package:uuid/uuid.dart';
 
 class PostService extends Service {
   String postId = Uuid().v4();
+  String userUid;
 
-//uploads profile picture to the users collection
+  /// Uploads profile picture to the users collection
   uploadProfilePicture(File image, User user) async {
     String link = await uploadImage(profilePic, image);
     var ref = usersRef.doc(user.uid);
@@ -20,7 +20,7 @@ class PostService extends Service {
     });
   }
 
-//uploads post to the post collection
+/// Uploads post to the post collection
   uploadPost(File image, String location, String description) async {
     String link = await uploadImage(posts, image);
     DocumentSnapshot doc =
@@ -32,16 +32,17 @@ class PostService extends Service {
       "postId": ref.id,
       "username": user.username,
       "ownerId": firebaseAuth.currentUser.uid,
-      "mediaUrl": link,
+      "mediaUrl": link ?? "",
       "description": description ?? "",
-      "location": location ?? "Wooble",
+      "location": location ?? "Không có vị trí",
       "timestamp": Timestamp.now(),
+      "status": "1",
     }).catchError((e) {
       print(e);
     });
   }
 
-  //uploads story to the story collection
+  /// Uploads story to the story collection
   uploadStory(File image, String description) async {
     String link = await uploadImage(posts, image);
     DocumentSnapshot doc =
@@ -61,7 +62,7 @@ class PostService extends Service {
     });
   }
 
-//upload a comment
+/// Upload a comment
   uploadComment(String currentUserId, String comment, String postId,
       String ownerId, String mediaUrl) async {
     DocumentSnapshot doc = await usersRef.doc(currentUserId).get();
@@ -80,7 +81,7 @@ class PostService extends Service {
     }
   }
 
-//add the comment to notification collection
+  /// Add the comment to notification collection
   addCommentToNotification(
       String type,
       String commentData,
@@ -102,7 +103,7 @@ class PostService extends Service {
     });
   }
 
-//add the likes to the notfication collection
+  /// Add the likes to the notfication collection
   addLikesToNotification(String type, String username, String userId,
       String postId, String mediaUrl, String ownerId, String userDp) async {
     await notificationRef

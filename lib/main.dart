@@ -1,12 +1,12 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_navigation/src/root/get_material_app.dart';
+import '/pages/nav-items/home/bloc/home_screen_bloc.dart';
+import '/routes/app_routes.dart';
 import 'package:provider/provider.dart';
 import '/components/life_cycle_event_handler.dart';
-import '/landing/landing_page.dart';
-import '/screens/mainscreen.dart';
 import '/services/user_service.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '/utils/config.dart';
-import '/utils/constants.dart';
 import '/utils/providers.dart';
 
 void main() async {
@@ -36,23 +36,19 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: providers,
-      child: Consumer<ThemeNotifier>(
-        builder: (context, ThemeNotifier notifier, child) {
-          return MaterialApp(
-            title: Constants.appName,
-            debugShowCheckedModeBanner: false,
-            theme: notifier.dark ? Constants.darkTheme : Constants.lightTheme,
-            home: StreamBuilder(
-              stream: FirebaseAuth.instance.authStateChanges(),
-              builder: (BuildContext context, AsyncSnapshot<User> snapshot) {
-                if (snapshot.hasData) {
-                  return TabScreen();
-                } else
-                  return Landing();
-              },
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: MultiBlocProvider(
+          providers: [
+            BlocProvider(
+              create: (context) => HomeScreenBloc(),
             ),
-          );
-        },
+          ],
+          child: GetMaterialApp(
+            debugShowCheckedModeBanner: false,
+            onGenerateRoute: AppRoutes.onGeneratedRoutes,
+          ),
+        ),
       ),
     );
   }

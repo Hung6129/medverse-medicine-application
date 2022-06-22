@@ -8,7 +8,7 @@ FirebaseFirestore firestore = FirebaseFirestore.instance;
 FirebaseStorage storage = FirebaseStorage.instance;
 final Uuid uuid = Uuid();
 
-// Collection refs
+// Connect to all collection refs
 CollectionReference usersRef = firestore.collection('users');
 CollectionReference chatRef = firestore.collection("chats");
 CollectionReference postRef = firestore.collection('posts');
@@ -19,9 +19,10 @@ CollectionReference followersRef = firestore.collection('followers');
 CollectionReference followingRef = firestore.collection('following');
 CollectionReference likesRef = firestore.collection('likes');
 CollectionReference favUsersRef = firestore.collection('favoriteUsers');
-
-
+CollectionReference drugReportRef = firestore.collection('drugReport');
+CollectionReference healthProfileRef = firestore.collection('healthProfile');
 
 // Storage refs
 Reference profilePic =storage.ref().child('profilePic');
 Reference posts =storage.ref().child('posts');
+Reference drugReport = storage.ref().child('drug-report');

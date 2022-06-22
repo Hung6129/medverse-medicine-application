@@ -1,10 +1,11 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:provider/provider.dart';
 import '/components/text_form_builder.dart';
 import '/models/user.dart';
+import '/utils/app_text_theme.dart';
+import '/theme/palette.dart';
 import '/utils/firebase.dart';
 import '/utils/validation.dart';
 import '/view_models/profile/edit_profile_view_model.dart';
@@ -13,7 +14,9 @@ import '/widgets/indicators.dart';
 class EditProfile extends StatefulWidget {
   final UserModel user;
 
-  const EditProfile({this.user});
+  const EditProfile({
+    this.user,
+  });
 
   @override
   _EditProfileState createState() => _EditProfileState();
@@ -35,8 +38,12 @@ class _EditProfileState extends State<EditProfile> {
       child: Scaffold(
         key: viewModel.scaffoldKey,
         appBar: AppBar(
+          backgroundColor: Palette.mainBlueTheme,
           centerTitle: true,
-          title: Text("Edit Profile"),
+          title: Text(
+            "Cập nhật tài khoản",
+            style: MobileTextTheme().appBarStyle,
+          ),
           actions: [
             Center(
               child: Padding(
@@ -44,12 +51,8 @@ class _EditProfileState extends State<EditProfile> {
                 child: GestureDetector(
                   onTap: () => viewModel.editProfile(context),
                   child: Text(
-                    'SAVE',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w900,
-                      fontSize: 15.0,
-                      color: Theme.of(context).accentColor,
-                    ),
+                    'Lưu',
+                    style: MobileTextTheme().appBarActionButton,
                   ),
                 ),
               ),
@@ -63,7 +66,7 @@ class _EditProfileState extends State<EditProfile> {
                 onTap: () => viewModel.pickImage(),
                 child: Container(
                   decoration: BoxDecoration(
-                    color: Colors.white,
+                    color: Palette.whiteText,
                     shape: BoxShape.circle,
                     border: Border.all(
                       color: Colors.transparent,
@@ -126,7 +129,7 @@ class _EditProfileState extends State<EditProfile> {
               enabled: !viewModel.loading,
               initialValue: widget.user.username,
               prefix: Feather.user,
-              hintText: "Username",
+              hintText: "Tên người dùng",
               textInputAction: TextInputAction.next,
               validateFunction: Validations.validateName,
               onSaved: (String val) {
@@ -138,7 +141,7 @@ class _EditProfileState extends State<EditProfile> {
               initialValue: widget.user.country,
               enabled: !viewModel.loading,
               prefix: Feather.map_pin,
-              hintText: "Country",
+              hintText: "Quốc gia",
               textInputAction: TextInputAction.next,
               validateFunction: Validations.validateName,
               onSaved: (String val) {
@@ -147,7 +150,7 @@ class _EditProfileState extends State<EditProfile> {
             ),
             SizedBox(height: 10.0),
             Text(
-              "Bio",
+              "Giới thiệu",
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
             TextFormField(
@@ -156,7 +159,7 @@ class _EditProfileState extends State<EditProfile> {
               autovalidateMode: AutovalidateMode.onUserInteraction,
               validator: (String value) {
                 if (value.length > 1000) {
-                  return 'Bio must be short';
+                  return 'Thông tin giới thiệu không quá 1000 ký tự';
                 }
                 return null;
               },

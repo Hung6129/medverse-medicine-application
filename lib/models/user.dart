@@ -11,16 +11,17 @@ class UserModel {
   Timestamp lastSeen;
   bool isOnline;
 
-  UserModel(
-      {this.username,
-      this.email,
-      this.id,
-      this.photoUrl,
-      this.signedUpAt,
-      this.isOnline,
-      this.lastSeen,
-      this.bio,
-      this.country});
+  UserModel({
+    this.username,
+    this.email,
+    this.id,
+    this.photoUrl,
+    this.signedUpAt,
+    this.isOnline,
+    this.lastSeen,
+    this.bio,
+    this.country,
+  });
 
   UserModel.fromJson(Map<String, dynamic> json) {
     username = json['username'];

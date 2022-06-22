@@ -8,19 +8,21 @@ class AuthService {
     return user;
   }
 
-//create a firebase user 
-  Future<bool> createUser(
-      {String name,
-      User user,
-      String email,
-      String country,
-      String password}) async {
+//create a firebase user
+  Future<bool> createUser({
+    String name,
+    User user,
+    String email,
+    String country,
+    String password,
+  }) async {
     var res = await firebaseAuth.createUserWithEmailAndPassword(
       email: '$email',
       password: '$password',
     );
     if (res.user != null) {
       await saveUserToFirestore(name, res.user, email, country);
+      await createUserHealthProfileToFirestore(res.user);
       return true;
     } else {
       return false;
@@ -41,6 +43,18 @@ class AuthService {
     });
   }
 
+  createUserHealthProfileToFirestore(User user) async {
+    await healthProfileRef.doc(user.uid).set({
+      'uid': user.uid,
+      'DBP': "",
+      'SBP': "",
+      'SP02': "",
+      'bloodGroup': "",
+      'bmi': "",
+      'height': "",
+      'weight': "",
+    });
+  }
 
 //function to login a user with his email and password
   Future<bool> loginUser({String email, String password}) async {
@@ -66,23 +80,23 @@ class AuthService {
 
   String handleFirebaseAuthError(String e) {
     if (e.contains("ERROR_WEAK_PASSWORD")) {
-      return "Password is too weak";
+      return "Mật khẩu không đủ mạnh.";
     } else if (e.contains("invalid-email")) {
-      return "Invalid Email";
+      return "Email đăng nhập không hợp lệ.";
     } else if (e.contains("ERROR_EMAIL_ALREADY_IN_USE") ||
         e.contains('email-already-in-use')) {
-      return "The email address is already in use by another account.";
+      return "Địa chỉ email đăng nhập đã được sử dụng bởi một tài khoản khác.";
     } else if (e.contains("ERROR_NETWORK_REQUEST_FAILED")) {
-      return "Network error occured!";
+      return "Lỗi kết nối mạng!";
     } else if (e.contains("ERROR_USER_NOT_FOUND") ||
         e.contains('firebase_auth/user-not-found')) {
-      return "Invalid credentials.";
+      return "Email đăng nhập không tồn tại.";
     } else if (e.contains("ERROR_WRONG_PASSWORD") ||
         e.contains('wrong-password')) {
-      return "Invalid credentials.";
+      return "Mật khẩu không đúng.";
     } else if (e.contains('firebase_auth/requires-recent-login')) {
-      return 'This operation is sensitive and requires recent authentication.'
-          ' Log in again before retrying this request.';
+      return 'Thao tác này nhạy cảm và yêu cầu xác thực gần đây.'
+          ' Đăng nhập lại trước khi thử lại yêu cầu này.';
     } else {
       return e;
     }

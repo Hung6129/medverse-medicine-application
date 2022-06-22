@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
-import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:provider/provider.dart';
+import 'package:modal_progress_hud/modal_progress_hud.dart';
+import '/theme/palette.dart';
+import '/utils/app_text_theme.dart';
 import '/auth/login/login.dart';
 import '/components/password_text_field.dart';
 import '/components/text_form_builder.dart';
@@ -29,11 +31,8 @@ class _RegisterState extends State<Register> {
           children: [
             SizedBox(height: 10.0),
             Text(
-              'Welcome to Wooble Social App..\nCreate a new account and connect with friends',
-              style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18.0,
-                  fontFamily: 'Roboto-Regular'),
+              'Chào mừng đến với ứng dụng Medverse. Hãy tạo tài khoản để tìm kiếm thông tin thuốc',
+              style: MobileTextTheme().registerIntroText,
             ),
             SizedBox(height: 30.0),
             buildForm(viewModel, context),
@@ -42,19 +41,20 @@ class _RegisterState extends State<Register> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  'Already have an account  ',
+                  'Đã có tài khoản?  ',
+                  style: MobileTextTheme().forgotPassword,
                 ),
                 GestureDetector(
                   onTap: () {
-                    Navigator.of(context)
-                        .push(CupertinoPageRoute(builder: (_) => Login()));
+                    Navigator.of(context).push(
+                      CupertinoPageRoute(
+                        builder: (_) => Login(),
+                      ),
+                    );
                   },
                   child: Text(
-                    'Login',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Theme.of(context).accentColor,
-                    ),
+                    'Đăng nhập',
+                    style: MobileTextTheme().registerText,
                   ),
                 ),
               ],
@@ -74,7 +74,7 @@ class _RegisterState extends State<Register> {
           TextFormBuilder(
             enabled: !viewModel.loading,
             prefix: Feather.user,
-            hintText: "Username",
+            hintText: "Tên người dùng",
             textInputAction: TextInputAction.next,
             validateFunction: Validations.validateName,
             onSaved: (String val) {
@@ -100,7 +100,7 @@ class _RegisterState extends State<Register> {
           TextFormBuilder(
             enabled: !viewModel.loading,
             prefix: Feather.map_pin,
-            hintText: "Country",
+            hintText: "Quốc gia",
             textInputAction: TextInputAction.next,
             validateFunction: Validations.validateName,
             onSaved: (String val) {
@@ -114,7 +114,7 @@ class _RegisterState extends State<Register> {
             enabled: !viewModel.loading,
             prefix: Feather.lock,
             suffix: Feather.eye,
-            hintText: "Password",
+            hintText: "Mật khẩu",
             textInputAction: TextInputAction.next,
             validateFunction: Validations.validatePassword,
             obscureText: true,
@@ -128,7 +128,7 @@ class _RegisterState extends State<Register> {
           PasswordFormBuilder(
             enabled: !viewModel.loading,
             prefix: Feather.lock,
-            hintText: "Confirm Password",
+            hintText: "Xác nhận mật khẩu",
             textInputAction: TextInputAction.done,
             validateFunction: Validations.validatePassword,
             submitAction: () => viewModel.register(context),
@@ -149,16 +149,12 @@ class _RegisterState extends State<Register> {
                     borderRadius: BorderRadius.circular(40.0),
                   ),
                 ),
-                backgroundColor: MaterialStateProperty.all<Color>(
-                    Theme.of(context).accentColor),
+                backgroundColor:
+                    MaterialStateProperty.all<Color>(Palette.mainBlueTheme),
               ),
               child: Text(
-                'sign up'.toUpperCase(),
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 12.0,
-                  fontWeight: FontWeight.w600,
-                ),
+                'Đăng ký',
+                style: MobileTextTheme().loginButton,
               ),
               onPressed: () => viewModel.register(context),
             ),

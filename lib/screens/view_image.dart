@@ -3,6 +3,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
+import 'package:medverse_mobile_app/theme/palette.dart';
+import 'package:medverse_mobile_app/utils/app_text_theme.dart';
 import '/models/post.dart';
 import '/models/user.dart';
 import '/utils/firebase.dart';
@@ -12,7 +14,9 @@ import 'package:timeago/timeago.dart' as timeago;
 class ViewImage extends StatefulWidget {
   final PostModel post;
 
-  ViewImage({this.post});
+  ViewImage({
+    this.post,
+  });
 
   @override
   _ViewImageState createState() => _ViewImageState();
@@ -30,39 +34,74 @@ class _ViewImageState extends State<ViewImage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: buildImage(context),
+      appBar: AppBar(
+        backgroundColor: Palette.mainBlueTheme,
+        title: Text(
+          'Chi tiết bài đăng',
+          style: MobileTextTheme().appBarStyle,
+        ),
+        centerTitle: true,
       ),
-      bottomNavigationBar: BottomAppBar(
-          elevation: 0.0,
-          color: Colors.transparent,
-          child: Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Container(
-              height: 40.0,
-              width: MediaQuery.of(context).size.width,
-              child: Row(children: [
+      body: Center(
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              buildPostOwner(context),
+              SizedBox(height: 10.0),
+              buildImage(context),
+              SizedBox(height: 10.0),
+              buildDescription(context),
+              SizedBox(height: 30.0),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  buildPostOwner(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 10.0),
+      child: Container(
+        child: Column(
+          children: [
+            Row(
+              children: [
                 Column(
                   children: [
-                    Text(
-                      widget.post.username,
-                      style: TextStyle(fontWeight: FontWeight.w800),
+                    Row(
+                      children: [
+                        Text(
+                          widget.post.username,
+                          style: MobileTextTheme().postUserNameTitle,
+                        ),
+                      ],
                     ),
                     SizedBox(height: 3.0),
                     Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Icon(Feather.clock, size: 13.0),
                         SizedBox(width: 3.0),
-                        Text(timeago.format(widget.post.timestamp.toDate())),
+                        Text(
+                          timeago.format(
+                            widget.post.timestamp.toDate(),
+                          ),
+                          style: MobileTextTheme().postDetailsTimePostTitle,
+                        ),
                       ],
                     ),
                   ],
                 ),
                 Spacer(),
                 buildLikeButton(),
-              ]),
+              ],
             ),
-          )),
+          ],
+        ),
+      ),
     );
   }
 
@@ -82,6 +121,18 @@ class _ViewImageState extends State<ViewImage> {
           height: 400.0,
           fit: BoxFit.cover,
           width: MediaQuery.of(context).size.width,
+        ),
+      ),
+    );
+  }
+
+  buildDescription(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 10.0),
+      child: Container(
+        child: Text(
+          widget.post.description,
+          style: MobileTextTheme().postDescription,
         ),
       ),
     );
@@ -155,7 +206,7 @@ class _ViewImageState extends State<ViewImage> {
                   )
                 : Icon(
                     CupertinoIcons.heart_fill,
-                    color: Colors.red,
+                    color: Palette.red,
                   ),
           );
         }

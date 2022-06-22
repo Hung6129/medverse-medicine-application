@@ -35,7 +35,7 @@ class StreamGridWrapper extends StatelessWidget {
           return list.length == 0
               ? Container(
                   child: Center(
-                    child: Text('No Posts'),
+                    child: Text('Hiện chưa có bài viết nào!'),
                   ),
                 )
               : GridView.builder(

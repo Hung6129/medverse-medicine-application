@@ -1,13 +1,13 @@
 import 'package:animations/animations.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_icons/flutter_icons.dart';
-import '/components/fab_container.dart';
-import '/pages/notification.dart';
-import '/pages/profile.dart';
-import '/pages/search.dart';
-import '/pages/feeds.dart';
-import '/utils/firebase.dart';
+import 'package:medverse_mobile_app/theme/palette.dart';
+import 'package:medverse_mobile_app/widgets/dimension.dart';
+import '/pages/nav-items/favorite/favorite_drugs_list_nav.dart';
+import '/widgets/navigation_drawer_widget.dart';
+import '/pages/nav-items/notification/pages/notification.dart';
+import '/pages/nav-items/home/pages/home_screen.dart';
+import '/pages/nav-items/feeds/pages/feeds.dart';
 
 class TabScreen extends StatefulWidget {
   @override
@@ -19,40 +19,35 @@ class _TabScreenState extends State<TabScreen> {
 
   List pages = [
     {
-      'title': 'Home',
-      'icon': Feather.home,
-      'page': Timeline(),
+      'title': 'Trang chủ',
+      'icon': CupertinoIcons.house_alt_fill,
+      'page': HomeScreen(),
       'index': 0,
     },
     {
-      'title': 'Search',
-      'icon': Feather.search,
-      'page': Search(),
+      'title': 'Đã lưu',
+      'icon': CupertinoIcons.square_favorites_alt_fill,
+      'page': FavoriteDrugsListScreenNav(),
       'index': 1,
     },
     {
-      'title': 'unsee',
-      'icon': Feather.plus_circle,
-      'page': Text('nes'),
+      'title': 'Thông báo',
+      'icon': CupertinoIcons.bell_solid,
+      'page': Activities(),
       'index': 2,
     },
     {
-      'title': 'Notification',
-      'icon': CupertinoIcons.bell_solid,
-      'page': Activities(),
+      'title': 'Mạng xã hội',
+      'icon': CupertinoIcons.news_solid,
+      'page': Timeline(),
       'index': 3,
-    },
-    {
-      'title': 'Profile',
-      'icon': CupertinoIcons.person,
-      'page': Profile(profileId: firebaseAuth.currentUser.uid),
-      'index': 4,
     },
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: const NavigationDrawerWidget(),
       body: PageTransitionSwitcher(
         transitionBuilder: (
           Widget child,
@@ -75,21 +70,21 @@ class _TabScreenState extends State<TabScreen> {
           children: [
             SizedBox(width: 5),
             for (Map item in pages)
-              item['index'] == 2
-                  ? buildFab()
-                  : Padding(
-                      padding: const EdgeInsets.only(top: 5.0),
-                      child: IconButton(
-                        icon: Icon(
-                          item['icon'],
-                          color: item['index'] != _page
-                              ? Colors.grey
-                              : Theme.of(context).accentColor,
-                          size: 20.0,
-                        ),
-                        onPressed: () => navigationTapped(item['index']),
-                      ),
-                    ),
+              Padding(
+                padding: const EdgeInsets.only(top: 5.0),
+                child: IconButton(
+                  icon: Icon(
+                    item['icon'],
+                    color: item['index'] != _page
+                        ? Palette.mainBlueTheme.withOpacity(0.2)
+                        : Palette.mainBlueTheme,
+                    size: Dimensions.icon24,
+                  ),
+                  onPressed: () {
+                    navigationTapped(item['index']);
+                  },
+                ),
+              ),
             SizedBox(width: 5),
           ],
         ),
@@ -97,21 +92,11 @@ class _TabScreenState extends State<TabScreen> {
     );
   }
 
-  buildFab() {
-    return Container(
-      height: 45.0,
-      width: 45.0,
-      // ignore: missing_required_param
-      child: FabContainer(
-        icon: Feather.plus,
-        mini: true,
-      ),
-    );
-  }
-
   void navigationTapped(int page) {
-    setState(() {
-      _page = page;
-    });
+    setState(
+      () {
+        _page = page;
+      },
+    );
   }
 }

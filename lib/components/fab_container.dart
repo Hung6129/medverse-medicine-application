@@ -1,14 +1,20 @@
 import 'package:animations/animations.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../posts/create_post.dart';
+import '/theme/palette.dart';
+import '/utils/app_text_theme.dart';
+import '/posts/create_post.dart';
 
 class FabContainer extends StatelessWidget {
   final Widget page;
   final IconData icon;
   final bool mini;
 
-  FabContainer({@required this.page, @required this.icon, this.mini = false});
+  FabContainer({
+    @required this.page,
+    @required this.icon,
+    this.mini = false,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -26,10 +32,11 @@ class FabContainer extends StatelessWidget {
       closedColor: Theme.of(context).scaffoldBackgroundColor,
       closedBuilder: (BuildContext context, VoidCallback openContainer) {
         return FloatingActionButton(
-          backgroundColor: Theme.of(context).primaryColor,
+          tooltip: 'Tạo bài đăng',
+          backgroundColor: Palette.mainBlueTheme,
           child: Icon(
-            icon,
-            color: Theme.of(context).accentColor,
+            Icons.add,
+            color: Palette.whiteText,
           ),
           onPressed: () {
             chooseUpload(context);
@@ -40,6 +47,7 @@ class FabContainer extends StatelessWidget {
     );
   }
 
+  /// Select image to upload
   chooseUpload(BuildContext context) {
     return showModalBottomSheet(
       context: context,
@@ -57,11 +65,9 @@ class FabContainer extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 10.0),
                 child: Center(
                   child: Text(
-                    'Create Post',
+                    'Tạo bài viết',
                     textAlign: TextAlign.center,
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Theme.of(context).accentColor),
+                    style: MobileTextTheme().fabContainerTitle,
                   ),
                 ),
               ),
@@ -71,7 +77,10 @@ class FabContainer extends StatelessWidget {
                   CupertinoIcons.camera_on_rectangle,
                   size: 25.0,
                 ),
-                title: Text('Make a Post'),
+                title: Text(
+                  'Viết bài viết mới',
+                  style: MobileTextTheme().fabContainerContent,
+                ),
                 onTap: () {
                   Navigator.pop(context);
                   Navigator.of(context).push(
