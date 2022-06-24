@@ -233,7 +233,6 @@ class _DrugDetailsState extends State<DrugDetails> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                // Image.asset("assets/images/loading.png"),
                 circularProgress(context),
               ],
             ));

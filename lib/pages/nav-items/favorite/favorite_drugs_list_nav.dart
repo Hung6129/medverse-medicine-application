@@ -34,8 +34,7 @@ class _FavoriteDrugsListScreenNavState
     if (dataList.isEmpty) {
       return null;
     } else
-      // print(dataList.length.toString());
-    return dataList.reversed.toList();
+      return dataList.reversed.toList();
   }
 
   @override
@@ -70,127 +69,221 @@ class _FavoriteDrugsListScreenNavState
                     return circularProgress(context);
                   }
                   if (snapshot.hasData) {
+                    var data = snapshot.data;
                     return ListView.builder(
                       physics: NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
                       itemCount: snapshot.data.length,
                       itemBuilder: (context, index) {
-                        return Container(
-                          margin: EdgeInsets.only(
-                            left: Dimensions.width20,
-                            right: Dimensions.width20,
-                            bottom: Dimensions.height20,
-                          ),
-                          child: Slidable(
-                            endActionPane: ActionPane(
-                              motion: ScrollMotion(),
-                              children: [
-                                SlidableAction(
-                                  onPressed: (context) async {
-                                    await DeleteItemInFavList.deleteItems(
-                                        snapshot.data[index].productID);
-                                    setState(
-                                      () {},
-                                    );
-                                  },
-                                  backgroundColor: Palette.warningColor,
-                                  foregroundColor: Colors.white,
-                                  icon: CupertinoIcons.delete,
-                                  label: 'Huỷ lưu',
-                                ),
-                              ],
-                            ),
-                            child: GestureDetector(
-                              onTap: () {
-                                print(snapshot.data[index].productID);
-                                BlocProvider.of<HomeScreenBloc>(context)
-                                  ..add(
-                                    OnTapEvent(
-                                      context: context,
-                                      navigateData:
-                                          snapshot.data[index].productID,
-                                    ),
+                        return Slidable(
+                          endActionPane: ActionPane(
+                            motion: ScrollMotion(),
+                            children: [
+                              SlidableAction(
+                                onPressed: (context) async {
+                                  await DeleteItemInFavList.deleteItems(
+                                      snapshot.data[index].productID);
+                                  setState(
+                                    () {},
                                   );
-                              },
-                              child: Row(
-                                children: [
-                                  //images section
-                                  Container(
-                                    width: Dimensions.itemsSizeImgHeight,
-                                    height: Dimensions.itemsSizeImgHeight,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.only(
-                                          topLeft: Radius.circular(
-                                              Dimensions.radius20),
-                                          bottomLeft: Radius.circular(
-                                              Dimensions.radius20)),
-                                      image: DecorationImage(
-                                        fit: BoxFit.cover,
-                                        image: AssetImage(
-                                            "assets/images/splash/Medverse.png"),
+                                },
+                                backgroundColor: Palette.warningColor,
+                                foregroundColor: Colors.white,
+                                icon: CupertinoIcons.delete,
+                                label: 'Gỡ lưu',
+                              ),
+                            ],
+                          ),
+                          child: Card(
+                            elevation: 2,
+                            margin: new EdgeInsets.symmetric(
+                                horizontal: 10, vertical: 10),
+                            child: Container(
+                              decoration:
+                                  BoxDecoration(color: Palette.whiteText),
+                              child: ListTile(
+                                contentPadding: EdgeInsets.symmetric(
+                                    horizontal: 20.0, vertical: 8.0),
+                                leading: Container(
+                                  padding: EdgeInsets.only(right: 12.0),
+                                  decoration: new BoxDecoration(
+                                    border: new Border(
+                                      right: new BorderSide(
+                                        width: 1.0,
+                                        color: Palette.mainBlueTheme,
                                       ),
                                     ),
                                   ),
-                                  //text container
-                                  Expanded(
-                                    child: Container(
-                                      height: Dimensions.itemsSizeImgHeight,
-                                      decoration:
-                                          BoxDecoration(color: Palette.white60),
-                                      child: Padding(
-                                        padding: EdgeInsets.only(
-                                          left: Dimensions.width10,
-                                        ),
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Text(
-                                              snapshot
-                                                  .data[index].product_name,
-                                              overflow: TextOverflow.ellipsis,
-                                              maxLines: 2,
-                                              style: TextStyle(
-                                                color: Palette.textNo,
-                                                fontSize: Dimensions.font16,
-                                                fontWeight: FontWeight.normal,
-                                              ),
-                                            ),
-                                            SizedBox(
-                                                height: Dimensions.height10),
-                                            Text(
-                                              snapshot
-                                                  .data[index].product_labeller,
-                                              overflow: TextOverflow.ellipsis,
-                                              maxLines: 2,
-                                              style: TextStyle(
-                                                color: Palette.textNo,
-                                                fontSize: Dimensions.font14,
-                                                fontWeight: FontWeight.normal,
-                                              ),
-                                            ),
-                                            SizedBox(
-                                                height: Dimensions.height10),
-                                            AppText(
-                                              text: "Đã lưu vào " +
-                                                  snapshot
-                                                      .data[index].savedTime,
-                                              color: Palette.textNo,
-                                              size: Dimensions.font14,
-                                              fontWeight: FontWeight.normal,
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
+                                  child: Icon(CupertinoIcons.heart_circle,
+                                      color: Palette.warningColor),
+                                ),
+                                title: Text(
+                                  data[index].product_name,
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 2,
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w400,
+                                    // color: Palette.textNo,
                                   ),
-                                ],
+                                ),
+                                subtitle: Padding(
+                                  padding: const EdgeInsets.only(top: 8.0),
+                                  child: Row(
+                                    children: <Widget>[
+                                      Icon(
+                                        CupertinoIcons.time,
+                                        size: Dimensions.icon16,
+                                        // color: Palette.textNo,
+                                      ),
+                                      SizedBox(
+                                        width: Dimensions.width10,
+                                      ),
+                                      Text(
+                                        data[index].savedTime,
+                                        overflow: TextOverflow.ellipsis,
+                                        maxLines: 2,
+                                        style: TextStyle(
+                                            // color: Palette.textNo,
+                                            ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                                trailing: GestureDetector(
+                                  onTap: () {
+                                    print(snapshot.data[index].productID);
+                                    BlocProvider.of<HomeScreenBloc>(context)
+                                      ..add(
+                                        OnTapEvent(
+                                          context: context,
+                                          navigateData:
+                                              snapshot.data[index].productID,
+                                        ),
+                                      );
+                                  },
+                                  child: Icon(Icons.keyboard_arrow_right,
+                                      color: Palette.mainBlueTheme,
+                                      size: Dimensions.icon28),
+                                ),
                               ),
                             ),
                           ),
                         );
+                        // return Container(
+                        //   margin: EdgeInsets.only(
+                        //     left: Dimensions.width20,
+                        //     right: Dimensions.width20,
+                        //     bottom: Dimensions.height20,
+                        //   ),
+                        //   child: Slidable(
+                        //     endActionPane: ActionPane(
+                        //       motion: ScrollMotion(),
+                        //       children: [
+                        //         SlidableAction(
+                        //           onPressed: (context) async {
+                        //             await DeleteItemInFavList.deleteItems(
+                        //                 snapshot.data[index].productID);
+                        //             setState(
+                        //               () {},
+                        //             );
+                        //           },
+                        //           backgroundColor: Palette.warningColor,
+                        //           foregroundColor: Colors.white,
+                        //           icon: CupertinoIcons.delete,
+                        //           label: 'Huỷ lưu',
+                        //         ),
+                        //       ],
+                        //     ),
+                        //     child: GestureDetector(
+                        //       onTap: () {
+                        //         print(snapshot.data[index].productID);
+                        //         BlocProvider.of<HomeScreenBloc>(context)
+                        //           ..add(
+                        //             OnTapEvent(
+                        //               context: context,
+                        //               navigateData:
+                        //                   snapshot.data[index].productID,
+                        //             ),
+                        //           );
+                        //       },
+                        //       child: Row(
+                        //         children: [
+                        //           //images section
+                        //           Container(
+                        //             width: Dimensions.itemsSizeImgHeight,
+                        //             height: Dimensions.itemsSizeImgHeight,
+                        //             decoration: BoxDecoration(
+                        //               borderRadius: BorderRadius.only(
+                        //                   topLeft: Radius.circular(
+                        //                       Dimensions.radius20),
+                        //                   bottomLeft: Radius.circular(
+                        //                       Dimensions.radius20)),
+                        //               image: DecorationImage(
+                        //                 fit: BoxFit.cover,
+                        //                 image: AssetImage(
+                        //                     "assets/images/splash/Medverse.png"),
+                        //               ),
+                        //             ),
+                        //           ),
+                        //           //text container
+                        //           Expanded(
+                        //             child: Container(
+                        //               height: Dimensions.itemsSizeImgHeight,
+                        //               decoration:
+                        //                   BoxDecoration(color: Palette.white60),
+                        //               child: Padding(
+                        //                 padding: EdgeInsets.only(
+                        //                   left: Dimensions.width10,
+                        //                 ),
+                        //                 child: Column(
+                        //                   crossAxisAlignment:
+                        //                       CrossAxisAlignment.start,
+                        //                   mainAxisAlignment:
+                        //                       MainAxisAlignment.center,
+                        //                   children: [
+                        //                     Text(
+                        //                       snapshot.data[index].product_name,
+                        //                       overflow: TextOverflow.ellipsis,
+                        //                       maxLines: 2,
+                        //                       style: TextStyle(
+                        //                         color: Palette.textNo,
+                        //                         fontSize: Dimensions.font16,
+                        //                         fontWeight: FontWeight.normal,
+                        //                       ),
+                        //                     ),
+                        //                     SizedBox(
+                        //                         height: Dimensions.height10),
+                        //                     Text(
+                        //                       snapshot
+                        //                           .data[index].product_labeller,
+                        //                       overflow: TextOverflow.ellipsis,
+                        //                       maxLines: 2,
+                        //                       style: TextStyle(
+                        //                         color: Palette.textNo,
+                        //                         fontSize: Dimensions.font14,
+                        //                         fontWeight: FontWeight.normal,
+                        //                       ),
+                        //                     ),
+                        //                     SizedBox(
+                        //                         height: Dimensions.height10),
+                        //                     AppText(
+                        //                       text: "Đã lưu vào " +
+                        //                           snapshot
+                        //                               .data[index].savedTime,
+                        //                       color: Palette.textNo,
+                        //                       size: Dimensions.font14,
+                        //                       fontWeight: FontWeight.normal,
+                        //                     ),
+                        //                   ],
+                        //                 ),
+                        //               ),
+                        //             ),
+                        //           ),
+                        //         ],
+                        //       ),
+                        //     ),
+                        //   ),
+                        // );
                       },
                     );
                   }
