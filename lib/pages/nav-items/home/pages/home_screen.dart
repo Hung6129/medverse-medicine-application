@@ -327,10 +327,10 @@ class _HomeScreenState extends State<HomeScreen> {
                         new EdgeInsets.symmetric(horizontal: 10.0, vertical: 4),
                     child: Container(
                       decoration: BoxDecoration(
-                          color: Palette.mainBlueTheme.withOpacity(0.6)),
+                          color: Palette.mainBlueThemesec.withOpacity(0.6)),
                       child: ListTile(
-                        // contentPadding: EdgeInsets.symmetric(
-                        //     horizontal: 20.0, vertical: 10.0),
+                        contentPadding: EdgeInsets.symmetric(
+                            horizontal: 20.0, vertical: 10.0),
                         leading: Container(
                             padding: EdgeInsets.only(right: Dimensions.width10),
                             decoration: new BoxDecoration(
