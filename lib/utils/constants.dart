@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class Constants {
   /// Base URL
@@ -27,6 +26,9 @@ class Constants {
   // Trend list image
   static const String TREND_LIST_IMAGES =
       "/api/trends/id?trendId=default2021US";
+
+  // Recent list data
+  static const String RECENT_DATA = "/api/recent/top20";
 
   /// Colors for theme
   static Color lightPrimary = Color(0xfff3f4f9);
@@ -123,19 +125,4 @@ class Constants {
 
   static const iconStar = 'assets/grid_view_images/icon-star.svg';
   static const andreaAvatar = 'assets/grid_view_images/andrea-avatar.webp';
-}
-
-class SaveHistorySearch {
-  static SharedPreferences _preferences;
-  static const _keyProductName = 'productName';
-  static Future init() async {
-    _preferences = await SharedPreferences.getInstance();
-  }
-
-  static Future setToHistory(List<String> productName) async {
-    await _preferences.setStringList(_keyProductName, productName);
-  }
-
-  static List<String> getProductName() =>
-      _preferences.getStringList(_keyProductName);
 }

@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:medverse_mobile_app/models/drug_bank_db/trend_list_images.dart';
+import '../../../../models/drug_bank_db/recent_search_model.dart';
 import '../../../../utils/constants.dart';
 import '../../../../widgets/awesome_dialog.dart';
 import '/pages/nav-items/home/bloc/home_screen_bloc.dart';
@@ -38,56 +39,30 @@ class _HomeScreenState extends State<HomeScreen> {
   /// Set texteditcontroller
   final TextEditingController _typeAheadController = TextEditingController();
 
-  /// Maps icon and name
-  var imagesIcon = {
-    Icon(
-      CupertinoIcons.doc_text_search,
-      color: Palette.textNo,
-      size: Dimensions.icon28,
-    ): AppText(
-      text: "Tìm kiếm",
-      size: Dimensions.font14,
-      color: Palette.textNo,
-    ),
-    Icon(
-      CupertinoIcons.command,
-      size: Dimensions.icon28,
-      color: Palette.textNo,
-    ): AppText(
-      text: "So sánh",
-      size: Dimensions.font14,
-      color: Palette.textNo,
-    ),
-    Icon(
-      CupertinoIcons.drop_triangle_fill,
-      size: Dimensions.icon28,
-      color: Palette.textNo,
-    ): AppText(
-      text: "Tương kỵ",
-      size: Dimensions.font14,
-      color: Palette.textNo,
-    ),
-    Icon(
-      CupertinoIcons.profile_circled,
-      size: Dimensions.icon28,
-      color: Palette.textNo,
-    ): AppText(
-      text: "Hồ sơ",
-      color: Palette.textNo,
-      size: Dimensions.font14,
-    ),
-  };
-
+  /// Future variables
   Future<List<TrendListImage>> listTrendImages;
+  Future<List<RecentSearchModel>> listRecentData;
 
+  /// fetch trending data
   Future<List<TrendListImage>> fetchTrendData() async {
     final response = await http
         .get(Uri.parse(Constants.BASE_URL + Constants.TREND_LIST_IMAGES));
     if (response.statusCode == 200) {
       List<dynamic> list = json.decode(response.body);
-      // print(list.length);
-      // print(list);
       return list.map((e) => TrendListImage.fromJson(e)).toList();
+    } else {
+      throw Exception('Failed to load data');
+    }
+  }
+
+  /// fetch recent search data
+  Future<List<RecentSearchModel>> fetchRecentdData() async {
+    final response =
+        await http.get(Uri.parse(Constants.BASE_URL + Constants.RECENT_DATA));
+    if (response.statusCode == 200) {
+      List<dynamic> list = json.decode(response.body);
+      print(list.length);
+      return list.map((e) => RecentSearchModel.fromJson(e)).toList();
     } else {
       throw Exception('Failed to load data');
     }
@@ -97,14 +72,13 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     listTrendImages = fetchTrendData();
+    listRecentData = fetchRecentdData();
   }
 
   double _height;
   double _width;
 
   _sendingData(String id) async {
-    // print("sending");
-    // print(id);
     await SendData().sendingId(id);
   }
 
@@ -117,16 +91,16 @@ class _HomeScreenState extends State<HomeScreen> {
     Widget __loadingPoShimmer() {
       return Container(
         padding: EdgeInsets.only(left: 20),
-        height: Dimensions.pageView,
+        height: 200,
         width: double.maxFinite,
         child: ListView.builder(
-          itemCount: 5,
+          itemCount: 3,
           scrollDirection: Axis.horizontal,
           itemBuilder: (BuildContext context, int index) {
             return Shimmer(
               child: Container(
                 margin: EdgeInsets.only(right: 20, top: 10),
-                width: 250,
+                width: 150,
                 decoration: BoxDecoration(
                   color: Palette.grey300,
                   borderRadius: BorderRadius.circular(
@@ -141,13 +115,25 @@ class _HomeScreenState extends State<HomeScreen> {
     }
 
     /// Title
-    Widget __title() {
+    Widget __titleTrend() {
       return Container(
           margin: EdgeInsets.only(left: 20, right: 20),
           child: AppText(
-            text: "Xu hướng tìm kiếm",
+            text: "Xu hướng tìm kiếm theo mùa",
             size: Dimensions.font18,
-            color: Palette.pastel1,
+            color: Palette.mainBlueTheme,
+            fontWeight: FontWeight.bold,
+          ));
+    }
+
+    /// Title
+    Widget __titleRecent() {
+      return Container(
+          margin: EdgeInsets.only(left: 20, right: 20),
+          child: AppText(
+            text: "Tìm kiếm nhiều nhất",
+            size: Dimensions.font18,
+            color: Palette.mainBlueTheme,
             fontWeight: FontWeight.bold,
           ));
     }
@@ -260,7 +246,7 @@ class _HomeScreenState extends State<HomeScreen> {
               itemCount: data.length,
               options: CarouselOptions(
                 autoPlayAnimationDuration: Duration(seconds: 3),
-                autoPlayCurve: Curves.linearToEaseOut,
+                autoPlayCurve: Curves.fastLinearToSlowEaseIn,
                 enlargeCenterPage: true,
                 autoPlay: true,
               ),
@@ -282,15 +268,15 @@ class _HomeScreenState extends State<HomeScreen> {
                                     style: TextStyle(
                                       fontSize: Dimensions.font14,
                                     ),
-                                    // maxLines: 2,
-                                    // overflow: TextOverflow.ellipsis,
+                                    maxLines: 4,
+                                    overflow: TextOverflow.ellipsis,
                                     softWrap: true,
                                   )),
                             ],
                           ),
                         ),
                         Container(
-                          width: _width / 2.5,
+                          width: _width / 2,
                           decoration: BoxDecoration(
                             shape: BoxShape.rectangle,
                             color: Palette.pastel4,
@@ -307,72 +293,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ],
                     ),
                   ),
-                )
-                    // Stack(
-                    //   children: [
-                    //     Container(
-                    //       height: Dimensions.pageViewContainer,
-                    //       margin: EdgeInsets.only(
-                    //         left: Dimensions.width10,
-                    //         right: Dimensions.width10,
-                    //       ),
-                    //       decoration: BoxDecoration(
-                    //         borderRadius:
-                    //             BorderRadius.circular(Dimensions.radius20),
-                    //         color: index.isEven
-                    //             ? Palette.mainBlueTheme
-                    //             : Palette.pastel2,
-                    //         image: DecorationImage(
-                    //           image: AssetImage(
-                    //               imagesFav + data[index].rxnavImageFilename),
-                    //           fit: BoxFit.fill,
-                    //         ),
-                    //       ),
-                    //     ),
-                    //     Align(
-                    //       alignment: Alignment.bottomCenter,
-                    //       child: Container(
-                    //         margin: EdgeInsets.only(
-                    //           left: Dimensions.width30,
-                    //           right: Dimensions.width30,
-                    //         ),
-                    //         decoration: BoxDecoration(
-                    //           borderRadius:
-                    //               BorderRadius.circular(Dimensions.radius20),
-                    //           color: Colors.white,
-                    //           boxShadow: [
-                    //             BoxShadow(
-                    //               color: Color(0xFFe8e8e8),
-                    //               blurRadius: 5.0,
-                    //               offset: Offset(0, 5),
-                    //             ),
-                    //             BoxShadow(
-                    //               color: Colors.white,
-                    //               offset: Offset(-5, 0),
-                    //             ),
-                    //             BoxShadow(
-                    //               color: Colors.white,
-                    //               offset: Offset(5, 0),
-                    //             ),
-                    //           ],
-                    //         ),
-                    //         child: Padding(
-                    //           padding: const EdgeInsets.only(
-                    //               top: 3, bottom: 8, left: 8, right: 8),
-                    //           child: Text(
-                    //             data[index].pillOverviewData,
-                    //             overflow: TextOverflow.ellipsis,
-                    //             maxLines: 2,
-                    //             style: TextStyle(
-                    //               fontSize: Dimensions.font18,
-                    //             ),
-                    //           ),
-                    //         ),
-                    //       ),
-                    //     ),
-                    //   ],
-                    // )
-                    ;
+                );
               },
             );
           }
@@ -381,6 +302,104 @@ class _HomeScreenState extends State<HomeScreen> {
       );
     }
 
+    Widget __recentSearch() {
+      return FutureBuilder(
+        future: listRecentData,
+        builder: (context, AsyncSnapshot<List<RecentSearchModel>> snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return __loadingPoShimmer();
+          } else if (snapshot.data == null) {
+            return Container(
+              child: __loadingPoShimmer(),
+            );
+          } else if (snapshot.hasData) {
+            var data = snapshot.data;
+            return Container(
+              child: ListView.builder(
+                physics: const NeverScrollableScrollPhysics(),
+                scrollDirection: Axis.vertical,
+                shrinkWrap: true,
+                itemCount: data.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return Card(
+                    elevation: 2.0,
+                    margin:
+                        new EdgeInsets.symmetric(horizontal: 10.0, vertical: 4),
+                    child: Container(
+                      decoration: BoxDecoration(
+                          color: Palette.mainBlueThemesec.withOpacity(0.6)),
+                      child: ListTile(
+                        contentPadding: EdgeInsets.symmetric(
+                            horizontal: 20.0, vertical: 10.0),
+                        leading: Container(
+                            padding: EdgeInsets.only(right: Dimensions.width10),
+                            decoration: new BoxDecoration(
+                                border: new Border(
+                                    right: new BorderSide(
+                                        width: 1.0, color: Colors.white))),
+                            child: Icon(
+                              Icons.search,
+                              color: Colors.white,
+                            )),
+                        title: Text(
+                          data[index].productname,
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 1,
+                          style: TextStyle(
+                              color: Colors.white, fontWeight: FontWeight.bold),
+                        ),
+                        // subtitle: Text("Intermediate", style: TextStyle(color: Colors.white)),
+
+                        subtitle: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              data[index].productlabeller,
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            Text(
+                              data[index].productroute,
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            Text(
+                              data[index].productdosage,
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
+                              style: TextStyle(color: Colors.white),
+                            )
+                          ],
+                        ),
+                        trailing: GestureDetector(
+                          onTap: () {
+                            print(snapshot.data[index].productId);
+                            BlocProvider.of<HomeScreenBloc>(context)
+                              ..add(
+                                OnTapEvent(
+                                  context: context,
+                                  navigateData: snapshot.data[index].productId,
+                                ),
+                              );
+                          },
+                          child: Icon(Icons.keyboard_arrow_right,
+                              color: Colors.white, size: Dimensions.icon28),
+                        ),
+                      ),
+                    ),
+                  );
+                },
+              ),
+            );
+          }
+          return Container();
+        },
+      );
+    }
+
+    /// list navigator icon
     Widget __listIcon() {
       return Container(
         margin: EdgeInsets.only(left: 10, right: 10),
@@ -571,11 +590,22 @@ class _HomeScreenState extends State<HomeScreen> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    __title(),
+                    __titleTrend(),
                     SizedBox(
                       height: Dimensions.height10,
                     ),
                     __carouseSlider(),
+                  ],
+                ),
+                Divider(),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    __titleRecent(),
+                    SizedBox(
+                      height: Dimensions.height10,
+                    ),
+                    __recentSearch()
                   ],
                 ),
               ],
