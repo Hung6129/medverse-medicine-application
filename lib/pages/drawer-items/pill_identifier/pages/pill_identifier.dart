@@ -316,31 +316,6 @@ class _PillIdentifierState extends State<PillIdentifier> {
       );
     }
 
-    Widget __colorTest() {
-      return Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: DropdownButtonFormField(
-          hint: Text("Chon mot mau di"),
-          key: _key,
-          items: pillColor.map((value) {
-            return DropdownMenuItem(
-              value: value,
-              child: AppText(
-                  text: value,
-                  size: Dimensions.font14,
-                  fontWeight: FontWeight.normal),
-            );
-          }).toList(),
-          onChanged: (String newValue) {
-            print(dropdownColor);
-            setState(() {
-              dropdownColor = newValue;
-            });
-          },
-        ),
-      );
-    }
-
     /// Shape
     Widget __shape() {
       return Padding(
@@ -528,46 +503,6 @@ class _PillIdentifierState extends State<PillIdentifier> {
       );
     }
 
-    Widget __clearBtn() {
-      return Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Container(
-          width: Dimensions.boxViewWidth,
-          height: Dimensions.height45,
-          decoration: BoxDecoration(
-            color: Palette.grey,
-            borderRadius: BorderRadius.circular(
-              Dimensions.radius20,
-            ),
-          ),
-          child: TextButton(
-            onPressed: () {
-              print("tapped");
-            },
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(
-                  Icons.clear,
-                  size: Dimensions.icon24,
-                  color: Palette.p1,
-                ),
-                SizedBox(
-                  width: Dimensions.width10,
-                ),
-                AppText(
-                  text: "Xoá",
-                  color: Palette.p1,
-                  size: Dimensions.font14,
-                  fontWeight: FontWeight.normal,
-                ),
-              ],
-            ),
-          ),
-        ),
-      );
-    }
-
     return Scaffold(
       // backgroundColor: Colors.white,
       appBar: AppBar(
@@ -605,11 +540,9 @@ class _PillIdentifierState extends State<PillIdentifier> {
                     children: [
                       __imprint(),
                       __color(),
-                      __colorTest(),
                       __shape(),
                       __size(),
                       __searchBtn(),
-                      __clearBtn(),
                       SizedBox(
                         height: 10,
                       )
