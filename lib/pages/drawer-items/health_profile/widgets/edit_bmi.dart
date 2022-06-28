@@ -104,7 +104,6 @@ class _EditHealthProfilePageState extends State<EditBMI> {
         body: SingleChildScrollView(
           child: Container(
             margin: EdgeInsets.all(25.0),
-            width: Dimensions.boxViewWidth,
             decoration: BoxDecoration(
               color: Palette.whiteText,
               borderRadius: BorderRadius.circular(Dimensions.radius15),
