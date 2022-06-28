@@ -46,8 +46,8 @@ Star⭐ the repo if you like what you see😉.
 
 
 ## Installation system requirement
-Device: mobile phone, tablet or Android / IOS emulator application
-System operation: Android / IOS
+ * Device: mobile phone, tablet or Android / IOS emulator application
+ * System operation: Android / IOS
 
 ## link to install app
 
