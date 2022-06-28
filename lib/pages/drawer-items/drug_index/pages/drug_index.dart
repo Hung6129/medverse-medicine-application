@@ -110,47 +110,11 @@ class _MedicineDictionaryState extends State<DrugIndex> {
       return AppBar(
         centerTitle: true,
         backgroundColor: Palette.mainBlueTheme,
-        title: isSearching
-            ? TextField(
-                decoration: InputDecoration(
-                  hintText: "Mời bạn nhập từ khóa",
-                  hintStyle: MobileTextTheme().introContentFont,
-                ),
-                onChanged: (searchResult) {
-                  setState(
-                    () {
-                      searchWord = searchResult;
-                    },
-                  );
-                },
-                style: MobileTextTheme().kBodyTextStyle,
-              )
-            : AppText(
-                text: 'Danh mục thuốc',
-                size: Dimensions.font20,
-                fontWeight: FontWeight.bold,
-              ),
-        actions: [
-          isSearching
-              ? IconButton(
-                  onPressed: () {
-                    setState(() {
-                      isSearching = false;
-                    });
-                  },
-                  icon: Icon(Icons.cancel),
-                )
-              : IconButton(
-                  onPressed: () {
-                    setState(
-                      () {
-                        isSearching = true;
-                      },
-                    );
-                  },
-                  icon: Icon(Icons.search),
-                ),
-        ],
+        title: AppText(
+          text: 'Danh mục thuốc',
+          size: Dimensions.font20,
+          fontWeight: FontWeight.bold,
+        ),
       );
     }
 
