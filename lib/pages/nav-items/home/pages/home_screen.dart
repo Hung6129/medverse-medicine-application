@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:medverse_mobile_app/models/drug_bank_db/trend_list_images.dart';
+import 'package:medverse_mobile_app/widgets/rich_text_cus.dart';
 import '../../../../models/drug_bank_db/recent_search_model.dart';
 import '../../../../utils/constants.dart';
 import '../../../../widgets/awesome_dialog.dart';
@@ -319,7 +320,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 physics: const NeverScrollableScrollPhysics(),
                 scrollDirection: Axis.vertical,
                 shrinkWrap: true,
-                itemCount: data.length,
+                itemCount: data.length - 10,
                 itemBuilder: (BuildContext context, int index) {
                   return Card(
                     elevation: 2.0,
@@ -337,10 +338,36 @@ class _HomeScreenState extends State<HomeScreen> {
                                 border: new Border(
                                     right: new BorderSide(
                                         width: 1.0, color: Colors.white))),
-                            child: Icon(
-                              Icons.search,
-                              color: Colors.white,
-                            )),
+                            child: Container(
+                              child: index + 1 <= 3
+                                  ? Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        AppText(
+                                            text: "${index + 1}",
+                                            color: Colors.white,
+                                            size: 18),
+                                        Icon(
+                                          Icons.trending_up,
+                                          color: Colors.yellow,
+                                        )
+                                      ],
+                                    )
+                                  : Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        AppText(
+                                            text: "${index + 1}",
+                                            color: Colors.white,
+                                            size: 18),
+                                      ],
+                                    ),
+                            )
+                            // Icon(
+                            //   Icons.search,
+                            //   color: Colors.white,
+                            // ),
+                            ),
                         title: Text(
                           data[index].productname,
                           overflow: TextOverflow.ellipsis,
@@ -359,18 +386,16 @@ class _HomeScreenState extends State<HomeScreen> {
                               maxLines: 1,
                               style: TextStyle(color: Colors.white),
                             ),
-                            Text(
-                              data[index].productroute,
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: 1,
-                              style: TextStyle(color: Colors.white),
-                            ),
-                            Text(
-                              data[index].productdosage,
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: 1,
-                              style: TextStyle(color: Colors.white),
+                            RichTextCus(
+                              text1: "Lượt tìm kiếm:",
+                              text2: data[index].count,
                             )
+                            // Text(
+                            //   data[index].count,
+                            //   overflow: TextOverflow.ellipsis,
+                            //   maxLines: 1,
+                            //   style: TextStyle(color: Colors.white),
+                            // )
                           ],
                         ),
                         trailing: GestureDetector(
